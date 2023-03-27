@@ -4,7 +4,7 @@ import { BsFillSendFill } from 'react-icons/bs';
 export default function Footer() {
     return (
         <>
-         <footer className="w-100 py-4 flex-shrink-0 bg-dark">
+         <footer className="w-100 py-4 flex-shrink-0 bg-dark mt-5">
         <div className="container py-4">
             <div className="row gy-4 gx-5">
                 <div className="col-lg-4 col-md-6">

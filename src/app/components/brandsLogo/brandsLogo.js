@@ -22,11 +22,11 @@ const BrandsLogo = () => {
         "https://png.pngtree.com/png-clipart/20190604/original/pngtree-corporate-image-logo-png-image_1026060.jpg",
     ])
   return (
-    <div className='container '>
-        <div className='row d-flex justify-content-center'>
+    <div className='container mt-5'>
+        <div className='row '>
         {logos.map(img=>
-        <div className='col-3'>
-            <img src={img} alt="logo" height="100" />
+        <div className='col-md-2 col-4 d-flex justify-content-center mb-3'>
+            <img src={img} alt="logo" height="100" width="100" />
         </div>
             )}
             </div>

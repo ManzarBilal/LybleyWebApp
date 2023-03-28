@@ -20,7 +20,7 @@ export default function Footer() {
                         <li><a href="#">About</a></li>
                         <li><a href="#">Get started</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><Link href="/components/brandsLogo" >Cards</Link> </li>
+                        <li><Link href="/components/brandsLogo" >Brand</Link> </li>
                     </ul>
                 </div>
                 <div className="col-lg-2 col-md-6">

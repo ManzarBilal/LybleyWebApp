@@ -1,3 +1,4 @@
+import Login from "@/pages/login";
 import React from "react";
 function Header(){
 return(
@@ -32,9 +33,11 @@ return(
 //   </div>
 // </nav>
 <>
-<div className="text-end m-4">
-    <button className="btn btn-outline-primary ">Login</button>
+<div className="text-end p-4">
+    {/* <button className="btn btn-outline-primary ">Login</button> */}
+    <Login />
 </div>
+
 </>
 )
 }

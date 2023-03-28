@@ -46,8 +46,8 @@ function Header() {
             <div className="text-end p-4">
                 {/* <button className="btn btn-outline-primary ">Login</button> */}
               
-                     <Login onForget={handleForget} onSubmit={handleLogin} bool={show}/> <ForgetPassword bool={forget} onSubmit={handleForget} />
-                     <Register onSubmit={handleLogin}/>
+                    {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show}/> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin}/>} 
+                    
                  
             </div>
 

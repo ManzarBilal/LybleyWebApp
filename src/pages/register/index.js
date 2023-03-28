@@ -59,12 +59,12 @@ export default function Register(props) {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleLogin=()=>{
-          setOpen(false);
-          props.onSubmit(true);
+    const handleLogin = () => {
+        setOpen(false);
+        props.onSubmit(true);
     }
     return (
-<div>
+        <div>
             <Button variant="contained" onClick={handleClickOpen}>
                 Register
             </Button>
@@ -136,43 +136,43 @@ export default function Register(props) {
                                     ),
                                 }}
                             />
-                            </Grid>
-                            <Grid item sm={12} md={12}>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="name"
-                                    label="Confirm Password"
-                                    type="password"
-                                    fullWidth
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <VisibilityIcon />
-                                            </InputAdornment>
-                                        ),
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <VisibilityOffIcon />
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            </Grid>
                         </Grid>
+                        <Grid item sm={12} md={12}>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Confirm Password"
+                                type="password"
+                                fullWidth
+                                variant="outlined"
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <VisibilityIcon />
+                                        </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <VisibilityOffIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100' >
                         <div className='ps-2 mt-1 text-primary' onClick={handleLogin}> Already have an account?/SignIn </div>
                         <div>
-                    <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                        CANCEL
-                    </Button>
-                    <Button variant='contained' autoFocus onClick={handleClose}>
-                        SIGNUP
-                    </Button>
-                    </div>
+                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                CANCEL
+                            </Button>
+                            <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
+                                SIGNUP
+                            </Button>
+                        </div>
                     </div>
                 </DialogActions>
             </BootstrapDialog>

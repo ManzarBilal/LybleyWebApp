@@ -133,7 +133,7 @@ export default function ForgetPassword(props) {
                     <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                         CANCEL
                     </Button>
-                    <Button variant='contained' autoFocus onClick={handleClose}>
+                    <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
                        UPDATE
                     </Button>
                 </DialogActions>

@@ -138,7 +138,7 @@ export default function Login(props) {
                             <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                 CANCEL
                             </Button>
-                            <Button variant='contained' autoFocus onClick={handleClose}>
+                            <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
                                 SIGNIN
                             </Button>
                         </div>

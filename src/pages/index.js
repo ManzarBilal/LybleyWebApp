@@ -7,7 +7,7 @@ import Header from './components/header/header'
 import Search from './components/search/search'
 import BrandsLogo from './components/brandsLogo'
 import Footer from './components/footer/footer'
-
+//dfghjkl
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {

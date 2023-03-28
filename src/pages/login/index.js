@@ -12,6 +12,7 @@ import { Grid, TextField } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
+import Link from 'next/link';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -52,14 +53,23 @@ BootstrapDialogTitle.propTypes = {
 
 export default function Login() {
     const [open, setOpen] = React.useState(false);
-
+    const [showIcon,setShowIcon]=React.useState(true);
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
-
+ const passwordVisibility=()=>{
+    let type=document.getElementById("password");
+    if(type?.type==="password"){
+        document.getElementById("password").type="text";
+        setShowIcon(false)
+    }else{
+        document.getElementById("password").type="password"
+        setShowIcon(true);
+    }
+ }
     return (
         <div>
             <Button variant="contained" onClick={handleClickOpen}>
@@ -93,7 +103,7 @@ export default function Login() {
                             <TextField
                                 autoFocus
                                 margin="dense"
-                                id="name"
+                                id="password"
                                 label="Password"
                                 type="password"
                                 fullWidth
@@ -101,19 +111,20 @@ export default function Login() {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            <VisibilityIcon />
+                                           {showIcon ? <VisibilityOffIcon onClick={passwordVisibility}/> : <VisibilityIcon onClick={passwordVisibility}/> }
                                         </InputAdornment>
                                     ),
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <VisibilityOffIcon />
-                                        </InputAdornment>
-                                    ),
+                                    // endAdornment: (
+                                    //     <InputAdornment position="end">
+                                    //         
+                                    //     </InputAdornment>
+                                    // ),
                                 }}
                             />
 
                         </Grid>
                     </Grid>
+                    
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100'>

@@ -12,7 +12,7 @@ const Search = () => {
      console.log(err);
     }
 }
-console.log(data);
+// console.log(data);
   return (
     <div className='container'>
     <div className='d-flex justify-content-center mt-5'><img src='https://lybley.com/APP/assets/backend/assets/images/text_only.png' height="100" width="300" className='' /></div>

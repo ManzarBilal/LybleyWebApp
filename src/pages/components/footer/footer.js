@@ -1,4 +1,5 @@
  
+import Link from "next/link";
 import React from "react";
 import { BsFillSendFill } from 'react-icons/bs';
 export default function Footer() {
@@ -19,6 +20,7 @@ export default function Footer() {
                         <li><a href="#">About</a></li>
                         <li><a href="#">Get started</a></li>
                         <li><a href="#">FAQ</a></li>
+                        <li><Link href="/components/brandsLogo" >Cards</Link> </li>
                     </ul>
                 </div>
                 <div className="col-lg-2 col-md-6">

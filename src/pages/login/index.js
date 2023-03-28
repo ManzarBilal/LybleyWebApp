@@ -51,14 +51,15 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function Login() {
-    const [open, setOpen] = React.useState(false);
+export default function Login(props) {
+    const [open, setOpen] = React.useState(props?.bool);
     const [showIcon,setShowIcon]=React.useState(true);
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
+        props.onSubmit(false);
     };
  const passwordVisibility=()=>{
     let type=document.getElementById("password");
@@ -70,6 +71,10 @@ export default function Login() {
         setShowIcon(true);
     }
  }
+ const handleForget=()=>{
+    props.onSubmit(false);
+    props.onForget(true);
+}
     return (
         <div>
             <Button variant="contained" onClick={handleClickOpen}>
@@ -78,7 +83,7 @@ export default function Login() {
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
-                open={open}
+                open={props?.bool}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
                     Login
@@ -128,7 +133,7 @@ export default function Login() {
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100'>
-                        <div  className='ps-2 mt-1 text-primary' >Forget Password</div>
+                        <div  className='ps-2 mt-1 text-primary' onClick={handleForget}>Forget Password</div>
                         <div>
                             <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                 CANCEL

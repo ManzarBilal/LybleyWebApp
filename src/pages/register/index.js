@@ -50,7 +50,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function Register() {
+export default function Register(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -59,7 +59,10 @@ export default function Register() {
     const handleClose = () => {
         setOpen(false);
     };
-
+    const handleLogin=()=>{
+          setOpen(false);
+          props.onSubmit(true);
+    }
     return (
 <div>
             <Button variant="contained" onClick={handleClickOpen}>
@@ -161,7 +164,7 @@ export default function Register() {
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100' >
-                        <div className='ps-2 mt-1 text-primary '> Already have an account?/SignIn </div>
+                        <div className='ps-2 mt-1 text-primary' onClick={handleLogin}> Already have an account?/SignIn </div>
                         <div>
                     <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                         CANCEL

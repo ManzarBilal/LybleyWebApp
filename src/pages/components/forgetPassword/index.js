@@ -50,7 +50,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function ForgetPassword() {
+export default function ForgetPassword(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -58,6 +58,7 @@ export default function ForgetPassword() {
     };
     const handleClose = () => {
         setOpen(false);
+        props.onSubmit(false);
     };
 
     return (
@@ -68,7 +69,7 @@ export default function ForgetPassword() {
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
-                open={open}
+                open={props?.bool}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
                 Forget Password

@@ -3,7 +3,14 @@ import Register from "@/pages/register";
 import React, { useState } from "react";
 import ForgetPassword from "../forgetPassword";
 function Header() {
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
+    const [forget, setForget] = useState(false)
+    const handleLogin=(bool)=>{
+       setShow(bool);
+    }
+    const handleForget=(bool)=>{
+        setForget(bool);
+     }
     return (
         //    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         //    <div className="container">
@@ -39,7 +46,8 @@ function Header() {
             <div className="text-end p-4">
                 {/* <button className="btn btn-outline-primary ">Login</button> */}
               
-                    <Login /> <ForgetPassword /> <Register />
+                    {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show}/> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin}/>} 
+                    
                  
             </div>
 

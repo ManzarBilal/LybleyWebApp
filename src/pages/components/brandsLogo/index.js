@@ -24,8 +24,8 @@ const BrandsLogo = () => {
   return (
     <div className='container mt-5'>
         <div className='row '>
-        {logos.map(img=>
-        <div className='col-md-2 col-4 d-flex justify-content-center mb-3'>
+        {logos.map((img,i)=>
+        <div key={i} className='col-md-2 col-4 d-flex justify-content-center mb-3'>
             <img src={img} alt="logo" height="100" width="100" />
         </div>
             )}

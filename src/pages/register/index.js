@@ -50,7 +50,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function Login() {
+export default function Register() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -61,9 +61,9 @@ export default function Login() {
     };
 
     return (
-        <div>
+<div>
             <Button variant="contained" onClick={handleClickOpen}>
-                Login
+                Register
             </Button>
             <BootstrapDialog
                 onClose={handleClose}
@@ -71,12 +71,23 @@ export default function Login() {
                 open={open}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Login
+                    Sign Up
                 </BootstrapDialogTitle>
                 <DialogContent >
                     <Grid container>
                         <Grid item sm={12} md={12}>
-                            <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
+                            <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="80" width="100" /></div>
+                        </Grid>
+                        <Grid item sm={12} md={12}>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Name"
+                                type="email"
+                                fullWidth
+                                variant="outlined"
+                            />
                         </Grid>
                         <Grid item sm={12} md={12}>
                             <TextField
@@ -85,6 +96,17 @@ export default function Login() {
                                 id="name"
                                 label="Email Address"
                                 type="email"
+                                fullWidth
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item sm={12} md={12}>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Contact No."
+                                type="number"
                                 fullWidth
                                 variant="outlined"
                             />
@@ -111,21 +133,43 @@ export default function Login() {
                                     ),
                                 }}
                             />
-
+                            </Grid>
+                            <Grid item sm={12} md={12}>
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="name"
+                                    label="Confirm Password"
+                                    type="password"
+                                    fullWidth
+                                    variant="outlined"
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <VisibilityIcon />
+                                            </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <VisibilityOffIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <div className='d-flex justify-content-between w-100'>
-                        <div  className='ps-2 mt-1 text-primary' >Forget Password</div>
+                    <div className='d-flex justify-content-between w-100' >
+                        <div className='ps-2 mt-1 text-primary '> Already have an account?/SignIn </div>
                         <div>
-                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                CANCEL
-                            </Button>
-                            <Button variant='contained' autoFocus onClick={handleClose}>
-                                SIGNIN
-                            </Button>
-                        </div>
+                    <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                        CANCEL
+                    </Button>
+                    <Button variant='contained' autoFocus onClick={handleClose}>
+                        SIGNUP
+                    </Button>
+                    </div>
                     </div>
                 </DialogActions>
             </BootstrapDialog>

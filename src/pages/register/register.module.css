@@ -1,9 +1,12 @@
 .common_curs{
     cursor: pointer;
 }
+.loginTxtF{
+    /* font-size: 12px; */
+}
 
 @media only screen and (min-width: 768px) {
     .mainDiv{
-    width: 430px;
+    width: 450px;
     }
     }

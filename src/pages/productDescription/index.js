@@ -17,9 +17,9 @@ import Header from '../components/header/header'
     <>
     <Header />
     <div className='container'>
-          <div>
+          {/* <div>
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
-          </div>
+          </div> */}
           <div className='row'>
             {imageP?.map((item,i)=>
             <div  className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>

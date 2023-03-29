@@ -136,8 +136,10 @@ export default function Login(props) {
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100'>
-                        <div  className={`${style.common_curs} ps-2 mt-1 text-primary`} onClick={handleForget}>Forget Password</div>
-                        <div>
+                        <div className='row'>
+                            
+                        <div  className={`${style.common_curs} ps-4 text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password</div>
+                        <div className='col-md-6 col-12 mb-3'>
                             <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                 CANCEL
                             </Button>
@@ -145,6 +147,7 @@ export default function Login(props) {
                                 SIGNIN
                             </Button>
                         </div>
+                        </div >
                     </div>
                 </DialogActions>
             </BootstrapDialog>

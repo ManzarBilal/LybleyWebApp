@@ -12,6 +12,7 @@ import { Grid, TextField } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
+import style from "./register.module.css";
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -169,7 +170,7 @@ export default function Register(props) {
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100' >
-                        <div className='ps-2 mt-1 text-primary' onClick={handleLogin}> Already have an account?/SignIn </div>
+                        <div className={`${style.common_curs} ps-2 mt-1 text-primary`} onClick={handleLogin}> Already have an account?/SignIn </div>
                         <div>
                             <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                 CANCEL

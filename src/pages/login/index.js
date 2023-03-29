@@ -12,6 +12,7 @@ import { Grid, TextField } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
+import style from "./login.module.css";
 import Link from 'next/link';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -135,7 +136,7 @@ export default function Login(props) {
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100'>
-                        <div  className='ps-2 mt-1 text-primary' onClick={handleForget}>Forget Password</div>
+                        <div  className={`${style.common_curs} ps-2 mt-1 text-primary`} onClick={handleForget}>Forget Password</div>
                         <div>
                             <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                 CANCEL

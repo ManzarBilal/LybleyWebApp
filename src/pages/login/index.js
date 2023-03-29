@@ -90,7 +90,7 @@ export default function Login(props) {
                     Login
                 </BootstrapDialogTitle>
                 <DialogContent >
-                    <Grid >
+                    <Grid className={`${style.mainDiv}` }>
                         <Grid item sm={12} md={12}>
                             <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
                         </Grid>

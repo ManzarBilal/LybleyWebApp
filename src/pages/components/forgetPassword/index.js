@@ -77,7 +77,7 @@ export default function ForgetPassword(props) {
                 </BootstrapDialogTitle>
                 <DialogContent >
                      
-                    <Grid  >
+                    <Grid className={`${style.mainDiv}` }>
                         <Grid item sm={12} md={12}>
                             <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100"  /></div>
                         </Grid>
@@ -135,12 +135,14 @@ export default function ForgetPassword(props) {
                    
                 </DialogContent>
                 <DialogActions>
+                    <div className='mb-3'>
                     <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                         CANCEL
                     </Button>
                     <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
                        UPDATE
                     </Button>
+                    </div>
                 </DialogActions>
             </BootstrapDialog>
         </div>

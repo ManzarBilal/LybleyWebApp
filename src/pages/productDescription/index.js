@@ -17,7 +17,7 @@ import Cards from '../cards'
   return (
     <>
     <Header />
-    <div className='container'>
+    <div className='container '>
           {/* <div>
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
           </div> */}

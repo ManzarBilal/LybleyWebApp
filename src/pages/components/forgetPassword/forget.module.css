@@ -1,3 +1,9 @@
 .common_curs{
     cursor: pointer;
 }
+
+@media only screen and (min-width: 768px) {
+.mainDiv{
+width: 400px;
+}
+}

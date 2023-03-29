@@ -78,7 +78,7 @@ export default function Register(props) {
                     Sign Up
                 </BootstrapDialogTitle>
                 <DialogContent >
-                    <Grid >
+                    <Grid className={`${style.mainDiv}`}>
                         <Grid item sm={12} md={12}>
                             <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="80" width="100" /></div>
                         </Grid>
@@ -170,14 +170,16 @@ export default function Register(props) {
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100' >
-                        <div className={`${style.common_curs} ps-2 mt-1 text-primary`} onClick={handleLogin}> Already have an account?/SignIn </div>
-                        <div>
-                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                CANCEL
-                            </Button>
-                            <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
-                                SIGNUP
-                            </Button>
+                        <div className='row'>
+                            <div className={`${style.common_curs} ps-4 text-primary col-md-6 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn </div>
+                            <div className='col-md-6 col-12 mb-3'>
+                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                    CANCEL
+                                </Button>
+                                <Button className='ms-2 ' variant='contained' autoFocus onClick={handleClose}>
+                                    SIGNUP
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </DialogActions>

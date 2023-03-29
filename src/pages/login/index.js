@@ -54,7 +54,7 @@ BootstrapDialogTitle.propTypes = {
 
 export default function Login(props) {
     const [open, setOpen] = React.useState(props?.bool);
-    const [showIcon,setShowIcon]=React.useState(true);
+    const [showIcon, setShowIcon] = React.useState(true);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -62,20 +62,20 @@ export default function Login(props) {
         setOpen(false);
         props.onSubmit(false);
     };
- const passwordVisibility=()=>{
-    let type=document.getElementById("password");
-    if(type?.type==="password"){
-        document.getElementById("password").type="text";
-        setShowIcon(false)
-    }else{
-        document.getElementById("password").type="password"
-        setShowIcon(true);
+    const passwordVisibility = () => {
+        let type = document.getElementById("password");
+        if (type?.type === "password") {
+            document.getElementById("password").type = "text";
+            setShowIcon(false)
+        } else {
+            document.getElementById("password").type = "password"
+            setShowIcon(true);
+        }
     }
- }
- const handleForget=()=>{
-    props.onSubmit(false);
-    props.onForget(true);
-}
+    const handleForget = () => {
+        props.onSubmit(false);
+        props.onForget(true);
+    }
     return (
         <div>
             <Button variant="contained" onClick={handleClickOpen}>
@@ -90,7 +90,7 @@ export default function Login(props) {
                     Login
                 </BootstrapDialogTitle>
                 <DialogContent >
-                    <Grid className={`${style.mainDiv}` }>
+                    <Grid className={`${style.mainDiv}`}>
                         <Grid item sm={12} md={12}>
                             <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
                         </Grid>
@@ -119,7 +119,7 @@ export default function Login(props) {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                           {showIcon ? <VisibilityOffIcon onClick={passwordVisibility}/> : <VisibilityIcon onClick={passwordVisibility}/> }
+                                            {showIcon ? <VisibilityOffIcon onClick={passwordVisibility} /> : <VisibilityIcon onClick={passwordVisibility} />}
                                         </InputAdornment>
                                     ),
                                     // endAdornment: (
@@ -132,21 +132,20 @@ export default function Login(props) {
 
                         </Grid>
                     </Grid>
-                    
+
                 </DialogContent>
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100'>
                         <div className='row'>
-                            
-                        <div  className={`${style.common_curs} ps-4 text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password</div>
-                        <div className='col-md-6 col-12 mb-3'>
-                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                CANCEL
-                            </Button>
-                            <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
-                                SIGNIN
-                            </Button>
-                        </div>
+                            <div className={`${style.common_curs} ps-4  text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</div>
+                            <div className='col-md-6 col-12 mb-3'>
+                                <Button className='ms-2' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                    CANCEL
+                                </Button>
+                                <Button className='ms-2 ' variant='contained' autoFocus onClick={handleClose}>
+                                    SIGNIN
+                                </Button>
+                            </div>
                         </div >
                     </div>
                 </DialogActions>

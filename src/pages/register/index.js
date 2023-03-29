@@ -77,7 +77,7 @@ export default function Register(props) {
                     Sign Up
                 </BootstrapDialogTitle>
                 <DialogContent >
-                    <Grid container>
+                    <Grid >
                         <Grid item sm={12} md={12}>
                             <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="80" width="100" /></div>
                         </Grid>
@@ -90,6 +90,7 @@ export default function Register(props) {
                                 type="email"
                                 fullWidth
                                 variant="outlined"
+                                size='small'
                             />
                         </Grid>
                         <Grid item sm={12} md={12}>
@@ -97,6 +98,7 @@ export default function Register(props) {
                                 autoFocus
                                 margin="dense"
                                 id="name"
+                                size='small'
                                 label="Email Address"
                                 type="email"
                                 fullWidth
@@ -108,6 +110,7 @@ export default function Register(props) {
                                 autoFocus
                                 margin="dense"
                                 id="name"
+                                size='small'
                                 label="Contact No."
                                 type="number"
                                 fullWidth
@@ -122,6 +125,7 @@ export default function Register(props) {
                                 label="Password"
                                 type="password"
                                 fullWidth
+                                size='small'
                                 variant="outlined"
                                 InputProps={{
                                     endAdornment: (
@@ -145,6 +149,7 @@ export default function Register(props) {
                                 label="Confirm Password"
                                 type="password"
                                 fullWidth
+                                size='small'
                                 variant="outlined"
                                 InputProps={{
                                     endAdornment: (

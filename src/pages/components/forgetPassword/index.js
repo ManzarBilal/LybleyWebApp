@@ -53,7 +53,8 @@ BootstrapDialogTitle.propTypes = {
 
 export default function ForgetPassword(props) {
     const [open, setOpen] = React.useState(false);
-
+    const [showIcon1,setShowIcon1]=React.useState(true);
+    const [showIcon2,setShowIcon2]=React.useState(true);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -61,7 +62,26 @@ export default function ForgetPassword(props) {
         setOpen(false);
         props.onSubmit(false);
     };
-
+    const passwordVisibility1=()=>{
+        let type1=document.getElementById("pass1");
+        if(type1?.type==="password"){
+            document.getElementById("pass1").type="text";
+            setShowIcon1(false)
+        }else{
+            document.getElementById("pass1").type="password"
+            setShowIcon1(true);
+        }
+     }
+     const passwordVisibility2=()=>{
+        let type1=document.getElementById("pass2");
+        if(type1?.type==="password"){
+            document.getElementById("pass2").type="text";
+            setShowIcon2(false)
+        }else{
+            document.getElementById("pass2").type="password"
+            setShowIcon2(true);
+        }
+     }
     return (
         <div>
             <Button variant="contained" onClick={handleClickOpen}>
@@ -85,7 +105,7 @@ export default function ForgetPassword(props) {
                             <TextField
                                 autoFocus
                                 margin="dense"
-                                id="name"
+                                id="pass1"
                                 label="New Password"
                                 type="password"
                                 fullWidth
@@ -94,14 +114,14 @@ export default function ForgetPassword(props) {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            <VisibilityIcon />
+                                          {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1}/>}
                                         </InputAdornment>
                                     ),
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <VisibilityOffIcon />
-                                        </InputAdornment>
-                                    ),
+                                    // endAdornment: (
+                                    //     <InputAdornment position="end">
+                                    //         <VisibilityOffIcon />
+                                    //     </InputAdornment>
+                                    // ),
                                 }}
                             />
 
@@ -110,7 +130,7 @@ export default function ForgetPassword(props) {
                             <TextField
                                 autoFocus
                                 margin="dense"
-                                id="name"
+                                id="pass2"
                                 label="Confirm Password"
                                 type="password"
                                 fullWidth
@@ -119,14 +139,14 @@ export default function ForgetPassword(props) {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            <VisibilityIcon />
+                                         {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2}/>}
                                         </InputAdornment>
                                     ),
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <VisibilityOffIcon />
-                                        </InputAdornment>
-                                    ),
+                                    // endAdornment: (
+                                    //     <InputAdornment position="end">
+                                    //         <VisibilityOffIcon />
+                                    //     </InputAdornment>
+                                    // ),
                                 }}
                             />
 

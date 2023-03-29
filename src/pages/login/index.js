@@ -138,7 +138,7 @@ export default function Login(props) {
                     <div className='d-flex justify-content-between w-100'>
                         <div className='row'>
                             <div className={`${style.common_curs} ps-4  text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</div>
-                            <div className='col-md-6 col-12 mb-3'>
+                            <div className='col-md-6 col-12 mb-3 d-flex justify-content-between'>
                                 <Button className='ms-2' variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL
                                 </Button>

@@ -1,9 +1,10 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import { useState } from 'react'
-import Cards from '../components/cards/cards'
-import Footer from '../components/footer/footer'
-import Header from '../components/header/header'
+import Header from '../header'
+import Footer from '../footer'
+import Cards from '../cards'
+ 
 
  
  const ProductDescription = () => {

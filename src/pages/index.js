@@ -3,10 +3,10 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import "bootstrap/dist/css/bootstrap.css"
-import Header from './components/header/header'
-import Search from './components/search/search'
-import BrandsLogo from './components/brandsLogo'
-import Footer from './components/footer/footer'
+import Header from './header'
+import Search from './search/search'
+import BrandsLogo from './brandsLogo'
+import Footer from './footer'
 import style from "./common.module.css"
 const inter = Inter({ subsets: ['latin'] })
  

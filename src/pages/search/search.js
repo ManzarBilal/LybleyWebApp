@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import Cards from '../cards/cards';
 import axios from "axios";
+import Cards from '../cards';
+ 
 const Search = () => {
   const [data,setData]=useState({});
   const [search,setSearch]=useState("")

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react'
-import brandsLogo from "../../../assets/pngTree.png";
+import brandsLogo from "../../assets/pngTree.png";
 const BrandsLogo = () => {
     const [logos,setLogo]=useState([
         "https://png.pngtree.com/png-clipart/20190604/original/pngtree-corporate-image-logo-png-image_1026060.jpg",

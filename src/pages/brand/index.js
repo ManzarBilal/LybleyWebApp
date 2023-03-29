@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
-import Cards from '../components/cards/cards';
 import Link from 'next/link';
-import Footer from '../components/footer/footer';
-import Header from '../components/header/header';
+import Header from '../header';
+import Footer from '../footer';
+import Cards from '../cards';
+ 
 const Brand = () => {
     const [products,setProducts]=useState([
         "https://cdn.shpy.in/46103/1624978790898_SKU-0055_0.jpeg?width=600",

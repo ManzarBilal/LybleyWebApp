@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Header from '../header'
 import Footer from '../footer'
 import Cards from '../cards'
- 
+import Link from 'next/link'
 
  
  const ProductDescription = () => {
@@ -15,7 +15,7 @@ import Cards from '../cards'
 "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
 ])
   return (
-    <>
+    <div className='bg_image'>
     <Header />
     <div className='container '>
           {/* <div>
@@ -24,13 +24,13 @@ import Cards from '../cards'
           <div className='row'>
             {imageP?.map((item,i)=>
             <div  className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>
-              <Cards img={item} title="cooler" brand={true}/>
+             <Link href="/productDetail"><Cards img={item} title="cooler" brand={true}/></Link> 
             </div>
              )}
           </div>
     </div>
     <Footer />
-    </>
+    </div>
   )
 }
 export default ProductDescription;

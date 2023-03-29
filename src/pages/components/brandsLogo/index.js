@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useState } from 'react'
 import brandsLogo from "../../../assets/pngTree.png";
 const BrandsLogo = () => {
@@ -26,7 +27,7 @@ const BrandsLogo = () => {
         <div className='row '>
         {logos.map((img,i)=>
         <div key={i} className='col-md-2 col-4 d-flex justify-content-center mb-3'>
-            <img src={img} alt="logo" height="100" width="100" />
+           <Link href="/brand"> <img src={img} alt="logo" height="100" width="100" /> </Link>
         </div>
             )}
             </div>

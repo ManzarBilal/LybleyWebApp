@@ -53,8 +53,8 @@ BootstrapDialogTitle.propTypes = {
 
 export default function ForgetPassword(props) {
     const [open, setOpen] = React.useState(false);
-    const [showIcon1,setShowIcon1]=React.useState(true);
-    const [showIcon2,setShowIcon2]=React.useState(true);
+    const [showIcon1, setShowIcon1] = React.useState(true);
+    const [showIcon2, setShowIcon2] = React.useState(true);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -62,30 +62,30 @@ export default function ForgetPassword(props) {
         setOpen(false);
         props.onSubmit(false);
     };
-    const passwordVisibility1=()=>{
-        let type1=document.getElementById("pass1");
-        if(type1?.type==="password"){
-            document.getElementById("pass1").type="text";
+    const passwordVisibility1 = () => {
+        let type1 = document.getElementById("pass1");
+        if (type1?.type === "password") {
+            document.getElementById("pass1").type = "text";
             setShowIcon1(false)
-        }else{
-            document.getElementById("pass1").type="password"
+        } else {
+            document.getElementById("pass1").type = "password"
             setShowIcon1(true);
         }
-     }
-     const passwordVisibility2=()=>{
-        let type1=document.getElementById("pass2");
-        if(type1?.type==="password"){
-            document.getElementById("pass2").type="text";
+    }
+    const passwordVisibility2 = () => {
+        let type1 = document.getElementById("pass2");
+        if (type1?.type === "password") {
+            document.getElementById("pass2").type = "text";
             setShowIcon2(false)
-        }else{
-            document.getElementById("pass2").type="password"
+        } else {
+            document.getElementById("pass2").type = "password"
             setShowIcon2(true);
         }
-     }
+    }
     return (
         <div>
             <Button variant="contained" onClick={handleClickOpen}>
-            Forget Password
+                Forget Password
             </Button>
             <BootstrapDialog
                 onClose={handleClose}
@@ -93,13 +93,13 @@ export default function ForgetPassword(props) {
                 open={props?.bool}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                Forget Password
+                    Forget Password
                 </BootstrapDialogTitle>
                 <DialogContent >
-                     
-                    <Grid className={`${style.mainDiv}` }>
+
+                    <Grid className={`${style.mainDiv}`}>
                         <Grid item sm={12} md={12}>
-                            <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100"  /></div>
+                            <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
                         </Grid>
                         <Grid item sm={12} md={12}>
                             <TextField
@@ -114,7 +114,7 @@ export default function ForgetPassword(props) {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                          {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1}/>}
+                                            {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1} />}
                                         </InputAdornment>
                                     ),
                                     // endAdornment: (
@@ -139,7 +139,7 @@ export default function ForgetPassword(props) {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                         {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2}/>}
+                                            {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2} />}
                                         </InputAdornment>
                                     ),
                                     // endAdornment: (
@@ -152,17 +152,24 @@ export default function ForgetPassword(props) {
 
                         </Grid>
                     </Grid>
-                   
+
                 </DialogContent>
                 <DialogActions>
-                    <div className='mb-3'>
-                    <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                        CANCEL
-                    </Button>
-                    <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
-                       UPDATE
-                    </Button>
+                    <div className='d-flex justify-content-between w-100' >
+                        <div className='row'>
+                            <div className='mb-3 col-md-12 d-flex  justify-content-end'>
+                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                    CANCEL
+                                </Button>
+
+
+                                <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
+                                    UPDATE
+                                </Button>
+                            </div>
+                        </div>
                     </div>
+
                 </DialogActions>
             </BootstrapDialog>
         </div>

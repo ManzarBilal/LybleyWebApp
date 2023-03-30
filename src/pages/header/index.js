@@ -2,15 +2,16 @@ import Login from "@/pages/login";
 import Register from "@/pages/register";
 import React, { useState } from "react";
 import ForgetPassword from "../forgetPassword";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 function Header() {
     const [show, setShow] = useState(false)
     const [forget, setForget] = useState(false)
-    const handleLogin=(bool)=>{
-       setShow(bool);
+    const handleLogin = (bool) => {
+        setShow(bool);
     }
-    const handleForget=(bool)=>{
+    const handleForget = (bool) => {
         setForget(bool);
-     }
+    }
     return (
         //    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         //    <div className="container">
@@ -43,12 +44,16 @@ function Header() {
         //   </div>
         // </nav>
         <>
-            <div className="text-end p-4">
+            <div className="d-flex  justify-content-end  p-4">
                 {/* <button className="btn btn-outline-primary ">Login</button> */}
-              
-                    {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show}/> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin}/>} 
-                    
-                 
+                <div className="d-flex" >
+                    <div>
+                        {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin} />}
+                    </div>
+                    <div className="ms-4 p-2 text-white" >
+                        Cart <ShoppingCartIcon color="white"/>
+                    </div>
+                </div>
             </div>
 
         </>

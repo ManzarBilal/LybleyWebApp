@@ -3,7 +3,7 @@ import Register from "@/pages/register";
 import React, { useState } from "react";
 import ForgetPassword from "../forgetPassword";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-function Header() {
+function Header(props) {
     const [show, setShow] = useState(false)
     const [forget, setForget] = useState(false)
     const handleLogin = (bool) => {
@@ -50,8 +50,8 @@ function Header() {
                     <div>
                         {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin} />}
                     </div>
-                    <div className="ms-4 p-2 text-white" >
-                        Cart <ShoppingCartIcon color="white"/>
+                    <div className={props?.detail ? "ms-4 p-2 text-white fw-bold" :"ms-4 p-2 text-white fw-bold"} >
+                        Cart <ShoppingCartIcon color={props?.detail ? "" :"white"}/>
                     </div>
                 </div>
             </div>

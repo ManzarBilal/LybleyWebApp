@@ -27,7 +27,7 @@ const BrandsLogo = () => {
         <div className='row '>
         {logos.map((img,i)=>
         <div key={i} className='col-md-2 col-4 d-flex justify-content-center mb-3'>
-           <Link href="/brand"> <img src={img} alt="logo" height="100" width="100" /> </Link>
+           <Link href="/brand"> <img src={img} alt="logo" height="150" width="150" /> </Link>
         </div>
             )}
             </div>

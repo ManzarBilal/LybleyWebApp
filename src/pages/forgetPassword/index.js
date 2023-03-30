@@ -155,21 +155,19 @@ export default function ForgetPassword(props) {
 
                 </DialogContent>
                 <DialogActions>
-                    <div className='d-flex justify-content-between w-100' >
+                <div className='d-flex justify-content-between w-100'>
                         <div className='row'>
-                            <div className='mb-3 col-md-12 d-flex  justify-content-end'>
-                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                            <div className={`  ps-4  text-primary col-md-6 col-12`}  > &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div className='col-md-6 col-12 mb-3 d-flex justify-content-between'>
+                                <Button className='ms-2' variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL
                                 </Button>
-
-
-                                <Button className='ms-2 me-2' variant='contained' autoFocus onClick={handleClose}>
-                                    UPDATE
+                                <Button className='ms-2 ' variant='contained' autoFocus onClick={handleClose}>
+                                    SIGNIN
                                 </Button>
                             </div>
-                        </div>
+                        </div >
                     </div>
-
                 </DialogActions>
             </BootstrapDialog>
         </div>

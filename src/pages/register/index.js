@@ -193,7 +193,7 @@ export default function Register(props) {
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100' >
                         <div className='row'>
-                            <div className={`${style.common_curs} ${style.loginTxtF} ps-4 text-primary col-md-7 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
+                            <div className={`${style.common_curs} ${style.loginTxtF} ${style.paddTopAcnt} ps-4 text-primary col-md-7 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
                             <div className='col-md-5 col-12 mb-3 d-flex justify-content-between'>
                                 <Button    variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL

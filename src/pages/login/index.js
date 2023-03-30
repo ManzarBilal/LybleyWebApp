@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import style from "./login.module.css";
-import Link from 'next/link';
+ 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -137,7 +137,7 @@ export default function Login(props) {
                 <DialogActions>
                     <div className='d-flex justify-content-between w-100'>
                         <div className='row'>
-                            <div className={`${style.common_curs} ps-4  text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</div>
+                            <div className={`${style.common_curs} ${style.paddTopFrgt} ps-4  text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <div className='col-md-6 col-12 mb-3 d-flex justify-content-between'>
                                 <Button className='ms-2' variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL

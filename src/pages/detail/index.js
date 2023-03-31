@@ -68,8 +68,8 @@ const Detail = () => {
         </div>
           
         <div className='row mt-2'>
-          <div className='col-10'></div>
-          <div className='col-md-2 col-12'>
+          <div className='col-9'></div>
+          <div className='col-md-3 col-12'>
             {/* <div className='form-group'>
               <select className='form-select'>
                 <option>Select Fault</option>
@@ -84,6 +84,7 @@ const Detail = () => {
           value={age}
           label="Option"
           size='small'
+          style={{backgroundColor:"white"}}
           onChange={handleChange}
         >
           <MenuItem value={10}>Option1</MenuItem>

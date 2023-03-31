@@ -25,7 +25,7 @@ const Detail = () => {
     }
   }, []);
 
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState('Option');
 
   const handleChange = (event) => {
     setAge(event.target.value);

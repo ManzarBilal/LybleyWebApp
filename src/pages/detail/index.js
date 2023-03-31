@@ -9,10 +9,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import { useSelector,useDispatch } from 'react-redux';
+import {increment,decrement} from "../../redux/actions/index"
 const Detail = () => {
-
-
+  const dispatch=useDispatch();
+  const data=useSelector(state=>state.value);
   const [videoUrl, setVideoUrl] = useState(['https://youtu.be/0BIaDVnYp2A'
     , 'https://youtu.be/0BIaDVnYp2A'
     , 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A'])
@@ -30,7 +31,7 @@ const Detail = () => {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-
+  
 
   return (
     <div className="bg_image">
@@ -41,7 +42,7 @@ const Detail = () => {
           <div className='col-md-4 col-12 text-center'> <img src='https://5.imimg.com/data5/SELLER/Default/2021/6/ED/WN/JB/31656971/intex-air-cooler-1000x1000.png' height="350" width="300" />
             <div className='row mt-2'>
               <div className='col-md-12 col-12 text-center'>
-                <button className='btn btn-light btn-sm me-2'>-</button> <span className='text-white'> 5 </span> <button className='btn btn-light btn-sm ms-2'>+</button>
+                <button className='btn btn-light btn-sm me-2' onClick={()=>dispatch(decrement(-1))}>-</button> <span className='text-white'> {data} </span> <button className='btn btn-light btn-sm ms-2' onClick={()=>dispatch(increment(1))}>+</button>
               </div>
             </div>
             <div className='row mt-3'>

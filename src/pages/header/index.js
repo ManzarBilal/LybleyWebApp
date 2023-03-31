@@ -3,6 +3,7 @@ import Register from "@/pages/register";
 import React, { useState } from "react";
 import ForgetPassword from "../forgetPassword";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Link from "next/link";
 function Header(props) {
     const [show, setShow] = useState(false)
     const [forget, setForget] = useState(false)
@@ -50,8 +51,8 @@ function Header(props) {
                     <div>
                         {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin} />}
                     </div>
-                    <div className={props?.detail ? "ms-4 p-2 text-white fw-bold common_curs" :"ms-4 p-2 text-white fw-bold common_curs"} >
-                        Cart <ShoppingCartIcon color={props?.detail ? "" :"white"}/>
+                    <div className={props?.detail ? "ms-4 p-2 text-white fw-bold" :"ms-4 p-2 text-white fw-bold"} >
+                       <Link href="/checkout" className="text-decoration-none text-white" > Cart <ShoppingCartIcon color={props?.detail ? "" :"white"}/></Link>
                     </div>
                 </div>
             </div>

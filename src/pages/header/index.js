@@ -51,8 +51,8 @@ function Header(props) {
                     <div>
                         {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin} />}
                     </div>
-                    <div className={props?.detail ? "ms-4 p-2 text-white fw-bold" :"ms-4 p-2 text-white fw-bold"} >
-                       <Link href="/checkout" className="text-decoration-none text-white" > Cart <ShoppingCartIcon color={props?.detail ? "" :"white"}/></Link>
+                    <div className={props?.detail ? "ms-4 p-2 text-dark fw-bold" :"ms-4 p-2 text-dark fw-bold"} >
+                       <Link href="/checkout" className="text-decoration-none text-secondary" > Cart <ShoppingCartIcon color={props?.detail ? "" :"white"}/></Link>
                     </div>
                 </div>
             </div>

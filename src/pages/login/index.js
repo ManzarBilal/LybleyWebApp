@@ -8,12 +8,21 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import style from "./login.module.css";
- 
+import { useDispatch } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { userLog } from '@/redux/actions/userLogin';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -53,6 +62,14 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function Login(props) {
+
+    const showToastMessage = () => {
+        toast.success('Login Successfully !', {
+            position: toast.POSITION.TOP_CENTER
+        });
+    }
+
+    const dispatch=useDispatch()
     const [open, setOpen] = React.useState(props?.bool);
     const [showIcon, setShowIcon] = React.useState(true);
     const handleClickOpen = () => {
@@ -76,6 +93,35 @@ export default function Login(props) {
         props.onSubmit(false);
         props.onForget(true);
     }
+
+    const submit=data=>{
+        console.log(data,"ddd")
+        let obj={email:data?.email,password:data?.password}
+  dispatch(userLog(obj))
+  showToastMessage()
+    }
+
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .required('Email is required')
+            .email('Email is invalid'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(6, 'Password must be at least 6 characters')
+            .max(40, 'Password must not exceed 40 characters'),
+        
+    });
+
+ 
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(validationSchema)
+    });
+
     return (
         <div>
             <Button variant="contained" onClick={handleClickOpen}>
@@ -104,7 +150,12 @@ export default function Login(props) {
                                 fullWidth
                                 variant="outlined"
                                 size='small'
+                                {...register('email')}
+                                error={errors.email ? true : false}
                             />
+                            <Typography variant="inherit" color="textSecondary">
+                                {errors.email?.message}
+                            </Typography>
                         </Grid>
                         <Grid item sm={12} md={12}>
                             <TextField
@@ -128,8 +179,12 @@ export default function Login(props) {
                                     //     </InputAdornment>
                                     // ),
                                 }}
+                                {...register('password')}
+                                error={errors.password ? true : false}
                             />
-
+                            <Typography variant="inherit" color="textSecondary">
+                                {errors.password?.message}
+                            </Typography>
                         </Grid>
                     </Grid>
 
@@ -142,9 +197,10 @@ export default function Login(props) {
                                 <Button className='ms-2' variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL
                                 </Button>
-                                <Button className='ms-2 ' variant='contained' autoFocus onClick={handleClose}>
+                                <Button className='ms-2 ' variant='contained' autoFocus onClick={handleSubmit(submit)}>
                                     SIGNIN
                                 </Button>
+                                
                             </div>
                         </div >
                     </div>

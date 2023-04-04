@@ -115,14 +115,30 @@ export default function Register(props) {
     }
  
 
+const userRegistration=async(registration)=>{
+    try{
+        let response= await httpCommon.post("/userRegistration", registration);
+        let {data}=response;
+        showToastMessage(data)
+       if(data?.status===true){
+        props.onSubmit1(true);
+        handleClose()
+       
+    }else{
+       return null; 
+    }
+    }catch(err){
+        console.log(err);
+    }
+}
     const onSubmit = data => {
         
         let obj = { name: data?.name, email: data?.email, contact: data?.contact, password: data?.password }
-        dispatch(userReg(obj));
-        showToastMessage(userData)
+        userRegistration(obj);
+       // dispatch(userReg(obj));
+        // showToastMessage(userData)
         dispatch(userEmail(data?.email))
-        props.onSubmit1(true);
-        handleClose()
+        
         
 
     };

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userVerification } from '@/redux/actions/userVerification';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import httpCommon from '@/http-common';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -92,19 +93,36 @@ const userEmail=useSelector(state=>state?.userEmail)
         props.onSubmit(true);
     }
 
-    const userData=useSelector(state=>state?.users)
-    const handleVerify = () => {
-        const obj = { email: userEmail?.email, otp: otp }
-        console.log("obj",obj)
-        dispatch(userVerification(obj))
-        showToastMessage(userData)
-        if(userData?.status===true){
+    const [userData,setUserData]=useState({});
+    const verifyOtp=async(regVerify)=>{
+        try{
+            let response= await httpCommon.patch("/otpVerification", regVerify);
+            let {data}=response;
+            showToastMessage(data)
+           if(data?.status===true){
             handleClose()
             handleLogin();
            
         }else{
            return null; 
         }
+        }catch(err){
+            console.log(err);
+        }
+    }
+    const handleVerify = () => {
+        const obj = { email: userEmail?.email, otp: otp }
+        verifyOtp(obj);
+        // console.log("obj",obj)
+        // dispatch(userVerification(obj))
+        // showToastMessage(userData)
+        // if(userData?.status===true){
+        //     handleClose()
+        //     handleLogin();
+           
+        // }else{
+        //    return null; 
+        // }
     }
     return (
         <div >

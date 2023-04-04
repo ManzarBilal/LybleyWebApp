@@ -21,6 +21,8 @@ import { userLog } from '@/redux/actions/userLogin';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import httpCommon from '@/http-common';
+import {userEmail} from '@/redux/actions/userEmail';
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -102,14 +104,35 @@ export default function Login(props) {
         props.onForget(true);
     }
     const userData = useSelector(state => state?.users)
+    const login=async(obj)=>{
+        try{
+            let response=await httpCommon.post("/userLogin",obj);
+            let {data}=response;
+            console.log(data);
+            if(data?.user?.status==="ACTIVE"){
+                showToastMessage(data);
+                props.onSubmit(false);
+            }else if(data?.status===false){
+                console.log("data",data);
+                showToastMessage(data);
+            }
+            else{
+                props.onSubmit1(true);
+                props.onSubmit(false);
+            }
+            
+        }catch(err){
+            console.log(err);
+        }
+    }
     const submit = data => {
 
         let obj = { email: data?.email, password: data?.password }
-        dispatch(userLog(obj))
-
-        if (userData?.msg) {
-            showToastMessage(userData)
-        }
+       dispatch(userEmail(data?.email));
+       login(obj);
+        // if (userData?.msg) {
+        //     showToastMessage(userData)
+        // }
     }
 
     const validationSchema = Yup.object().shape({

@@ -55,7 +55,7 @@ function Header(props) {
                 <div className="d-flex" >
                     <div>
                 
-                        {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> 
+                        {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} onSubmit1={handleOpt} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> 
                          : <Register onSubmit={handleLogin} onSubmit1={handleOpt} />}
                     </div>
                     <div> <OtpVerification onSubmit={handleLogin} onSubmit1={handleOpt} bool={otpShow} /></div>

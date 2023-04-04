@@ -19,6 +19,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { userReg } from '@/redux/actions/userRegistration';
+import OtpVerification from './otpVerification';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -59,15 +60,17 @@ BootstrapDialogTitle.propTypes = {
 
 export default function Register(props) {
     const [open, setOpen] = React.useState(false);
+    const [otpView, setOtpView] = React.useState(true);
     const [showIcon1, setShowIcon1] = React.useState(true);
     const [showIcon2, setShowIcon2] = React.useState(true);
-    const dispatch=useDispatch();
-    const data=useSelector(state=>state.users);
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.users);
     console.log(data);
-    
+
 
     const handleClickOpen = () => {
         setOpen(true);
+
     };
     const handleClose = () => {
         setOpen(false);
@@ -98,19 +101,22 @@ export default function Register(props) {
     }
 
     const onSubmit = data => {
-        let obj={name:data?.name,email:data?.email,contact:data?.contact,password:data?.password}
+        let obj = { name: data?.name, email: data?.email, contact: data?.contact, password: data?.password }
         dispatch(userReg(obj));
+        handleClose()
+        setOtpView(false)
+
     };
 
-    
+
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Name is required')
-        .min(4, "Name must be at least 6 characters"),
+            .min(4, "Name must be at least 4 characters"),
         contact: Yup.string()
             .required('Contact No. is required')
             .min(10, 'Contact No. must be at least 10 characters')
-            .max(10, 'Contact No. must not exceed 100 characters'),
+            .max(10, 'Contact No. must not exceed 10 characters'),
         email: Yup.string()
             .required('Email is required')
             .email('Email is invalid'),
@@ -124,7 +130,7 @@ export default function Register(props) {
         acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required')
     });
 
- 
+
     const {
         register,
         control,
@@ -133,166 +139,171 @@ export default function Register(props) {
     } = useForm({
         resolver: yupResolver(validationSchema)
     });
-    
-    
+
+
     return (
         <div>
-            <Button variant="contained" onClick={handleClickOpen}>
-                Register
-            </Button>
-            <BootstrapDialog
-                onClose={handleClose}
-                aria-labelledby="customized-dialog-title"
-                open={open}
-            >
-                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Sign Up
-                </BootstrapDialogTitle>
-                <DialogContent >
-                    <Grid className={`${style.mainDiv}`}>
-                        <Grid item sm={12} md={12}>
-                            <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="80" width="100" /></div>
-                        </Grid>
-                        <form  >
-                            <Grid item sm={12} md={12}>
+            {otpView ?
+                <> <Button variant="contained" onClick={handleClickOpen}>
+                    Register
+                </Button>
+                    <BootstrapDialog
+                        onClose={handleClose}
+                        aria-labelledby="customized-dialog-title"
+                        open={open}
+                    >
+                        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                            Sign Up
+                        </BootstrapDialogTitle>
+                        <DialogContent >
+                            <Grid className={`${style.mainDiv}`}>
+                                <Grid item sm={12} md={12}>
+                                    <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="80" width="100" /></div>
+                                </Grid>
+                                <form  >
+                                    <Grid item sm={12} md={12}>
 
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="n"
-                                    label="Name"
-                                    type="email"
-                                    fullWidth
-                                    variant="outlined"
-                                    size='small'
-                                    name="name"
-                                    
-                                    onChange={(e)=>handleChange(e)}
-                                    {...register('name')}
-                                    error={errors.name ? true : false}
-                                />
-                                <Typography variant="inherit" color="textSecondary">
-                                    {errors.name?.message}
-                                </Typography>
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="n"
+                                            label="Name"
+                                            type="email"
+                                            fullWidth
+                                            variant="outlined"
+                                            size='small'
+                                            name="name"
 
+                                            onChange={(e) => handleChange(e)}
+                                            {...register('name')}
+                                            error={errors.name ? true : false}
+                                        />
+                                        <Typography variant="inherit" color="red">
+                                            {errors.name?.message}
+                                        </Typography>
+
+                                    </Grid>
+                                    <Grid item sm={12} md={12}>
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="na"
+                                            size='small'
+                                            label="Email Address"
+                                            type="email"
+                                            fullWidth
+                                            name='email'
+                                            variant="outlined"
+
+                                            {...register('email')}
+                                            error={errors.email ? true : false}
+                                        />
+                                        <Typography variant="inherit" color="red">
+                                            {errors.email?.message}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item sm={12} md={12}>
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="ame"
+                                            size='small'
+                                            label="Contact No."
+                                            type="number"
+                                            fullWidth
+                                            name='contact'
+                                            variant="outlined"
+
+                                            {...register('contact')}
+                                            error={errors.contact ? true : false}
+                                        />
+                                        <Typography variant="inherit" color="red">
+                                            {errors.contact?.message}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item sm={12} md={12}>
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="pass1"
+                                            label="Password"
+                                            type="password"
+                                            fullWidth
+                                            size='small'
+                                            variant="outlined"
+                                            name='password'
+
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1} />}
+                                                    </InputAdornment>
+                                                ),
+                                                // endAdornment: (
+                                                //     <InputAdornment position="end">
+                                                //         <VisibilityOffIcon />
+                                                //     </InputAdornment>
+                                                // ),
+                                            }}
+                                            {...register('password')}
+                                            error={errors.password ? true : false}
+                                        />
+                                        <Typography variant="inherit" color="red">
+                                            {errors.password?.message}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item sm={12} md={12}>
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="pass2"
+                                            label="Confirm Password"
+                                            type="password"
+                                            fullWidth
+                                            size='small'
+                                            variant="outlined"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2} />}
+                                                    </InputAdornment>
+                                                ),
+                                                // endAdornment: (
+                                                //     <InputAdornment position="end">
+                                                //         <VisibilityOffIcon />
+                                                //     </InputAdornment>
+                                                // ),
+                                            }}
+                                            {...register('confirmPassword')}
+                                            error={errors.confirmPassword ? true : false}
+                                        />
+                                        <Typography variant="inherit" color="red">
+                                            {errors.confirmPassword?.message}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+                                        <div className='d-flex justify-content-between w-100' >
+                                            <div className='row'>
+                                                <div className={`${style.common_curs} ${style.loginTxtF} ${style.paddTopAcnt}  text-primary col-md-7 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
+                                                <div className='col-md-5 col-12 mb-3 d-flex justify-content-between'>
+                                                    <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                                        CANCEL
+                                                    </Button>
+                                                    <Button className='ms-3 ' variant='contained' autoFocus onClick={handleSubmit(onSubmit)} >
+                                                        SIGNUP
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Grid>
+                                </form>
                             </Grid>
-                            <Grid item sm={12} md={12}>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="na"
-                                    size='small'
-                                    label="Email Address"
-                                    type="email"
-                                    fullWidth
-                                    name='email'
-                                    variant="outlined"
-                                   
-                                    {...register('email')}
-                                    error={errors.email ? true : false}
-                                />
-                                <Typography variant="inherit" color="textSecondary">
-                                    {errors.email?.message}
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12} md={12}>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="ame"
-                                    size='small'
-                                    label="Contact No."
-                                    type="number"
-                                    fullWidth
-                                    name='contact'
-                                    variant="outlined"
-                                   
-                                    {...register('contact')}
-                                    error={errors.contact ? true : false}
-                                />
-                                <Typography variant="inherit" color="textSecondary">
-                                    {errors.contact?.message}
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12} md={12}>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="pass1"
-                                    label="Password"
-                                    type="password"
-                                    fullWidth
-                                    size='small'
-                                    variant="outlined"
-                                    name='password'
-                                   
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1} />}
-                                            </InputAdornment>
-                                        ),
-                                        // endAdornment: (
-                                        //     <InputAdornment position="end">
-                                        //         <VisibilityOffIcon />
-                                        //     </InputAdornment>
-                                        // ),
-                                    }}
-                                    {...register('password')}
-                                    error={errors.password ? true : false}
-                                />
-                                <Typography variant="inherit" color="textSecondary">
-                                    {errors.password?.message}
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12} md={12}>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="pass2"
-                                    label="Confirm Password"
-                                    type="password"
-                                    fullWidth
-                                    size='small'
-                                    variant="outlined"
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2} />}
-                                            </InputAdornment>
-                                        ),
-                                        // endAdornment: (
-                                        //     <InputAdornment position="end">
-                                        //         <VisibilityOffIcon />
-                                        //     </InputAdornment>
-                                        // ),
-                                    }}
-                                    {...register('confirmPassword')}
-                                    error={errors.confirmPassword ? true : false}
-                                />
-                                <Typography variant="inherit" color="textSecondary">
-                                    {errors.confirmPassword?.message}
-                                </Typography>
-                            </Grid>
-                        </form>
-                    </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <div className='d-flex justify-content-between w-100' >
-                        <div className='row'>
-                            <div className={`${style.common_curs} ${style.loginTxtF} ${style.paddTopAcnt} ps-4 text-primary col-md-7 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
-                            <div className='col-md-5 col-12 mb-3 d-flex justify-content-between'>
-                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                    CANCEL
-                                </Button>
-                                <Button className='ms-2 ' variant='contained' autoFocus onClick={ handleSubmit(onSubmit)} >
-                                    SIGNUP
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </DialogActions>
-            </BootstrapDialog>
+                        </DialogContent>
+
+                    </BootstrapDialog>
+                </>
+                : <OtpVerification />
+            }
         </div>
     );
 }

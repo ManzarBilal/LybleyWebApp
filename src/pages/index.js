@@ -9,6 +9,8 @@ import BrandsLogo from './brandsLogo'
 import Footer from './footer'
 import style from "./common.module.css"
 import { ToastContainer } from 'react-toastify'
+import OtpVerification from './register/otpVerification'
+ 
 const inter = Inter({ subsets: ['latin'] })
  
 export default function Home() {
@@ -22,6 +24,7 @@ export default function Home() {
       </Head>
       <div className="bg_image">
       <Header/>
+     <OtpVerification />
       <Search/>
       <BrandsLogo/>
       <Footer/>

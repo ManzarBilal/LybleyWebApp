@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import style from "./login.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -63,13 +63,21 @@ BootstrapDialogTitle.propTypes = {
 
 export default function Login(props) {
 
-    const showToastMessage = () => {
-        toast.success('Login Successfully !', {
-            position: toast.POSITION.TOP_CENTER
-        });
+    const showToastMessage = (data) => {
+        console.log(data?.status)
+        if (data?.status === true)
+            toast.success(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        else {
+            toast.error(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        }
     }
 
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
+
     const [open, setOpen] = React.useState(props?.bool);
     const [showIcon, setShowIcon] = React.useState(true);
     const handleClickOpen = () => {
@@ -93,12 +101,15 @@ export default function Login(props) {
         props.onSubmit(false);
         props.onForget(true);
     }
+    const userData = useSelector(state => state?.users)
+    const submit = data => {
 
-    const submit=data=>{
-        console.log(data,"ddd")
-        let obj={email:data?.email,password:data?.password}
-  dispatch(userLog(obj))
-  showToastMessage()
+        let obj = { email: data?.email, password: data?.password }
+        dispatch(userLog(obj))
+
+        if (userData?.msg) {
+            showToastMessage(userData)
+        }
     }
 
     const validationSchema = Yup.object().shape({
@@ -109,10 +120,10 @@ export default function Login(props) {
             .required('Password is required')
             .min(6, 'Password must be at least 6 characters')
             .max(40, 'Password must not exceed 40 characters'),
-        
+
     });
 
- 
+
     const {
         register,
         control,
@@ -153,7 +164,7 @@ export default function Login(props) {
                                 {...register('email')}
                                 error={errors.email ? true : false}
                             />
-                            <Typography variant="inherit" color="textSecondary">
+                            <Typography variant="inherit" color="red">
                                 {errors.email?.message}
                             </Typography>
                         </Grid>
@@ -182,29 +193,30 @@ export default function Login(props) {
                                 {...register('password')}
                                 error={errors.password ? true : false}
                             />
-                            <Typography variant="inherit" color="textSecondary">
+                            <Typography variant="inherit" color="red">
                                 {errors.password?.message}
                             </Typography>
+                            <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+                                <div className='d-flex justify-content-between w-100'>
+                                    <div className='row'>
+                                        <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        <div className='col-md-6 col-12 mb-3 d-flex justify-content-between'>
+                                            <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                                CANCEL
+                                            </Button>
+                                            <Button className='ms-md-4' variant='contained' autoFocus onClick={handleSubmit(submit)}>
+                                                SIGNIN
+                                            </Button>
+
+                                        </div>
+                                    </div >
+                                </div>
+                            </Grid>
                         </Grid>
                     </Grid>
 
                 </DialogContent>
-                <DialogActions>
-                    <div className='d-flex justify-content-between w-100'>
-                        <div className='row'>
-                            <div className={`${style.common_curs} ${style.paddTopFrgt} ps-4  text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <div className='col-md-6 col-12 mb-3 d-flex justify-content-between'>
-                                <Button className='ms-2' variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                    CANCEL
-                                </Button>
-                                <Button className='ms-2 ' variant='contained' autoFocus onClick={handleSubmit(submit)}>
-                                    SIGNIN
-                                </Button>
-                                
-                            </div>
-                        </div >
-                    </div>
-                </DialogActions>
+                
             </BootstrapDialog>
         </div>
     );

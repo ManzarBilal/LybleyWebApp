@@ -23,6 +23,7 @@ import OtpVerification from './otpVerification';
 import { userEmail } from '@/redux/actions/userEmail';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import httpCommon from '@/http-common';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -80,10 +81,7 @@ export default function Register(props) {
     const [showIcon1, setShowIcon1] = React.useState(true);
     const [showIcon2, setShowIcon2] = React.useState(true);
     const dispatch = useDispatch();
-    const data = useSelector(state => state.users);
-    console.log(data);
-
-
+    
     const handleClickOpen = () => {
         setOpen(true);
 
@@ -115,7 +113,7 @@ export default function Register(props) {
             setShowIcon2(true);
         }
     }
-const userData=useSelector(state=>state?.users);
+ 
 
     const onSubmit = data => {
         

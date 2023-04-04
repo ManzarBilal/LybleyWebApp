@@ -21,7 +21,7 @@ const Search = () => {
       <div className='col-2'></div>
       <div className='col-8'> 
         <div className='form-group'>
-       <div className='d-flex justify-content-between'> <input type="text" className='form-control bg-dark text-white' placeholder='Search' onChange={(e)=>setSearch(e.currentTarget.value)}/>  <button className='btn btn-primary ms-2' onClick={getData}>Search</button></div>
+       <div className='d-flex justify-content-between'> <input type="text" className='form-control border border-2 border-dark' placeholder='Search' onChange={(e)=>setSearch(e.currentTarget.value)}/>  <button className='btn btn-primary bg-dark ms-2' onClick={getData}>Search</button></div>
         </div>       
         </div>
       <div className='col-2'></div>

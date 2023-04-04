@@ -110,6 +110,8 @@ export default function Login(props) {
             let {data}=response;
             console.log(data);
             if(data?.user?.status==="ACTIVE"){
+                localStorage.setItem("userId",data?.user?._id);
+                localStorage.setItem("userName",data?.user?.name);
                 showToastMessage(data);
                 props.onSubmit(false);
             }else if(data?.status===false){

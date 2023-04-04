@@ -75,13 +75,13 @@ const OtpVerification = (props) => {
     const [otp, setOtp] = useState('');
 
     const dispatch = useDispatch()
-const userEmail=useSelector(state=>state?.userEmail)
+    const userEmail = useSelector(state => state?.userEmail)
 
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
-       props.onSubmit1(false)
+        props.onSubmit1(false)
 
     };
     const handleChange = (newValue) => {
@@ -93,20 +93,20 @@ const userEmail=useSelector(state=>state?.userEmail)
         props.onSubmit(true);
     }
 
-    const [userData,setUserData]=useState({});
-    const verifyOtp=async(regVerify)=>{
-        try{
-            let response= await httpCommon.patch("/otpVerification", regVerify);
-            let {data}=response;
+    const [userData, setUserData] = useState({});
+    const verifyOtp = async (regVerify) => {
+        try {
+            let response = await httpCommon.patch("/otpVerification", regVerify);
+            let { data } = response;
             showToastMessage(data)
-           if(data?.status===true){
-            handleClose()
-            handleLogin();
-           
-        }else{
-           return null; 
-        }
-        }catch(err){
+            if (data?.status === true) {
+                handleClose()
+                handleLogin();
+
+            } else {
+                return null;
+            }
+        } catch (err) {
             console.log(err);
         }
     }
@@ -119,7 +119,7 @@ const userEmail=useSelector(state=>state?.userEmail)
         // if(userData?.status===true){
         //     handleClose()
         //     handleLogin();
-           
+
         // }else{
         //    return null; 
         // }

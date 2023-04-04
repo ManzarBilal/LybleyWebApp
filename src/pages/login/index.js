@@ -64,7 +64,7 @@ BootstrapDialogTitle.propTypes = {
 export default function Login(props) {
 
     const showToastMessage = (data) => {
-        console.log(data?.status)
+        // console.log(data?.status)
         if (data?.status === true)
             toast.success(`${data?.msg}!`, {
                 position: toast.POSITION.TOP_CENTER

@@ -12,6 +12,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Grid, TextField, Typography } from '@mui/material';
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import style from "./register.module.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { userVerification } from '@/redux/actions/userVerification';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -51,25 +55,63 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-const OtpVerification = () => {
-    const [open, setOpen] = React.useState(true);
+const OtpVerification = (props) => {
+
+    const showToastMessage = (data) => {
+        // console.log(data?.status)
+        if (data?.status === true)
+            toast.success(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        else {
+            toast.error(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        }
+    }
+
+    const [open, setOpen] = React.useState(props?.bool);
     const [otp, setOtp] = useState('');
+
+    const dispatch = useDispatch()
+const userEmail=useSelector(state=>state?.userEmail)
+
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
-        setOpen(false);
+       props.onSubmit1(false)
 
     };
     const handleChange = (newValue) => {
         setOtp(newValue)
+    }
+
+    const handleLogin = () => {
+        setOpen(false);
+        props.onSubmit(true);
+    }
+
+    const userData=useSelector(state=>state?.users)
+    const handleVerify = () => {
+        const obj = { email: userEmail?.email, otp: otp }
+        console.log("obj",obj)
+        dispatch(userVerification(obj))
+        showToastMessage(userData)
+        if(userData?.status===true){
+            handleClose()
+            handleLogin();
+           
+        }else{
+           return null; 
+        }
     }
     return (
         <div >
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
-                open={open}
+                open={props?.bool}
             >
 
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
@@ -89,7 +131,7 @@ const OtpVerification = () => {
                                 Re send
                             </Button>
 
-                            <Button variant='contained' autoFocus  >
+                            <Button variant='contained' autoFocus onClick={handleVerify} >
                                 Verify
                             </Button>
                         </Grid>

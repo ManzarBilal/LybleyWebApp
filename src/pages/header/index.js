@@ -4,14 +4,19 @@ import React, { useState } from "react";
 import ForgetPassword from "../forgetPassword";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Link from "next/link";
+import OtpVerification from "../register/otpVerification";
 function Header(props) {
     const [show, setShow] = useState(false)
     const [forget, setForget] = useState(false)
+    const [otpShow ,setOtpShow]=useState(false)
     const handleLogin = (bool) => {
         setShow(bool);
     }
     const handleForget = (bool) => {
         setForget(bool);
+    }
+    const handleOpt = (bool) => {
+        setOtpShow(bool);
     }
     return (
         //    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -49,8 +54,11 @@ function Header(props) {
                 {/* <button className="btn btn-outline-primary ">Login</button> */}
                 <div className="d-flex" >
                     <div>
-                        {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> : <Register onSubmit={handleLogin} />}
+                
+                        {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> 
+                         : <Register onSubmit={handleLogin} onSubmit1={handleOpt} />}
                     </div>
+                    <div> <OtpVerification onSubmit={handleLogin} onSubmit1={handleOpt} bool={otpShow} /></div>
                     <div className={props?.detail ? "ms-4 p-2 text-dark fw-bold" :"ms-4 p-2 text-dark fw-bold"} >
                        <Link href="/checkout" className="text-decoration-none text-secondary" > Cart <ShoppingCartIcon color={props?.detail ? "" :"white"}/></Link>
                     </div>

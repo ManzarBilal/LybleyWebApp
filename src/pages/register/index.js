@@ -20,6 +20,9 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { userReg } from '@/redux/actions/userRegistration';
 import OtpVerification from './otpVerification';
+import { userEmail } from '@/redux/actions/userEmail';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -59,8 +62,21 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function Register(props) {
+
+    const showToastMessage = (data) => {
+        // console.log(data?.status)
+        if (data?.status === true)
+            toast.success(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        else {
+            toast.error(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        }
+    }
     const [open, setOpen] = React.useState(false);
-    const [otpView, setOtpView] = React.useState(true);
+   
     const [showIcon1, setShowIcon1] = React.useState(true);
     const [showIcon2, setShowIcon2] = React.useState(true);
     const dispatch = useDispatch();
@@ -99,16 +115,19 @@ export default function Register(props) {
             setShowIcon2(true);
         }
     }
+const userData=useSelector(state=>state?.users);
 
     const onSubmit = data => {
+        
         let obj = { name: data?.name, email: data?.email, contact: data?.contact, password: data?.password }
         dispatch(userReg(obj));
+        showToastMessage(userData)
+        dispatch(userEmail(data?.email))
+        props.onSubmit1(true);
         handleClose()
-        setOtpView(false)
+        
 
     };
-
-
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Name is required')
@@ -143,7 +162,7 @@ export default function Register(props) {
 
     return (
         <div>
-            {otpView ?
+            
                 <> <Button variant="contained" onClick={handleClickOpen}>
                     Register
                 </Button>
@@ -302,8 +321,8 @@ export default function Register(props) {
 
                     </BootstrapDialog>
                 </>
-                : <OtpVerification />
-            }
+                 
+        
         </div>
     );
 }

@@ -177,8 +177,8 @@ const userRegistration=async(registration)=>{
     return (
         <div>
             
-                <> <Button variant="contained" onClick={handleClickOpen}>
-                    Register
+                <> <Button variant="contained" className='bg-dark' onClick={handleClickOpen}>
+                    SIGNUP
                 </Button>
                     <BootstrapDialog
                         onClose={handleClose}

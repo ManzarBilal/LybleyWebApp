@@ -151,24 +151,19 @@ export default function ForgetPassword(props) {
                             />
 
                         </Grid>
-                    </Grid>
+                        <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
 
+                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                CANCEL
+                            </Button>
+                            <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleClose}>
+                                SIGNIN
+                            </Button>
+
+                        </Grid>
+                    </Grid>
                 </DialogContent>
-                <DialogActions>
-                <div className='d-flex justify-content-between w-100'>
-                        <div className='row'>
-                            <div className={`  ps-4  text-primary col-md-6 col-12`}  > &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <div className='col-md-6 col-12 mb-3 d-flex justify-content-between'>
-                                <Button className='ms-2' variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                    CANCEL
-                                </Button>
-                                <Button className='ms-2 ' variant='contained' autoFocus onClick={handleClose}>
-                                    SIGNIN
-                                </Button>
-                            </div>
-                        </div >
-                    </div>
-                </DialogActions>
+
             </BootstrapDialog>
         </div>
     );

@@ -8,11 +8,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import style from "./forget.module.css";
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { MuiOtpInput } from 'mui-one-time-password-input';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -53,8 +61,30 @@ BootstrapDialogTitle.propTypes = {
 
 export default function ForgetPassword(props) {
     const [open, setOpen] = React.useState(false);
+    const [emailOtp, setEmailOtp] = React.useState(true);
+    const [getOtp, setGetOtp] = React.useState(false);
+    const [cngPass,setCngPass]=React.useState(false);
     const [showIcon1, setShowIcon1] = React.useState(true);
     const [showIcon2, setShowIcon2] = React.useState(true);
+    const [otp, setOtp] = useState('');
+
+    const handleChange = (newValue) => {
+        setOtp(newValue)
+    }
+
+    const showToastMessage = (data) => {
+        // console.log(data?.status)
+        if (data?.status === true)
+            toast.success(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        else {
+            toast.error(`${data?.msg}!`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        }
+    }
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -82,6 +112,77 @@ export default function ForgetPassword(props) {
             setShowIcon2(true);
         }
     }
+
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .required('Email is required')
+            .email('Email is invalid'),
+    });
+
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(validationSchema)
+    });
+
+    const userEmail = useSelector(state => state?.userEmail)
+    const verifyOtp = async (regVerify) => {
+        try {
+            let response = await httpCommon.patch("/otpVerification", regVerify);
+            let { data } = response;
+            showToastMessage(data)
+            if (data?.status === true) {
+                // handleClose()
+                // handleLogin();
+                setGetOtp(false)
+                setCngPass(true)
+
+            } else {
+                return null;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const reSendOtp = async (resendOtp) => {
+        try {
+            let response = await httpCommon.post("/resendOtp", resendOtp);
+            let { data } = response;
+            showToastMessage(data)
+
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const handleVerify = () => {
+        const obj = { email: userEmail?.email, otp: otp }
+        verifyOtp(obj);
+        // console.log("obj",obj)
+        // dispatch(userVerification(obj))
+        // showToastMessage(userData)
+        // if(userData?.status===true){
+        //     handleClose()
+        //     handleLogin();
+
+        // }else{
+        //    return null; 
+        // }
+    }
+
+    const handleResend = () => {
+        const obj = { email: userEmail?.email }
+        reSendOtp(obj)
+    }
+    const handleGetOtp = () => {
+        setGetOtp(true)
+        setEmailOtp(false)
+    
+    }
     return (
         <div>
             <Button variant="contained" onClick={handleClickOpen}>
@@ -101,70 +202,122 @@ export default function ForgetPassword(props) {
                         <Grid item sm={12} md={12}>
                             <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
                         </Grid>
-                        <Grid item sm={12} md={12}>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="pass1"
-                                label="New Password"
-                                type="password"
-                                fullWidth
-                                variant="outlined"
-                                size='small'
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1} />}
-                                        </InputAdornment>
-                                    ),
-                                    // endAdornment: (
-                                    //     <InputAdornment position="end">
-                                    //         <VisibilityOffIcon />
-                                    //     </InputAdornment>
-                                    // ),
-                                }}
-                            />
+                        {cngPass ? <div>
+                            <Grid item sm={12} md={12}>
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="pass1"
+                                    label="New Password"
+                                    type="password"
+                                    fullWidth
+                                    variant="outlined"
+                                    size='small'
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1} />}
+                                            </InputAdornment>
+                                        ),
+                                        // endAdornment: (
+                                        //     <InputAdornment position="end">
+                                        //         <VisibilityOffIcon />
+                                        //     </InputAdornment>
+                                        // ),
+                                    }}
+                                />
 
-                        </Grid>
-                        <Grid item sm={12} md={12}>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="pass2"
-                                label="Confirm Password"
-                                type="password"
-                                fullWidth
-                                variant="outlined"
-                                size='small'
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2} />}
-                                        </InputAdornment>
-                                    ),
-                                    // endAdornment: (
-                                    //     <InputAdornment position="end">
-                                    //         <VisibilityOffIcon />
-                                    //     </InputAdornment>
-                                    // ),
-                                }}
-                            />
+                            </Grid>
+                            <Grid item sm={12} md={12}>
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="pass2"
+                                    label="Confirm Password"
+                                    type="password"
+                                    fullWidth
+                                    variant="outlined"
+                                    size='small'
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2} />}
+                                            </InputAdornment>
+                                        ),
+                                        // endAdornment: (
+                                        //     <InputAdornment position="end">
+                                        //         <VisibilityOffIcon />
+                                        //     </InputAdornment>
+                                        // ),
+                                    }}
+                                />
 
-                        </Grid>
-                        <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+                            </Grid>
+                            <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
 
-                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                CANCEL
-                            </Button>
-                            <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleClose}>
-                                SIGNIN
-                            </Button>
+                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                    CANCEL
+                                </Button>
+                                <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleClose}>
+                                    Change Password
+                                </Button>
 
-                        </Grid>
-                    </Grid>
-                </DialogContent>
+                            </Grid>
+                        </div>
+                            : ""
+                        }
+                        {emailOtp ? <div>
 
-            </BootstrapDialog>
-        </div>
+                            <Grid item sm={12} md={12}>
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="name"
+                                    label="Email Address"
+                                    type="email"
+                                    fullWidth
+                                    variant="outlined"
+                                    size='small'
+                                    {...register('email')}
+                                    error={errors.email ? true : false}
+                                />
+                                <Typography variant="inherit" color="red">
+                                    {errors.email?.message}
+                                </Typography>
+                            </Grid>
+                            <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+
+                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                    CANCEL
+                                </Button>
+                                <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleSubmit(handleGetOtp)}>
+                                    Get Otp
+                                </Button>
+
+                            </Grid>
+                        </div>
+                            : ""}
+                        {getOtp ? <div>
+                            <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "center" }}>
+                                <MuiOtpInput value={otp} length={6} onChange={handleChange} />
+                            </Grid>
+                            <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+
+                                <Button variant='contained' color='secondary' autoFocus onClick={handleResend}>
+                                    Re send
+                                </Button>
+
+                                <Button variant='contained' autoFocus onClick={handleVerify} >
+                                    Verify
+                                </Button>
+                            </Grid>
+                        </div>
+                            : ""}
+                </Grid>
+
+            </DialogContent>
+
+        </BootstrapDialog>
+        </div >
     );
 }

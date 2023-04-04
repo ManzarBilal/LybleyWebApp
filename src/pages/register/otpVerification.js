@@ -75,7 +75,7 @@ const OtpVerification = (props) => {
     const [otp, setOtp] = useState('');
 
     const dispatch = useDispatch()
-const userEmail=useSelector(state=>state?.userEmail)
+ 
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -93,7 +93,7 @@ const userEmail=useSelector(state=>state?.userEmail)
         props.onSubmit(true);
     }
 
-    const [userData,setUserData]=useState({});
+    const userEmail=useSelector(state=>state?.userEmail)
     const verifyOtp=async(regVerify)=>{
         try{
             let response= await httpCommon.patch("/otpVerification", regVerify);
@@ -106,6 +106,18 @@ const userEmail=useSelector(state=>state?.userEmail)
         }else{
            return null; 
         }
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const reSendOtp=async(resendOtp)=>{
+        try{
+            let response= await httpCommon.post("/resendOtp", resendOtp);
+            let {data}=response;
+            showToastMessage(data)
+           
+        
         }catch(err){
             console.log(err);
         }
@@ -123,6 +135,11 @@ const userEmail=useSelector(state=>state?.userEmail)
         // }else{
         //    return null; 
         // }
+    }
+
+    const handleResend=()=>{
+        const obj = { email: userEmail?.email }
+        reSendOtp(obj)
     }
     return (
         <div >
@@ -145,7 +162,7 @@ const userEmail=useSelector(state=>state?.userEmail)
                         </Grid>
                         <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
 
-                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                            <Button variant='contained' color='secondary' autoFocus onClick={handleResend}>
                                 Re send
                             </Button>
 

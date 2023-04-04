@@ -75,7 +75,6 @@ const OtpVerification = (props) => {
     const [otp, setOtp] = useState('');
 
     const dispatch = useDispatch()
-    const userEmail = useSelector(state => state?.userEmail)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -93,11 +92,11 @@ const OtpVerification = (props) => {
         props.onSubmit(true);
     }
 
-    const [userData, setUserData] = useState({});
-    const verifyOtp = async (regVerify) => {
-        try {
-            let response = await httpCommon.patch("/otpVerification", regVerify);
-            let { data } = response;
+    const userEmail=useSelector(state=>state?.userEmail)
+    const verifyOtp=async(regVerify)=>{
+        try{
+            let response= await httpCommon.patch("/otpVerification", regVerify);
+            let {data}=response;
             showToastMessage(data)
             if (data?.status === true) {
                 handleClose()
@@ -107,6 +106,18 @@ const OtpVerification = (props) => {
                 return null;
             }
         } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const reSendOtp=async(resendOtp)=>{
+        try{
+            let response= await httpCommon.post("/resendOtp", resendOtp);
+            let {data}=response;
+            showToastMessage(data)
+           
+        
+        }catch(err){
             console.log(err);
         }
     }
@@ -123,6 +134,11 @@ const OtpVerification = (props) => {
         // }else{
         //    return null; 
         // }
+    }
+
+    const handleResend=()=>{
+        const obj = { email: userEmail?.email }
+        reSendOtp(obj)
     }
     return (
         <div >
@@ -145,7 +161,7 @@ const OtpVerification = (props) => {
                         </Grid>
                         <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
 
-                            <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                            <Button variant='contained' color='secondary' autoFocus onClick={handleResend}>
                                 Re send
                             </Button>
 

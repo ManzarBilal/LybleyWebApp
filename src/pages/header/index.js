@@ -64,7 +64,7 @@ function Header(props) {
                {/* {userId ? <> <AccountCircleIcon/> </>  :  */}
                 <div>
                 
-                        {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} onSubmit1={handleOpt} /> : forget ? <ForgetPassword bool={forget} onSubmit={handleForget} /> 
+                        {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} onSubmit1={handleOpt} /> : forget ? <ForgetPassword bool={forget} onSubmit1={handleLogin} onSubmit={handleForget} /> 
                          : <Register onSubmit={handleLogin} onSubmit1={handleOpt} />}
                     </div> 
                     {/* } */}

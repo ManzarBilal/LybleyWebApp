@@ -19,8 +19,10 @@ import * as Yup from 'yup';
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { userEmail } from '@/redux/actions/userEmail';
+import httpCommon from '@/http-common';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -63,11 +65,11 @@ export default function ForgetPassword(props) {
     const [open, setOpen] = React.useState(false);
     const [emailOtp, setEmailOtp] = React.useState(true);
     const [getOtp, setGetOtp] = React.useState(false);
-    const [cngPass,setCngPass]=React.useState(false);
+    const [cngPass, setCngPass] = React.useState(false);
     const [showIcon1, setShowIcon1] = React.useState(true);
     const [showIcon2, setShowIcon2] = React.useState(true);
     const [otp, setOtp] = useState('');
-
+    const dispatch = useDispatch();
     const handleChange = (newValue) => {
         setOtp(newValue)
     }
@@ -117,6 +119,13 @@ export default function ForgetPassword(props) {
         email: Yup.string()
             .required('Email is required')
             .email('Email is invalid'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(6, 'Password must be at least 6 characters')
+            .max(40, 'Password must not exceed 40 characters'),
+        confirmPassword: Yup.string()
+            .required('Confirm Password is required')
+            .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
     });
 
     const {
@@ -128,15 +137,14 @@ export default function ForgetPassword(props) {
         resolver: yupResolver(validationSchema)
     });
 
-    const userEmail = useSelector(state => state?.userEmail)
+    const userData = useSelector(state => state?.userEmail)
+
     const verifyOtp = async (regVerify) => {
         try {
             let response = await httpCommon.patch("/otpVerification", regVerify);
             let { data } = response;
             showToastMessage(data)
             if (data?.status === true) {
-                // handleClose()
-                // handleLogin();
                 setGetOtp(false)
                 setCngPass(true)
 
@@ -148,40 +156,59 @@ export default function ForgetPassword(props) {
         }
     }
 
-    const reSendOtp = async (resendOtp) => {
+    const reSendOtp = async (resendOtp, bool) => {
+        console.log("inside resendOtp");
         try {
             let response = await httpCommon.post("/resendOtp", resendOtp);
             let { data } = response;
-            showToastMessage(data)
-
-
+            console.log(data,bool);
+            if (bool === true) {
+                showToastMessage(data)
+                if (data?.status === true) {
+                    setGetOtp(true)
+                    setEmailOtp(false)
+                }
+            }
+            else {
+                showToastMessage(data)
+            }
+            
         } catch (err) {
             console.log(err);
         }
     }
     const handleVerify = () => {
-        const obj = { email: userEmail?.email, otp: otp }
+        const obj = { email: userData?.email, otp: otp }
         verifyOtp(obj);
-        // console.log("obj",obj)
-        // dispatch(userVerification(obj))
-        // showToastMessage(userData)
-        // if(userData?.status===true){
-        //     handleClose()
-        //     handleLogin();
+    }
 
-        // }else{
-        //    return null; 
-        // }
+    const handlePassword = async (data) => {
+        try {
+            let response = await httpCommon.patch("/forgetPassword", { email: userData?.email, password: data?.password });
+            let { data } = response;
+            if (data?.status === true) {
+                showToastMessage(data);
+                setOpen(false);
+                props.onSubmit(false);
+                props.onSubmit1(true);
+            } else {
+                showToastMessage(data);
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const handleResend = () => {
-        const obj = { email: userEmail?.email }
-        reSendOtp(obj)
+        const obj = { email: userData?.email }
+        let bool = false
+        reSendOtp(obj, bool)
     }
-    const handleGetOtp = () => {
-        setGetOtp(true)
-        setEmailOtp(false)
-    
+    const handleGetOtp = data => {
+        console.log("inside handleGetOtp",data);
+        let bool = true
+        reSendOtp(data,bool );
+        dispatch(userEmail(data?.email));
     }
     return (
         <div>
@@ -225,7 +252,12 @@ export default function ForgetPassword(props) {
                                         //     </InputAdornment>
                                         // ),
                                     }}
+                                    {...register('password')}
+                                    error={errors.password ? true : false}
                                 />
+                                <Typography variant="inherit" color="red">
+                                    {errors.password?.message}
+                                </Typography>
 
                             </Grid>
                             <Grid item sm={12} md={12}>
@@ -250,15 +282,19 @@ export default function ForgetPassword(props) {
                                         //     </InputAdornment>
                                         // ),
                                     }}
+                                    {...register('confirmPassword')}
+                                    error={errors.confirmPassword ? true : false}
                                 />
-
+                                <Typography variant="inherit" color="red">
+                                    {errors.confirmPassword?.message}
+                                </Typography>
                             </Grid>
                             <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
 
                                 <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL
                                 </Button>
-                                <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleClose}>
+                                <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleSubmit(handlePassword)}>
                                     Change Password
                                 </Button>
 
@@ -267,6 +303,7 @@ export default function ForgetPassword(props) {
                             : ""
                         }
                         {emailOtp ? <div>
+                            <form>
 
                             <Grid item sm={12} md={12}>
                                 <TextField
@@ -290,11 +327,12 @@ export default function ForgetPassword(props) {
                                 <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL
                                 </Button>
-                                <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleSubmit(handleGetOtp)}>
+                                <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleSubmit(handleGetOtp)} >
                                     Get Otp
                                 </Button>
 
                             </Grid>
+                            </form>
                         </div>
                             : ""}
                         {getOtp ? <div>
@@ -313,11 +351,11 @@ export default function ForgetPassword(props) {
                             </Grid>
                         </div>
                             : ""}
-                </Grid>
+                    </Grid>
 
-            </DialogContent>
+                </DialogContent>
 
-        </BootstrapDialog>
+            </BootstrapDialog>
         </div >
     );
 }

@@ -154,11 +154,11 @@ export default function ForgetPassword(props) {
     }
 
     const reSendOtp = async (resendOtp, bool) => {
-        console.log("inside resendOtp");
+        // console.log("inside resendOtp");
         try {
             let response = await httpCommon.post("/resendOtp", resendOtp);
             let { data } = response;
-            console.log(data,bool);
+            // console.log(data,bool);
             if (bool === true) {
                 showToastMessage(data)
                 if (data?.status === true) {
@@ -206,7 +206,7 @@ export default function ForgetPassword(props) {
         reSendOtp(obj, bool)
     }
     const handleGetOtp = data => {
-        console.log("inside handleGetOtp",data);
+        // console.log("inside handleGetOtp",data);
         let bool = true
         reSendOtp(data,bool );
         dispatch(userEmail(data?.email));
@@ -226,7 +226,7 @@ export default function ForgetPassword(props) {
                 </BootstrapDialogTitle>
                 <DialogContent >
 
-                    <Grid className={`${style.mainDiv}`}>
+                    <Grid className={`${style.mainDiv} mb-3`}>
                         <Grid item sm={12} md={12}>
                             <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
                         </Grid>

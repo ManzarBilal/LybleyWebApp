@@ -115,10 +115,8 @@ export default function ForgetPassword(props) {
         }
     }
 
+   
     const validationSchema = Yup.object().shape({
-        email: Yup.string()
-            .required('Email is required')
-            .email('Email is invalid'),
         password: Yup.string()
             .required('Password is required')
             .min(6, 'Password must be at least 6 characters')
@@ -127,7 +125,6 @@ export default function ForgetPassword(props) {
             .required('Confirm Password is required')
             .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
     });
-
     const {
         register,
         control,
@@ -182,9 +179,9 @@ export default function ForgetPassword(props) {
         verifyOtp(obj);
     }
 
-    const handlePassword = async (data) => {
+    const changePassword = async (data1) => {
         try {
-            let response = await httpCommon.patch("/forgetPassword", { email: userData?.email, password: data?.password });
+            let response = await httpCommon.patch("/forgetPassword", { email: userData?.email, password: data1?.password });
             let { data } = response;
             if (data?.status === true) {
                 showToastMessage(data);
@@ -197,6 +194,10 @@ export default function ForgetPassword(props) {
         } catch (err) {
             console.log(err)
         }
+    }
+
+    const handlePassword=data=>{
+          changePassword(data)
     }
 
     const handleResend = () => {
@@ -303,36 +304,7 @@ export default function ForgetPassword(props) {
                             : ""
                         }
                         {emailOtp ? <div>
-                            <form>
-
-                            <Grid item sm={12} md={12}>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="name"
-                                    label="Email Address"
-                                    type="email"
-                                    fullWidth
-                                    variant="outlined"
-                                    size='small'
-                                    {...register('email')}
-                                    error={errors.email ? true : false}
-                                />
-                                <Typography variant="inherit" color="red">
-                                    {errors.email?.message}
-                                </Typography>
-                            </Grid>
-                            <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
-
-                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                    CANCEL
-                                </Button>
-                                <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleSubmit(handleGetOtp)} >
-                                    Get Otp
-                                </Button>
-
-                            </Grid>
-                            </form>
+                             <GetEmailOtp handleClose={handleClose} handleGetOtp={handleGetOtp} />
                         </div>
                             : ""}
                         {getOtp ? <div>
@@ -358,4 +330,56 @@ export default function ForgetPassword(props) {
             </BootstrapDialog>
         </div >
     );
+}
+
+function GetEmailOtp(props){
+
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .required('Email is required')
+            .email('Email is invalid'),
+      
+    });
+
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(validationSchema)
+    });
+    return(
+
+        <form>
+
+        <Grid item sm={12} md={12}>
+            <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="outlined"
+                size='small'
+                {...register('email')}
+                error={errors.email ? true : false}
+            />
+            <Typography variant="inherit" color="red">
+                {errors.email?.message}
+            </Typography>
+        </Grid>
+        <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+
+            <Button variant='contained' color='secondary' autoFocus onClick={props?.handleClose}>
+                CANCEL
+            </Button>
+            <Button className='ms-md-2 ' variant='contained' autoFocus onClick={handleSubmit(props?.handleGetOtp)} >
+                Get Otp
+            </Button>
+
+        </Grid>
+        </form>
+    )
 }

@@ -10,13 +10,13 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Grid, TextField, Typography } from '@mui/material';
-import { MuiOtpInput } from 'mui-one-time-password-input'
 import style from "./register.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { userVerification } from '@/redux/actions/userVerification';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import httpCommon from '@/http-common';
+import { MuiOtpInput } from 'mui-one-time-password-input';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {

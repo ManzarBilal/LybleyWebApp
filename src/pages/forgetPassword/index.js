@@ -178,7 +178,7 @@ export default function ForgetPassword(props) {
         const obj = { email: userData?.email, otp: otp }
         verifyOtp(obj);
     }
-
+``
     const changePassword = async (data1) => {
         try {
             let response = await httpCommon.patch("/forgetPassword", { email: userData?.email, password: data1?.password });

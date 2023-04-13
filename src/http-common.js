@@ -21,5 +21,5 @@ const post=(url,obj)=>{
     return axios.delete(baseUrl+url)
 }
 export default {
-get ,post,patch,put,deleteData,
+   get ,post,patch,put,deleteData,
 }

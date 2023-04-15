@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import { useState } from 'react'
 import Header from '../header'
 import Footer from '../footer'
 import Cards from '../cards'
 import Link from 'next/link'
-
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProductById } from '@/redux/actions/product';
  
  const ProductDescription = () => {
     const [imageP,setImageP]=useState(["https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
@@ -14,6 +16,18 @@ import Link from 'next/link'
 "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png",
 "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
 ])
+
+const router=useRouter();
+const {id}=router.query;
+
+    const dispatch=useDispatch();
+    const product=useSelector(state=>state?.products)
+
+    useEffect(()=>{
+       dispatch(getProductById(id));
+    },[])
+
+console.log("product",product);
   return (
     <div className='bg_image'>
     <Header />

@@ -14,3 +14,17 @@ export const getAllBrands = () => {
         }
     }
 }
+export const getBrandById = (id) => {
+    return async (dispatch) => {
+        try {
+            let response = await http.get(`/getBrandBy/${id}`);
+            dispatch({
+                type: "BRAND",
+                payload: response.data,
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+}

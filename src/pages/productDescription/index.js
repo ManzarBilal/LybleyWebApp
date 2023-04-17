@@ -36,9 +36,9 @@ console.log("product",product);
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
           </div> */}
           <div className='row'>
-            {imageP?.map((item,i)=>
+            {product.length===0 ? <h4 className='text-center'>Product Comming soon!</h4> :  product?.map((item,i)=>
             <div  className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>
-             <Link href="/productDetail"><Cards img={item} title="cooler" brand={true}/></Link> 
+             <Link className='text-decoration-none text-dark' href="/productDetail"><Cards img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true}/></Link> 
             </div>
              )}
           </div>

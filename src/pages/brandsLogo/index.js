@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrands } from '@/redux/actions/brand';
+
+
 const BrandsLogo = () => {
   const dispatch=useDispatch();
     const brandsLogo=useSelector(state=>state.brands)

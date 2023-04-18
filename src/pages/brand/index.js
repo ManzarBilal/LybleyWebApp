@@ -9,34 +9,38 @@ import Footer from '../footer';
 import { useRouter } from 'next/router';
 
 const Brand = () => {
-const router=useRouter();
-const {id}=router.query;
+  const router = useRouter();
+  const { id } = router.query;
 
-    const dispatch=useDispatch();
-    const brandsCategories=useSelector(state=>state.categories)
-    const allBrands=useSelector(state=>state?.brands)
-    let brand=allBrands?.allBrands?.find(el=>el._id===id);
+  const dispatch = useDispatch();
+  const brandsCategories = useSelector(state => state.categories)
+  const allBrands = useSelector(state => state?.brands)
+  let brand = allBrands?.allBrands?.find(el => el._id === id);
 
-    useEffect(()=>{
-       dispatch(getAllCategories(id));
-    },[])
+  useEffect(() => {
+    dispatch(getAllCategories(id));
+  }, [])
 
 
   return (
     <div className='bg_image'>
-    <Header />
-    <div className='m-5'>
-        <img src={brand?.brandLogo} alt='logo' height="100" width="200" />
-    </div>
-    <div className='container'>
-       <img src={brand?.brandBanner} alt='' width="100%" height="300" />
-       <div className='row mt-5'>
-         {brandsCategories?.length===0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories?.map(p1=>
-           <div className='col-md-3 col-6 d-flex justify-content-center mb-3'> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'><Cards img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>
-            )}
-       </div>
-    </div>
-    <Footer />
+      <Header />
+      <div className='row d-flex justify-content-center'>
+        <div className='col-8'>
+          <div className='mt-5 mb-5'>
+            <img className='rounded'  src={brand?.brandLogo} alt='logo' height="100" width="100" />
+          </div>
+          <div >
+            <img className='rounded' src={brand?.brandBanner} alt='' width="100%" height="250" />
+            <div className='row mt-5'>
+              {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories?.map(p1 =>
+                <div className='col-md-3 col-6 d-flex justify-content-center mb-3'> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'><Cards   img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </div>
   )
 }

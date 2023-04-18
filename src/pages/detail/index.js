@@ -9,11 +9,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useSelector,useDispatch } from 'react-redux';
-import {increment,decrement} from "../../redux/actions/index"
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement } from "../../redux/actions/index"
 const Detail = () => {
-  const dispatch=useDispatch();
-  const data=useSelector(state=>state.value);
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.value);
   const [videoUrl, setVideoUrl] = useState(['https://youtu.be/0BIaDVnYp2A'
     , 'https://youtu.be/0BIaDVnYp2A'
     , 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A'])
@@ -31,78 +31,81 @@ const Detail = () => {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  
+
 
   return (
     <div className="bg_image">
-      <Header detail={true}/>
-
-      <div className='container'>
-        <div className="row">
-          <div className='col-md-4 col-12 text-center'> <img src='https://5.imimg.com/data5/SELLER/Default/2021/6/ED/WN/JB/31656971/intex-air-cooler-1000x1000.png' height="350" width="300" />
-            <div className='row mt-2'>
-              <div className='col-md-12 col-12 text-center'>
-                <button className='btn btn-outline-danger btn-sm me-2' onClick={()=>dispatch(decrement(-1))}>-</button> <span className='text-dark'> {data} </span> <button className='btn btn-outline-success btn-sm ms-2' onClick={()=>dispatch(increment(1))}>+</button>
-              </div>
-            </div>
-            <div className='row mt-3'>
-              <div className='col-md-12 col-12 text-center'>
-                <button className='btn btn-primary btn_width'>BUY</button> <button className='btn btn-warning btn_width'>ADD TO CART</button>
-              </div>
-              <div className='mt-3'>
-                  <button className='btn btn-success'>Book Technician to Fit It - 300 Rs Only</button>
+      <Header detail={true} />
+      <div className='row d-flex justify-content-center'>
+        <div className='col-8'>
+          <div className='container'>
+            <div className="row">
+              <div className='col-md-4 col-12 text-center'> <img src='https://5.imimg.com/data5/SELLER/Default/2021/6/ED/WN/JB/31656971/intex-air-cooler-1000x1000.png' height="350" width="300" />
+                <div className='row mt-2'>
+                  <div className='col-md-12 col-12 text-center'>
+                    <button className='btn btn-outline-danger btn-sm me-2' onClick={() => dispatch(decrement(-1))}>-</button> <span className='text-dark'> {data} </span> <button className='btn btn-outline-success btn-sm ms-2' onClick={() => dispatch(increment(1))}>+</button>
+                  </div>
                 </div>
-            </div>
-          </div>
-          <div className='col-md-4 col-12 fw-bold text-dark'>
-            <div className='mt-5'>
-              <div>MRP - 600</div>
-              <div>Best Price - 300</div>
-              <div>
-                <h5 className='mt-3'>Product Info</h5>
-                Air Coolers · Symphony Storm C-100 XL 95 Litres Tower Air Cooler (Honeycomb Pad, ACOTO412 · Hindware Calisto 105 Litres Desert Air Cooler)
-                
+                <div className='row mt-3'>
+                  <div className='col-md-12 col-12 text-center'>
+                    <button className='btn btn-primary btn_width'>BUY</button> <button className='btn btn-warning btn_width'>ADD TO CART</button>
+                  </div>
+                  <div className='mt-3'>
+                    <button className='btn btn-success'>Book Technician to Fit It - 300 Rs Only</button>
+                  </div>
+                </div>
               </div>
+              <div className='col-md-4 col-12 fw-bold text-dark'>
+                <div className='mt-5'>
+                  <div>MRP - 600</div>
+                  <div>Best Price - 300</div>
+                  <div>
+                    <h5 className='mt-3'>Product Info</h5>
+                    Air Coolers · Symphony Storm C-100 XL 95 Litres Tower Air Cooler (Honeycomb Pad, ACOTO412 · Hindware Calisto 105 Litres Desert Air Cooler)
 
+                  </div>
+
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-          
-        <div className='row mt-2'>
-          <div className='col-9'></div>
-          <div className='col-md-3 col-12'>
-            {/* <div className='form-group'>
+
+            <div className='row mt-2'>
+              <div className='col-9'></div>
+              <div className='col-md-3 col-12'>
+                {/* <div className='form-group'>
               <select className='form-select'>
                 <option>Select Fault</option>
               </select>
             </div> */}
-            <Box  >
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Option</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Option"
-          size='small'
-          style={{backgroundColor:"white"}}
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Option1</MenuItem>
-          <MenuItem value={20}>Option2</MenuItem>
-          <MenuItem value={30}>Option3</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+                <Box  >
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Option</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Option"
+                      size='small'
+                      style={{ backgroundColor: "white" }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Option1</MenuItem>
+                      <MenuItem value={20}>Option2</MenuItem>
+                      <MenuItem value={30}>Option3</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </div>
+            </div>
+            <div className='row mt-5'>
+              {videoUrl?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
+                {hasWindow && <ReactPlayer ref={playerRef} url={url} controls height="250" width="200" />}
+
+
+              </div>))}
+
+            </div>
           </div>
-        </div>
-        <div className='row mt-5'>
-          {videoUrl?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
-            {hasWindow && <ReactPlayer ref={playerRef} url={url} controls height="250" width="200" />}
-
-
-          </div>))}
-
         </div>
       </div>
       <Footer />

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import Cards from '../cards';
- 
+import brandLogo from "../../assets/lybley_logo.png";
 const Search = () => {
+
   const [data,setData]=useState({});
   const [search,setSearch]=useState("")
   const getData=async ()=>{
@@ -13,10 +14,10 @@ const Search = () => {
      console.log(err);
     }
 }
-// console.log(data);
+// console.log(data);3eb46242aad791aefa762d89a01f631aa5c09f1c73c3bae55df33bcaaa769c33caeea5adbc48
   return (
     <div className='container'>
-    <div className='d-flex justify-content-center mt-5'><img src='https://lybley.com/APP/assets/backend/assets/images/text_only.png' height="100" width="300" className='' /></div>
+    <div className='d-flex justify-content-center mt-5'><img src="https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png" height="100" width="300" className='' alt='logo' /></div>
     <div className='row mt-5'>
       <div className='col-2'></div>
       <div className='col-8'> 

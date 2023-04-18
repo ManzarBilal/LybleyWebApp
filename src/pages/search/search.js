@@ -19,13 +19,13 @@ const Search = () => {
     <div className='container'>
     <div className='d-flex justify-content-center mt-5'><img src="https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png" height="100" width="300" className='' alt='logo' /></div>
     <div className='row mt-5'>
-      <div className='col-2'></div>
-      <div className='col-8'> 
+       
+      <div className='col-12'> 
         <div className='form-group'>
        <div className='d-flex justify-content-between'> <input type="text" className='form-control border border-2 border-dark' placeholder='Search' onChange={(e)=>setSearch(e.currentTarget.value)}/>  <button className='btn btn-primary bg-dark ms-2' onClick={getData}>Search</button></div>
         </div>       
         </div>
-      <div className='col-2'></div>
+    
     </div>
     <div className='row mt-5'>
     

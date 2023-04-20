@@ -31,24 +31,24 @@ const ProductDescription = () => {
    return (
       <div className='bg_image'>
          <Header />
-         <div className='row d-flex justify-content-center'>
-            <div className='col-8'>
-               <div className='container '>
+         <div className='container' >
+      
+              
                   {/* <div>
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
           </div> */}
-                  <div className='row'>
+                  <div className='row d-flex justify-content-center'>
                      {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product?.map((item, i) =>
                         <div className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>
-                           <Link className='text-decoration-none text-dark' href="/productDetail"><Cards img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
+                           <Link className='text-decoration-none text-dark' href={`/productDetail?id=${item?._id}`}><Cards img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
                            
                            </Link>
                            {/* <img className='img-fluid w-100' src={item?.productImage} style={{height:"280px"}} /> */}
                         </div>
                      )}
                   </div>
-               </div>
-            </div>
+              
+         
          </div>
          <Footer />
       </div>

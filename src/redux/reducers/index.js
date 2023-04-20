@@ -4,6 +4,8 @@ import userRegistration from "./userReducer";
 import allBrands from "./brandReducer";
 import allCategories from "./categoryReducer";
 import allProducts from "./productReducer";
+import allSpareParts from "./faultReducer";
+
 const { combineReducers } = require("redux");
 
 const rootReducer=combineReducers({
@@ -13,6 +15,7 @@ const rootReducer=combineReducers({
       brands:allBrands,
       categories:allCategories,
       products:allProducts,
+      spareParrts:allSpareParts,
 })
 
 export default rootReducer;

@@ -23,10 +23,11 @@ const Brand = () => {
 
 
   return (
-    <div className='bg_image'>
+    <div className='bg_image '>
       <Header />
-      <div className='row d-flex justify-content-center'>
-        <div className='col-8'>
+      <div className='container'>
+      <div className=' row d-flex justify-content-center'>
+        <div className='col-12'>
           <div className='mt-5 mb-5'>
             <img className='rounded'  src={brand?.brandLogo} alt='logo' height="100" width="100" />
           </div>
@@ -39,6 +40,7 @@ const Brand = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
       <Footer />
     </div>

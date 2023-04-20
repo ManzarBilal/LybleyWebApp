@@ -23,16 +23,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <div className='row d-flex justify-content-center'>
+      <div className='w-100 row d-flex justify-content-center'>
         <div className='col-8'>
           <div className="bg_image">
             <Search />
             <BrandsLogo />
           </div>
         </div>
-        <Footer />
-        <ToastContainer />
       </div>
+      <Footer />
+      <ToastContainer />
     </>
   )
 }

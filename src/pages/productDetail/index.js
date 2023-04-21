@@ -33,7 +33,7 @@ const ProductDetail = () => {
             <img src='https://st.depositphotos.com/1000128/2690/i/450/depositphotos_26901455-stock-photo-3d-logo.jpg' className='rounded-circle' height="200" width="200" />
             <div className='row mt-5'>
               {getSpareParts?.map(img1 =>
-                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'><Link href="/detail" className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={"Rs." + img1?.MRP} brand={true} /> </Link></div>
+                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'><Link href={`/detail?id=${img1?._id}`} className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={"Rs." + img1?.MRP} brand={true} /> </Link></div>
               )}
             </div>
 

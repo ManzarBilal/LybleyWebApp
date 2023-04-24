@@ -7,8 +7,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Link from "next/link";
 import OtpVerification from "../register/otpVerification";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Cart from "../cart";
 function Header(props) {
-    
+   
     const [show, setShow] = useState(false)
     const [forget, setForget] = useState(false)
     const [otpShow ,setOtpShow]=useState(false)
@@ -69,9 +70,7 @@ function Header(props) {
                     </div> 
                     {/* } */}
                     <div> <OtpVerification onSubmit={handleLogin} onSubmit1={handleOpt} bool={otpShow} /></div>
-                    <div className={props?.detail ? "ms-4 p-2 text-dark fw-bold" :"ms-4 p-2 text-dark fw-bold"} >
-                       <Link href="/checkout" className="text-decoration-none text-dark" > Cart <ShoppingCartIcon color={props?.detail ? "" :"white"}/></Link>
-                    </div>
+                   <Cart randomValue={props?.randomValue} />
                 </div>
             </div>
 

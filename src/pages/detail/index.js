@@ -12,10 +12,13 @@ import Select from '@mui/material/Select';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from "../../redux/actions/index"
 import { useRouter } from 'next/router';
+import { addToCart } from '@/redux/actions/addToCart';
+import { ToastContainer, toast } from 'react-toastify';
 const Detail = () => {
   const dispatch = useDispatch();
   const allSpareParts = useSelector(state => state?.spareParrts);
   const data = useSelector(state => state?.value);
+  const [randomValue,setRandomValue]=useState("") 
 
   const [videoUrl, setVideoUrl] = useState(['https://youtu.be/0BIaDVnYp2A'
     , 'https://youtu.be/0BIaDVnYp2A'
@@ -40,9 +43,19 @@ const Detail = () => {
   };
   const [mainImage, setMainImage] = useState(getSparePart?.images[0])
 
+  const handleAddToCart = (id) => {
+    let data = allSpareParts?.find(f => f?._id === id)
+    const userId =localStorage.getItem("userId")
+    let obj = { userId: userId, sparePartId: data?._id, MRP: data?.MRP, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0] }
+    dispatch(addToCart(obj)) 
+    let x = Math.floor((Math.random() * 5));
+    setRandomValue(x);
+  }
+
   return (
     <div className="bg_image">
-      <Header detail={true} />
+   
+      <Header randomValue={randomValue} detail={true} />
       <div className='container'>
         <div className="col-md-12">
           <div className="card">
@@ -54,7 +67,7 @@ const Detail = () => {
                       {getSparePart?.images?.map((img, i) => {
                         return <div className='border p-2 m-2'
                         >
-                          <img onMouseEnter={() => setMainImage(img)}onClick={() => setMainImage(img)} role='button' key={i} height={60} width={60} src={img} alt="" />
+                          <img onMouseEnter={() => setMainImage(img)} onClick={() => setMainImage(img)} role='button' key={i} height={60} width={60} src={img} alt="" />
                         </div>
                       })}
                     </div>
@@ -83,7 +96,8 @@ const Detail = () => {
                           </div>
                         </div>
                         <button className="btn btn-primary mx-1 mt-2  mt-sm-0"><i className="fa fa-heart me-1"></i> Addto Wishlist</button>
-                        <div className="btn btn-primary mx-1 mt-2 mt-sm-0 w-sm-100"><i className="fa fa-shopping-cart me-1"></i> Add to Cart</div>
+                        <div onClick={(e) => handleAddToCart(getSparePart?._id)} className="btn btn-primary mx-1 mt-2 mt-sm-0 w-sm-100"><i className="fa fa-shopping-cart me-1"></i> Add to Cart</div>
+                        <ToastContainer />
                       </div></div>
                     </div>
                   </div>

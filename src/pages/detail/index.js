@@ -2,13 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import Header from '../header';
 import Footer from '../footer';
-import ReactPlayer from 'react-player';
-import { useRef } from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from "../../redux/actions/index"
 import { useRouter } from 'next/router';
@@ -20,28 +14,14 @@ const Detail = () => {
   const data = useSelector(state => state?.value);
   const [randomValue,setRandomValue]=useState("") 
 
-  const [videoUrl, setVideoUrl] = useState(['https://youtu.be/0BIaDVnYp2A'
-    , 'https://youtu.be/0BIaDVnYp2A'
-    , 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A'])
-  const playerRef = useRef(null);
+ 
   const router = useRouter()
   const { id } = router.query;
-  const [hasWindow, setHasWindow] = useState(false);
+  
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setHasWindow(true);
-    }
-
-  }, []);
+ 
   const getSparePart = allSpareParts?.find(f => f?._id === id)
-
-  const [age, setAge] = React.useState('Option');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  const [mainImage, setMainImage] = useState(getSparePart?.images[0])
+const [mainImage, setMainImage] = useState(getSparePart?.images[0])
 
   const handleAddToCart = (id) => {
     let data = allSpareParts?.find(f => f?._id === id)
@@ -54,7 +34,6 @@ const Detail = () => {
 
   return (
     <div className="bg_image">
-   
       <Header randomValue={randomValue} detail={true} />
       <div className='container'>
         <div className="col-md-12">
@@ -105,37 +84,7 @@ const Detail = () => {
               </div>
             </div>
           </div>
-          <div>
-            <div className='row mt-5'>
-              <div className='col-9'></div>
-              <div className='col-md-3 col-12'>
-                <Box  >
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Option</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={age}
-                      label="Option"
-                      size='small'
-                      style={{ backgroundColor: "white" }}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={10}>Option1</MenuItem>
-                      <MenuItem value={20}>Option2</MenuItem>
-                      <MenuItem value={30}>Option3</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              </div>
-            </div>
-            <div className='row mt-5'>
-              {videoUrl?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
-                {hasWindow && <ReactPlayer ref={playerRef} url={url} controls height="250" width="200" />}
-              </div>))}
-
-            </div>
-          </div>
+         
         </div>
       </div>
       <Footer />

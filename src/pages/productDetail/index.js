@@ -7,6 +7,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSpareParts } from '@/redux/actions/sparePart';
+import ReactPlayer from 'react-player';
+import { useRef } from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 const ProductDetail = () => {
 
 
@@ -14,15 +21,30 @@ const ProductDetail = () => {
   const { id } = router.query;
 
   const dispatch = useDispatch();
+  const [hasWindow, setHasWindow] = useState(false);
+  const [videoUrl, setVideoUrl] = useState(['https://youtu.be/0BIaDVnYp2A'
+  , 'https://youtu.be/0BIaDVnYp2A'
+  , 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A'])
+const playerRef = useRef(null);
 
   const getSpareParts = useSelector(state => state?.spareParrts);
+
+  
+  const [age, setAge] = React.useState('Option');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+  
+  
   useEffect(() => {
 
     dispatch(getAllSpareParts(id));
-
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
   }, [dispatch])
-
-
+  
   return (
     <div className='bg_image'>
       <Header />
@@ -30,7 +52,7 @@ const ProductDetail = () => {
         <div className='row d-flex justify-content-center'>
           <div className='col-12'>
 
-            <img src='https://st.depositphotos.com/1000128/2690/i/450/depositphotos_26901455-stock-photo-3d-logo.jpg' className='rounded-circle' height="200" width="200" />
+            <img src='https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png' className='rounded-circle' height="200" width="200" />
             <div className='row mt-5'>
               {getSpareParts?.map(img1 =>
                 <div className='col-md-3 col-6 d-flex justify-content-center mb-4'><Link href={`/detail?id=${img1?._id}`} className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={"Rs." + img1?.MRP} brand={true} /> </Link></div>
@@ -39,6 +61,37 @@ const ProductDetail = () => {
 
           </div>
         </div>
+        <div>
+            <div className='row mt-5'>
+              <div className='col-9'></div>
+              <div className='col-md-3 col-12'>
+                <Box  >
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Option</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Option"
+                      size='small'
+                      style={{ backgroundColor: "white" }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Option1</MenuItem>
+                      <MenuItem value={20}>Option2</MenuItem>
+                      <MenuItem value={30}>Option3</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </div>
+            </div>
+            <div className='row mt-5'>
+              {videoUrl?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
+                {hasWindow && <ReactPlayer ref={playerRef} url={url} controls height="250" width="200" />}
+              </div>))}
+
+            </div>
+          </div>
       </div>
       <Footer />
     </div>

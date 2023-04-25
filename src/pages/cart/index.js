@@ -60,7 +60,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function Cart(props) {
-   
+
     const showToastMessage = (data) => {
         // console.log(data?.status)
         if (data?.status === true)
@@ -75,10 +75,10 @@ export default function Cart(props) {
     }
 
     const [randomValue, setRandomValue] = React.useState(props?.randomValue)
-    const [total, setTotal] = React.useState("")
+    
     const [cartItems, setCartItems] = React.useState([])
-    const [open, setOpen] = React.useState(props?.bool);
-    const [showIcon, setShowIcon] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
+   
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -88,11 +88,8 @@ export default function Cart(props) {
 
     React.useEffect(() => {
         getCartItems()
-    }, [props.randomValue])
-    // const totalCartPrice = cartItems.reduce(
-    //     (previousScore, currentScore, index) => previousScore + (+currentScore?.MRP),
-    //     0);
-    // setTotal(totalCartPrice)
+    }, [props?.randomValue])
+     
     const getCartItems = async () => {
         try {
             let userId = localStorage.getItem("userId")
@@ -106,18 +103,21 @@ export default function Cart(props) {
     }
 
     const removeCartItems = async (id) => {
+        console.log(id);
         try {
             let response = await httpCommon.deleteData(`/deleteCartItemBy/${id}`);
             let { data } = response;
             setCartItems(data)
             let x = Math.floor((Math.random() * 10) + 1);
             setRandomValue(x);
+            getCartItems()
             showToastMessage(data)
         } catch (err) {
             console.log(err);
         }
     }
 
+    var totalPrice=0;
     return (
         <div>
             <Button onClick={handleClickOpen}>
@@ -140,7 +140,9 @@ export default function Cart(props) {
                     <Grid className={`${style.mainDiv}`}>
 
                         {cartItems && cartItems.length > 0 ? cartItems?.map((item, i) => {
-                            return (<>
+                            totalPrice +=+item?.MRP;
+                            return (
+                            <>
                                 <Grid item sm={12} md={12} key={i}>
                                     <div key={'ffff'} className="card border-1 mb-1">
                                         <div className="card-body d-flex align-items-center flex-column flex-md-row">
@@ -175,29 +177,31 @@ export default function Cart(props) {
                         })
 
                             :
-                            <div className='text-center'>Your Cart is empty please add to cart</div>}
+                            <Grid item sm={12} md={12}>
+                                <div className='text-center'>Your Cart is empty please add to cart</div>
+                            </Grid>
+                        }
                         <Grid item sm={12} md={12}>
                             <div className='p-3 d-flex justify-content-between' >
                                 <div className='fw-bold' >TOTAL</div>
-                                <div className='fw-bold'>Rs. {total} </div>
+                                <div className='fw-bold'>Rs. {totalPrice} </div>
                             </div>
                         </Grid>
-                        <Grid item sm={12} md={12}>
-                            <Grid item sm={12} md={12}  >
-                                <div className='w-100'>
-                                    <div className='row'>
-                                        <div className=' col-12 mb-2 d-flex justify-content-between'>
-                                            <Button size='small' variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                                CANCEL
-                                            </Button>
-                                            <Button className='ms-md-4' size='small' variant='contained' autoFocus  >
-                                                Buy Now
-                                            </Button>
-                                            <ToastContainer />
-                                        </div>
-                                    </div >
+
+                        <Grid item sm={12} md={12}  >
+
+                            <div className='row '>
+                                <div className=' col-12 mb-2 d-flex justify-content-between'>
+                                    <Button size='small' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                        CANCEL
+                                    </Button>
+                                    <Button className='ms-md-4 ' size='small' variant='contained' autoFocus  >
+                                        Buy Now
+                                    </Button>
                                 </div>
-                            </Grid>
+                            </div>
+                            <ToastContainer />
+
                         </Grid>
 
                     </Grid>

@@ -5,6 +5,7 @@ import allBrands from "./brandReducer";
 import allCategories from "./categoryReducer";
 import allProducts from "./productReducer";
 import allSpareParts from "./faultReducer";
+import addToCart from "./cartReducer";
 
 const { combineReducers } = require("redux");
 
@@ -16,6 +17,7 @@ const rootReducer=combineReducers({
       categories:allCategories,
       products:allProducts,
       spareParrts:allSpareParts,
+      cartItems:addToCart,
 })
 
 export default rootReducer;

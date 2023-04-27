@@ -132,9 +132,7 @@ export default function Login(props) {
         let obj = { email: data?.email, password: data?.password }
        dispatch(userEmail(data?.email));
        login(obj);
-        // if (userData?.msg) {
-        //     showToastMessage(userData)
-        // }
+         
     }
 
     const validationSchema = Yup.object().shape({

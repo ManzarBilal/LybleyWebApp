@@ -45,6 +45,7 @@ const playerRef = useRef(null);
     }
   }, [dispatch])
   
+  console.log("getSpareParts");
   return (
     <div className='bg_image'>
       <Header />
@@ -54,8 +55,10 @@ const playerRef = useRef(null);
 
             <img src='https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png' className='rounded-circle' height="200" width="200" />
             <div className='row mt-5'>
-              {getSpareParts?.map(img1 =>
-                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'><Link href={`/detail?id=${img1?._id}`} className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={"Rs." + img1?.MRP} brand={true} /> </Link></div>
+            <div className='mb-3'><h2>Spare Parts</h2></div>
+
+              {getSpareParts?.map((img1,i) =>
+                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'key={i} ><Link href={`/detail?id=${img1?._id}`} className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={"Rs." + img1?.MRP} brand={true} /> </Link></div>
               )}
             </div>
 

@@ -23,8 +23,10 @@ const Detail = () => {
   const [loading, setLoading] = useState(false);
 
   const getSparePart = allSpareParts?.find(f => f?._id === id)
-  console.log(getSparePart);
-  const [mainImage, setMainImage] = useState(getSparePart?.images[0])
+
+   
+const [mainImage, setMainImage] = useState(getSparePart?.images[0])
+ 
 
   const handleAddToCart = (id) => {
     let data = allSpareParts?.find(f => f?._id === id)
@@ -48,15 +50,15 @@ const Detail = () => {
                   <div className="col-lg-6 mt-3 mb-3 d-flex justify-content-between align-items-center "  >
                     <div className=" nav flex-column "  >
                       {getSparePart?.images?.map((img, i) => {
-                        return <div className='border p-2 m-2'
+                        return <div className='border p-2 m-2' key={i}
                         >
-                          <img onMouseEnter={() => setMainImage(img)} onClick={() => setMainImage(img)} role='button' key={i} height={60} width={60} src={img} alt="" />
+                          <img onMouseEnter={() => setMainImage(img)} onClick={() => setMainImage(img)} role='button'  height={60} width={60} src={img} alt="" />
                         </div>
                       })}
                     </div>
                     <div className="product-image pe-5">
                       <div   >
-                        <img height={250} width={300} src={mainImage} alt="" />
+                        <img height={250} width={300} src={mainImage?.length>0 ? mainImage : getSparePart?.images[0]} alt="" />
                       </div>
                       {/* <div className='mt-3'>
                         <button className='btn btn-success'>Book Technician to Fit It - 300 Rs Only</button>

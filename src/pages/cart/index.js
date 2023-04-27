@@ -121,13 +121,13 @@ export default function Cart(props) {
     }
 
     var totalPrice=0;
-    let tot=cartItems.map(c1=>({totPrice:c1.MRP*c1.quantity}));
+    let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity})):""
     return (
         <div>
             <Button onClick={handleClickOpen}>
                 <div className={props?.detail ? "ms-4 p-2 text-dark fw-bold d-flex" : "d-flex ms-4 p-2 text-dark fw-bold"} >
                     <div className='me-2'>Cart</div>
-                    <Badge badgeContent={cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0)} color='secondary'>
+                    <Badge badgeContent={cartItems && cartItems.length>0 ?cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0):"0"} color='secondary'>
                         <ShoppingCartIcon color={props?.detail ? "" : "white"} />
                     </Badge>
                 </div>
@@ -138,7 +138,7 @@ export default function Cart(props) {
                 open={open}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Cart Item ({cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0)})
+                    Cart Item ({cartItems && cartItems.length>0 ?cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0):"0"})
                 </BootstrapDialogTitle>
                 <DialogContent >
                     <Grid className={`${style.mainDiv}`}>
@@ -188,7 +188,7 @@ export default function Cart(props) {
                         <Grid item sm={12} md={12}>
                             <div className='p-3 d-flex justify-content-between' >
                                 <div className='fw-bold' >TOTAL</div>
-                                <div className='fw-bold'>Rs. {tot?.reduce((acc,curr)=> (acc+curr?.totPrice) , 0)} </div>
+                                <div className='fw-bold'>Rs. {tot && tot.length>0 ? tot?.reduce((acc,curr)=> (acc+curr?.totPrice) , 0):"0"} </div>
                             </div>
                         </Grid>
 

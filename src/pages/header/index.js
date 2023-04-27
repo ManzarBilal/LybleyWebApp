@@ -66,7 +66,7 @@ function Header(props) {
       <div className="d-flex  justify-content-end  p-4">
         {  userData === null ?
          
-         <div className="d-flex" >
+         <div className="d-flex align-items-center">
             {/* {userId ? <> <AccountCircleIcon/> </>  :  */}
             <div>
 

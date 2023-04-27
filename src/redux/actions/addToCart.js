@@ -17,6 +17,33 @@ export const getCartItems = (id) => {
     }
 }
  
+export const handleQuantity = (cartData) => {
+    return (dispatch) => {
+            dispatch({
+                type: "QUANTITY",
+                payload: cartData, 
+            })
+    }
+}
+
+export const addCart = (cartData) => {
+    return (dispatch) => {
+            dispatch({
+                type: "ADD_CART",
+                payload: cartData, 
+            })
+    }
+}
+
+export const deleteCart = (cartData) => {
+    return (dispatch) => {
+            dispatch({
+                type: "DELETE_CART",
+                payload: cartData, 
+            })
+    }
+}
+
 export const addToCart = (cartData) => {
     return async (dispatch) => {
         try {

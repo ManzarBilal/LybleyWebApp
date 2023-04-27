@@ -7,6 +7,15 @@ export const increment=(value)=>{
     }
 }
 
+export const setOne=(value)=>{
+    return (dispatch)=>{
+        dispatch({
+        type:"SETONE",
+        payload:value
+    })
+    }
+}
+
 export const decrement=(value)=>{
     return (dispatch)=>{
         dispatch({

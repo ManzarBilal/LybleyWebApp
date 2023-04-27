@@ -19,7 +19,8 @@ import httpCommon from '@/http-common';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from 'next/link';
-import { getCartItems } from '@/redux/actions/addToCart';
+import { deleteCart, getCartItems, handleQuantity } from '@/redux/actions/addToCart';
+import { decrement } from '@/redux/actions';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -60,7 +61,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function Cart(props) {
-
+    let dispatch=useDispatch();
     const showToastMessage = (data) => {
         // console.log(data?.status)
         if (data?.status === true)
@@ -75,8 +76,10 @@ export default function Cart(props) {
     }
 
     const [randomValue, setRandomValue] = React.useState(props?.randomValue)
-    
-    const [cartItems, setCartItems] = React.useState([])
+    const qty = useSelector(state => state?.value);
+    const cartItems=useSelector(state=>state?.cartItems);
+    console.log(cartItems);
+    const [cartItem, setCartItems] = React.useState([])
     const [open, setOpen] = React.useState(false);
    
     const handleClickOpen = () => {
@@ -118,12 +121,13 @@ export default function Cart(props) {
     }
 
     var totalPrice=0;
+    let tot=cartItems.map(c1=>({totPrice:c1.MRP*c1.quantity}));
     return (
         <div>
             <Button onClick={handleClickOpen}>
                 <div className={props?.detail ? "ms-4 p-2 text-dark fw-bold d-flex" : "d-flex ms-4 p-2 text-dark fw-bold"} >
                     <div className='me-2'>Cart</div>
-                    <Badge badgeContent={cartItems && cartItems.length > 0 ? cartItems.length : "0"} color='secondary'>
+                    <Badge badgeContent={cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0)} color='secondary'>
                         <ShoppingCartIcon color={props?.detail ? "" : "white"} />
                     </Badge>
                 </div>
@@ -134,7 +138,7 @@ export default function Cart(props) {
                 open={open}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Cart Item ( {cartItems?.length > 0 ? cartItems?.length : "0"} )
+                    Cart Item ({cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0)})
                 </BootstrapDialogTitle>
                 <DialogContent >
                     <Grid className={`${style.mainDiv}`}>
@@ -156,14 +160,14 @@ export default function Cart(props) {
                                                         <div className=""> {item?.sparePartName}</div>
                                                         {/* <strong>12:30pm</strong> */}
                                                         <div className='mt-2'>
-                                                            <button className='btn btn-danger btn-sm me-2'  >-</button> <span className='text-dark'> {"0"} </span> <button className='btn btn-success btn-sm ms-2'  >+</button>
+                                                            <button className='btn btn-danger btn-sm me-2' onClick={()=>dispatch(handleQuantity({sparePartId:item?.sparePartId,quantity:-1,MRP:-item?.MRP}))} >-</button> <span className='text-dark'> {item?.quantity} </span> <button className='btn btn-success btn-sm ms-2' onClick={()=>dispatch(handleQuantity({sparePartId:item?.sparePartId,quantity:1,MRP:item?.MRP}))}  >+</button>
                                                         </div>
                                                     </div>
 
                                                     <div className=' ' >
                                                         <div className="">MRP</div>
-                                                        <div className='mt-2'> <strong>Rs. {item?.MRP} </strong>  </div>
-                                                        <div className='d-flex justify-content-center' ><button className='btn btn-danger btn-sm' onClick={() => removeCartItems(item?._id)} >remove</button> </div>
+                                                        <div className='mt-2'> <strong>Rs. {item?.MRP*item?.quantity} </strong>  </div>
+                                                        <div className='d-flex justify-content-center' ><button className='btn btn-danger btn-sm' onClick={() => dispatch(deleteCart({sparePartId:item?.sparePartId}))} >remove</button> </div>
                                                     </div>
 
                                                 </div>
@@ -184,7 +188,7 @@ export default function Cart(props) {
                         <Grid item sm={12} md={12}>
                             <div className='p-3 d-flex justify-content-between' >
                                 <div className='fw-bold' >TOTAL</div>
-                                <div className='fw-bold'>Rs. {totalPrice} </div>
+                                <div className='fw-bold'>Rs. {tot?.reduce((acc,curr)=> (acc+curr?.totPrice) , 0)} </div>
                             </div>
                         </Grid>
 

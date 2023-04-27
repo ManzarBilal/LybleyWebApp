@@ -38,6 +38,7 @@ const ProductDescription = () => {
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
           </div> */}
                   <div className='row d-flex justify-content-center'>
+            <div className='mb-3'><h2>Products</h2></div>
                      {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product?.map((item, i) =>
                         <div className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>
                            <Link className='text-decoration-none text-dark' href={`/productDetail?id=${item?._id}`}><Cards img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />

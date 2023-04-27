@@ -11,10 +11,16 @@ import Cart from "../cart";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 function Header(props) {
-
+  const showToastMessage = ( ) => {
+  
+        toast.success(` Logout Successefully !`, {
+            position: toast.POSITION.TOP_CENTER
+        });
+   
+}
   const [show, setShow] = useState(false)
   const [forget, setForget] = useState(false)
   const [otpShow, setOtpShow] = useState(false)
@@ -45,6 +51,7 @@ function Header(props) {
     let x = Math.floor((Math.random() * 10) + 1);
     setRandomValue(x);
     handleClose()
+    showToastMessage()
   }
   useEffect(() => {
     if (typeof window !== 'undefined') {

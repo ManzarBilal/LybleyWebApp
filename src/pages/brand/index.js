@@ -21,7 +21,7 @@ const Brand = () => {
     dispatch(getAllCategories(id));
   }, [])
 
-
+console.log(brandsCategories,"brandsCategories");
   return (
     <div className='bg_image '>
       <Header />
@@ -32,8 +32,10 @@ const Brand = () => {
             <img className='rounded'  src={brand?.brandLogo} alt='logo' height="100" width="100" />
           </div>
           <div >
+            
             <img className='rounded' src={brand?.brandBanner} alt='' width="100%" height="250" />
             <div className='row mt-5'>
+            <div className='mb-3'><h2>Categories</h2></div>
               {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories?.map(p1 =>
                 <div className='col-md-3 col-6 d-flex justify-content-center mb-3'> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'><Cards   img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>
               )}

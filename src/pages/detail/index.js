@@ -9,8 +9,10 @@ import { useRouter } from 'next/router';
 import { addToCart, addCart } from '@/redux/actions/addToCart';
 import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
+import { handleCheckout } from '@/redux/actions/checkout';
 const Detail = () => {
   const dispatch = useDispatch();
+  const [showLogin,setShowLogin]=useState(false);
   const allSpareParts = useSelector(state => state?.spareParrts);
   const qty = useSelector(state => state?.value);
   const [randomValue, setRandomValue] = useState("")
@@ -38,9 +40,20 @@ const Detail = () => {
     setRandomValue(x);
   }
 
+  const handleBuy=()=>{    
+    const userId = localStorage.getItem("userId")
+    if(userId){
+    let obj = { userId: userId, brandId: getSparePart?.userId, sparePartId: getSparePart?._id, MRP: getSparePart?.MRP, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
+     dispatch(handleCheckout([obj]));
+     router.push("/checkout");
+    }else{
+      setShowLogin(true);
+    }
+  }
+
   return (
     <div className="bg_image">
-      <Header randomValue={randomValue} detail={true} />
+      <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
       <div className='container'>
         <h2 className='mb-3 fw-bold'>Product Detail</h2>
         <div className="col-md-12">
@@ -86,8 +99,8 @@ const Detail = () => {
                         <ToastContainer />
                       </div></div>
                       <div className='d-flex'>
-                        <div className='w-75 '> <Link href="/checkout" >
-                          <button className="btn btn-warning mt-2 w-100 mt-sm-0"><i className="fa fa-heart me-1"></i> BUY</button></Link>
+                        <div className='w-75 '>
+                          <button className="btn btn-warning mt-2 w-100 mt-sm-0" onClick={handleBuy}><i className="fa fa-heart me-1"></i> BUY</button>
                         </div>
                         <div onClick={(e) => handleAddToCart(getSparePart?._id)} className="btn btn-primary mx-1 mt-2 mt-sm-0 w-75"><i className="fa fa-shopping-cart me-1"></i> Add to Cart</div>
                       </div>

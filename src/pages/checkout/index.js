@@ -1,6 +1,11 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.css"
+import { useSelector } from 'react-redux'
+
 const Checkout = () => {
+  const data = useSelector(state=>state.checkoutData)
+  console.log("checkout",data);
+  let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}))
   return (
     <>
       <div className='bg-light'>
@@ -16,14 +21,15 @@ const Checkout = () => {
                 <span className="badge badge-primary badge-pill">3</span>
               </h4>
               <ul className="list-group mb-3">
+                {data?.map(d1=>
                 <li className="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
-                    <h6 className="my-0">Product name</h6>
-                    <small className="text-muted">Brief description</small>
+                    <h6 className="my-0">{d1?.sparePartName}</h6>
+                    <small className="text-muted">Quantity : {d1?.quantity}</small>
                   </div>
-                  <span className="text-muted">$12</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
+                  <span className="text-muted">RS.{d1?.MRP*d1?.quantity}</span>
+                </li>)}
+                {/* <li className="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
                     <h6 className="my-0">Second product</h6>
                     <small className="text-muted">Brief description</small>
@@ -36,20 +42,20 @@ const Checkout = () => {
                     <small className="text-muted">Brief description</small>
                   </div>
                   <span className="text-muted">$5</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between bg-light">
+                </li> */}
+                {/* <li className="list-group-item d-flex justify-content-between bg-light">
                   <div className="text-success">
                     <h6 className="my-0">Promo code</h6>
                     <small>EXAMPLECODE</small>
                   </div>
                   <span className="text-success">-$5</span>
-                </li>
+                </li> */}
                 <li className="list-group-item d-flex justify-content-between">
-                  <span>Total (USD)</span>
-                  <strong>$20</strong>
+                  <span>Total (INR)</span>
+                  <strong>RS.{data1?.reduce((acc,curr)=>acc+curr.totPrice ,0)}</strong>
                 </li>
               </ul>
-              <form className="card p-2">
+              {/* <form className="card p-2">
                 <div className="input-group">
                   <input
                     type="text"
@@ -62,7 +68,7 @@ const Checkout = () => {
                     </button>
                   </div>
                 </div>
-              </form>
+              </form> */}
             </div>
             <div className="col-md-8 order-md-1">
               <h4 className="mb-3">Billing address</h4>
@@ -95,7 +101,7 @@ const Checkout = () => {
                     <div className="invalid-feedback">Valid last name is required.</div>
                   </div>
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label htmlFor="username">Username</label>
                   <div className="input-group">
                     <div className="input-group-prepend">
@@ -112,7 +118,7 @@ const Checkout = () => {
                       Your username is required.
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="mb-3">
                   <label htmlFor="email">
                     Email <span className="text-muted">(Optional)</span>
@@ -153,35 +159,35 @@ const Checkout = () => {
                 </div>
                 <div className="row">
                   <div className="col-md-5 mb-3">
-                    <label htmlFor="country">Country</label>
+                    <label htmlFor="country">State</label>
                     <select
                       className="form-select d-block w-100"
                       id="country"
                       required=""
                     >
                       <option value="">Choose...</option>
-                      <option>United States</option>
+                      <option>UP</option>
                     </select>
                     <div className="invalid-feedback">
                       Please select a valid country.
                     </div>
                   </div>
                   <div className="col-md-4 mb-3">
-                    <label htmlFor="state">State</label>
+                    <label htmlFor="state">City</label>
                     <select
                       className="form-select d-block w-100"
                       id="state"
                       required=""
                     >
                       <option value="">Choose...</option>
-                      <option>California</option>
+                      <option>Noida</option>
                     </select>
                     <div className="invalid-feedback">
                       Please provide a valid state.
                     </div>
                   </div>
                   <div className="col-md-3 mb-3">
-                    <label htmlFor="zip">Zip</label>
+                    <label htmlFor="zip">Pin</label>
                     <input
                       type="text"
                       className="form-control"

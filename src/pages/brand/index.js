@@ -7,6 +7,7 @@ import Header from '../header';
 import Cards from '../cards';
 import Footer from '../footer';
 import { useRouter } from 'next/router';
+import httpCommon from '@/http-common';
 
 const Brand = () => {
   const router = useRouter();
@@ -14,12 +15,14 @@ const Brand = () => {
 
   const dispatch = useDispatch();
   const brandsCategories = useSelector(state => state.categories)
+  console.log("brandCategories",brandsCategories)
   const allBrands = useSelector(state => state?.brands)
   let brand = allBrands?.allBrands?.find(el => el._id === id);
 
   useEffect(() => {
-    dispatch(getAllCategories(id));
-  }, [])
+   dispatch(getAllCategories(id));
+  }, [dispatch]);
+
 
 console.log(brandsCategories,"brandsCategories");
   return (

@@ -21,6 +21,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Link from 'next/link';
 import { deleteCart, getCartItems, handleQuantity } from '@/redux/actions/addToCart';
 import { decrement } from '@/redux/actions';
+import { handleCheckout } from '@/redux/actions/checkout';
+import { useRouter } from 'next/router';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -78,10 +80,12 @@ export default function Cart(props) {
     const [randomValue, setRandomValue] = React.useState(props?.randomValue)
     const qty = useSelector(state => state?.value);
     const cartItems=useSelector(state=>state?.cartItems);
-    console.log(cartItems);
-    const [cartItem, setCartItems] = React.useState([])
+    const router=useRouter()
+    console.log("cartItems",cartItems);
+
+    const [cartItem, setCartItems] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-   
+    const {user}=props;
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -120,6 +124,16 @@ export default function Cart(props) {
         }
     }
 
+    const checkout=()=>{
+        if(user){
+        dispatch(handleCheckout(cartItems));
+        setOpen(false);
+        router.push("/checkout");
+        }else{
+            props?.onSubmit(true);
+        }
+    }
+
     var totalPrice=0;
     let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity})):""
     return (
@@ -151,7 +165,7 @@ export default function Cart(props) {
                                     <div key={'ffff'} className="card border-1 mb-1">
                                         <div className="card-body d-flex align-items-center flex-column flex-md-row">
                                             <div>
-                                                <img className="w120 rounded img-fluid" src={item?.sparePartImage} alt="" style={{ height: "100px" }} />
+                                                <img className="rounded img-fluid" src={item?.sparePartImage} alt="" style={{ height: "100px",width:"140px" }} />
                                             </div>
                                             <div className="ms-md-4 m-0 mt-4 mt-md-0 text-md-start text-center w-100">
                                                 {/* <div><h6 className="mb-3 fw-bold"> product Name<span className="text-muted small fw-light d-block">description</span></h6></div> */}
@@ -199,7 +213,7 @@ export default function Cart(props) {
                                     <Button size='small' variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                         CANCEL
                                     </Button>
-                                    <Button className='ms-md-4 ' size='small' variant='contained' autoFocus  >
+                                    <Button className='ms-md-4 ' size='small' variant='contained' autoFocus onClick={checkout} >
                                         Buy Now
                                     </Button>
                                 </div>

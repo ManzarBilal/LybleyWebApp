@@ -127,6 +127,12 @@ export default function Login(props) {
             console.log(err);
         }
     }
+
+const handleRegister=()=>{
+    props.onSubmit(false);
+    props?.setOpen1(true)
+}
+
     const submit = data => {
 
         let obj = { email: data?.email, password: data?.password }
@@ -234,6 +240,9 @@ export default function Login(props) {
                                         </div>
                                     </div >
                                 </div>
+                            </Grid>
+                            <Grid item sm={12} md={12} mt={1}  sx={{ display: "flex", justifyContent: "center" }} >
+                                <Button variant='outlined'onClick={handleRegister} >Create account</Button>
                             </Grid>
                         </Grid>
                     </Grid>

@@ -88,9 +88,11 @@ export default function Register(props) {
     };
     const handleClose = () => {
         setOpen(false);
+        props?.setOpen1(false)
     };
     const handleLogin = () => {
         setOpen(false);
+        props?.setOpen1(false)
         props.onSubmit(true);
     }
     const passwordVisibility1 = () => {
@@ -183,7 +185,7 @@ const userRegistration=async(registration)=>{
                     <BootstrapDialog
                         onClose={handleClose}
                         aria-labelledby="customized-dialog-title"
-                        open={open}
+                        open={props?.open || open}
                     >
                         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
                             Sign Up

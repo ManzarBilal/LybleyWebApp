@@ -21,6 +21,7 @@ function Header(props) {
         });
    
 }
+  const [open1, setOpen1] = useState(false)
   const [show, setShow] = useState(false)
   const [forget, setForget] = useState(false)
   const [otpShow, setOtpShow] = useState(false)
@@ -28,6 +29,7 @@ function Header(props) {
   const [randomValue, setRandomValue] = useState("")
   const handleLogin = (bool) => {
     setShow(bool);
+    props.setShowLogin(false);
     let x = Math.floor((Math.random() * 10) + 1);
     setRandomValue(x);
   }
@@ -70,13 +72,12 @@ function Header(props) {
             {/* {userId ? <> <AccountCircleIcon/> </>  :  */}
             <div>
 
-              {show ? <Login onForget={handleForget} onSubmit={handleLogin} bool={show} onSubmit1={handleOpt} /> : forget ? <ForgetPassword bool={forget} onSubmit1={handleLogin} onSubmit={handleForget} />
-                : <Register onSubmit={handleLogin} onSubmit1={handleOpt} />}
+              {(props?.bool ? props?.bool : show) ? <Login setOpen1={setOpen1} onForget={handleForget} onSubmit={handleLogin} bool={props?.bool ? props?.bool : show} onSubmit1={handleOpt} /> : forget ? <ForgetPassword bool={forget} onSubmit1={handleLogin} onSubmit={handleForget} />
+                : <Register open={open1} setOpen1={setOpen1} onSubmit={handleLogin} onSubmit1={handleOpt} />}
             </div>
             {/* } */}
             <div>
               <div> <OtpVerification onSubmit={handleLogin} onSubmit1={handleOpt} bool={otpShow} /></div>
-              <Cart randomValue={props?.randomValue} />
             </div>
           </div>
           :
@@ -104,10 +105,11 @@ function Header(props) {
             <MenuItem onClick={handleClose}>Order</MenuItem>
             <MenuItem onClick={handleLogout} >Logout</MenuItem>
           </Menu>
-          <Cart randomValue={props?.randomValue} />
+          
 
         </>
         }
+        <Cart user={userData} randomValue={props?.randomValue} onSubmit={handleLogin} />
         <ToastContainer />
       </div>
 

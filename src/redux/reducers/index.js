@@ -6,6 +6,7 @@ import allCategories from "./categoryReducer";
 import allProducts from "./productReducer";
 import allSpareParts from "./faultReducer";
 import addToCart from "./cartReducer";
+import checkout from "./checkoutReducer";
 
 const { combineReducers } = require("redux");
 
@@ -18,6 +19,7 @@ const rootReducer=combineReducers({
       products:allProducts,
       spareParrts:allSpareParts,
       cartItems:addToCart,
+      checkoutData:checkout
 })
 
 export default rootReducer;

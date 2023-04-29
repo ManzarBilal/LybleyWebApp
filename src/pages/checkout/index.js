@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import { useSelector } from 'react-redux'
 import httpCommon from '@/http-common'
@@ -57,19 +57,33 @@ BootstrapDialogTitle.propTypes = {
 
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
-  const data = useSelector(state => state.checkoutData)
-  const [pin, setPin] = useState("");
-  const [checkoutData, setCheckoutData] = useState({
-    firstName: "",
-    lastName: "",
-    contact: "",
-    email: "",
-    address: "",
-    address2: "",
-    state: "",
-    city: ""
-  })
-  let data1 = data?.map(c1 => ({ totPrice: c1?.MRP * c1?.quantity }));
+    const data = useSelector(state=>state.checkoutData)
+    const [pin,setPin]=useState("");
+    const [checkoutData,setCheckoutData]=useState({
+      firstName:"",
+      contact:"",
+      email:"",
+      address:"",
+      address2:"",
+      state:"",
+      city:""
+    })
+    let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
+
+    useEffect(()=>{
+       getUserDetail();
+    },[]);
+
+    const getUserDetail=async()=>{
+      try{
+         const userId=localStorage.getItem("userId");
+         let response=await httpCommon.get(`/userDetail/${userId}`);
+         let {data}=response;
+         setCheckoutData({...checkoutData,firstName:data?.name,contact:data?.contact,email:data?.email});
+         }catch(err){s
+          console.log(err);
+         }
+    }
 
   const handleChange = (e) => {
     const { currentTarget: input } = e;
@@ -99,7 +113,7 @@ const Checkout = () => {
     getStateAndCity(e.currentTarget.value);
   };
 
-  let { firstName, lastName, contact, email, address, address2, state, city } = checkoutData;
+   let {firstName,contact,email,address,address2,state,city}=checkoutData;
   return (
     <>
       <div className='bg-light'>
@@ -186,20 +200,22 @@ const Checkout = () => {
                     </div>
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label htmlFor="lastName">Last name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="lastName"
-                      placeholder=""
-                      defaultValue=""
-                      name="lastName"
-                      value={lastName}
-                      onChange={handleChange}
-                      required=""
-                    />
-                    <div className="invalid-feedback">Valid last name is required.</div>
+                  <label htmlFor="email">
+                    Contact <span className="text-muted"></span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="contact"
+                    placeholder=""
+                    name="contact"
+                    value={contact}
+                    onChange={handleChange}
+                  />
+                  <div className="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
                   </div>
+                </div>
                 </div>
                 {/* <div className="mb-3">
                   <label htmlFor="username">Username</label>
@@ -219,40 +235,21 @@ const Checkout = () => {
                     </div>
                   </div>
                 </div> */}
-                <div className='row'>
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="email">
-                      Contact No. <span className="text-muted"></span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="contact"
-                      placeholder=""
-                      name="contact"
-                      value={contact}
-                      onChange={handleChange}
-                    />
-                    <div className="invalid-feedback">
-                      Please enter a valid email address for shipping updates.
-                    </div>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="email">
-                      Email <span className="text-muted">(Optional)</span>
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      placeholder="you@example.com"
-                      name="email"
-                      value={email}
-                      onChange={handleChange}
-                    />
-                    <div className="invalid-feedback">
-                      Please enter a valid email address for shipping updates.
-                    </div>
+                <div className="mb-3">
+                  <label htmlFor="email">
+                    Email <span className="text-muted">(Optional)</span>
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="you@example.com"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                  />
+                  <div className="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
                   </div>
                 </div>
                 <div className="mb-3">

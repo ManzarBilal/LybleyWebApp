@@ -21,6 +21,68 @@ const Checkout = () => {
       console.log(err);
     }
   }
+import PropTypes from 'prop-types';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { Grid } from '@mui/material';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+function BootstrapDialogTitle(props) {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+}
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
+
+
+const Checkout = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+
+  };
+  const data = useSelector(state => state.checkoutData)
+  console.log("checkout", data);
+  let data1 = data?.map(c1 => ({ totPrice: c1?.MRP * c1?.quantity }))
   return (
     <>
       <div className='bg-light'>
@@ -36,14 +98,14 @@ const Checkout = () => {
                 <span className="badge badge-primary badge-pill">3</span>
               </h4>
               <ul className="list-group mb-3">
-                {data?.map(d1=>
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                  <div>
-                    <h6 className="my-0">{d1?.sparePartName}</h6>
-                    <small className="text-muted">Quantity : {d1?.quantity}</small>
-                  </div>
-                  <span className="text-muted">RS.{d1?.MRP*d1?.quantity}</span>
-                </li>)}
+                {data?.map(d1 =>
+                  <li className="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                      <h6 className="my-0">{d1?.sparePartName}</h6>
+                      <small className="text-muted">Quantity : {d1?.quantity}</small>
+                    </div>
+                    <span className="text-muted">RS.{d1?.MRP * d1?.quantity}</span>
+                  </li>)}
                 {/* <li className="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
                     <h6 className="my-0">Second product</h6>
@@ -67,7 +129,7 @@ const Checkout = () => {
                 </li> */}
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Total (INR)</span>
-                  <strong>RS.{data1?.reduce((acc,curr)=>acc+curr.totPrice ,0)}</strong>
+                  <strong>RS.{data1?.reduce((acc, curr) => acc + curr.totPrice, 0)}</strong>
                 </li>
               </ul>
               {/* <form className="card p-2">
@@ -87,7 +149,7 @@ const Checkout = () => {
             </div>
             <div className="col-md-8 order-md-1">
               <h4 className="mb-3">Billing address</h4>
-              <form className="needs-validation" noValidate="">
+              <form  >
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <label htmlFor="firstName">First name</label>
@@ -239,8 +301,6 @@ const Checkout = () => {
                   </label>
                 </div>
                 <hr className="mb-4" />
-
-
                 <Button className="btn btn-primary btn-lg btn-block" onClick={getStateAndCity}>
                   Continue to checkout
                 </Button>
@@ -263,6 +323,47 @@ const Checkout = () => {
           </footer>
         </div>
       </div>
+      <div>
+
+        <BootstrapDialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+        >
+
+          <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+            Your Order
+          </BootstrapDialogTitle>
+          <DialogContent >
+            <Grid className="mb-3 ">
+
+              <Grid item sm={12} md={12}>
+                <div className="w-100 d-flex justify-content-center align-items-center">
+                  <div className=''>
+                    <div className="mb-4 text-center">
+                      <TaskAltIcon color='success' sx={{ fontSize: "100px" }} />
+                    </div>
+                    <div className="ms-5 me-5 text-center">
+                      <h1>Thank You !</h1>
+                    </div>
+                    <div className="text-start">
+                      <p>orderId : 62366etyghggyct6ysjhjhgh </p>
+                      <p>Product Name : fan </p>
+                      <p>Quantity : 1 </p>
+                      <p>Price :  Rs. 500 </p>
+                    </div>
+                    <div  className="text-center">
+                    <button className="btn btn-primary">Back Home</button>
+                    </div>
+                  </div>
+                </div>
+              </Grid>
+
+            </Grid>
+          </DialogContent>
+
+        </BootstrapDialog>
+      </div >
     </>
 
   )

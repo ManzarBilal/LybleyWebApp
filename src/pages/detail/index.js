@@ -51,6 +51,7 @@ const Detail = () => {
     }
   }
 
+
   return (
     <div className="bg_image">
       <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />

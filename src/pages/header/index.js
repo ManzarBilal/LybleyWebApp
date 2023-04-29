@@ -29,7 +29,7 @@ function Header(props) {
   const [randomValue, setRandomValue] = useState("")
   const handleLogin = (bool) => {
     setShow(bool);
-    props.setShowLogin(false);
+   props?.detail && props?.setShowLogin(false);
     let x = Math.floor((Math.random() * 10) + 1);
     setRandomValue(x);
   }

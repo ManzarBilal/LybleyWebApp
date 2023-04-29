@@ -135,7 +135,7 @@ export default function Cart(props) {
     }
 
     var totalPrice=0;
-    let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity})):""
+    let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity})): [];
     return (
         <div>
             <Button onClick={handleClickOpen}>

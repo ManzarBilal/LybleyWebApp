@@ -5,24 +5,7 @@ import httpCommon from '@/http-common'
 import { useState } from 'react'
 import { Button } from '@mui/material'
 import axios from 'axios'
-
-const Checkout = () => {
-  const data = useSelector(state=>state.checkoutData)
-  const [pin,setPin]=useState("");
-  let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}))
-
-  const getStateAndCity=async()=>{
-    try{
-      let response=await axios.get(`https://api.postalpincode.in/pincode/${pin}`);
-      let {data}=response;
-      console.log(data);
-      alert(data);
-    }catch(err){
-      console.log(err);
-    }
-  }
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -31,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Grid } from '@mui/material';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import Link from 'next/link'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -73,6 +57,35 @@ BootstrapDialogTitle.propTypes = {
 
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
+    const data = useSelector(state=>state.checkoutData)
+    const [pin,setPin]=useState("");
+    const [checkoutData,setCheckoutData]=useState({
+      firstName:"",
+      lastName:"",
+      contact:"",
+      email:"",
+      address:"",
+      address2:"",
+      state:"",
+      city:""
+    })
+    let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
+
+    const handleChange=(e)=>{
+        const {currentTarget : input}=e;
+        let checkoutData1={...checkoutData};
+        checkoutData1[input.name]=input.value;
+        setCheckoutData(checkoutData1);
+     }
+    const getStateAndCity=async(pin)=>{
+      try{
+        let response=await axios.get(`https://api.postalpincode.in/pincode/${pin}`);
+        let {data}=response;
+        setCheckoutData({...checkoutData,state:data[0].PostOffice[0].State,city:data[0].PostOffice[0].District});
+      }catch(err){
+        console.log(err);
+      }
+    }
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -80,9 +93,13 @@ const Checkout = () => {
     setOpen(false);
 
   };
-  const data = useSelector(state => state.checkoutData)
-  console.log("checkout", data);
-  let data1 = data?.map(c1 => ({ totPrice: c1?.MRP * c1?.quantity }))
+
+   const handlePin=(e)=>{
+         setPin(e.currentTarget.value)
+         getStateAndCity(e.currentTarget.value);
+   };
+
+   let {firstName,lastName,contact,email,address,address2,state,city}=checkoutData;
   return (
     <>
       <div className='bg-light'>
@@ -159,6 +176,9 @@ const Checkout = () => {
                       id="firstName"
                       placeholder=""
                       defaultValue=""
+                      name='firstName'
+                      value={firstName}
+                      onChange={handleChange}
                       required=""
                     />
                     <div className="invalid-feedback">
@@ -173,6 +193,9 @@ const Checkout = () => {
                       id="lastName"
                       placeholder=""
                       defaultValue=""
+                      name="lastName"
+                      value={lastName}
+                      onChange={handleChange}
                       required=""
                     />
                     <div className="invalid-feedback">Valid last name is required.</div>
@@ -196,7 +219,25 @@ const Checkout = () => {
                     </div>
                   </div>
                 </div> */}
-                <div className="mb-3">
+                <div className='row'>
+                 <div className="col-md-6 mb-3">
+                  <label htmlFor="email">
+                    Contact <span className="text-muted"></span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="contact"
+                    placeholder=""
+                    name="contact"
+                    value={contact}
+                    onChange={handleChange}
+                  />
+                  <div className="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
                   <label htmlFor="email">
                     Email <span className="text-muted">(Optional)</span>
                   </label>
@@ -205,10 +246,14 @@ const Checkout = () => {
                     className="form-control"
                     id="email"
                     placeholder="you@example.com"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
                   />
                   <div className="invalid-feedback">
                     Please enter a valid email address for shipping updates.
                   </div>
+                </div>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="address">Address</label>
@@ -217,6 +262,9 @@ const Checkout = () => {
                     className="form-control"
                     id="address"
                     placeholder="1234 Main St"
+                    name="address"
+                    value={address}
+                    onChange={handleChange}
                     required=""
                   />
                   <div className="invalid-feedback">
@@ -232,6 +280,9 @@ const Checkout = () => {
                     className="form-control"
                     id="address2"
                     placeholder="Apartment or suite"
+                    name='address2'
+                    value={address2}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="row">
@@ -245,7 +296,7 @@ const Checkout = () => {
                       value={pin}
                       placeholder=""
                       required=""
-                      onChange={(e)=>setPin(e.currentTarget.value)}
+                      onChange={(e)=>handlePin(e)}
                     />
                     <div className="invalid-feedback">Zip code required.</div>
                   </div>
@@ -255,9 +306,11 @@ const Checkout = () => {
                       className="form-select d-block w-100"
                       id="country"
                       required=""
+                      name="state"
+                      value={state}
                     >
                       <option value="">Choose...</option>
-                      <option>UP</option>
+                      <option>{state}</option>
                     </select>
                     <div className="invalid-feedback">
                       Please select a valid country.
@@ -267,11 +320,13 @@ const Checkout = () => {
                     <label htmlFor="state">City</label>
                     <select
                       className="form-select d-block w-100"
-                      id="state"
+                      id="city"
                       required=""
+                      name="city"
+                      value={city}
                     >
                       <option value="">Choose...</option>
-                      <option>Noida</option>
+                      <option>{city}</option>
                     </select>
                     <div className="invalid-feedback">
                       Please provide a valid state.
@@ -301,14 +356,14 @@ const Checkout = () => {
                   </label>
                 </div>
                 <hr className="mb-4" />
-                <Button className="btn btn-primary btn-lg btn-block" onClick={getStateAndCity}>
+                <Button variant='contained' onClick={handleClickOpen}>
                   Continue to checkout
                 </Button>
               </form>
             </div>
           </div>
           <footer className="my-5 pt-5 text-muted text-center text-small">
-            <p className="mb-1">© 2017-2019 Company Name</p>
+            <p className="mb-1">©2022-2023 SpareTrade</p>
             <ul className="list-inline">
               <li className="list-inline-item">
                 <a href="#">Privacy</a>
@@ -344,16 +399,19 @@ const Checkout = () => {
                       <TaskAltIcon color='success' sx={{ fontSize: "100px" }} />
                     </div>
                     <div className="ms-5 me-5 text-center">
-                      <h1>Thank You !</h1>
+                      <h1>Thank you for your order!</h1>
+                      We’re working hard to get it shipped to you. Hang tight!
                     </div>
-                    <div className="text-start">
-                      <p>orderId : 62366etyghggyct6ysjhjhgh </p>
-                      <p>Product Name : fan </p>
-                      <p>Quantity : 1 </p>
-                      <p>Price :  Rs. 500 </p>
-                    </div>
-                    <div  className="text-center">
-                    <button className="btn btn-primary">Back Home</button>
+                    
+                    <div className="ms-5 mt-5 me-5">
+                    <h3 className=''>Order Details :</h3>
+                     <div className='border p-2'>  <span className='fw-bold'> OrderId :</span> 62366etyghggyct6ysjhjhgh </div>
+                     <div className='border p-2'>  <span className='fw-bold'> Product Name :</span> fan </div>
+                     <div className='border p-2'>  <span className='fw-bold'> Quantity :</span>  1 </div>
+                     <div className='border p-2'> <span className='fw-bold'> Price :</span> Rs. 500 </div>
+                    </div >
+                    <div  className="text-center mt-3">
+                    <Link href="/" className='text-decoration-none'> <button className="btn btn-primary"> Back to home</button></Link>
                     </div>
                   </div>
                 </div>

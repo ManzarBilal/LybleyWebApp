@@ -17,7 +17,8 @@ function Header(props) {
   const showToastMessage = ( ) => {
   
         toast.success(` Logout Successefully !`, {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
+            autoClose:1000
         });
    
 }

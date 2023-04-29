@@ -69,7 +69,8 @@ export default function Login(props) {
         // console.log(data?.status)
         if (data?.status === true)
             toast.success(`${data?.msg}!`, {
-                position: toast.POSITION.TOP_CENTER
+                position: toast.POSITION.TOP_CENTER,
+                autoClose:1000
             });
         else {
             toast.error(`${data?.msg}!`, {

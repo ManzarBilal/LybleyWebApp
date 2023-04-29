@@ -1,11 +1,26 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import { useSelector } from 'react-redux'
+import httpCommon from '@/http-common'
+import { useState } from 'react'
+import { Button } from '@mui/material'
+import axios from 'axios'
 
 const Checkout = () => {
   const data = useSelector(state=>state.checkoutData)
-  console.log("checkout",data);
+  const [pin,setPin]=useState("");
   let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}))
+
+  const getStateAndCity=async()=>{
+    try{
+      let response=await axios.get(`https://api.postalpincode.in/pincode/${pin}`);
+      let {data}=response;
+      console.log(data);
+      alert(data);
+    }catch(err){
+      console.log(err);
+    }
+  }
   return (
     <>
       <div className='bg-light'>
@@ -158,6 +173,20 @@ const Checkout = () => {
                   />
                 </div>
                 <div className="row">
+                <div className="col-md-3 mb-3">
+                    <label htmlFor="zip">Pin</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="zip"
+                      name='pin'
+                      value={pin}
+                      placeholder=""
+                      required=""
+                      onChange={(e)=>setPin(e.currentTarget.value)}
+                    />
+                    <div className="invalid-feedback">Zip code required.</div>
+                  </div>
                   <div className="col-md-5 mb-3">
                     <label htmlFor="country">State</label>
                     <select
@@ -186,17 +215,7 @@ const Checkout = () => {
                       Please provide a valid state.
                     </div>
                   </div>
-                  <div className="col-md-3 mb-3">
-                    <label htmlFor="zip">Pin</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="zip"
-                      placeholder=""
-                      required=""
-                    />
-                    <div className="invalid-feedback">Zip code required.</div>
-                  </div>
+                 
                 </div>
                 <hr className="mb-4" />
                 <div className="form-check custom-checkbox">
@@ -222,9 +241,9 @@ const Checkout = () => {
                 <hr className="mb-4" />
 
 
-                <button className="btn btn-primary btn-lg btn-block" type="submit">
+                <Button className="btn btn-primary btn-lg btn-block" onClick={getStateAndCity}>
                   Continue to checkout
-                </button>
+                </Button>
               </form>
             </div>
           </div>

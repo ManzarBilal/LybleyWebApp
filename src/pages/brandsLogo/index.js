@@ -17,7 +17,7 @@ const BrandsLogo = () => {
     <div className='container mt-5'>
         <div className='row '>
         {brandsLogo?.allBrands?.filter(b1=>b1?.approval==="APPROVED")?.map((img,i)=>
-        <div key={i} className='col-md-2 col-4 d-flex justify-content-center mb-3'>
+        <div key={i} className='col-md-2 col-4 d-flex justify-content-center mb-3'> 
            <Link href={`/brand?id=${img?._id}`}  > <img className='rounded' src={img?.brandLogo} alt={img?.brandName} height="100" width="100"/> </Link>
         </div>
             )}

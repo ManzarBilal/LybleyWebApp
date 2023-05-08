@@ -109,11 +109,11 @@ export default function Login(props) {
         try{
             let response=await httpCommon.post("/userLogin",obj);
             let {data}=response;
-            console.log(data);
             if(data?.user?.status==="ACTIVE"){
                 localStorage.setItem("userId",data?.user?._id);
                 localStorage.setItem("userName",data?.user?.name);
-                showToastMessage(data);
+                localStorage.setItem("user",JSON.stringify(data?.user));
+                window.location.reload(false);
                 props.onSubmit(false);
             }else if(data?.status===false){
                 console.log("data",data);

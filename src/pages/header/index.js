@@ -20,8 +20,7 @@ function Header(props) {
             position: toast.POSITION.TOP_CENTER,
             autoClose:1000
         });
-   
-}
+  }
   const [open1, setOpen1] = useState(false)
   const [show, setShow] = useState(false)
   const [forget, setForget] = useState(false)
@@ -33,6 +32,7 @@ function Header(props) {
    props?.detail && props?.setShowLogin(false);
     let x = Math.floor((Math.random() * 10) + 1);
     setRandomValue(x);
+    
   }
   const handleForget = (bool) => {
     setForget(bool);
@@ -51,10 +51,11 @@ function Header(props) {
   };
   const handleLogout = () => {
     localStorage.removeItem("userId");
+    localStorage.removeItem("userRole");
     let x = Math.floor((Math.random() * 10) + 1);
     setRandomValue(x);
     handleClose()
-    showToastMessage()
+    window.location.reload(false);
   }
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -65,11 +66,13 @@ function Header(props) {
    
   return (
     <>
-
-      <div className="d-flex  justify-content-end  p-4">
+      
+      <div className="d-flex justify-content-between sticky-top bg-light align-items-center p-2">
+        <div><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470" alt="logo" height="45px" width="40px" /></div>
+        <div className="d-flex align-items-center">
         {  userData === null ?
          
-         <div className="d-flex align-items-center">
+         <div className="">
             {/* {userId ? <> <AccountCircleIcon/> </>  :  */}
             <div>
 
@@ -104,6 +107,7 @@ function Header(props) {
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>Order</MenuItem>
+            <hr className="m-0 p-0"></hr>
             <MenuItem onClick={handleLogout} >Logout</MenuItem>
           </Menu>
           
@@ -112,6 +116,7 @@ function Header(props) {
         }
         <Cart user={userData} randomValue={props?.randomValue} onSubmit={handleLogin} />
         <ToastContainer />
+        </div>
       </div>
 
     </>

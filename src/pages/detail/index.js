@@ -10,55 +10,122 @@ import { addToCart, addCart } from '@/redux/actions/addToCart';
 import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
 import { handleCheckout } from '@/redux/actions/checkout';
-const Detail = () => {
+import AlertDialog from "./dialog";
+import httpCommon from '@/http-common';
+
+const Detail = (props) => {
   const dispatch = useDispatch();
   const [showLogin,setShowLogin]=useState(false);
   const allSpareParts = useSelector(state => state?.spareParrts);
   const qty = useSelector(state => state?.value);
-  const [randomValue, setRandomValue] = useState("")
+  const [technician,setTechnician]=useState(false);
+  const [randomValue, setRandomValue] = useState("");
+  const [dialogOpen,setDialogOpen]=useState(false);
+  const [cartValue,setCartValue]=useState(false)
+  const [cart,setCart]=useState(null);
+  const [user,setUser]=useState("");
+  const [check,setCheck]=useState("");
+  const [userData,setUserdata]=useState({});
+  const [userDetail,setUserDetail]=useState({});
 
   useEffect(() => {
+    const user=localStorage.getItem("user");
+    let obj=JSON.parse(user)
+    setUserdata(obj);
     dispatch(setOne(1));
+    setUser("technician");
+     getUser(obj?._id);
   }, [dispatch]);
   const router = useRouter()
   const { id } = router.query;
 
   const [loading, setLoading] = useState(false);
 
-  const getSparePart = allSpareParts?.find(f => f?._id === id)
-
+  const discountSpareParts= (userDetail?.role==="Reseller" && userDetail?.discount==="VERIFIED") ? allSpareParts.map(s1=>({...s1,bestPrice:+(s1?.bestPrice-((10/100)*(+s1?.bestPrice)))?.toFixed(0)})) : allSpareParts;
+  const getSparePart = discountSpareParts?.find(f => f?._id === id);
 
   const [mainImage, setMainImage] = useState(getSparePart?.images[0])
 
-
-  const handleAddToCart = (id) => {
-    let data = allSpareParts?.find(f => f?._id === id)
+ const getUser=async(_id)=>{
+       try{
+         let response=await httpCommon.get(`/userDetail/${_id}`);
+         let {data}=response;
+         setUserDetail(data);
+       }catch(err){
+        console.log(err);
+       }
+ }
+  const handleAddToCart = (id,bool) => {
+    let tech=bool ? bool : technician;
+    let data = discountSpareParts?.find(f => f?._id === id)
     const userId = localStorage.getItem("userId")
-    let obj = { userId: userId, brandId: data?.userId, sparePartId: data?._id, MRP: data?.MRP, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
+    let obj = { userId: userId, brandId: data?.userId, sparePartId: data?._id, MRP: data?.bestPrice,technician:tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
+    if(user && tech===false){
+      setCartValue(true);
+      setCart(obj);
+      setDialogOpen(true);
+    }else{
     dispatch(addCart(obj));
     let x = Math.floor((Math.random() * 5));
     setRandomValue(x);
+    }
   }
 
-  const handleBuy=()=>{    
+  const handleBuy=(e,bool)=>{    
     const userId = localStorage.getItem("userId")
+    setCheck("BUY");
+    let tech=bool ? bool : technician;
     if(userId){
-    let obj = { userId: userId, brandId: getSparePart?.userId, sparePartId: getSparePart?._id, MRP: getSparePart?.MRP, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
+    let obj = { userId: userId, brandId: getSparePart?.userId, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician:tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
      dispatch(handleCheckout([obj]));
+     if(user && tech===false){
+      setDialogOpen(true);
+     }else{
      router.push("/checkout");
+     }
     }else{
       setShowLogin(true);
     }
   }
+  
+  const handleCloseDialog=()=>{
+    setDialogOpen(false);
+    setUser("");
+    router.push("/checkout");
+  }
 
+  const handleClose=(e)=>{
+    setTechnician(true);
+    setUser("");
+    if(check==="BUY"){
+      let bool=true;
+      handleBuy(e,bool);
+      router.push("/checkout");
+    }else{
+      let bool=true;
+      handleAddToCart(getSparePart?._id,bool);
+    }
+    setCheck("");
+    setDialogOpen(false);
+    setUser("");
+  }
+
+  const handleCloseCart=()=>{
+    setDialogOpen(false);
+    setUser("");
+    dispatch(addCart(cart));
+    setCartValue(false);
+    setCart(null);
+  }
 
   return (
     <div className="bg_image">
+    {(user &&  <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
       <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
-      <div className='container'>
+      <div className='container mt-5'>
         <h2 className='mb-3 fw-bold'>Product Detail</h2>
         <div className="col-md-12">
-          <div className="card">
+          <div className="card bg-light">
             <div className="card-body">
               <div className="product-details">
                 <div className="row ">
@@ -72,7 +139,7 @@ const Detail = () => {
                       })}
                     </div>
                     <div className="product-image pe-5">
-                      <div   >
+                      <div >
                         <img height={250} width={300} src={mainImage?.length > 0 ? mainImage : getSparePart?.images[0]} alt="" />
                       </div>
                       {/* <div className='mt-3'>
@@ -84,22 +151,29 @@ const Detail = () => {
                   <div className="col-lg-6 d-flex justify-content-between align-items-center">
                     <div className='w-100'>
                       <div> <h2 className="fw-bold fs-4"> {getSparePart?.partName}</h2></div>
-                      <div> <span className="text-muted ms-3">(449 customer review)</span></div>
-                      <div> <h6 className="price-title fw-bold">Price</h6>
-                        <p className="sale-price">Rs. {getSparePart?.MRP} </p>
-                        <p className="regular-price text-danger">$ 179 USD</p></div>
-                      <div><p> {getSparePart?.description} 
+                      {/* <div> <span className="text-muted ms-3">(449 customer review)</span></div> */}
+                      <div>
+                        <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR </span></div>
+                        <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger'> {getSparePart?.bestPrice} INR</span></div></div>
+                      <div className='mt-2'><p> {getSparePart?.description} 
                          </p></div>
-                      <div> <div className="d-flex flex-wrap mb-3">
+                      <div>
+                         <div className="d-flex flex-wrap mb-3">
                         <div className="mt-2 mt-sm-0  me-1">
                           <div className="">
-                            <button className='btn btn-outline-danger btn-sm me-2' onClick={() => dispatch(decrement(-1))}>-</button> <span className='text-dark'> {qty} </span> <button className='btn btn-outline-success btn-sm ms-2' onClick={() => dispatch(increment(1))}>+</button>
+                           <span className='fw-bold me-2'>Qty.</span> <button className='btn btn-outline-danger btn-sm me-2' onClick={() => dispatch(decrement(-1))}>-</button> <span className='text-dark'> {qty} </span> <button className='btn btn-outline-success btn-sm ms-2' onClick={() => dispatch(increment(1))}>+</button>
                           </div>
                         </div>
-
+                        
                         <ToastContainer />
-                      </div></div>
-                      <div className='d-flex'>
+                      </div>
+                      <div className='form-check'>
+                          <input type="checkbox" className='form-check-input' value={technician} checked={technician} onChange={(e)=> setTechnician(e.currentTarget.checked)} />
+                          <label className='form-check-label'>Book Technician to fit it - 350 INR only</label>
+                         </div>
+                      </div> 
+                      
+                      <div className='d-flex mt-2'>
                         <div className='w-75 '>
                           <button className="btn btn-warning mt-2 w-100 mt-sm-0" onClick={handleBuy}><i className="fa fa-heart me-1"></i> BUY</button>
                         </div>

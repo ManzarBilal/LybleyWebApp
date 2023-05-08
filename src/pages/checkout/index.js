@@ -98,7 +98,7 @@ const Checkout = () => {
     } catch (err) {
       console.log(err);
     }
-
+  }
     const createOrder=async()=>{
         try{
          let response=await httpCommon.post("/createOrder",{...checkoutData,items:data,pin:pin});
@@ -108,13 +108,12 @@ const Checkout = () => {
     } 
 
   const handleClickOpen = (e) => {
-    e.preventDefault();
-    createOrder();
+    // e.preventDefault();
+    // createOrder();
+    setOpen(true);
 
   }
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  
   const handleClose = () => {
     setOpen(false);
 

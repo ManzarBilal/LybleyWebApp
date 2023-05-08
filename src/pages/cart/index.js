@@ -81,7 +81,7 @@ export default function Cart(props) {
     const qty = useSelector(state => state?.value);
     const cartItems=useSelector(state=>state?.cartItems);
     const router=useRouter()
-    console.log("cartItems",cartItems);
+    console.log(cartItems);
 
     const [cartItem, setCartItems] = React.useState([]);
     const [open, setOpen] = React.useState(false);
@@ -133,7 +133,7 @@ export default function Cart(props) {
             props?.onSubmit(true);
         }
     }
-
+    console.warn("hello")
     var totalPrice=0;
     let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity})): [];
     return (
@@ -181,7 +181,7 @@ export default function Cart(props) {
                                                     <div className=' ' >
                                                         <div className="">MRP</div>
                                                         <div className='mt-2'> <strong>Rs. {item?.MRP*item?.quantity} </strong>  </div>
-                                                        <div className='d-flex justify-content-center' ><button className='btn btn-danger btn-sm' onClick={() => dispatch(deleteCart({sparePartId:item?.sparePartId}))} >remove</button> </div>
+                                                        <div className='d-flex justify-content-center' ><button className='btn btn-danger btn-sm' onClick={() => dispatch(deleteCart({sparePartId:item?.sparePartId}))} >Remove</button> </div>
                                                     </div>
 
                                                 </div>
@@ -213,9 +213,9 @@ export default function Cart(props) {
                                     <Button size='small' variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                         CANCEL
                                     </Button>
-                                    <Button className='ms-md-4 ' size='small' variant='contained' autoFocus onClick={checkout} >
+                                   {cartItems?.length>0 ? <Button className='ms-md-4' size='small' variant='contained' autoFocus onClick={checkout} >
                                         Buy Now
-                                    </Button>
+                                    </Button> : ""}
                                 </div>
                             </div>
                             <ToastContainer />
@@ -227,6 +227,7 @@ export default function Cart(props) {
                 </DialogContent>
 
             </BootstrapDialog>
+
         </div>
     );
 }

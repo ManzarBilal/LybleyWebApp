@@ -9,7 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Grid, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography,Select,MenuItem } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -65,7 +65,6 @@ BootstrapDialogTitle.propTypes = {
 export default function Register(props) {
 
     const showToastMessage = (data) => {
-        // console.log(data?.status)
         if (data?.status === true)
             toast.success(`${data?.msg}!`, {
                 position: toast.POSITION.TOP_CENTER
@@ -77,11 +76,11 @@ export default function Register(props) {
         }
     }
     const [open, setOpen] = React.useState(false);
-   
+    const [file, setFile] = React.useState(null);
     const [showIcon1, setShowIcon1] = React.useState(true);
     const [showIcon2, setShowIcon2] = React.useState(true);
     const dispatch = useDispatch();
-    
+   // const [role,setRole]=React.useState("");
     const handleClickOpen = () => {
         setOpen(true);
 
@@ -115,7 +114,15 @@ export default function Register(props) {
             setShowIcon2(true);
         }
     }
- 
+
+
+ const registration=(body)=>{
+       if(body?.role==="Service center"){
+        serviceCenterRegistration(body);
+       }else{
+        userRegistration(body);
+       }
+ }
 
 const userRegistration=async(registration)=>{
     try{
@@ -133,16 +140,51 @@ const userRegistration=async(registration)=>{
         console.log(err);
     }
 }
+const serviceCenterRegistration=async(registration)=>{
+    try{
+        const formData=new FormData();
+        formData.append("name",registration?.name);
+        formData.append("email",registration?.email);
+        formData.append("contact",registration?.contact);
+        formData.append("role",registration?.role);
+        formData.append("password",registration?.password);
+        formData.append("document",file);
+
+        let response= await httpCommon.post("/serviceCenterRegistration", formData);
+        let {data}=response;
+        showToastMessage(data)
+       if(data?.status===true){
+        props.onSubmit1(true);
+        handleClose()
+       
+    }else{
+       return null; 
+    }
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
     const onSubmit = data => {
         
-        let obj = { name: data?.name, email: data?.email, contact: data?.contact, password: data?.password }
-        userRegistration(obj);
+        let obj = { name: data?.name, email: data?.email, contact: data?.contact,role:data?.role, password: data?.password }
+ 
+        registration(obj);
        // dispatch(userReg(obj));
         // showToastMessage(userData)
         dispatch(userEmail(data?.email))
-        
-        
+    };
 
+    const handleFileChange = (e) => {
+        const reader = new FileReader();
+        if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0])
+            if (e.target.name === "file") {
+                // console.log(e.target.files[0]);
+                setFile(e.target.files[0]);
+            }
+        }
     };
 
     const validationSchema = Yup.object().shape({
@@ -155,6 +197,8 @@ const userRegistration=async(registration)=>{
         email: Yup.string()
             .required('Email is required')
             .email('Email is invalid'),
+        role: Yup.string()
+            .required('Role is required'),
         password: Yup.string()
             .required('Password is required')
             .min(6, 'Password must be at least 6 characters')
@@ -170,11 +214,13 @@ const userRegistration=async(registration)=>{
         register,
         control,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        watch
     } = useForm({
         resolver: yupResolver(validationSchema)
     });
-
+ 
+  const role=watch("role");
 
     return (
         <div>
@@ -256,6 +302,36 @@ const userRegistration=async(registration)=>{
                                             {errors.contact?.message}
                                         </Typography>
                                     </Grid>
+                                    <Grid item sm={12} md={12}>
+                                        <Select
+                                            className='mt-2 mb-1'
+                                            autoFocus
+                                            margin="dense"
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            size='small'
+                                            label="Role"
+                                            fullWidth
+                                            variant="outlined"
+                                            onChange={(e)=>setRole(e.currentTarget.value)}
+                                            {...register('role')}
+                                            error={errors.role ? true : false}
+                                        >
+                                            <MenuItem value="End user">End user</MenuItem>
+                                            <MenuItem value="Reseller">Reseller</MenuItem>
+                                        </Select>
+                                        <Typography variant="inherit" color="red">
+                                            {errors.role?.message}
+                                        </Typography>
+                                    </Grid>
+                                   {role==="Reseller" && <Grid item sm={12} md={12}>
+                                    <label className='fw-bold'>Upload Document :</label> <br/>
+                                         <input
+                                           type="file"
+                                           name="file"
+                                           onChange={handleFileChange}
+                                         />
+                                    </Grid>}
                                     <Grid item sm={12} md={12}>
                                         <TextField
                                             autoFocus

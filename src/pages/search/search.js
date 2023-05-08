@@ -14,12 +14,12 @@ const Search = () => {
      console.log(err);
     }
 }
-// console.log(data);3eb46242aad791aefa762d89a01f631aa5c09f1c73c3bae55df33bcaaa769c33caeea5adbc48
+//https://lybley-webapp-collection.s3.amazonaws.com/PNG-01.png-1683103978537-428964797
+//https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png
   return (
-    <div className='container'>
-    <div className='d-flex justify-content-center mt-5'><img src="https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png" height="100" width="300" className='' alt='logo' /></div>
-    <div className='row mt-5'>
-       
+    <div className='container mt-3'>
+      <div className='d-flex justify-content-center'><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-01.png-1683104555712-389269871" height="250px" width="350px" className='m-0 p-0' alt='logo' /></div>
+    <div className='row mt-4'>
       <div className='col-12'> 
         <div className='form-group'>
        <div className='d-flex justify-content-between'> <input type="text" className='form-control border border-2 border-dark' placeholder='Search' onChange={(e)=>setSearch(e.currentTarget.value)}/>  <button className='btn btn-primary bg-dark ms-2' onClick={getData}>Search</button></div>
@@ -27,7 +27,7 @@ const Search = () => {
         </div>
     
     </div>
-    <div className='row mt-5'>
+    <div className='row mt-4'>
     
     {data?.photos?.map((p1,i)=>
     <div className='col-md-3 col-4 d-flex justify-content-center mb-3'>

@@ -60,7 +60,7 @@ const Checkout = () => {
     const data = useSelector(state=>state.checkoutData)
     const [pin,setPin]=useState("");
     const [checkoutData,setCheckoutData]=useState({
-      firstName:"",
+      name:"",
       contact:"",
       email:"",
       address:"",
@@ -69,7 +69,6 @@ const Checkout = () => {
       city:""
     })
     let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
-
     useEffect(()=>{
        getUserDetail();
     },[]);
@@ -79,8 +78,8 @@ const Checkout = () => {
          const userId=localStorage.getItem("userId");
          let response=await httpCommon.get(`/userDetail/${userId}`);
          let {data}=response;
-         setCheckoutData({...checkoutData,firstName:data?.name,contact:data?.contact,email:data?.email});
-         }catch(err){s
+         setCheckoutData({...checkoutData,name:data?.name,contact:data?.contact,email:data?.email});
+         }catch(err){
           console.log(err);
          }
     }
@@ -99,6 +98,19 @@ const Checkout = () => {
     } catch (err) {
       console.log(err);
     }
+
+    const createOrder=async()=>{
+        try{
+         let response=await httpCommon.post("/createOrder",{...checkoutData,items:data,pin:pin});
+        }catch(err){
+          console.log(err);
+        }
+    } 
+
+  const handleClickOpen = (e) => {
+    e.preventDefault();
+    createOrder();
+
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -113,7 +125,7 @@ const Checkout = () => {
     getStateAndCity(e.currentTarget.value);
   };
 
-   let {firstName,contact,email,address,address2,state,city}=checkoutData;
+   let {name,contact,email,address,address2,state,city}=checkoutData;
   return (
     <>
       <div className='bg-light'>
@@ -183,15 +195,15 @@ const Checkout = () => {
               <form  >
                 <div className="row">
                   <div className="col-md-6 mb-3">
-                    <label htmlFor="firstName">First name</label>
+                    <label htmlFor="name">Name</label>
                     <input
                       type="text"
                       className="form-control"
-                      id="firstName"
+                      id="name"
                       placeholder=""
                       defaultValue=""
-                      name='firstName'
-                      value={firstName}
+                      name='name'
+                      value={name}
                       onChange={handleChange}
                       required=""
                     />
@@ -353,7 +365,7 @@ const Checkout = () => {
                   </label>
                 </div>
                 <hr className="mb-4" />
-                <Button variant='contained' onClick={handleClickOpen}>
+                <Button variant='contained' onClick={(e)=>handleClickOpen(e)}>
                   Continue to checkout
                 </Button>
               </form>

@@ -68,7 +68,7 @@ function Header(props) {
     <>
       
       <div className="d-flex justify-content-between sticky-top bg-light align-items-center p-2">
-        <div><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470" alt="logo" height="45px" width="40px" /></div>
+        <div> <Link href="/"><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470" alt="logo" height="45px" width="40px" /></Link> </div>
         <div className="d-flex align-items-center">
         {  userData === null ?
          

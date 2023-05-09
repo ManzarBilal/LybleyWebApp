@@ -101,15 +101,16 @@ const Checkout = () => {
   }
     const createOrder=async()=>{
         try{
-         let response=await httpCommon.post("/createOrder",{...checkoutData,items:data,pin:pin});
+         const userId=localStorage.getItem("userId");
+         let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:data,pin:pin});
         }catch(err){
           console.log(err);
         }
     } 
 
   const handleClickOpen = (e) => {
-    // e.preventDefault();
-    // createOrder();
+    e.preventDefault();
+    createOrder();
     setOpen(true);
 
   }
@@ -145,8 +146,10 @@ const Checkout = () => {
                     <div>
                       <h6 className="my-0">{d1?.sparePartName}</h6>
                       <small className="text-muted">Quantity : {d1?.quantity}</small>
+                      <div>Technician : {d1?.technician}</div>
                     </div>
                     <span className="text-muted">RS.{d1?.MRP * d1?.quantity}</span>
+                    
                   </li>)}
                 {/* <li className="list-group-item d-flex justify-content-between lh-condensed">
                   <div>

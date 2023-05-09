@@ -18,7 +18,7 @@ const Detail = (props) => {
   const [showLogin,setShowLogin]=useState(false);
   const allSpareParts = useSelector(state => state?.spareParrts);
   const qty = useSelector(state => state?.value);
-  const [technician,setTechnician]=useState(false);
+  const [technician,setTechnician]=useState(0);
   const [randomValue, setRandomValue] = useState("");
   const [dialogOpen,setDialogOpen]=useState(false);
   const [cartValue,setCartValue]=useState(false)
@@ -27,7 +27,7 @@ const Detail = (props) => {
   const [check,setCheck]=useState("");
   const [userData,setUserdata]=useState({});
   const [userDetail,setUserDetail]=useState({});
-
+ 
   useEffect(() => {
     const user=localStorage.getItem("user");
     let obj=JSON.parse(user)
@@ -56,11 +56,11 @@ const Detail = (props) => {
        }
  }
   const handleAddToCart = (id,bool) => {
-    let tech=bool ? bool : technician;
     let data = discountSpareParts?.find(f => f?._id === id)
+    let tech=bool ? data?.technician :technician;
     const userId = localStorage.getItem("userId")
     let obj = { userId: userId, brandId: data?.userId, sparePartId: data?._id, MRP: data?.bestPrice,technician:tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
-    if(user && tech===false){
+    if(user && tech===0){
       setCartValue(true);
       setCart(obj);
       setDialogOpen(true);
@@ -74,11 +74,11 @@ const Detail = (props) => {
   const handleBuy=(e,bool)=>{    
     const userId = localStorage.getItem("userId")
     setCheck("BUY");
-    let tech=bool ? bool : technician;
+    let tech=bool ? getSparePart?.technician : technician;
     if(userId){
     let obj = { userId: userId, brandId: getSparePart?.userId, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician:tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
      dispatch(handleCheckout([obj]));
-     if(user && tech===false){
+     if(user && tech===0){
       setDialogOpen(true);
      }else{
      router.push("/checkout");
@@ -92,6 +92,14 @@ const Detail = (props) => {
     setDialogOpen(false);
     setUser("");
     router.push("/checkout");
+  }
+
+  const handleCheckbox=(val)=>{
+       if(technician===0){
+        setTechnician(val)
+       }else{
+        setTechnician(0)
+       }
   }
 
   const handleClose=(e)=>{
@@ -168,8 +176,8 @@ const Detail = (props) => {
                         <ToastContainer />
                       </div>
                       <div className='form-check'>
-                          <input type="checkbox" className='form-check-input' value={technician} checked={technician} onChange={(e)=> setTechnician(e.currentTarget.checked)} />
-                          <label className='form-check-label'>Book Technician to fit it - 350 INR only</label>
+                          <input type="checkbox" className='form-check-input' value={getSparePart?.technician} checked={technician===0 ? false : true} onChange={(e)=> handleCheckbox(e.currentTarget.value)} />
+                          <label className='form-check-label'>Book Technician to fit it - {getSparePart?.technician} INR only</label>
                          </div>
                       </div> 
                       

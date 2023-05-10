@@ -213,7 +213,7 @@ export default function ForgetPassword(props) {
     }
     return (
         <div>
-            <Button variant="contained" onClick={handleClickOpen}>
+            <Button variant="contained" className=' text-dark fw-bold' style={{backgroundColor:"#f5881f"}} onClick={handleClickOpen}>
                 Forget Password
             </Button>
             <BootstrapDialog

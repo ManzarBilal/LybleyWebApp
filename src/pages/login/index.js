@@ -104,7 +104,9 @@ export default function Login(props) {
         props.onSubmit(false);
         props.onForget(true);
     }
+    
     const userData = useSelector(state => state?.users)
+
     const login=async(obj)=>{
         try{
             let response=await httpCommon.post("/userLogin",obj);
@@ -165,7 +167,7 @@ const handleRegister=()=>{
 
     return (
         <div>
-            <Button variant="contained" onClick={handleClickOpen}>
+            <Button variant="contained" className=' text-dark fw-bold' style={{backgroundColor:"#f5881f"}} onClick={handleClickOpen}>
                 Login
             </Button>
             <BootstrapDialog
@@ -179,7 +181,7 @@ const handleRegister=()=>{
                 <DialogContent >
                     <Grid className={`${style.mainDiv}`}>
                         <Grid item sm={12} md={12}>
-                            <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
+                            <div className=' d-flex justify-content-center'>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
                         </Grid>
                         <Grid item sm={12} md={12}>
                             <TextField

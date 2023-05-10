@@ -139,7 +139,7 @@ export default function Cart(props) {
     return (
         <div>
             <Button onClick={handleClickOpen}>
-                <div className={props?.detail ? "ms-4 p-2 text-dark fw-bold d-flex" : "d-flex ms-4 p-2 text-dark fw-bold"} >
+                <div className={props?.detail ? "ms-4 p-2 text-white fw-bold d-flex" : "d-flex ms-4 p-2 text-white fw-bold"} >
                     <div className='me-2'>Cart</div>
                     <Badge badgeContent={cartItems && cartItems.length>0 ?cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0):"0"} color='secondary'>
                         <ShoppingCartIcon color={props?.detail ? "" : "white"} />

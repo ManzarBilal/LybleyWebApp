@@ -225,7 +225,7 @@ const serviceCenterRegistration=async(registration)=>{
     return (
         <div>
             
-                <> <Button variant="contained" className='bg-dark' onClick={handleClickOpen}>
+                <> <Button variant="contained" className=' text-dark fw-bold' style={{backgroundColor:"#f5881f"}} onClick={handleClickOpen}>
                     SIGNUP
                 </Button>
                     <BootstrapDialog

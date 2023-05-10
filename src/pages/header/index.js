@@ -67,7 +67,7 @@ function Header(props) {
   return (
     <>
       
-      <div className="d-flex justify-content-between sticky-top bg-light align-items-center p-2">
+      <div className="d-flex justify-content-between sticky-top bg-dark align-items-center p-2">
         <div> <Link href="/"><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470" alt="logo" height="45px" width="40px" /></Link> </div>
         <div className="d-flex align-items-center">
         {  userData === null ?
@@ -94,7 +94,7 @@ function Header(props) {
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
           >
-            <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%" }} />
+            <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
           </Button>
           <Menu
             id="basic-menu"

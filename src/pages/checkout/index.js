@@ -69,6 +69,7 @@ const Checkout = () => {
       city:""
     })
     let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
+
     useEffect(()=>{
        getUserDetail();
     },[]);
@@ -107,6 +108,39 @@ const Checkout = () => {
           console.log(err);
         }
     } 
+
+    const payment=async()=>{
+      try{
+        let amount=data1?.reduce((acc, curr) => acc + curr.totPrice, 0)
+       let response=await httpCommon.post("/payment",{amount:amount});
+       let {data}=response;
+       const options = {
+        key: "rzp_test_BygSIi3FPRdnHP", // Enter the Key ID generated from the Dashboard
+        amount: data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "SpareTrade", //your business name
+        description: "Payment for order",
+        image: "https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470",
+        order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        callback_url: "http://localhost:3000/confirmation",
+        prefill: {
+            name: checkoutData.name, //your customer's name
+            email: checkoutData.email,
+            contact: checkoutData.contact
+        },
+        notes: {
+            "address": "Razorpay Corporate Office"
+        },
+        theme: {
+            color: "#3399cc"
+        }
+    };
+    const rzp1 = new window.Razorpay(options);
+        rzp1.open();
+      }catch(err){
+        console.log(err);
+      }
+  } 
 
   const handleClickOpen = (e) => {
     e.preventDefault();
@@ -367,7 +401,7 @@ const Checkout = () => {
                   </label>
                 </div>
                 <hr className="mb-4" />
-                <Button variant='contained' onClick={(e)=>handleClickOpen(e)}>
+                <Button variant='contained' onClick={(e)=>payment()}>
                   Continue to checkout
                 </Button>
               </form>

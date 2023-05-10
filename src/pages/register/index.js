@@ -239,7 +239,7 @@ const serviceCenterRegistration=async(registration)=>{
                         <DialogContent >
                             <Grid className={`${style.mainDiv}`}>
                                 <Grid item sm={12} md={12}>
-                                    <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="80" width="100" /></div>
+                                    <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470' height="70" width="60" /></div>
                                 </Grid>
                                 <form  >
                                     <Grid item sm={12} md={12}>

@@ -15,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Grid } from '@mui/material';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -59,6 +60,7 @@ const Checkout = () => {
   const [open, setOpen] = React.useState(false);
     const data = useSelector(state=>state.checkoutData)
     const [pin,setPin]=useState("");
+    const router=useRouter();
     const [checkoutData,setCheckoutData]=useState({
       name:"",
       contact:"",
@@ -122,7 +124,18 @@ const Checkout = () => {
         description: "Payment for order",
         image: "https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470",
         order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        callback_url: "http://localhost:3000/confirmation",
+        handler: async function (orderDetails){
+          try{
+          let response =await axios.post("http://localhost:5000/paymentVerification",{response:orderDetails});
+          let {data}=response;
+          if(data?.status===true){
+            createOrder();
+            router.push("http://localhost:3000/confirmation");
+          }
+          }catch(err){
+            console.log(err);
+          }
+      },
         prefill: {
             name: checkoutData.name, //your customer's name
             email: checkoutData.email,

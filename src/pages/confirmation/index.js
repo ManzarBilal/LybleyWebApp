@@ -11,6 +11,7 @@ import { Grid } from '@mui/material';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -23,6 +24,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
+  const router=useRouter();
+  const {order}=router.query;
+  console.log(order);
+
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>

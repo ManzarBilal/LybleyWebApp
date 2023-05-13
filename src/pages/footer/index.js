@@ -31,7 +31,7 @@ export default function Footer() {
                                 <li>Return Policy</li>
                                 <Link className="text-decoration-none text-muted" href="/privacyPolicy" >  <li>Privacy Policy</li></Link>
                                 <Link className="text-decoration-none text-muted" href="/desclaimer" >  <li>Disclaimer</li></Link>
-                                <Link className="text-decoration-none text-muted" href="/termsOfUse" > <li>Terms of Use</li></Link>
+                                <Link className="text-decoration-none text-muted" href="/termOfUse" > <li>Terms of Use</li></Link>
                                 <Link className="text-decoration-none text-muted" href="/buyersPolicy" >  <li>Buyers Policy</li></Link>
                                 <Link className="text-decoration-none text-muted" href="/sellersPolicy" >  <li>Sellers Policy</li></Link>
                             </ul>

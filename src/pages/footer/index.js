@@ -18,9 +18,9 @@ export default function Footer() {
                     <h5 className="text-white mb-3">About</h5>
                     <ul className="list-unstyled text-muted">
                         <li>About us</li>
-                        <li>Contact</li>
-                        <li>FAQ</li>
-                        <li>Carees</li>
+                        <li><Link href="/contactUs" > Contact</Link></li>
+                        <li><Link href="/faqs" >FAQ</Link></li>
+                        <li><Link href="/carrier" >Carees</Link></li>
                         <li>Investor Relations </li>
                     </ul>
                 </div>

@@ -8,6 +8,7 @@ import { getAllBrands } from '@/redux/actions/brand';
 const BrandsLogo = () => {
   const dispatch=useDispatch();
     const brandsLogo=useSelector(state=>state.brands)
+    console.log(brandsLogo);
     useEffect(()=>{
        dispatch(getAllBrands());
     },[])

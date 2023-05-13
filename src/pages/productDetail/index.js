@@ -14,6 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import httpCommon from '@/http-common';
 const ProductDetail = () => {
 
 
@@ -29,7 +30,7 @@ const playerRef = useRef(null);
 
   const getSpareParts = useSelector(state => state?.spareParrts);
 
-  
+  console.log(getSpareParts);
   const [age, setAge] = React.useState('Option');
 
   const handleChange = (event) => {
@@ -43,9 +44,20 @@ const playerRef = useRef(null);
     if (typeof window !== "undefined") {
       setHasWindow(true);
     }
+    getVideos();
   }, [dispatch])
   
-  console.log("getSpareParts");
+  const getVideos=async()=>{
+    try{
+      let response=await httpCommon.get("/getAllVideos");
+      let {data}=response;
+      setVideoUrl(data);
+    }catch(err){
+       console.log(err);
+    }
+  }
+  let sp=getSpareParts?.find((sp1,index)=>index===0)
+  let videoUrl1=videoUrl?.filter(v1=>v1.productModel===sp?.productModel);
   return (
     <div className='bg_image'>
       <Header />
@@ -89,8 +101,8 @@ const playerRef = useRef(null);
               </div>
             </div>
             <div className='row mt-5'>
-              {videoUrl?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
-                {hasWindow && <ReactPlayer ref={playerRef} url={url} controls height="250" width="200" />}
+              {videoUrl1?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
+                {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
               </div>))}
 
             </div>

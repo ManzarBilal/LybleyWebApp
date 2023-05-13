@@ -4,6 +4,7 @@ import Footer from '../footer';
 
 const AboutUs = () => {
   const [learnMore,setLearnMore]=useState(true);
+  
   return (
     <div className='bg-light'>
       <Header />

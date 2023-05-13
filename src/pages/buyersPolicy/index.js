@@ -1,8 +1,9 @@
 import React from 'react'
 import Header from '../header';
 import Footer from '../footer';
+ 
 
-const PrivacyPolicy = () => {
+const BuyersPolicy = () => {
   return (
     <div className='bg-light'>
       <Header />
@@ -19,7 +20,7 @@ const PrivacyPolicy = () => {
             1.BACKGROUND
             </p>
             <p>
-            1.1.At SpareTrade, accessible from <span className='text-primary'>https://www.SpareTrade.in</span> , one of Our main priorities is the privacy of Our Customers. We take the privacy of Our Customers very seriously and are committed to safeguarding their privacy while providing a personalized and valuable access to Our Platform.
+            1.1.At SpareTrade, accessible from <span className='text-primary'>https://www.SpareTrade.store</span> , one of Our main priorities is the privacy of Our Customers. We take the privacy of Our Customers very seriously and are committed to safeguarding their privacy while providing a personalized and valuable access to Our Platform.
             </p>
             <p>
             1.2.You agree and understand that access to Services/Platform is conditional upon Your approval of this Privacy Policy. You agree that Your use of Services includes Your consent to collection, retention and use of Your information in accordance with the terms of this Privacy Policy and as per the applicable Law.
@@ -170,7 +171,7 @@ const PrivacyPolicy = () => {
           10.2.You have a legal right to have a copy of Your Personal Information held by Us and to correct any errors in such Personal Information. You also have a right to request that We cease to use Your Personal Information for direct marketing purposes, unless agreed to the contrary under the Terms.
           </p>
           <p>
-          10.3.You may contact us at <span className='text-primary'>help@sparetrade.in</span> for any queries, concerns, discrepancies or grievances with respect to Your Information Collected or this Privacy Policy. We will use Our best efforts to redress the grievances expeditiously, within 1 (one) month from the date of receipt of such grievance.
+          10.3.You may contact us at <span className='text-primary'>cs@SpareTrade.store </span> for any queries, concerns, discrepancies or grievances with respect to Your Information Collected or this Privacy Policy. We will use Our best efforts to redress the grievances expeditiously, within 1 (one) month from the date of receipt of such grievance.
           </p>
         </div>
         </div>
@@ -179,4 +180,4 @@ const PrivacyPolicy = () => {
     </div>
   )
 }
-export default PrivacyPolicy;
+export default BuyersPolicy;

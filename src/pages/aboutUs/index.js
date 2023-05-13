@@ -3,15 +3,15 @@ import Header from '../header';
 import Footer from '../footer';
 
 const AboutUs = () => {
-  const [learnMore,setLearnMore]=useState(true);
-  
+
+
   return (
     <div className='bg-light'>
       <Header />
       <div className='container mt-5'>
         <div className='row'>
-          <div className='col-12 col-md-6 d-flex align-items-center'><img src="https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png" alt="logo" className=' img-fluid' /></div>
-          <div className='col-12 col-md-6'>
+          <div className='col-12 col-md-4 d-flex align-items-center '><img src="https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png" alt="logo"  className=' img-fluid' /></div>
+          <div className='col-12 col-md-8'>
             <h1 className='mt-3 fw-bold'>About Us</h1>
             <hr className='border border-5 border-secondary' />
             <p className='text-justify'>
@@ -23,10 +23,7 @@ const AboutUs = () => {
             <p>
               Our platform offers a wide range of spare parts for various products, including refrigerators, air conditioners, washing machines, televisions, mobile phones, laptops, and vehicles, among others. We work closely with brands to source only the highest quality and most reliable spare parts that are compatible with your product.
             </p>
-            
-           {learnMore ? <div className='text-center'> <button class="btn btn-info text-white" onClick={(e)=>setLearnMore(false)}>Learn more</button> </div>
-           : <>
-           <p>
+            <p>
               Our user-friendly platform is designed to make your shopping experience as smooth and hassle-free as possible. You can easily browse through our extensive catalog of spare parts, filter your search by brand, model, or product category, and purchase directly from the brand with just a few clicks. Our secure payment options and reliable delivery services ensure that you get your spare parts quickly and without any hassle.
             </p>
             <p>
@@ -34,7 +31,7 @@ const AboutUs = () => {
             </p>
             <p>
               We believe that genuine spare parts are the key to maintaining the quality and performance of your products. At SpareTrade, we are passionate about providing customers with access to high-quality spare parts, direct from the brand, at an affordable price. Join us in our mission to make the world of spare parts more transparent, accessible, and reliable!
-            </p></>}
+            </p>
           </div>
         </div>
       </div>

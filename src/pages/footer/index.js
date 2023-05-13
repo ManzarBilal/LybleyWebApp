@@ -17,10 +17,11 @@ export default function Footer() {
                 <div className="col-lg-3 col-md-6">
                     <h5 className="text-white mb-3">About</h5>
                     <ul className="list-unstyled text-muted">
-                       <Link className="text-decoration-none text-muted" href="/aboutUs"> <li>About us</li></Link>
-                        <li>Contact</li>
-                        <li>FAQ</li>
-                        <li>Carees</li>
+                        <Link className="text-decoration-none text-muted" href="/aboutUs"> <li>About us</li></Link>
+                        <li><Link href="/contactUs" > Contact</Link></li>
+                        <li><Link href="/faqs" >FAQ</Link></li>
+                        <li><Link href="/carrier" >Carees</Link></li>
+                     
                         <li>Investor Relations </li>
                     </ul>
                 </div>

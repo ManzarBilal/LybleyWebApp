@@ -58,7 +58,7 @@ BootstrapDialogTitle.propTypes = {
 
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
-    const data = useSelector(state=>state.checkoutData)
+    const spData = useSelector(state=>state.checkoutData)
     const [pin,setPin]=useState("");
     const router=useRouter();
     const [checkoutData,setCheckoutData]=useState({
@@ -70,7 +70,7 @@ const Checkout = () => {
       state:"",
       city:""
     })
-    let data1=data?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
+    let data1=spData?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
 
     useEffect(()=>{
        getUserDetail();
@@ -105,7 +105,7 @@ const Checkout = () => {
     const createOrder=async()=>{
         try{
          const userId=localStorage.getItem("userId");
-         let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:data,pin:pin});
+         let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
         }catch(err){
           console.log(err);
         }
@@ -113,8 +113,9 @@ const Checkout = () => {
 
     const payment=async()=>{
       try{
-        let amount=data1?.reduce((acc, curr) => acc + curr.totPrice, 0)
-       let response=await httpCommon.post("/payment",{amount:amount});
+        let techAmount=spData?.reduce((acc, curr) => acc + (+curr.technician), 0)
+        let amount=data1?.reduce((acc, curr) => acc + (+curr.totPrice), 0)
+       let response=await httpCommon.post("/payment",{amount:amount+techAmount});
        let {data}=response;
        const options = {
         key: "rzp_test_BygSIi3FPRdnHP", // Enter the Key ID generated from the Dashboard
@@ -188,7 +189,7 @@ const Checkout = () => {
                 <span className="badge badge-primary badge-pill">3</span>
               </h4>
               <ul className="list-group mb-3">
-                {data?.map((d1, i) =>
+                {spData?.map((d1, i) =>
                   <li key={i} className="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 className="my-0">{d1?.sparePartName}</h6>
@@ -221,7 +222,7 @@ const Checkout = () => {
                 </li> */}
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Total (INR)</span>
-                  <strong>RS.{data1?.reduce((acc, curr) => acc + curr.totPrice, 0)}</strong>
+                  <strong>RS.{data1?.reduce((acc, curr) => acc + curr.totPrice, 0)+spData?.reduce((acc, curr) => acc + (+curr.technician), 0)}</strong>
                 </li>
               </ul>
               {/* <form className="card p-2">
@@ -463,7 +464,7 @@ const Checkout = () => {
 
                     <div className="ms-5 mt-3 me-5">
                       <h3 className=''>Order Details :</h3>
-                      {data?.map((d1, i) =>
+                      {spData?.map((d1, i) =>
                         <div key={i} className='border mb-2 p-3' >
 
                           <div className=''>  <span className='fw-bold'> OrderId :</span> {d1?.orderId} </div>

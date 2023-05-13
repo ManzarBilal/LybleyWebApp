@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const Venderpolicy = () => {
+  const Venderpolicy = () => {
   return (
     <div>Venderpolicy</div>
   )
 }
+
+export default Venderpolicy;

@@ -34,7 +34,7 @@ export default function Footer() {
                         <div className="col-lg-3 col-md-6">
                             <h5 className="text-white mb-3">Policy</h5>
                             <ul className="list-unstyled text-muted">
-                                <li>Return Policy</li>
+                            <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/returnPolicy" >  <li>Return Policy</li></Link>
                                 <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/privacyPolicy" >  <li>Privacy Policy</li></Link>
                                 <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/disclaimer" >  <li>Disclaimer</li></Link>
                                 <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/termOfUse" > <li>Terms of Use</li></Link>

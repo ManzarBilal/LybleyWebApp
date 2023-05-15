@@ -45,7 +45,7 @@ export default function Footer() {
                         <div className="col-lg-2 col-md-6">
                             <h5 className="text-white mb-3">Useful links</h5>
                             <ul className="list-unstyled text-muted">
-                            <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/Article" ><li>Article</li></Link>
+                            <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/article" ><li>Article</li></Link>
                             <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/sparePartBrands" ><li>Brands</li></Link>
                             <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/SiteMap" ><li>SiteMap</li></Link>
                             </ul>

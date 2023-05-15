@@ -13,6 +13,12 @@
     background-color: #f5881f;
 }
 
+
+.footerLink :hover{
+    color: white !important;
+    font-weight: bold !important;
+}
+
 @media only screen and (min-width: 1000px) {
      .faqsHead{
         margin-left: 200px;

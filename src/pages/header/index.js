@@ -107,7 +107,7 @@ function Header(props) {
             }}
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>Order</MenuItem>
+            <MenuItem onClick={handleClose}><Link className="text-decoration-none text-dark" href="/orders">Order</Link> </MenuItem>
             <hr className="m-0 p-0"></hr>
             <MenuItem onClick={handleLogout} >Logout</MenuItem>
           </Menu>

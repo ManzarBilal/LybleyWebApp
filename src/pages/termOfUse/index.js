@@ -402,7 +402,7 @@ const TermOfUse = () => {
             </p>
             <p>
 
-(e)“Platform” shall mean the website (<span className='text-primary'>https://www.SpareTrade.store</span>) and the application (whether android or IOS) downloadable from third party service providers, including any updates thereof, as We may provide from time to time.
+            (e)“Platform” shall mean the website (<span className='text-primary'>https://www.SpareTrade.store</span>) and the application (whether android or IOS) downloadable from third party service providers, including any updates thereof, as We may provide from time to time.
 
             </p>
             <p>

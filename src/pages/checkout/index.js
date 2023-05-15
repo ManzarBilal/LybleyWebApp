@@ -117,7 +117,6 @@ const Checkout = () => {
         let amount=data1?.reduce((acc, curr) => acc + (+curr.totPrice), 0)
        let response=await httpCommon.post("/payment",{amount:amount+techAmount});
        let {data}=response;
-       console.log("payment",data)
        const options = {
         key: "rzp_test_BygSIi3FPRdnHP", // Enter the Key ID generated from the Dashboard
         amount: data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -130,12 +129,9 @@ const Checkout = () => {
           try{
           let response =await axios.post("https://lybleyappbackend-production.up.railway.app/paymentVerification",{response:orderDetails});
           let {data}=response;
-          console.log("orderData",data);
           if(data?.status===true){
-            console.log(data?.status);
             createOrder();
-            console.log("orderCreated");
-            router.push("https://sparetrade.vercel.app/confirmation");
+            router.push("https://sparetrade-manzarbilal.vercel.app/confirmation");
           }
           }catch(err){
             console.log(err);

@@ -127,11 +127,11 @@ const Checkout = () => {
         order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async function (orderDetails){
           try{
-          let response =await axios.post("http://localhost:5000/paymentVerification",{response:orderDetails});
+          let response =await axios.post("https://lybleyappbackend-production.up.railway.app/paymentVerification",{response:orderDetails});
           let {data}=response;
           if(data?.status===true){
             createOrder();
-            router.push("http://localhost:3000/confirmation");
+            router.push("https://sparetrade-manzarbilal.vercel.app/confirmation");
           }
           }catch(err){
             console.log(err);

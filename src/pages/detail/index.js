@@ -44,6 +44,8 @@ const Detail = (props) => {
   const discountSpareParts= (userDetail?.role==="Reseller" && userDetail?.discount==="VERIFIED") ? allSpareParts.map(s1=>({...s1,bestPrice:+(s1?.bestPrice-((10/100)*(+s1?.bestPrice)))?.toFixed(0)})) : allSpareParts;
   const getSparePart = discountSpareParts?.find(f => f?._id === id);
 
+  console.log(getSparePart);
+
   const [mainImage, setMainImage] = useState(getSparePart?.images[0])
 
  const getUser=async(_id)=>{
@@ -148,7 +150,7 @@ const Detail = (props) => {
                     </div>
                     <div className="product-image pe-5">
                       <div >
-                        <img height={250} width={300} src={mainImage?.length > 0 ? mainImage : getSparePart?.images[0]} alt="" />
+                        <img height={300} width={350} src={mainImage?.length > 0 ? mainImage : getSparePart?.images[0]} alt="" />
                       </div>
                       {/* <div className='mt-3'>
                         <button className='btn btn-success'>Book Technician to Fit It - 300 Rs Only</button>
@@ -161,8 +163,8 @@ const Detail = (props) => {
                       <div> <h2 className="fw-bold fs-4"> {getSparePart?.partName}</h2></div>
                       {/* <div> <span className="text-muted ms-3">(449 customer review)</span></div> */}
                       <div>
+                        <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger fw-bold'> {getSparePart?.bestPrice} INR</span></div></div>
                         <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR </span></div>
-                        <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger'> {getSparePart?.bestPrice} INR</span></div></div>
                       <div className='mt-2'><p> {getSparePart?.description} 
                          </p></div>
                       <div>

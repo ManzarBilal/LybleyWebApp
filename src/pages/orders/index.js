@@ -7,7 +7,7 @@ import { getOrderById } from '@/redux/actions/order';
 const Orders = () => {
 
     const dispatch = useDispatch();
-    const orders = useSelector(state => state.orders)
+    const ordersArray = useSelector(state => state.orders)
 
     useEffect(() => {
         let userId = localStorage.getItem("userId")
@@ -15,7 +15,7 @@ const Orders = () => {
         dispatch(getOrderById(userId));
     }, [])
 
-
+const orders=ordersArray.reverse()
     return (
         <div >
             <Header />

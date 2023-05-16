@@ -68,7 +68,7 @@ const Orders = () => {
                                     </div>
                                     <div className='col-6 col-md-1'>
                                         <div className='fw-bold'>Technician</div>
-                                        <div>{item?.technician === true ? "yes" : "No"}</div>
+                                        <div>{item?.technician >0 ? `Booked for ${item?.technician}`: "No"}</div>
                                     </div>
                                 </div>
                             )} </div>

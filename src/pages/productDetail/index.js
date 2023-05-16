@@ -70,7 +70,7 @@ const playerRef = useRef(null);
             <div className='mb-3'><h2>Spare Parts</h2></div>
 
               {getSpareParts?.map((img1,i) =>
-                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'key={i} ><Link href={`/detail?id=${img1?._id}`} className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={"Best Price - " + img1?.bestPrice +" INR"} mrp={"MRP - "+img1?.MRP+" INR"} brand={true} /> </Link></div>
+                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'key={i} ><Link href={`/detail?id=${img1?._id}`} className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={img1?.partName} bestPrice={"Best Price - " + img1?.bestPrice +" INR"} mrp={"MRP - "+img1?.MRP+" INR"} brand={true} /> </Link></div>
               )}
             </div>
 

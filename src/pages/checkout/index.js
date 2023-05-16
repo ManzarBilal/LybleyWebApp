@@ -59,6 +59,7 @@ BootstrapDialogTitle.propTypes = {
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
     const spData = useSelector(state=>state.checkoutData)
+    console.log("dfghj",spData);
     const [pin,setPin]=useState("");
     const router=useRouter();
     const [checkoutData,setCheckoutData]=useState({

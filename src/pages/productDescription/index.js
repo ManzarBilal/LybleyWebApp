@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById } from '@/redux/actions/product';
 
+
 const ProductDescription = () => {
    const [imageP, setImageP] = useState(["https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
       , "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
@@ -26,18 +27,19 @@ const ProductDescription = () => {
    useEffect(() => {
       dispatch(getProductById(id));
    }, [])
+   const handleClose = () => {
+      setOpen(false);
+  };
 
    console.log("product", product);
    return (
       <div className='bg_image'>
          <Header />
-         <div className='container' >
-      
-              
+         <div className='container mt-4' >
                   {/* <div>
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
           </div> */}
-                  <div className='row d-flex justify-content-center'>
+                  <div className='row '>
             <div className='mb-3'><h2>Products</h2></div>
                      {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product?.map((item, i) =>
                         <div className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>

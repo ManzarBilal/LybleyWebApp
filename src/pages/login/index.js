@@ -112,10 +112,10 @@ export default function Login(props) {
             let response=await httpCommon.post("/userLogin",obj);
             let {data}=response;
             if(data?.user?.status==="ACTIVE"){
+                window.location.reload(false);
                 localStorage.setItem("userId",data?.user?._id);
                 localStorage.setItem("userName",data?.user?.name);
                 localStorage.setItem("user",JSON.stringify(data?.user));
-                window.location.reload(false);
                 props.onSubmit(false);
             }else if(data?.status===false){
                 console.log("data",data);

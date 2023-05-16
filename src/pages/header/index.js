@@ -26,6 +26,7 @@ function Header(props) {
   const [forget, setForget] = useState(false)
   const [otpShow, setOtpShow] = useState(false)
   const [userData, setUserdata] = useState("")
+  const [userInfo,setUserInfo]=useState({});
   const [randomValue, setRandomValue] = useState("")
   const handleLogin = (bool) => {
     setShow(bool);
@@ -50,16 +51,20 @@ function Header(props) {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userRole");
     let x = Math.floor((Math.random() * 10) + 1);
     setRandomValue(x);
     handleClose()
     window.location.reload(false);
+    localStorage.removeItem("userId");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userRole");
+   
   }
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setUserdata(localStorage.getItem("userId"))
+      let user=localStorage.getItem("user");
+      setUserInfo(JSON.parse(user));
     }
   }, [randomValue])
 
@@ -87,16 +92,19 @@ function Header(props) {
           </div>
           :
           <>
-
+          <div class="d-flex flex-column text-center">
           <Button
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
+            className="m-0 p-0"
           >
-            <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
+           <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
           </Button>
+          <div class="text-white m-0 p-0">{userInfo?.name}</div> 
+          </div>
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -112,7 +120,7 @@ function Header(props) {
             <MenuItem onClick={handleLogout} >Logout</MenuItem>
           </Menu>
           
-
+     
         </>
         }
         <Cart user={userData} randomValue={props?.randomValue} onSubmit={handleLogin} />

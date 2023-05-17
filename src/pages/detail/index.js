@@ -158,7 +158,7 @@ const Detail = (props) => {
   }
 
   return (
-    <div className="bg_image">
+    <div className="bg_image" style={{fontFamily:"sans-serif"}}>
       {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
       <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
       <div className='container mt-5'>
@@ -194,7 +194,7 @@ const Detail = (props) => {
                       <div>
                         <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger fw-bold'> {getSparePart?.bestPrice} INR</span></div></div>
                       <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR </span></div>
-                      <div className='mt-2'><p> {getSparePart?.description}
+                      <div className='mt-2'><p style={{fontFamily:"sans-serif"}}> {getSparePart?.description}
                       </p></div>
                       <div>
                         <div className="d-flex flex-wrap mb-3">

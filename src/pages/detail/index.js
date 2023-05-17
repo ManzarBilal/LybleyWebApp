@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import Header from '../header';
 import Footer from '../footer';
@@ -12,115 +12,144 @@ import Link from 'next/link';
 import { handleCheckout } from '@/redux/actions/checkout';
 import AlertDialog from "./dialog";
 import httpCommon from '@/http-common';
+import ReactPlayer from 'react-player';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 const Detail = (props) => {
   const dispatch = useDispatch();
-  const [showLogin,setShowLogin]=useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const allSpareParts = useSelector(state => state?.spareParrts);
   const qty = useSelector(state => state?.value);
-  const [technician,setTechnician]=useState(0);
+  const [technician, setTechnician] = useState(0);
   const [randomValue, setRandomValue] = useState("");
-  const [dialogOpen,setDialogOpen]=useState(false);
-  const [cartValue,setCartValue]=useState(false)
-  const [cart,setCart]=useState(null);
-  const [user,setUser]=useState("");
-  const [check,setCheck]=useState("");
-  const [userData,setUserdata]=useState({});
-  const [userDetail,setUserDetail]=useState({});
- 
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [cartValue, setCartValue] = useState(false)
+  const [cart, setCart] = useState(null);
+  const [user, setUser] = useState("");
+  const [check, setCheck] = useState("");
+  const [userData, setUserdata] = useState({});
+  const [userDetail, setUserDetail] = useState({});
+  const [videoUrl, setVideoUrl] = useState([])
+  const [hasWindow, setHasWindow] = useState(false);
+
+
+
+  const getVideos = async () => {
+    try {
+      let response = await httpCommon.get("/getAllVideos");
+      let { data } = response;
+      setVideoUrl(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
   useEffect(() => {
-    const user=localStorage.getItem("user");
-    let obj=JSON.parse(user)
+    const user = localStorage.getItem("user");
+    let obj = JSON.parse(user)
     setUserdata(obj);
     dispatch(setOne(1));
     setUser("technician");
-     getUser(obj?._id);
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
+
+    getVideos()
+    getUser(obj?._id);
   }, [dispatch]);
   const router = useRouter()
   const { id } = router.query;
 
   const [loading, setLoading] = useState(false);
 
-  const discountSpareParts= (userDetail?.role==="Reseller" && userDetail?.discount==="VERIFIED") ? allSpareParts.map(s1=>({...s1,bestPrice:+(s1?.bestPrice-((10/100)*(+s1?.bestPrice)))?.toFixed(0)})) : allSpareParts;
+  const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
   const getSparePart = discountSpareParts?.find(f => f?._id === id);
 
-  console.log(getSparePart);
+  const playerRef = useRef(null);
 
+  let sp = allSpareParts?.find((sp1, index) => index === 0)
+  let videoUrl1 = videoUrl?.filter(v1 => v1.productModel === sp?.productModel);
+  console.log(sp, "sp");
+  console.log(videoUrl1, "videoUrl1");
   const [mainImage, setMainImage] = useState(getSparePart?.images[0])
 
- const getUser=async(_id)=>{
-       try{
-         let response=await httpCommon.get(`/userDetail/${_id}`);
-         let {data}=response;
-         setUserDetail(data);
-       }catch(err){
-        console.log(err);
-       }
- }
-  const handleAddToCart = (id,bool) => {
+  const getUser = async (_id) => {
+    try {
+      let response = await httpCommon.get(`/userDetail/${_id}`);
+      let { data } = response;
+      setUserDetail(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  const handleAddToCart = (id, bool) => {
     let data = discountSpareParts?.find(f => f?._id === id)
-    let tech=bool ? data?.technician :technician;
+    let tech = bool ? data?.technician : technician;
     const userId = localStorage.getItem("userId")
-    let obj = { userId: userId, brandId: data?.userId, sparePartId: data?._id, MRP: data?.bestPrice,technician:tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
-    if(user && tech===0){
+    let obj = { userId: userId, brandId: data?.userId, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
+    if (user && tech === 0) {
       setCartValue(true);
       setCart(obj);
       setDialogOpen(true);
-    }else{
-    dispatch(addCart(obj));
-    let x = Math.floor((Math.random() * 5));
-    setRandomValue(x);
+    } else {
+      dispatch(addCart(obj));
+      let x = Math.floor((Math.random() * 5));
+      setRandomValue(x);
     }
   }
 
-  const handleBuy=(e,bool)=>{    
+  const handleBuy = (e, bool) => {
     const userId = localStorage.getItem("userId")
     setCheck("BUY");
-    let tech=bool ? getSparePart?.technician : technician;
-    if(userId){
-    let obj = { userId: userId, brandId: getSparePart?.userId, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician:tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
-     dispatch(handleCheckout([obj]));
-     if(user && tech===0){
-      setDialogOpen(true);
-     }else{
-     router.push("/checkout");
-     }
-    }else{
+    let tech = bool ? getSparePart?.technician : technician;
+    if (userId) {
+      let obj = { userId: userId, brandId: getSparePart?.userId, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician: tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
+      dispatch(handleCheckout([obj]));
+      if (user && tech === 0) {
+        setDialogOpen(true);
+      } else {
+        router.push("/checkout");
+      }
+    } else {
       setShowLogin(true);
     }
   }
-  
-  const handleCloseDialog=()=>{
+
+  const handleCloseDialog = () => {
     setDialogOpen(false);
     setUser("");
     router.push("/checkout");
   }
 
-  const handleCheckbox=(val)=>{
-       if(technician===0){
-        setTechnician(val)
-       }else{
-        setTechnician(0)
-       }
+  const handleCheckbox = (val) => {
+    if (technician === 0) {
+      setTechnician(val)
+    } else {
+      setTechnician(0)
+    }
   }
 
-  const handleClose=(e)=>{
+  const handleClose = (e) => {
     setTechnician(true);
     setUser("");
-    if(check==="BUY"){
-      let bool=true;
-      handleBuy(e,bool);
+    if (check === "BUY") {
+      let bool = true;
+      handleBuy(e, bool);
       router.push("/checkout");
-    }else{
-      let bool=true;
-      handleAddToCart(getSparePart?._id,bool);
+    } else {
+      let bool = true;
+      handleAddToCart(getSparePart?._id, bool);
     }
     setCheck("");
     setDialogOpen(false);
     setUser("");
   }
 
-  const handleCloseCart=()=>{
+  const handleCloseCart = () => {
     setDialogOpen(false);
     setUser("");
     dispatch(addCart(cart));
@@ -130,7 +159,7 @@ const Detail = (props) => {
 
   return (
     <div className="bg_image">
-    {(user &&  <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
+      {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
       <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
       <div className='container mt-5'>
         <h2 className='mb-3 fw-bold'>Product Detail</h2>
@@ -164,25 +193,25 @@ const Detail = (props) => {
                       {/* <div> <span className="text-muted ms-3">(449 customer review)</span></div> */}
                       <div>
                         <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger fw-bold'> {getSparePart?.bestPrice} INR</span></div></div>
-                        <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR </span></div>
-                      <div className='mt-2'><p> {getSparePart?.description} 
-                         </p></div>
+                      <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR </span></div>
+                      <div className='mt-2'><p> {getSparePart?.description}
+                      </p></div>
                       <div>
-                         <div className="d-flex flex-wrap mb-3">
-                        <div className="mt-2 mt-sm-0  me-1">
-                          <div className="">
-                           <span className='fw-bold me-2'>Qty.</span> <button className='btn btn-outline-danger btn-sm me-2' onClick={() => dispatch(decrement(-1))}>-</button> <span className='text-dark'> {qty} </span> <button className='btn btn-outline-success btn-sm ms-2' onClick={() => dispatch(increment(1))}>+</button>
+                        <div className="d-flex flex-wrap mb-3">
+                          <div className="mt-2 mt-sm-0  me-1">
+                            <div className="">
+                              <span className='fw-bold me-2'>Qty.</span> <button className='btn btn-outline-danger btn-sm me-2' onClick={() => dispatch(decrement(-1))}>-</button> <span className='text-dark'> {qty} </span> <button className='btn btn-outline-success btn-sm ms-2' onClick={() => dispatch(increment(1))}>+</button>
+                            </div>
                           </div>
+
+                          <ToastContainer />
                         </div>
-                        
-                        <ToastContainer />
-                      </div>
-                      <div className='form-check'>
-                          <input type="checkbox" className='form-check-input' value={getSparePart?.technician} checked={technician===0 ? false : true} onChange={(e)=> handleCheckbox(e.currentTarget.value)} />
+                        <div className='form-check'>
+                          <input type="checkbox" className='form-check-input' value={getSparePart?.technician} checked={technician === 0 ? false : true} onChange={(e) => handleCheckbox(e.currentTarget.value)} />
                           <label className='form-check-label'>Book Technician to fit it - {getSparePart?.technician} INR only</label>
-                         </div>
-                      </div> 
-                      
+                        </div>
+                      </div>
+
                       <div className='d-flex mt-2'>
                         <div className='w-75 '>
                           <button className="btn btn-warning mt-2 w-100 mt-sm-0" onClick={handleBuy}><i className="fa fa-heart me-1"></i> BUY</button>
@@ -195,7 +224,25 @@ const Detail = (props) => {
               </div>
             </div>
           </div>
-
+          <div className='row mt-5  bg-light align-items-center ' style={{height:"100px"}}>
+            <div className='col-md-4 col-12 d-flex justify-content-center fw-bold' >
+            <div> <LocalShippingIcon fontSize='large'  color='primary'/> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
+            </div>
+            <div className='col-md-4 col-12  d-flex justify-content-center fw-bold' >
+            <div><AssignmentReturnIcon fontSize='large'  color='primary'/> </div><div className='ms-2 pt-1'>10 Days Assured Return</div>
+            </div>
+            <div className='col-md-4 col-12  d-flex justify-content-center fw-bold' >
+              <div><ReceiptIcon fontSize='large'  color='primary'/> </div><div className='ms-2 pt-1'>GST invoice</div>
+            </div>
+          </div>
+          <div className='mt-5'>
+            <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
+            <div className='row mt-3'>
+              {videoUrl1?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
+                {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
+              </div>))}
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

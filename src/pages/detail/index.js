@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import Header from '../header';
 import Footer from '../footer';
-
+import style from "../common.module.css"
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement, setOne } from "../../redux/actions/index"
 import { useRouter } from 'next/router';
@@ -179,7 +179,7 @@ const Detail = (props) => {
                     </div>
                     <div className="product-image pe-5">
                       <div >
-                        <img height={300} width={350} src={mainImage?.length > 0 ? mainImage : getSparePart?.images[0]} alt="" />
+                        <img height={300} className={style.img_width_detail} src={mainImage?.length > 0 ? mainImage : getSparePart?.images[0]} alt="" />
                       </div>
                       {/* <div className='mt-3'>
                         <button className='btn btn-success'>Book Technician to Fit It - 300 Rs Only</button>

@@ -64,7 +64,7 @@ const Cards = (props) => {
         {props?.product === true ?
           <>
             <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
-              <img src={props.img} className="img-fluid" style={{ height: "220px", width: "250px" }} alt="..." />
+              <img src={props.img} className="img-fluid" style={{ height: "300px", width: "250px" }} alt="..." />
             </Link>
             <div className="card-body">
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
@@ -81,9 +81,9 @@ const Cards = (props) => {
           </>
           :
           <>
-            <img src={props?.img} className="img-fluid" style={{ height: "220px", width: "250px" }} alt="..." />
+            <img src={props?.img} className="img-fluid" style={{ height: "300px", width: "250px" }} alt="..." />
             <div className="card-body">
-              <h5 className="card-title" style={{ width: "200px" }}>{props?.title}</h5>
+              <h5 className={`card-title ${props?.center ? "text-center" : ""}`} style={{ width: "200px" }}>{props?.title}</h5>
               <p>{props?.bestPrice}</p>
               <p className='text-muted text-decoration-line-through'>{props?.mrp}</p>
                <p className="card-text" data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' style={{ width: "200px" }}>{props?.description?.substring(0, 30)}</p> 

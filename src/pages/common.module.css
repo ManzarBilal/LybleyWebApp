@@ -18,10 +18,19 @@
     color: white !important;
     font-weight: bold !important;
 }
+.img_width_detail{
+    width: 350px;
+}
 
 @media only screen and (min-width: 1000px) {
      .faqsHead{
         margin-left: 200px;
         margin-right: 200px;
-     }
+     }   
   }
+
+@media only screen and (max-width: 600px) {
+    .img_width_detail{
+       width: 220px;
+   }    
+ }

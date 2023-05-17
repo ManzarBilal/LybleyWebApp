@@ -11,13 +11,7 @@ import { getProductById } from '@/redux/actions/product';
 
 
 const ProductDescription = () => {
-   const [imageP, setImageP] = useState(["https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
-      , "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
-      , "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png",
-      "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png",
-      "https://5.imimg.com/data5/WG/PR/MT/SELLER-7700072/ashok-leyland-spare-part-500x500.png"
-   ])
-
+  
    const router = useRouter();
    const { id } = router.query;
 
@@ -31,7 +25,7 @@ const ProductDescription = () => {
       setOpen(false);
   };
 
-   console.log("product", product);
+   
    return (
       <div className='bg_image'>
          <Header />
@@ -43,9 +37,9 @@ const ProductDescription = () => {
             <div className='mb-3'><h2>Products</h2></div>
                      {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product?.map((item, i) =>
                         <div className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>
-                           <Link className='text-decoration-none text-dark' href={`/productDetail?id=${item?._id}`}><Cards img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
+                        <Cards productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
                            
-                           </Link>
+                         
                            {/* <img className='img-fluid w-100' src={item?.productImage} style={{height:"280px"}} /> */}
                         </div>
                      )}

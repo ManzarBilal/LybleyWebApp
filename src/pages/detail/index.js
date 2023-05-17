@@ -221,24 +221,28 @@ const Detail = (props) => {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
-          <div className='row mt-5  bg-light align-items-center ' style={{height:"100px"}}>
+
+        </div>
+        <div className='col-md-12'>
+          <div className='row mt-5 w-100 bg-light align-items-center ' style={{ height: "100px" }}>
             <div className='col-md-4 col-12 d-flex justify-content-center fw-bold' >
-            <div> <LocalShippingIcon fontSize='large'  color='primary'/> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
+              <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
             </div>
             <div className='col-md-4 col-12  d-flex justify-content-center fw-bold' >
-            <div><AssignmentReturnIcon fontSize='large'  color='primary'/> </div><div className='ms-2 pt-1'>10 Days Assured Return</div>
+              <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>10 Days Assured Return</div>
             </div>
             <div className='col-md-4 col-12  d-flex justify-content-center fw-bold' >
-              <div><ReceiptIcon fontSize='large'  color='primary'/> </div><div className='ms-2 pt-1'>GST invoice</div>
+              <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
             </div>
           </div>
-          <div className='mt-5'>
+          <div className='mt-5 w-100'>
             <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
             <div className='row mt-3'>
-              {videoUrl1?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
+              {videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
                 {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
               </div>))}
             </div>

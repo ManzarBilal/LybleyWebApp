@@ -26,9 +26,7 @@ const ProductDetail = () => {
 
   const dispatch = useDispatch();
   const [hasWindow, setHasWindow] = useState(false);
-  const [videoUrl, setVideoUrl] = useState(['https://youtu.be/0BIaDVnYp2A'
-  , 'https://youtu.be/0BIaDVnYp2A'
-  , 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A', 'https://youtu.be/0BIaDVnYp2A'])
+  const [videoUrl, setVideoUrl] = useState([ ])
 const playerRef = useRef(null);
 
   const getSpareParts = useSelector(state => state?.spareParrts);
@@ -38,9 +36,7 @@ const playerRef = useRef(null);
   
   let productImage = products?.find(el => el?._id === getSpareParts[0].productId);
 
-console.log("brandsCategories",brandsCategories)
-console.log("productImage",productImage)
-console.log("getSpareParts",getSpareParts)
+ 
   const [age, setAge] = React.useState('Option');
 
   const handleChange = (event) => {

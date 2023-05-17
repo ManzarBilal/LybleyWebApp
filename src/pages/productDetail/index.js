@@ -80,8 +80,19 @@ console.log("getSpareParts",getSpareParts)
             <div className='row mt-5'>
             <div className='mb-3'><h2>Spare Parts</h2></div>
 
-              {getSpareParts?.map((img1,i) =>
-                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'key={i} ><Link href={`/detail?id=${img1?._id}`} className="text-decoration-none text-dark"> <Cards img={img1?.images[0]} title={img1?.partName} bestPrice={"Best Price - " + img1?.bestPrice +" INR"} mrp={"MRP - "+img1?.MRP+" INR"} brand={true} /> </Link></div>
+              {getSpareParts?.map((p1,i) =>
+                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'key={i} >
+                  <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
+              <div className="card">
+                <img src={p1?.images[0]} class="card-img-top" alt="..." height="200px" width="200px" />
+                <div className="card-body">
+                  <h5 className="card-title">{p1?.partName}</h5>
+                  <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>
+                  <p className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</p>
+                </div>
+              </div>
+              </Link>
+                   </div>
               )}
             </div>
 

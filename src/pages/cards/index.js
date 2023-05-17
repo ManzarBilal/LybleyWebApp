@@ -59,9 +59,9 @@ const handleClose = () => {
   return (
   <>
 <div className="card" >
-  <img src={props.img} className="img-fluid"  style={{height:"220px",width:"250px"}} alt="..." />
+  <img src={props.img} className="img-fluid"  alt="..." style={{height:"300px",width:"260px"}}/>
   <div className="card-body">
-    <h5 className="card-title" style={{width:"200px"}}>{props.title}</h5>
+    <h5 className={`card-title ${props?.center ? "text-center" : ""}`} >{props.title}</h5>
     <p>{props?.bestPrice}</p>
     <p className='text-muted text-decoration-line-through'>{props?.mrp}</p>
      <p className="card-text" data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' onMouseEnter={handleClickOpen} style={{width:"200px"}}>{props?.description?.substring(0,55)}</p>

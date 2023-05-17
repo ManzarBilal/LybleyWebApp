@@ -15,6 +15,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import httpCommon from '@/http-common';
+import { getProductById } from '@/redux/actions/product';
+
+ 
 const ProductDetail = () => {
 
 
@@ -29,8 +32,15 @@ const ProductDetail = () => {
 const playerRef = useRef(null);
 
   const getSpareParts = useSelector(state => state?.spareParrts);
+    const brandsCategories = useSelector(state => state.categories)
+    const products = useSelector(state => state.products)
 
-  console.log(getSpareParts);
+  
+  let productImage = products?.find(el => el?._id === getSpareParts[0].productId);
+
+console.log("brandsCategories",brandsCategories)
+console.log("productImage",productImage)
+console.log("getSpareParts",getSpareParts)
   const [age, setAge] = React.useState('Option');
 
   const handleChange = (event) => {
@@ -63,9 +73,10 @@ const playerRef = useRef(null);
       <Header />
       <div className='container'>
         <div className='row d-flex justify-content-center'>
-          <div className='col-12'>
+          <div className='col-12 mt-5'>
 
-            <img src='https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png' className='rounded-circle' height="200" width="200" />
+            <img src={productImage?.productImage} className='rounded-circle' height="200" width="200" />
+            <h4 className='ms-md-4' >{productImage?.productName}</h4>
             <div className='row mt-5'>
             <div className='mb-3'><h2>Spare Parts</h2></div>
 

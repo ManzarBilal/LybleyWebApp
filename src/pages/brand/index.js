@@ -15,7 +15,7 @@ const Brand = () => {
 
   const dispatch = useDispatch();
   const brandsCategories = useSelector(state => state.categories)
-  console.log("brandCategories",brandsCategories)
+   
   const allBrands = useSelector(state => state?.brands)
   let brand = allBrands?.allBrands?.find(el => el._id === id);
 
@@ -24,7 +24,7 @@ const Brand = () => {
   }, [dispatch]);
 
 
-console.log(brandsCategories,"brandsCategories");
+ 
   return (
     <div className='bg_image '>
       <Header />

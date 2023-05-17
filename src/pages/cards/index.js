@@ -68,7 +68,7 @@ const Cards = (props) => {
             </Link>
             <div className="card-body">
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
-                <h5 className="card-title" style={{ width: "200px" }}>{props.title}</h5>
+                <h5 className="card-title" style={{textAlign:"justify", width: "200px" }}>{props.title}</h5>
               </Link>
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
                 <p>{props?.bestPrice}</p>
@@ -102,7 +102,7 @@ const Cards = (props) => {
         </BootstrapDialogTitle>
         <DialogContent >
           <h4>Description</h4>
-          <div>{props?.description}</div>
+          <div style={{textAlign:"justify"}}>{props?.description}</div>
         </DialogContent>
 
       </BootstrapDialog>

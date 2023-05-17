@@ -35,8 +35,10 @@ const Brand = () => {
             <img className='rounded'  src={brand?.brandLogo} alt='logo' height="100" width="100" />
           </div>
           <div >
-            
+      
             <img className='rounded' src={brand?.brandBanner} alt='' width="100%" height="350" />
+            <h3 className='mt-3' style={{fontFamily:"sans-serif"}}>About us</h3>
+          <p style={{textAlign:"justify",fontFamily:"sans-serif"}}>{brand?.aboutUs}</p>
             <div className='row mt-5'>
             <div className='mb-3'><h2>Categories</h2></div>
               {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories?.map(p1 =>

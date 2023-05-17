@@ -5,10 +5,11 @@ import Footer from '../footer';
 const PrivacyPolicy = () => {
   return (
     <div className='bg-light'>
+
       <Header />
       <div className='container mt-5'>
         <div className='row'>
-          <div className='col-12 col-md-4 d-flex align-items-center mt-md-5 pt-md-5 h-100'><img src="https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png" alt="logo" className=' img-fluid' /></div>
+          <div className='col-12 col-md-4 d-flex align-items-center mt-md-5 pt-md-5 h-100'> <div class=""> <img src="https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png" alt="logo" className=' img-fluid' /></div></div>
           <div className='col-12 col-md-8'>
             <h1 className='mt-3 fw-bold'>Privacy Policy</h1>
             <hr className='border border-5 border-secondary' />

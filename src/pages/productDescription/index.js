@@ -37,7 +37,7 @@ const ProductDescription = () => {
             <div className='mb-3'><h2>Products</h2></div>
                      {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product?.map((item, i) =>
                         <div className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>
-                        <Cards productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
+                        <Cards  productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
                            
                          
                            {/* <img className='img-fluid w-100' src={item?.productImage} style={{height:"280px"}} /> */}

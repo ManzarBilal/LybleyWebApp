@@ -62,7 +62,7 @@ const Search = () => {
           <div className='col-md-3 col-4 d-flex justify-content-center mb-3'>
             <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
               <div className="card">
-                <img src={p1?.images[0]} class="card-img-top" alt="..." height="200px" width="200px" />
+                <img src={p1?.images[0]} class="img-fluid" alt="..." style={{ height: "220px", width: "250px" }} />
                 <div className="card-body">
                   <h5 className="card-title">{p1?.partName}</h5>
                   <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>

@@ -58,6 +58,7 @@ const handleClose = () => {
 };
   return (
   <>
+  
 <div className="card" >
   <img src={props.img} className="img-fluid"  alt="..." style={{height:"300px",width:"260px"}}/>
   <div className="card-body">

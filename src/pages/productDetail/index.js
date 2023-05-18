@@ -17,7 +17,7 @@ import Select from '@mui/material/Select';
 import httpCommon from '@/http-common';
 import { getProductById } from '@/redux/actions/product';
 
- 
+
 const ProductDetail = () => {
 
 
@@ -26,105 +26,146 @@ const ProductDetail = () => {
 
   const dispatch = useDispatch();
   const [hasWindow, setHasWindow] = useState(false);
-  const [videoUrl, setVideoUrl] = useState([ ])
-const playerRef = useRef(null);
+  const [videoUrl, setVideoUrl] = useState([])
+  const playerRef = useRef(null);
 
   const getSpareParts = useSelector(state => state?.spareParrts);
-    const brandsCategories = useSelector(state => state.categories)
-    const products = useSelector(state => state.products)
+  const brandsCategories = useSelector(state => state.categories)
+  const products = useSelector(state => state.products)
 
-  
-  let productImage = products?.find(el => el?._id === getSpareParts.find((f1,i)=>i===0)?.productId);
 
- 
-  const [age, setAge] = React.useState('Option');
+  let productImage = products?.find(el => el?._id === getSpareParts.find((f1, i) => i === 0)?.productId);
 
+
+  const [faultType, setFaultType] = React.useState('all');
+  const [allFaults, setAllFaults] = React.useState([]);
+
+  const getFaults = async () => {
+    try {
+      let response = await httpCommon.get("/getAllFault");
+      let { data } = response;
+      setAllFaults(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setFaultType(event.target.value);
   };
-  
-  
+
+
   useEffect(() => {
 
     dispatch(getAllSpareParts(id));
     if (typeof window !== "undefined") {
       setHasWindow(true);
     }
+    getFaults()
     getVideos();
   }, [dispatch])
-  
-  const getVideos=async()=>{
-    try{
-      let response=await httpCommon.get("/getAllVideos");
-      let {data}=response;
+
+  const getVideos = async () => {
+    try {
+      let response = await httpCommon.get("/getAllVideos");
+      let { data } = response;
       setVideoUrl(data);
-    }catch(err){
-       console.log(err);
+    } catch (err) {
+      console.log(err);
     }
   }
-  let sp=getSpareParts?.find((sp1,index)=>index===0)
-  let videoUrl1=videoUrl?.filter(v1=>v1.productModel===sp?.productModel);
+
+  let spareParrtsWithFault = getSpareParts?.filter(el => el?.faultType?.find(f => f === faultType));
+
+
+
+  let sp = getSpareParts?.find((sp1, index) => index === 0)
+  let videoUrl1 = videoUrl?.filter(v1 => v1.productModel === sp?.productModel);
   return (
     <div className='bg_image'>
       <Header />
       <div className='container'>
         <div className='row d-flex justify-content-center'>
           <div className='col-12 mt-5'>
-
-            <img src={productImage?.productImage} className='rounded-circle' height="200" width="200" />
-            <h4 className='ms-md-4' >{productImage?.productName}</h4>
             <div className='row mt-5'>
-            <div className='mb-3'><h2>Spare Parts</h2></div>
-
-              {getSpareParts?.map((p1,i) =>
-                <div className='col-md-3 col-6 d-flex justify-content-center mb-4'key={i} >
-                  <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
-              <div className="card">
-                <img src={p1?.images[0]} class="card-img-top" alt="..." style={{ height: "220px", width: "250px" }} />
-                <div className="card-body">
-                  <h5 className="card-title">{p1?.partName}</h5>
-                  <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>
-                  <p className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</p>
-                </div>
+              <div className='col-lg-8 col-md-6 col-12'>
+                <img src={productImage?.productImage} className='rounded-circle' height="200" width="200" />
+                <h4 className='ms-md-4' >{productImage?.productName}</h4>
               </div>
-              </Link>
-                   </div>
-              )}
-            </div>
 
-          </div>
-        </div>
-        <div>
-            <div className='row mt-5'>
-              <div className='col-9'></div>
-              <div className='col-md-3 col-12'>
-                <Box  >
+              <div className='col-lg-4 col-md-6 mt-5 col-12 '>
+                <Box   >
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Option</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Faults Type</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={age}
-                      label="Option"
+                      value={faultType}
+                      label="Faults Type"
                       size='small'
                       style={{ backgroundColor: "white" }}
                       onChange={handleChange}
                     >
-                      <MenuItem value={10}>Option1</MenuItem>
-                      <MenuItem value={20}>Option2</MenuItem>
-                      <MenuItem value={30}>Option3</MenuItem>
+                      <MenuItem value={"all"}> Select Fault</MenuItem>
+                      {allFaults && allFaults?.map((item, i) => <MenuItem key={i} value={item?.faultName}>{item?.faultName}</MenuItem>
+                      )}
                     </Select>
                   </FormControl>
                 </Box>
               </div>
             </div>
+
             <div className='row mt-5'>
-              {videoUrl1?.map((url, i) => (<div className='col-md-3 col-6 mb-3' key={i}>
+              <div className='mb-3'><h2>Spare Parts</h2></div>
+
+              {faultType === "all" ? getSpareParts?.map((p1, i) =>
+                <div className='col-lg-3 col-md-6 col-12 d-flex justify-content-center mb-4' key={i} >
+                  <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
+                    <div className="card">
+                      <img src={p1?.images[0]} class="card-img-top" alt="..." style={{ height: "220px", width: "250px" }} />
+                      <div className="card-body">
+                        <h5 className="card-title">{p1?.partName}</h5>
+                        <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>
+                        <p className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</p>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              )
+                :
+                spareParrtsWithFault?.length === 0 ? <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available this fault Type </div>
+                  : spareParrtsWithFault?.map((p1, i) =>
+                    <div className='col-lg-3 col-md-6 col-12 d-flex justify-content-center mb-4' key={i} >
+                      <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
+                        <div className="card">
+                          <img src={p1?.images[0]} class="card-img-top" alt="..." style={{ height: "220px", width: "250px" }} />
+                          <div className="card-body">
+                            <h5 className="card-title">{p1?.partName}</h5>
+                            <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>
+                            <p className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</p>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  )}
+
+            </div>
+
+          </div>
+        </div>
+        <div>
+
+          <div className='mt-5'>
+            <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
+          </div>
+          <div className='row mt-3'>
+            {videoUrl1.length === 0 ? <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available  </div>
+              :
+              videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
                 {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
               </div>))}
 
-            </div>
           </div>
+        </div>
       </div>
       <Footer />
     </div>

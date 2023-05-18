@@ -42,7 +42,7 @@ const Brand = () => {
             <div className='row mt-5'>
             <div className='mb-3'><h2>Categories</h2></div>
               {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories?.map(p1 =>
-                <div className='col-md-3 col-6 d-flex justify-content-center mb-3'> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'><Cards center={true}   img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>
+                <div className='col-lg-3 col-md-6 col-12  d-flex justify-content-center mb-3'> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'><Cards center={true}   img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>
               )}
             </div>
           </div>

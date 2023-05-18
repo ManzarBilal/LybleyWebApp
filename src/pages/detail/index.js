@@ -73,8 +73,7 @@ const Detail = (props) => {
 
   let sp = allSpareParts?.find((sp1, index) => index === 0)
   let videoUrl1 = videoUrl?.filter(v1 => v1.productModel === sp?.productModel);
-  console.log(sp, "sp");
-  console.log(videoUrl1, "videoUrl1");
+   
   const [mainImage, setMainImage] = useState(getSparePart?.images[0])
 
   const getUser = async (_id) => {
@@ -171,7 +170,7 @@ const Detail = (props) => {
                   <div className="col-lg-6 mt-3 mb-3 d-flex justify-content-between align-items-center "  >
                     <div className=" nav flex-column "  >
                       {getSparePart?.images?.map((img, i) => {
-                        return <div className='border p-2 m-2' key={i}
+                        return <div className='border ' key={i}
                         >
                           <img onMouseEnter={() => setMainImage(img)} onClick={() => setMainImage(img)} role='button' height={60} width={60} src={img} alt="" />
                         </div>
@@ -232,19 +231,21 @@ const Detail = (props) => {
             <div className='col-md-4 col-12 d-flex justify-content-center fw-bold' >
               <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
             </div>
-            <div className='col-md-4 col-12  d-flex justify-content-center fw-bold' >
+            <div className='col-md-5 col-12  d-flex justify-content-center fw-bold' >
               <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>10 Days Assured Return</div>
             </div>
-            <div className='col-md-4 col-12  d-flex justify-content-center fw-bold' >
+            <div className='col-md-3 col-12  d-flex justify-content-center fw-bold' >
               <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
             </div>
           </div>
-          <div className='mt-5 w-100'>
+          <div className='mt-5 '>
             <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
             <div className='row mt-3'>
-              {videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
+              {videoUrl1.length===0 ?  <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available  </div>
+              : videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
                 {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
-              </div>))}
+              </div>))     
+              }
             </div>
           </div>
         </div>

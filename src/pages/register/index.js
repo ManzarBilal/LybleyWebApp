@@ -9,7 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Grid, TextField, Typography,Select,MenuItem } from '@mui/material';
+import { Grid, TextField, Typography, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -80,7 +80,7 @@ export default function Register(props) {
     const [showIcon1, setShowIcon1] = React.useState(true);
     const [showIcon2, setShowIcon2] = React.useState(true);
     const dispatch = useDispatch();
-   // const [role,setRole]=React.useState("");
+    // const [role,setRole]=React.useState("");
     const handleClickOpen = () => {
         setOpen(true);
 
@@ -116,62 +116,62 @@ export default function Register(props) {
     }
 
 
- const registration=(body)=>{
-       if(body?.role==="Service center"){
-        serviceCenterRegistration(body);
-       }else{
-        userRegistration(body);
-       }
- }
+    const registration = (body) => {
+        if (body?.role === "Service center") {
+            serviceCenterRegistration(body);
+        } else {
+            userRegistration(body);
+        }
+    }
 
-const userRegistration=async(registration)=>{
-    try{
-        let response= await httpCommon.post("/userRegistration", registration);
-        let {data}=response;
-        showToastMessage(data)
-       if(data?.status===true){
-        props.onSubmit1(true);
-        handleClose()
-       
-    }else{
-       return null; 
-    }
-    }catch(err){
-        console.log(err);
-    }
-}
-const serviceCenterRegistration=async(registration)=>{
-    try{
-        const formData=new FormData();
-        formData.append("name",registration?.name);
-        formData.append("email",registration?.email);
-        formData.append("contact",registration?.contact);
-        formData.append("role",registration?.role);
-        formData.append("password",registration?.password);
-        formData.append("document",file);
+    const userRegistration = async (registration) => {
+        try {
+            let response = await httpCommon.post("/userRegistration", registration);
+            let { data } = response;
+            showToastMessage(data)
+            if (data?.status === true) {
+                props.onSubmit1(true);
+                handleClose()
 
-        let response= await httpCommon.post("/serviceCenterRegistration", formData);
-        let {data}=response;
-        showToastMessage(data)
-       if(data?.status===true){
-        props.onSubmit1(true);
-        handleClose()
-       
-    }else{
-       return null; 
+            } else {
+                return null;
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
-    }catch(err){
-        console.log(err);
+    const serviceCenterRegistration = async (registration) => {
+        try {
+            const formData = new FormData();
+            formData.append("name", registration?.name);
+            formData.append("email", registration?.email);
+            formData.append("contact", registration?.contact);
+            formData.append("role", registration?.role);
+            formData.append("password", registration?.password);
+            formData.append("document", file);
+
+            let response = await httpCommon.post("/serviceCenterRegistration", formData);
+            let { data } = response;
+            showToastMessage(data)
+            if (data?.status === true) {
+                props.onSubmit1(true);
+                handleClose()
+
+            } else {
+                return null;
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
-}
 
 
     const onSubmit = data => {
-        
-        let obj = { name: data?.name, email: data?.email, contact: data?.contact,role:data?.role, password: data?.password }
- 
+
+        let obj = { name: data?.name, email: data?.email, contact: data?.contact, role: data?.role, password: data?.password }
+
         registration(obj);
-       // dispatch(userReg(obj));
+        // dispatch(userReg(obj));
         // showToastMessage(userData)
         dispatch(userEmail(data?.email))
     };
@@ -219,202 +219,206 @@ const serviceCenterRegistration=async(registration)=>{
     } = useForm({
         resolver: yupResolver(validationSchema)
     });
- 
-  const role=watch("role");
+
+    const role = watch("role");
 
     return (
         <div>
-            
-                <> <Button variant="contained" className=' text-dark fw-bold' style={{backgroundColor:"#f5881f"}} onClick={handleClickOpen}>
-                    SIGNUP
-                </Button>
-                    <BootstrapDialog
-                        onClose={handleClose}
-                        aria-labelledby="customized-dialog-title"
-                        open={props?.open || open}
-                    >
-                        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                            Sign Up
-                        </BootstrapDialogTitle>
-                        <DialogContent >
-                            <Grid className={`${style.mainDiv}`}>
+
+            <> <Button variant="contained" className=' text-dark fw-bold' style={{ backgroundColor: "#f5881f" }} onClick={handleClickOpen}>
+                SIGNUP
+            </Button>
+                <BootstrapDialog
+                    onClose={handleClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={props?.open || open}
+                >
+                    <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                        Sign Up
+                    </BootstrapDialogTitle>
+                    <DialogContent >
+                        <Grid className={`${style.mainDiv}`}>
+                            <Grid item sm={12} md={12}>
+                                <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470' height="70" width="60" /></div>
+                            </Grid>
+                            <form  >
                                 <Grid item sm={12} md={12}>
-                                    <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470' height="70" width="60" /></div>
+
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="n"
+                                        label="Name"
+                                        type="email"
+                                        fullWidth
+                                        variant="outlined"
+                                        size='small'
+                                        name="name"
+
+                                        onChange={(e) => handleChange(e)}
+                                        {...register('name')}
+                                        error={errors.name ? true : false}
+                                    />
+                                    <Typography variant="inherit" color="red">
+                                        {errors.name?.message}
+                                    </Typography>
+
                                 </Grid>
-                                <form  >
-                                    <Grid item sm={12} md={12}>
+                                <Grid item sm={12} md={12}>
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="na"
+                                        size='small'
+                                        label="Email Address"
+                                        type="email"
+                                        fullWidth
+                                        name='email'
+                                        variant="outlined"
 
-                                        <TextField
-                                            autoFocus
-                                            margin="dense"
-                                            id="n"
-                                            label="Name"
-                                            type="email"
-                                            fullWidth
-                                            variant="outlined"
-                                            size='small'
-                                            name="name"
+                                        {...register('email')}
+                                        error={errors.email ? true : false}
+                                    />
+                                    <Typography variant="inherit" color="red">
+                                        {errors.email?.message}
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12} md={12}>
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="ame"
+                                        size='small'
+                                        label="Contact No."
+                                        type="number"
+                                        fullWidth
+                                        name='contact'
+                                        variant="outlined"
 
-                                            onChange={(e) => handleChange(e)}
-                                            {...register('name')}
-                                            error={errors.name ? true : false}
-                                        />
-                                        <Typography variant="inherit" color="red">
-                                            {errors.name?.message}
-                                        </Typography>
-
-                                    </Grid>
-                                    <Grid item sm={12} md={12}>
-                                        <TextField
-                                            autoFocus
-                                            margin="dense"
-                                            id="na"
-                                            size='small'
-                                            label="Email Address"
-                                            type="email"
-                                            fullWidth
-                                            name='email'
-                                            variant="outlined"
-
-                                            {...register('email')}
-                                            error={errors.email ? true : false}
-                                        />
-                                        <Typography variant="inherit" color="red">
-                                            {errors.email?.message}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item sm={12} md={12}>
-                                        <TextField
-                                            autoFocus
-                                            margin="dense"
-                                            id="ame"
-                                            size='small'
-                                            label="Contact No."
-                                            type="number"
-                                            fullWidth
-                                            name='contact'
-                                            variant="outlined"
-
-                                            {...register('contact')}
-                                            error={errors.contact ? true : false}
-                                        />
-                                        <Typography variant="inherit" color="red">
-                                            {errors.contact?.message}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item sm={12} md={12}>
+                                        {...register('contact')}
+                                        error={errors.contact ? true : false}
+                                    />
+                                    <Typography variant="inherit" color="red">
+                                        {errors.contact?.message}
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12} md={12}>
+                                    <FormControl fullWidth className='mt-2 mb-1'>
+                                        <InputLabel id="demo-simple-select-label"  > User Role</InputLabel>
                                         <Select
-                                            className='mt-2 mb-1'
-                                            autoFocus
+
                                             margin="dense"
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             size='small'
-                                            label="Role"
+                                            label="User Role"
+                                            value={role}
                                             fullWidth
                                             variant="outlined"
-                                            onChange={(e)=>setRole(e.currentTarget.value)}
+                                            onChange={(e) => setRole(e.currentTarget.value)}
                                             {...register('role')}
                                             error={errors.role ? true : false}
                                         >
+
                                             <MenuItem value="End user">End user</MenuItem>
                                             <MenuItem value="Reseller">Reseller</MenuItem>
                                         </Select>
-                                        <Typography variant="inherit" color="red">
-                                            {errors.role?.message}
-                                        </Typography>
-                                    </Grid>
-                                   {role==="Reseller" && <Grid item sm={12} md={12}>
-                                    <label className='fw-bold'>Upload Document :</label> <br/>
-                                         <input
-                                           type="file"
-                                           name="file"
-                                           onChange={handleFileChange}
-                                         />
-                                    </Grid>}
-                                    <Grid item sm={12} md={12}>
-                                        <TextField
-                                            autoFocus
-                                            margin="dense"
-                                            id="pass1"
-                                            label="Password"
-                                            type="password"
-                                            fullWidth
-                                            size='small'
-                                            variant="outlined"
-                                            name='password'
+                                    </FormControl>
+                                    <Typography variant="inherit" color="red">
+                                        {errors.role?.message}
+                                    </Typography>
+                                </Grid>
+                                {role === "Reseller" && <Grid item sm={12} md={12}>
+                                    <label className='fw-bold'>Upload Document :</label> <br />
+                                    <input
+                                        type="file"
+                                        name="file"
+                                        onChange={handleFileChange}
+                                    />
+                                </Grid>}
+                                <Grid item sm={12} md={12}>
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="pass1"
+                                        label="Password"
+                                        type="password"
+                                        fullWidth
+                                        size='small'
+                                        variant="outlined"
+                                        name='password'
 
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1} />}
-                                                    </InputAdornment>
-                                                ),
-                                                // endAdornment: (
-                                                //     <InputAdornment position="end">
-                                                //         <VisibilityOffIcon />
-                                                //     </InputAdornment>
-                                                // ),
-                                            }}
-                                            {...register('password')}
-                                            error={errors.password ? true : false}
-                                        />
-                                        <Typography variant="inherit" color="red">
-                                            {errors.password?.message}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item sm={12} md={12}>
-                                        <TextField
-                                            autoFocus
-                                            margin="dense"
-                                            id="pass2"
-                                            label="Confirm Password"
-                                            type="password"
-                                            fullWidth
-                                            size='small'
-                                            variant="outlined"
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2} />}
-                                                    </InputAdornment>
-                                                ),
-                                                // endAdornment: (
-                                                //     <InputAdornment position="end">
-                                                //         <VisibilityOffIcon />
-                                                //     </InputAdornment>
-                                                // ),
-                                            }}
-                                            {...register('confirmPassword')}
-                                            error={errors.confirmPassword ? true : false}
-                                        />
-                                        <Typography variant="inherit" color="red">
-                                            {errors.confirmPassword?.message}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
-                                        <div className='d-flex justify-content-between w-100' >
-                                            <div className='row'>
-                                                <div className={`${style.common_curs} ${style.loginTxtF} ${style.paddTopAcnt}  text-primary col-md-7 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
-                                                <div className='col-md-5 col-12 mb-3 d-flex justify-content-between'>
-                                                    <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                                        CANCEL
-                                                    </Button>
-                                                    <Button className='ms-3 ' variant='contained' autoFocus onClick={handleSubmit(onSubmit)} >
-                                                        SIGNUP
-                                                    </Button>
-                                                </div>
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    {showIcon1 ? <VisibilityOffIcon onClick={passwordVisibility1} /> : <VisibilityIcon onClick={passwordVisibility1} />}
+                                                </InputAdornment>
+                                            ),
+                                            // endAdornment: (
+                                            //     <InputAdornment position="end">
+                                            //         <VisibilityOffIcon />
+                                            //     </InputAdornment>
+                                            // ),
+                                        }}
+                                        {...register('password')}
+                                        error={errors.password ? true : false}
+                                    />
+                                    <Typography variant="inherit" color="red">
+                                        {errors.password?.message}
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12} md={12}>
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="pass2"
+                                        label="Confirm Password"
+                                        type="password"
+                                        fullWidth
+                                        size='small'
+                                        variant="outlined"
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    {showIcon2 ? <VisibilityOffIcon onClick={passwordVisibility2} /> : <VisibilityIcon onClick={passwordVisibility2} />}
+                                                </InputAdornment>
+                                            ),
+                                            // endAdornment: (
+                                            //     <InputAdornment position="end">
+                                            //         <VisibilityOffIcon />
+                                            //     </InputAdornment>
+                                            // ),
+                                        }}
+                                        {...register('confirmPassword')}
+                                        error={errors.confirmPassword ? true : false}
+                                    />
+                                    <Typography variant="inherit" color="red">
+                                        {errors.confirmPassword?.message}
+                                    </Typography>
+                                </Grid>
+                                <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+                                    <div className='d-flex justify-content-between w-100' >
+                                        <div className='row'>
+                                            <div className={`${style.common_curs} ${style.loginTxtF} ${style.paddTopAcnt}  text-primary col-md-7 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
+                                            <div className='col-md-5 col-12 mb-3 d-flex justify-content-between'>
+                                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                                    CANCEL
+                                                </Button>
+                                                <Button className='ms-3 ' variant='contained' autoFocus onClick={handleSubmit(onSubmit)} >
+                                                    SIGNUP
+                                                </Button>
                                             </div>
                                         </div>
-                                    </Grid>
-                                </form>
-                            </Grid>
-                        </DialogContent>
+                                    </div>
+                                </Grid>
+                            </form>
+                        </Grid>
+                    </DialogContent>
 
-                    </BootstrapDialog>
-                </>
-                 
-        
+                </BootstrapDialog>
+            </>
+
+
         </div>
     );
 }

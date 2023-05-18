@@ -423,8 +423,8 @@ const Checkout = () => {
             </div>
           </div>
           <footer className="my-5 pt-5 text-muted text-center text-small">
-            <p className="mb-1">©2022-2023 SpareTrade</p>
-            <ul className="list-inline">
+           <Link className='text-decoration-none' href={"/"}> <p className="mb-1">©2022-2023 SpareTrade</p></Link>
+            {/* <ul className="list-inline">
               <li className="list-inline-item">
                 <a href="#">Privacy</a>
               </li>
@@ -434,7 +434,7 @@ const Checkout = () => {
               <li className="list-inline-item">
                 <a href="#">Support</a>
               </li>
-            </ul>
+            </ul> */}
           </footer>
         </div>
       </div>

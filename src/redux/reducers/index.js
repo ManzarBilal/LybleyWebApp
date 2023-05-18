@@ -4,7 +4,7 @@ import userRegistration from "./userReducer";
 import allBrands from "./brandReducer";
 import allCategories from "./categoryReducer";
 import allProducts from "./productReducer";
-import allSpareParts from "./faultReducer";
+import allSpareParts from "./sparePartReducer";
 import addToCart from "./cartReducer";
 import checkout from "./checkoutReducer";
 import allOrders from "./orderReducer";

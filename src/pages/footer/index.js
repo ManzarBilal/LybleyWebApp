@@ -7,7 +7,8 @@ export default function Footer() {
         <>
             <footer className="w-100 py-4 flex-shrink-0 bg-dark mt-5"  >
                 <div className="container">
-                    <div className="row gy-4 gx-5">
+                    {/* <div className="row gy-4 gx-5"> */}
+                    <div className="row gy-4  ">
                         <div className="col-lg-4 col-md-6">
                             <h5 className="h1 text-white"><Link href="/"><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-04.png-1683867426179-153282453" alt="logo" height="45px" width="40px" />
                             </Link></h5>

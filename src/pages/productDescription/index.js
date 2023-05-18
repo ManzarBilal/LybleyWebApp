@@ -36,7 +36,7 @@ const ProductDescription = () => {
                   <div className='row '>
             <div className='mb-3'><h2>Products</h2></div>
                      {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product?.map((item, i) =>
-                        <div className='col-md-3 col-6 d-flex justify-content-center mb-3' key={i}>
+                        <div className='col-lg-3 col-md-6 col-12  d-flex justify-content-center mb-3' key={i}>
                         <Cards  productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
                            
                          

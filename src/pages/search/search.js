@@ -59,7 +59,7 @@ const Search = () => {
       <div className='row mt-4'>
 
         {spareParts?.map((p1, i) =>
-          <div className='col-md-3 col-4 d-flex justify-content-center mb-3'>
+          <div className='col-lg-3 col-md-6 col-12 d-flex justify-content-center mb-3'>
             <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
               <div className="card">
                 <img src={p1?.images[0]} class="img-fluid" alt="..." style={{ height: "220px", width: "250px" }} />

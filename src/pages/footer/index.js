@@ -15,7 +15,7 @@ export default function Footer() {
                             <p className="small text-muted">India's biggest online marketplaces for spare parts.</p>
                             {/* <p className="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a className="text-primary" href="#">Bootstrapious.com</a></p> */}
                             <div className="mt-5">
-                                <img className="p-1 bg-white rounded-circle" src="https://cdn-icons-png.flaticon.com/512/1051/1051382.png" alt="logo" height="40px" width="40px"  /> 
+                               <Link href={"https://twitter.com/SpareTradeIN"} target="_blank"><img className="p-1 bg-white rounded-circle" src="https://cdn-icons-png.flaticon.com/512/1051/1051382.png" alt="logo" height="40px" width="40px"  /></Link>  
                                 {/* <img className="p-1" src="https://lybley-webapp-collection.s3.amazonaws.com/facebook-logo-png-5.png-1683869724419-25458077" alt="logo" height="30px" width="30px" /> 
                                 <img className="p-1" src="https://lybley-webapp-collection.s3.amazonaws.com/whatsapp-icon-3933.png-1683869804569-439943255" alt="logo" height="30px" width="30px" /> 
                                 <img className="p-1" src="https://lybley-webapp-collection.s3.amazonaws.com/pngegg.png-1683869876816-914477302" alt="logo" height="30px" width="30px" />  */}
@@ -61,7 +61,7 @@ export default function Footer() {
                     </div>
 
                 </div>
-                <div className="text-white text-center"><p className="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a className="text-primary" href="/">SpareTrade.com</a></p></div>
+                <div className="text-white text-center"><p className="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a className="text-primary text-decoration-none" href="/">SpareTrade.in</a></p></div>
             </footer>
         </>
     )

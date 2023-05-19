@@ -28,6 +28,7 @@ const ProductDetail = () => {
   const [hasWindow, setHasWindow] = useState(false);
   const [videoUrl, setVideoUrl] = useState([])
   const playerRef = useRef(null);
+  const [page,setPage]=useState(1);
 
   const getSpareParts = useSelector(state => state?.spareParrts);
   const brandsCategories = useSelector(state => state.categories)
@@ -74,12 +75,18 @@ const ProductDetail = () => {
     }
   }
 
-  let spareParrtsWithFault = getSpareParts?.filter(el => el?.faultType?.find(f => f === faultType));
+  let getSpareParts1 =faultType==="all" ? getSpareParts : getSpareParts?.filter(el => el?.faultType?.find(f => f === faultType));
 
 
 
   let sp = getSpareParts?.find((sp1, index) => index === 0)
   let videoUrl1 = videoUrl?.filter(v1 => v1.productModel === sp?.productModel);
+
+  let pageNum=page;
+  let size=12;
+  let startIndex=(pageNum-1)*size;
+  let endIndex= getSpareParts1?.length > (startIndex+size-1) ? startIndex+size-1 : getSpareParts1?.length-1;
+  let getSpareParts2=getSpareParts1?.length>size ? getSpareParts1?.filter((lt,index)=>index>=startIndex && index<=endIndex)  : getSpareParts1;
   return (
     <div className='bg_image'>
       <Header />
@@ -117,8 +124,8 @@ const ProductDetail = () => {
             <div className='row mt-5'>
               <div className='mb-3'><h2>Spare Parts</h2></div>
 
-              {faultType === "all" ? getSpareParts?.map((p1, i) =>
-                <div className='col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4' key={i} >
+               {getSpareParts2?.map((p1, i) =>
+                <div className='col-lg-3 col-md-6 col-12 d-flex justify-content-center mb-4' key={i} >
                   <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
                     <div className="card">
                       <img src={p1?.images[0]} className={`${style.productDtlCard } card-img-top`} alt="..."   />
@@ -130,23 +137,12 @@ const ProductDetail = () => {
                     </div>
                   </Link>
                 </div>
-              )
-                :
-                spareParrtsWithFault?.length === 0 ? <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available this fault Type </div>
-                  : spareParrtsWithFault?.map((p1, i) =>
-                    <div className='col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4' key={i} >
-                      <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
-                        <div className="card">
-                          <img src={p1?.images[0]} className={`${style.productDtlCard } card-img-top`} alt="..."  />
-                          <div className="card-body">
-                            <h5 className="card-title">{p1?.partName}</h5>
-                            <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>
-                            <p className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</p>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  )}
+              )}
+              <div className="d-flex justify-content-center align-items-center mt-3">
+              {page===1 ? "" : <button className="btn btn-primary" onClick={()=>setPage(page-1)}>Prev</button>} {getSpareParts1?.length>size ? <div className='ms-2 me-2'>{startIndex+1}-{endIndex+1} of {getSpareParts1?.length}</div> : "" }{endIndex+1===getSpareParts1?.length ? "" :<button className="btn btn-primary" onClick={()=>setPage(page+1)}>Next</button>}
+                  </div>
+                   
+                
 
             </div>
 

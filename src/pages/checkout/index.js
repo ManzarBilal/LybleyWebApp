@@ -197,7 +197,7 @@ const Checkout = () => {
                       <small className="text-muted">Quantity : {d1?.quantity}</small>
                       <div>Technician : {d1?.technician}</div>
                     </div>
-                    <span className="text-muted">RS.{d1?.MRP * d1?.quantity}</span>
+                    <span className="text-muted">RS.{d1?.MRP * d1?.quantity} <small className='text-muted'>(18% GST included)</small></span> 
                     
                   </li>)}
                 {/* <li className="list-group-item d-flex justify-content-between lh-condensed">

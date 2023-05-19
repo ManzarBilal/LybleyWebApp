@@ -26,7 +26,14 @@
 .brandBannerHgt {
     height: 350px;
 }
+.bradAboutLg{
+    display: block;
 
+}
+.bradAboutSm{
+    display: none;
+
+}
 .productDtlCard {
     height: 180px;
     width: 250px;
@@ -60,7 +67,12 @@
     .brandBannerHgt {
         height: 130px;
     }
-
+    .bradAboutLg{
+       display: none;
+    }
+    .bradAboutSm{
+         display: block;
+    }
     .productDtlCard {
         height: 110px;
         width: 150px;

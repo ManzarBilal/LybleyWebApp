@@ -1,36 +1,80 @@
-.bg_image{
+.bg_image {
     background-image: url("https://images.unsplash.com/photo-1570222094114-d054a817e56b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1205&q=80");
-     width: 100%;
+    width: 100%;
     height: 100%;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
 }
 
-.contactHead{
+.contactHead {
     height: 200px;
     width: 100%;
     background-color: #f5881f;
 }
 
 
-.footerLink :hover{
+.footerLink :hover {
     color: white !important;
     font-weight: bold !important;
 }
-.img_width_detail{
+
+.img_width_detail {
     width: 350px;
 }
 
+.brandBannerHgt {
+    height: 350px;
+}
+
+.productDtlCard {
+    height: 180px;
+    width: 250px;
+}
+
+.productDtlCardFnttitle {
+    width:200px;
+    font-size: 17px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.productDtlCardFnt {
+    font-size: 16px;
+}
+
 @media only screen and (min-width: 1000px) {
-     .faqsHead{
+    .faqsHead {
         margin-left: 200px;
         margin-right: 200px;
-     }   
-  }
+    }
+}
 
 @media only screen and (max-width: 600px) {
-    .img_width_detail{
-       width: 220px;
-   }    
- }
+    .img_width_detail {
+        width: 220px;
+    }
+
+    .brandBannerHgt {
+        height: 130px;
+    }
+
+    .productDtlCard {
+        height: 110px;
+        width: 150px;
+    }
+    .productDtlCardFnttitle {
+        width:140px;
+        font-size: 13px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .productDtlCardFnt {
+        font-size: 13px;
+    }
+}

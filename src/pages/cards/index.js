@@ -9,6 +9,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
+import style from "../common.module.css"
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -64,29 +65,29 @@ const Cards = (props) => {
         {props?.product === true ?
           <>
             <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
-              <img src={props.img} className="img-fluid" style={{ height: "300px", width: "250px" }} alt="..." />
+              <img src={props.img} className={`${style.cardImage} img-fluid`}   alt="..." />
             </Link>
             <div className="card-body">
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
-                <h5 className="card-title" style={{textAlign:"justify", width: "200px" }}>{props.title}</h5>
+                <h5 className={`${style.cardTitle} card-title`}  >{props.title}</h5>
               </Link>
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
                 <p>{props?.bestPrice}</p>
               </Link>
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}> <p className='text-muted text-decoration-line-through'>{props?.mrp}</p> </Link>
-              {props?.product === true ? <p className="card-text" data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' onClick={handleClickOpen} style={{ width: "200px",cursor:"pointer" }}>{props?.description?.substring(0, 30)}</p>
-                : <p className="card-text" data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' style={{ width: "200px" }}>{props?.description?.substring(0, 30)}</p>}
+              {props?.product === true ? <p className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' onClick={handleClickOpen} style={{ cursor:"pointer" }}>{props?.description?.substring(0, 30)}</p>
+                : <p className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</p>}
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
             </div>
           </>
           :
           <>
-            <img src={props?.img} className="img-fluid" style={{ height: "300px", width: "250px" }} alt="..." />
+            <img src={props?.img}  className={`${style.cardImage} img-fluid`}   alt={props?.img} />
             <div className="card-body">
-              <h5 className={`card-title ${props?.center ? "text-center" : ""}`} style={{ width: "200px" }}>{props?.title}</h5>
+              <h5 className={`${style.cardTitle} card-title ${props?.center ? "text-center" : ""}`}  >{props?.title} </h5>
               <p>{props?.bestPrice}</p>
               <p className='text-muted text-decoration-line-through'>{props?.mrp}</p>
-               <p className="card-text" data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' style={{ width: "200px" }}>{props?.description?.substring(0, 30)}</p> 
+               <p className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</p> 
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
             </div>
           </>

@@ -13,6 +13,45 @@ const Search = () => {
   // const [data,setData]=useState({});
   const [search, setSearch] = useState("")
   const [spareParts, setSparePart] = useState([]);
+  const [page,setPage]=useState(1);
+  const [array,setArray]=useState([
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+  ])
   //   const getData=async ()=>{
   //     try{
   //      let response=await axios.get(`https://api.pexels.com/v1/search?query=${search}`,{headers:{Authorization:"VFfofZr67uQtJMA9eSJAoYAeYhvI4dgmt6R9cXk4icuYN4wRpRExJ9S8"}});
@@ -44,7 +83,15 @@ const Search = () => {
   }
 
   //https://lybley-webapp-collection.s3.amazonaws.com/PNG-01.png-1683103978537-428964797
-  //https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png
+  //"https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
+
+
+  let pageNum=page;
+  let size=12;
+  let startIndex=(pageNum-1)*size;
+  let endIndex= spareParts?.length > (startIndex+size-1) ? startIndex+size-1 : spareParts?.length-1;
+  let spareParts1=spareParts?.length>size ? spareParts?.filter((lt,index)=>index>=startIndex && index<=endIndex)  : spareParts;
+
   return (
     <div className='container mt-3'>
       <div className='d-flex justify-content-center'><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-01.png-1683104555712-389269871" height="250px" width="350px" className='m-0 p-0' alt='logo' /></div>
@@ -58,7 +105,7 @@ const Search = () => {
       </div>
       <div className='row mt-4'>
 
-        {spareParts?.map((p1, i) =>
+        {spareParts1?.map((p1, i) =>
           <div className='col-lg-3 col-md-6 col-12 d-flex justify-content-center mb-3'>
             <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
               <div className="card">
@@ -72,6 +119,9 @@ const Search = () => {
               </Link>
           </div>
         )}
+      </div>
+      <div className="d-flex justify-content-center align-items-center mt-3">
+     {page===1 ? "" : <button className="btn btn-primary" onClick={()=>setPage(page-1)}>Prev</button>} {spareParts.length>size ? <div className='ms-2 me-2'>{startIndex+1}-{endIndex+1} of {spareParts.length}</div> : "" }{endIndex+1===spareParts?.length ? "" :<button className="btn btn-primary" onClick={()=>setPage(page+1)}>Next</button>}
       </div>
     </div>
   )

@@ -16,7 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import httpCommon from '@/http-common';
 import { getProductById } from '@/redux/actions/product';
-
+import style from "../common.module.css";
 
 const ProductDetail = () => {
 
@@ -128,11 +128,11 @@ const ProductDetail = () => {
                 <div className='col-lg-3 col-md-6 col-12 d-flex justify-content-center mb-4' key={i} >
                   <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
                     <div className="card">
-                      <img src={p1?.images[0]} class="card-img-top" alt="..." style={{ height: "220px", width: "250px" }} />
-                      <div className="card-body">
-                        <h5 className="card-title">{p1?.partName}</h5>
-                        <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>
-                        <p className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</p>
+                      <img src={p1?.images[0]} className={`${style.productDtlCard } card-img-top`} alt="..."   />
+                      <div className="card-body"  >
+                        <div className={`${style.productDtlCardFnttitle }`}>{p1?.partName}jjkdhjshjfhjhjdghjvghgghhgc hgghcghgh</div>
+                        <div className={`${style.productDtlCardFnt } card-text`}>{"Best Price - " + p1?.bestPrice + " INR"}</div>
+                        <div className={`${style.productDtlCardFnt } text-muted text-decoration-line-through`}>{"MRP - " + p1?.MRP + " INR"}</div>
                       </div>
                     </div>
                   </Link>

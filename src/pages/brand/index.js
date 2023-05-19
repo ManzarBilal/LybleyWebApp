@@ -8,6 +8,7 @@ import Cards from '../cards';
 import Footer from '../footer';
 import { useRouter } from 'next/router';
 import httpCommon from '@/http-common';
+import style from "../common.module.css";
 
 const Brand = () => {
   const router = useRouter();
@@ -41,7 +42,7 @@ const Brand = () => {
           </div>
           <div >
       
-            <img className='rounded' src={brand?.brandBanner} alt='' width="100%" height="350" />
+            <img className={`${style.brandBannerHgt} rounded`} src={brand?.brandBanner} alt='' width="100%"  />
             <h3 className='mt-3' style={{fontFamily:"sans-serif"}}>About us</h3>
           <p style={{textAlign:"justify",fontFamily:"sans-serif"}}>{brand?.aboutUs}</p>
             <div className='row mt-5'>

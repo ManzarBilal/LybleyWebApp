@@ -63,7 +63,7 @@ const ProductDetail = () => {
     }
     getFaults()
     getVideos();
-  }, [dispatch])
+  }, [dispatch,id])
 
   const getVideos = async () => {
     try {

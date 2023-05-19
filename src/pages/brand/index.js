@@ -24,7 +24,7 @@ const Brand = () => {
 
   useEffect(() => {
     dispatch(getAllCategories(id));
-  }, [dispatch]);
+  }, [dispatch,id]);
 
   let pageNum = page;
   let size = 12;

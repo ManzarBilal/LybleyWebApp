@@ -26,7 +26,7 @@ export default function Footer() {
                             <ul className="list-unstyled text-muted">
                                 <Link className={`${style.footerLink} text-decoration-none text-muted`}  href="/aboutUs"> <li className={`${style.footerLink}`}>About Us</li></Link>
                                 <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/contactUs" ><li> Contact Us</li></Link>
-                                <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/faqs" ><li>FAQ</li></Link>
+                                <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/faqs" ><li>FAQs</li></Link>
                                 <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/carrier" > <li> Carees </li></Link>
 
                                 <li>Investor Relations </li>

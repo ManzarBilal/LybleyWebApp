@@ -157,7 +157,7 @@ const Detail = (props) => {
   }
 
   return (
-    <div className="bg_image" style={{fontFamily:"sans-serif"}}>
+    <div className="bg_image">
       {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
       <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
       <div className='container mt-5'>
@@ -191,8 +191,8 @@ const Detail = (props) => {
                       <div> <h2 className="fw-bold fs-4"> {getSparePart?.partName}</h2></div>
                       {/* <div> <span className="text-muted ms-3">(449 customer review)</span></div> */}
                       <div>
-                        <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger fw-bold'> {getSparePart?.bestPrice} INR</span></div></div>
-                      <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR </span></div>
+                        <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger fw-bold'> {getSparePart?.bestPrice} INR </span> <span className='text-muted'> <sub> (18% GST included)</sub></span></div></div>
+                      <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR</span></div>
                       <div className='mt-2'><p style={{fontFamily:"sans-serif"}}> {getSparePart?.description}
                       </p></div>
                       <div>
@@ -227,14 +227,14 @@ const Detail = (props) => {
 
         </div>
         <div className='col-md-12'>
-          <div className='row mt-5 w-100 bg-light align-items-center ' style={{ height: "100px" }}>
-            <div className='col-md-4 col-12 d-flex justify-content-center fw-bold' >
+          <div className='row mt-5 bg-light align-items-center ' >
+            <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-5 pb-5' >
               <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
             </div>
-            <div className='col-md-5 col-12  d-flex justify-content-center fw-bold' >
+            <div className='col-md-5 col-12  d-flex justify-content-md-center fw-bold pt-md-5 pb-5' >
               <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>10 Days Assured Return</div>
             </div>
-            <div className='col-md-3 col-12  d-flex justify-content-center fw-bold' >
+            <div className='col-md-3 col-12  d-flex justify-content-md-center fw-bold pt-md-5 pb-5' >
               <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
             </div>
           </div>

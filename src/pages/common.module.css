@@ -75,7 +75,6 @@
     .brandBannerHgt {
         height: 130px;
     }
-<<<<<<< HEAD
     .cardImage{
         height: 160px;
         width: 160px;
@@ -93,14 +92,12 @@
         text-overflow: ellipsis;
     }
 
-=======
     .bradAboutLg{
        display: none;
     }
     .bradAboutSm{
          display: block;
     }
->>>>>>> 6c393331d63d15400bc492e623ed6dc09c32f655
     .productDtlCard {
         height: 110px;
         width: 150px;

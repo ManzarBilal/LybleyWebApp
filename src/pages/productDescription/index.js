@@ -13,14 +13,13 @@ import { getProductById } from '@/redux/actions/product';
 const ProductDescription = () => {
    const [page, setPage] = useState(1);
    const router = useRouter();
-   const { id } = router.query;
-
    const dispatch = useDispatch();
+   const { id } = router.query;
    const product = useSelector(state => state?.products)
-
    useEffect(() => {
       dispatch(getProductById(id));
-   }, [])
+   }, [dispatch,id]);
+
    const handleClose = () => {
       setOpen(false);
    };

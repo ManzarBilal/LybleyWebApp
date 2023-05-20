@@ -60,8 +60,8 @@ const Cards = (props) => {
   };
   return (
     <>
-  
-      <div className="card" >
+  <div className={`${style.cardHeaderH}`}>
+      <div className= "card border-0" >
         {props?.product === true ?
           <>
             <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
@@ -69,14 +69,14 @@ const Cards = (props) => {
             </Link>
             <div className="card-body">
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
-                <h5 className={`${style.cardTitle} card-title`}  >{props.title}</h5>
+                <div className={`${style.cardTitle} card-title`}  >{props.title}</div>
               </Link>
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
-                <p>{props?.bestPrice}</p>
+                <div>{props?.bestPrice}</div>
               </Link>
-              <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}> <p className='text-muted text-decoration-line-through'>{props?.mrp}</p> </Link>
-              {props?.product === true ? <p className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' onClick={handleClickOpen} style={{ cursor:"pointer" }}>{props?.description?.substring(0, 30)}</p>
-                : <p className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</p>}
+              <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}> <div className='text-muted text-decoration-line-through'>{props?.mrp}</div> </Link>
+              {props?.product === true ? <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here' onClick={handleClickOpen} style={{ cursor:"pointer" }}>{props?.description?.substring(0, 30)}</div>
+                : <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</div>}
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
             </div>
           </>
@@ -84,14 +84,15 @@ const Cards = (props) => {
           <>
             <img src={props?.img}  className={`${style.cardImage} img-fluid`}   alt={props?.img} />
             <div className="card-body">
-              <h5 className={`${style.cardTitle} card-title ${props?.center ? "text-center" : ""}`}  >{props?.title} </h5>
-              <p>{props?.bestPrice}</p>
-              <p className='text-muted text-decoration-line-through'>{props?.mrp}</p>
-               <p className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</p> 
+              <div className={`${style.cardTitle} card-title ${props?.center ? "text-center" : ""}`}  >{props?.title} </div>
+              <div>{props?.bestPrice}</div>
+              <div className='text-muted text-decoration-line-through'>{props?.mrp}</div>
+               <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</div> 
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
             </div>
           </>
 }
+      </div>
       </div>
       <BootstrapDialog
         onClose={handleClose}

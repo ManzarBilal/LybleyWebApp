@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { allSparePart } from '@/redux/actions/sparePart';
 import Link from 'next/link';
 import httpCommon from '@/http-common';
+import style from "../common.module.css";
+
 const Search = () => {
   const router = useRouter();
   // const dispatch=useDispatch();
@@ -14,44 +16,7 @@ const Search = () => {
   const [search, setSearch] = useState("")
   const [spareParts, setSparePart] = useState([]);
   const [page,setPage]=useState(1);
-  const [array,setArray]=useState([
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-    "https://lybley-webapp-collection.s3.amazonaws.com/Spare+Trade+LOGO+Final.png",
-  ])
+  
   //   const getData=async ()=>{
   //     try{
   //      let response=await axios.get(`https://api.pexels.com/v1/search?query=${search}`,{headers:{Authorization:"VFfofZr67uQtJMA9eSJAoYAeYhvI4dgmt6R9cXk4icuYN4wRpRExJ9S8"}});
@@ -106,14 +71,14 @@ const Search = () => {
       <div className='row mt-4'>
 
         {spareParts1?.map((p1, i) =>
-          <div className='col-lg-3 col-md-6 col-12 d-flex justify-content-center mb-3'>
+          <div className='col-lg-4 col-md-6 col-6 d-flex justify-content-center mb-3'>
             <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
-              <div className="card">
-                <img src={p1?.images[0]} class="img-fluid" alt="..." style={{ height: "220px", width: "250px" }} />
+              <div className= {`${style.cardHeaderH} card border-0`}>
+                <img src={p1?.images[0]} className={`${style.cardImageSearch} img-fluid`}  alt="..."   />
                 <div className="card-body">
-                  <h5 className="card-title">{p1?.partName}</h5>
-                  <p className="card-text">{"Best Price - " + p1?.bestPrice + " INR"}</p>
-                  <p className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</p>
+                  <div className={`${style.cardTitle} card-title fw-bold`}>{p1?.partName}</div>
+                  <div className={`${style.cardTitle} card-text`}>{"Best Price - " + p1?.bestPrice + " INR"}</div>
+                  <div className='text-muted text-decoration-line-through'>{"MRP - " + p1?.MRP + " INR"}</div>
                 </div>
               </div>
               </Link>

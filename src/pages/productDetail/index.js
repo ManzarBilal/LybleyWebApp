@@ -130,7 +130,8 @@ const ProductDetail = () => {
                     <div className={`${style.cardHeaderH} card border-0`}>
                       <img src={p1?.images[0]} className={`${style.productDtlCard } card-img-top`} alt="..."   />
                       <div className="card-body"  >
-                        <div className={`${style.productDtlCardFnttitle }`}>{p1?.partName} </div>
+                        <div className={`${style.productDtlCardFnttitle }`}>{p1?.partName}</div>
+
                         <div className={`${style.productDtlCardFnt } card-text`}>{"Best Price - " + p1?.bestPrice + " INR"}</div>
                         <div className={`${style.productDtlCardFnt } text-muted text-decoration-line-through`}>{"MRP - " + p1?.MRP + " INR"}</div>
                       </div>

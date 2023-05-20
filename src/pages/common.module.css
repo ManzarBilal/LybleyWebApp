@@ -52,15 +52,29 @@
     font-size: 16px;
 }
 
- 
+ .cardHeaderH{
+    border-radius: 5px ;
+    transition: all .3s;
+    box-shadow: 3px 5px 10px rgba(0,0,0,.3);
+ }
+ .cardHeaderH :hover{
+    /* transform: translateY(-3px);  */
+    /* box-shadow: 0 5px 20px rgba(0,0,0,.2); */
+    transition: all .5s;
+
+
+ }
+ .cardImageSearch{
+    height: 150px;
+    width: 250px;
+}
 .cardImage{
-    height: 300px;
+    height: 250px;
     width: 250px;
 }
 .cardTitle{
     width: 200px;
-}
-@media only screen and (min-width: 1000px) {
+}@media only screen and (min-width: 1000px) {
     .faqsHead {
         margin-left: 200px;
         margin-right: 200px;
@@ -75,14 +89,15 @@
     .brandBannerHgt {
         height: 130px;
     }
+    .cardImageSearch{
+        height: 100px;
+        width: 200px;
+    }
     .cardImage{
         height: 160px;
         width: 160px;
     }
-    .cardHead{
-        /* width: 150px;
-        height: 110px; */
-    }
+    
     .cardTitle{
         width: 110px;
         font-size: 13px;

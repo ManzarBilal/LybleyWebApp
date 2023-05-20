@@ -46,7 +46,7 @@ const Brand = () => {
               <img className={`${style.brandBannerHgt} rounded`} src={brand?.brandBanner} alt='' width="100%" />
               <h3 className='mt-3' style={{ fontFamily: "sans-serif" }}>About us</h3>
               <p className={`${style.bradAboutLg}`} style={{ textAlign: "justify", fontFamily: "sans-serif" }}>{brand?.aboutUs}</p>
-          <p className={`${style.bradAboutSm}`} style={{textAlign:"justify",fontFamily:"sans-serif"}}>{show ? brand?.aboutUs : brand?.aboutUs.substring(0,165) + "..."} {show===false ? <a className='text-decoration-none' onClick={()=>setShowText(true)} style={{cursor: "pointer"}}>Read more</a> : <a href='#' className='text-decoration-none' onClick={()=>setShowText(false)} style={{cursor: "pointer"}}>Hide</a>}</p>
+          <p className={`${style.bradAboutSm}`} style={{textAlign:"justify",fontFamily:"sans-serif"}}>{show ? brand?.aboutUs : brand?.aboutUs?.substring(0,165) + "..."} {show===false ? <a className='text-decoration-none' onClick={()=>setShowText(true)} style={{cursor: "pointer"}}>Read more</a> : <a href='#' className='text-decoration-none' onClick={()=>setShowText(false)} style={{cursor: "pointer"}}>Hide</a>}</p>
               <div className='row mt-5'>
                 <div className='mb-3'><h2>Categories</h2></div>
                 {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories1?.map(p1 =>

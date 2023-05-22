@@ -9,7 +9,7 @@ const addToCart=(state=initialState,action)=>{
             let item=state1.find(s1=>s1?.sparePartId===action?.payload?.sparePartId);
             let state2=null;
             if(item){
-                state2=state1.map(s1=> s1?.sparePartId===action?.payload?.sparePartId ? {...s1,quantity:s1.quantity+action?.payload?.quantity} : s1);
+                state2=state1.map(s1=> s1?.sparePartId===action?.payload?.sparePartId ? {...s1,quantity:s1.quantity+action?.payload?.quantity,technician:action?.payload?.technician} : s1);
             }else{
                 state2=[...state1,action.payload];
             }

@@ -213,7 +213,7 @@ export default function ForgetPassword(props) {
     }
     return (
         <div>
-            <Button variant="contained" className=' text-dark fw-bold' style={{backgroundColor:"#f5881f"}} onClick={handleClickOpen}>
+            <Button variant="contained" className='bg-white fw-bold text-dark' onClick={handleClickOpen}>
                 Forget Password
             </Button>
             <BootstrapDialog
@@ -228,7 +228,7 @@ export default function ForgetPassword(props) {
 
                     <Grid className={`${style.mainDiv} mb-3`}>
                         <Grid item sm={12} md={12}>
-                            <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470' height="70" width="60" /></div>
+                            <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810' height="70" width="60" /></div>
                         </Grid>
                         {cngPass ? <div>
                             <Grid item sm={12} md={12}>

@@ -154,7 +154,7 @@ const OtpVerification = (props) => {
                 <DialogContent className={`${style.mainDiv}`}>
                     <Grid  >
                         <Grid item sm={12} md={12}>
-                            <div className=' d-flex justify-content-center  '>  <img src='https://thumbs.dreamstime.com/z/login-icon-button-vector-illustration-isolated-white-background-127000355.jpg' height="100" width="100" /></div>
+                            <div className=' d-flex justify-content-center  '>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810' height="100" width="100" /></div>
                         </Grid>
                         <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "center" }}>
                             <MuiOtpInput value={otp} length={6} onChange={handleChange} />

@@ -73,9 +73,9 @@ function Header(props) {
   return (
     <>
       
-      <div className="d-flex justify-content-between sticky-top bg-dark align-items-center p-2">
-        <div> <Link href="/"><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-04.png-1683867426179-153282453" alt="logo" height="45px" width="40px" /></Link> </div>
-        <div className="d-flex align-items-center">
+      <div className="d-flex justify-content-between sticky-top bg-dark align-items-center">
+        <div className="ms-2"> <Link href="/"><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-04.png-1683867426179-153282453" alt="logo" height="45px" width="40px" /></Link> </div>
+        <div className="d-flex align-items-center me-2">
         {  userData === null ?
          
          <div className="">
@@ -92,7 +92,7 @@ function Header(props) {
           </div>
           :
           <>
-          <div class="d-flex flex-column text-center">
+          <div class="d-flex align-items-center text-center">
           <Button
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}
@@ -103,7 +103,7 @@ function Header(props) {
           >
            <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
           </Button>
-          <div class="text-white m-0 p-0">{userInfo?.name}</div> 
+          <div class="text-white fw-bold m-0 p-0">{userInfo?.name}</div> 
           </div>
           <Menu
             id="basic-menu"

@@ -124,7 +124,7 @@ const Checkout = () => {
         currency: "INR",
         name: "SpareTrade", //your business name
         description: "Payment for order",
-        image: "https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470",
+        image: "https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810",
         order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async function (orderDetails){
           try{

@@ -58,8 +58,8 @@ const Search = () => {
   let spareParts1=spareParts?.length>size ? spareParts?.filter((lt,index)=>index>=startIndex && index<=endIndex)  : spareParts;
 
   return (
-    <div className='container mt-3'>
-      <div className='d-flex justify-content-center'><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-01.png-1683104555712-389269871" height="250px" width="350px" className='m-0 p-0' alt='logo' /></div>
+    <div className='container mt-4'>
+      <div className='d-flex justify-content-center'><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-03.png-1684751589484-776320794" height="230px" width="350px" className='m-0 p-0' alt='logo' /></div>
       <div className='row mt-4'>
         <div className='col-12'>
           <div className='form-group'>

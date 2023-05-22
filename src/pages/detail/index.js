@@ -71,10 +71,10 @@ const Detail = (props) => {
 
   const playerRef = useRef(null);
 
-  let sp = allSpareParts?.find((sp1, index) => index === 0)
+  let sp = allSpareParts?.find((sp1, index) => index === 0);
   let videoUrl1 = videoUrl?.filter(v1 => v1.productModel === sp?.productModel);
    
-  const [mainImage, setMainImage] = useState(getSparePart?.images[0])
+  const [mainImage, setMainImage] = useState(getSparePart?.images[0]);
 
   const getUser = async (_id) => {
     try {
@@ -86,10 +86,11 @@ const Detail = (props) => {
     }
   }
   const handleAddToCart = (id, bool) => {
-    let data = discountSpareParts?.find(f => f?._id === id)
+    let data = discountSpareParts?.find(f => f?._id === id);
     let tech = bool ? data?.technician : technician;
-    const userId = localStorage.getItem("userId")
+    const userId = localStorage.getItem("userId");
     let obj = { userId: userId, brandId: data?.userId, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
+    console.log("obj",obj);
     if (user && tech === 0) {
       setCartValue(true);
       setCart(obj);

@@ -89,18 +89,22 @@ const OtpVerification = (props) => {
 
     const handleLogin = () => {
         setOpen(false);
-        props.onSubmit(true);
+       // props.onSubmit(true);
     }
 
     const userEmail=useSelector(state=>state?.userEmail)
     const verifyOtp=async(regVerify)=>{
         try{
-            let response= await httpCommon.patch("/otpVerification", regVerify);
+            let response= await httpCommon.post("/otpPhoneVerification", regVerify);
             let {data}=response;
             showToastMessage(data)
             if (data?.status === true) {
+                window.location.reload(false);
+                 localStorage.setItem("userId",data?.user?._id);
+                 localStorage.setItem("userName",data?.user?.name);
+                 localStorage.setItem("user",JSON.stringify(data?.user));
                 handleClose()
-                handleLogin();
+              //  handleLogin();
 
             } else {
                 return null;
@@ -122,7 +126,7 @@ const OtpVerification = (props) => {
         }
     }
     const handleVerify = () => {
-        const obj = { email: userEmail?.email, otp: otp }
+        const obj = { contact: userEmail?.contact, otp: otp }
         verifyOtp(obj);
         // console.log("obj",obj)
         // dispatch(userVerification(obj))

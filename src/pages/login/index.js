@@ -109,21 +109,21 @@ export default function Login(props) {
 
     const login=async(obj)=>{
         try{
-            let response=await httpCommon.post("/userLogin",obj);
+            let response=await httpCommon.post("/userPhoneLogin",obj);
             let {data}=response;
-            if(data?.user?.status==="ACTIVE"){
-                window.location.reload(false);
-                localStorage.setItem("userId",data?.user?._id);
-                localStorage.setItem("userName",data?.user?.name);
-                localStorage.setItem("user",JSON.stringify(data?.user));
-                props.onSubmit(false);
-            }else if(data?.status===false){
-                console.log("data",data);
-                showToastMessage(data);
-            }
-            else{
+            // if(data?.user?.status==="ACTIVE"){
+                // window.location.reload(false);
+                // localStorage.setItem("userId",data?.user?._id);
+                // localStorage.setItem("userName",data?.user?.name);
+                // localStorage.setItem("user",JSON.stringify(data?.user));
+                // props.onSubmit(false);
+           // }
+            if(data?.status===true){
                 props.onSubmit1(true);
                 props.onSubmit(false);
+            }
+            else{
+                showToastMessage(data);
             }
             
         }catch(err){
@@ -138,20 +138,21 @@ const handleRegister=()=>{
 
     const submit = data => {
 
-        let obj = { email: data?.email, password: data?.password }
-       dispatch(userEmail(data?.email));
+        let obj = { contact: +data?.contact }
+       dispatch(userEmail(data?.contact));
        login(obj);
          
     }
 
     const validationSchema = Yup.object().shape({
-        email: Yup.string()
-            .required('Email is required')
-            .email('Email is invalid'),
-        password: Yup.string()
-            .required('Password is required')
-            .min(6, 'Password must be at least 6 characters')
-            .max(40, 'Password must not exceed 40 characters'),
+        contact:Yup.string().required("Mobile number is required").min(10,"Min 10 digit is required").max(10,"Max 10 digit is required"),
+        // email: Yup.string()
+        //     .required('Email is required')
+        //     .email('Email is invalid'),
+        // password: Yup.string()
+        //     .required('Password is required')
+        //     .min(6, 'Password must be at least 6 characters')
+        //     .max(40, 'Password must not exceed 40 characters'),
 
     });
 
@@ -184,6 +185,23 @@ const handleRegister=()=>{
                             <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810' height="70" width="60" /></div>
                         </Grid>
                         <Grid item sm={12} md={12}>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Mobile number"
+                                type="number"
+                                fullWidth
+                                variant="outlined"
+                                size='small'
+                                {...register('contact')}
+                                error={errors.contact ? true : false}
+                            />
+                            <Typography variant="inherit" color="red">
+                                {errors.contact?.message}
+                            </Typography>
+                        </Grid>
+                        {/* <Grid item sm={12} md={12}>
                             <TextField
                                 autoFocus
                                 margin="dense"
@@ -227,7 +245,7 @@ const handleRegister=()=>{
                             />
                             <Typography variant="inherit" color="red">
                                 {errors.password?.message}
-                            </Typography>
+                            </Typography> */}
                             <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div className='d-flex justify-content-between w-100'>
                                     <div className='row'>
@@ -247,7 +265,7 @@ const handleRegister=()=>{
                             <Grid item sm={12} md={12} mt={1}  sx={{ display: "flex", justifyContent: "center" }} >
                                 <Button variant='outlined'onClick={handleRegister} >Create account</Button>
                             </Grid>
-                        </Grid>
+                         
                     </Grid>
 
                 </DialogContent>

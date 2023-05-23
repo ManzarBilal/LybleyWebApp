@@ -225,9 +225,9 @@ export default function Register(props) {
     return (
         <div>
 
-            <> <Button variant="contained" className='bg-white fw-bold text-dark' onClick={handleClickOpen}>
+            <> <button className='bg-white btn btn-sm fw-bold text-dark' onClick={handleClickOpen}>
                 SIGNUP
-            </Button>
+            </button>
                 <BootstrapDialog
                     onClose={handleClose}
                     aria-labelledby="customized-dialog-title"
@@ -304,12 +304,12 @@ export default function Register(props) {
                                 </Grid>
                                 <Grid item sm={12} md={12}>
                                     <FormControl fullWidth className='mt-2 mb-1'>
-                                        <InputLabel id="demo-simple-select-label"  > User Role</InputLabel>
+                                        <InputLabel id="demo-simple-select-label   " > User Role</InputLabel>
                                         <Select
 
                                             margin="dense"
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
+                                            // labelId="demo-simple-select-label"
+                                            // id="demo-simple-select"
                                             size='small'
                                             label="User Role"
                                             value={role}
@@ -319,7 +319,7 @@ export default function Register(props) {
                                             {...register('role')}
                                             error={errors.role ? true : false}
                                         >
-
+                
                                             <MenuItem value="End user">End user</MenuItem>
                                             <MenuItem value="Reseller">Reseller</MenuItem>
                                         </Select>

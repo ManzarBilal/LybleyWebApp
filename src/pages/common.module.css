@@ -13,7 +13,10 @@
     background-color: #f5881f;
 }
 
-
+.searchLogoHead{
+    height: 210px;
+    width: 300px;
+}
 .footerLink :hover {
     color: white !important;
     font-weight: bold !important;
@@ -69,7 +72,7 @@
     width: 250px;
 }
 .cardImage{
-    height: 250px;
+    height: 270px;
     width: 250px;
 }
 .cardTitle{
@@ -85,7 +88,10 @@
     .img_width_detail {
         width: 220px;
     }
-
+    .searchLogoHead{
+        height: 130px;
+        width: 200px;
+    }
     .brandBannerHgt {
         height: 130px;
     }

@@ -22,7 +22,7 @@ import { userLog } from '@/redux/actions/userLogin';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import httpCommon from '@/http-common';
-import {userEmail} from '@/redux/actions/userEmail';
+import { userEmail } from '@/redux/actions/userEmail';
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -70,7 +70,7 @@ export default function Login(props) {
         if (data?.status === true)
             toast.success(`${data?.msg}!`, {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose:1000
+                autoClose: 1000
             });
         else {
             toast.error(`${data?.msg}!`, {
@@ -104,48 +104,48 @@ export default function Login(props) {
         props.onSubmit(false);
         props.onForget(true);
     }
-    
+
     const userData = useSelector(state => state?.users)
 
-    const login=async(obj)=>{
-        try{
-            let response=await httpCommon.post("/userPhoneLogin",obj);
-            let {data}=response;
+    const login = async (obj) => {
+        try {
+            let response = await httpCommon.post("/userPhoneLogin", obj);
+            let { data } = response;
             // if(data?.user?.status==="ACTIVE"){
-                // window.location.reload(false);
-                // localStorage.setItem("userId",data?.user?._id);
-                // localStorage.setItem("userName",data?.user?.name);
-                // localStorage.setItem("user",JSON.stringify(data?.user));
-                // props.onSubmit(false);
-           // }
-            if(data?.status===true){
+            // window.location.reload(false);
+            // localStorage.setItem("userId",data?.user?._id);
+            // localStorage.setItem("userName",data?.user?.name);
+            // localStorage.setItem("user",JSON.stringify(data?.user));
+            // props.onSubmit(false);
+            // }
+            if (data?.status === true) {
                 props.onSubmit1(true);
                 props.onSubmit(false);
             }
-            else{
+            else {
                 showToastMessage(data);
             }
-            
-        }catch(err){
+
+        } catch (err) {
             console.log(err);
         }
     }
 
-const handleRegister=()=>{
-    props.onSubmit(false);
-    props?.setOpen1(true)
-}
+    const handleRegister = () => {
+        props.onSubmit(false);
+        props?.setOpen1(true)
+    }
 
     const submit = data => {
 
         let obj = { contact: +data?.contact }
-       dispatch(userEmail(data?.contact));
-       login(obj);
-         
+        dispatch(userEmail(data?.contact));
+        login(obj);
+
     }
 
     const validationSchema = Yup.object().shape({
-        contact:Yup.string().required("Mobile number is required").min(10,"Min 10 digit is required").max(10,"Max 10 digit is required"),
+        contact: Yup.string().required("Mobile number is required").min(10, "Min 10 digit is required").max(10, "Max 10 digit is required"),
         // email: Yup.string()
         //     .required('Email is required')
         //     .email('Email is invalid'),
@@ -168,9 +168,9 @@ const handleRegister=()=>{
 
     return (
         <div>
-            <Button variant="contained" className='bg-white fw-bold text-dark' onClick={handleClickOpen}>
+            <button className='bg-white btn btn-sm fw-bold text-dark' onClick={handleClickOpen}>
                 Login
-            </Button>
+            </button>
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
@@ -246,32 +246,32 @@ const handleRegister=()=>{
                             <Typography variant="inherit" color="red">
                                 {errors.password?.message}
                             </Typography> */}
-                            <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <div className='d-flex justify-content-between w-100'>
-                                    <div className='row'>
-                                        <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                        <div className='col-md-6 col-12 mb-3 d-flex justify-content-between'>
-                                            <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                                CANCEL
-                                            </Button>
-                                            <Button className='ms-md-4' variant='contained' autoFocus onClick={handleSubmit(submit)}>
-                                                SIGNIN
-                                            </Button>
+                        <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
+                            <div className='d-flex justify-content-between w-100'>
 
-                                        </div>
-                                    </div >
-                                </div>
-                            </Grid>
-                            <Grid item sm={12} md={12} mt={1}  sx={{ display: "flex", justifyContent: "center" }} >
-                                <Button variant='outlined'onClick={handleRegister} >Create account</Button>
-                            </Grid>
-                         
+                                {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
+
+                                <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                    CANCEL
+                                </Button>
+
+
+                                <Button className='ms-md-4' variant='contained' autoFocus onClick={handleSubmit(submit)}>
+                                    SIGNIN
+                                </Button>
+
+                            </div>
+                        </Grid>
+                        <Grid item sm={12} md={12} mt={3} sx={{ display: "flex", justifyContent: "center" }} >
+                            <Button variant='outlined' onClick={handleRegister} >Create account</Button>
+                        </Grid>
+
                     </Grid>
 
                 </DialogContent>
-                
+
             </BootstrapDialog>
-           
+
         </div>
     );
 }

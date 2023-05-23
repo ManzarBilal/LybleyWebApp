@@ -61,7 +61,7 @@ const Search = () => {
     <div className='  mt-3'>
       <div className='row  mt-3'>
         <div className='col-12 d-flex justify-content-center' >
-        <img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-03.png-1684751589484-776320794" height="230px" width="300px"  alt='logo' />
+        <img className={`${style.searchLogoHead}`} src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-03.png-1684751589484-776320794"    alt='logo' />
         </div>
         <div className='col-12 mt-4'>
           <div className='form-group'>

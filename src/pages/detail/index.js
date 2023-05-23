@@ -230,13 +230,13 @@ const Detail = (props) => {
         </div>
         <div className='col-md-12'>
           <div className='row mt-5 bg-light align-items-center ' >
-            <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-5 pb-5' >
+            <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-4 pb-4' >
               <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
             </div>
-            <div className='col-md-5 col-12  d-flex justify-content-md-center fw-bold pt-md-5 pb-5' >
+            <div className='col-md-5 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
               <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>10 Days Assured Return</div>
             </div>
-            <div className='col-md-3 col-12  d-flex justify-content-md-center fw-bold pt-md-5 pb-5' >
+            <div className='col-md-3 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
               <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
             </div>
           </div>

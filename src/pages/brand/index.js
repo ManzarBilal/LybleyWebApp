@@ -14,7 +14,7 @@ const Brand = () => {
   const router = useRouter();
   const { id } = router.query;
   const [page, setPage] = useState(1);
-  const [show,setShowText]=useState(false);
+  const [show, setShowText] = useState(false);
 
   const dispatch = useDispatch();
   const brandsCategories = useSelector(state => state.categories)
@@ -24,7 +24,7 @@ const Brand = () => {
 
   useEffect(() => {
     dispatch(getAllCategories(id));
-  }, [dispatch,id]);
+  }, [dispatch, id]);
 
   let pageNum = page;
   let size = 12;
@@ -46,13 +46,15 @@ const Brand = () => {
               <img className={`${style.brandBannerHgt} rounded`} src={brand?.brandBanner} alt='' width="100%" />
               <h3 className='mt-3' style={{ fontFamily: "sans-serif" }}>About us</h3>
               <p className={`${style.bradAboutLg}`} style={{ textAlign: "justify", fontFamily: "sans-serif" }}>{brand?.aboutUs}</p>
-          <p className={`${style.bradAboutSm}`} style={{textAlign:"justify",fontFamily:"sans-serif"}}>{show ? brand?.aboutUs : brand?.aboutUs?.substring(0,165) + "..."} {show===false ? <a className='text-decoration-none' onClick={()=>setShowText(true)} style={{cursor: "pointer"}}>Read more</a> : <a href='#' className='text-decoration-none' onClick={()=>setShowText(false)} style={{cursor: "pointer"}}>Hide</a>}</p>
+              {brand?.aboutUs?.length > 0 ?
+                <p className={`${style.bradAboutSm}`} style={{ textAlign: "justify", fontFamily: "sans-serif" }}>{show ? brand?.aboutUs : brand?.aboutUs?.substring(0, 165) + "..."} {show === false ? <a className='text-decoration-none' onClick={() => setShowText(true)} style={{ cursor: "pointer" }}>Read more</a> : <a href='#' className='text-decoration-none' onClick={() => setShowText(false)} style={{ cursor: "pointer" }}>Hide</a>}</p>
+                : ""}
               <div className='row mt-5'>
                 <div className='mb-3'><h2>Categories</h2></div>
                 {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories1?.map(p1 =>
                   <div className={`${style.cardHead} col-lg-3 col-md-6 col-6  d-flex justify-content-center mb-3`}> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'><Cards center={true} img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>
                 )}
-               
+
               </div>
               <div className="d-flex justify-content-center align-items-center mt-3">
                 {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {brandsCategories?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {brandsCategories?.length}</div> : ""}{endIndex + 1 === brandsCategories?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}

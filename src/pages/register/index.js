@@ -147,7 +147,7 @@ export default function Register(props) {
             formData.append("email", registration?.email);
             formData.append("contact", registration?.contact);
             formData.append("role", registration?.role);
-            formData.append("password", registration?.password);
+            // formData.append("password", registration?.password);
             formData.append("document", file);
 
             let response = await httpCommon.post("/serviceCenterRegistration", formData);
@@ -168,12 +168,12 @@ export default function Register(props) {
 
     const onSubmit = data => {
 
-        let obj = { name: data?.name, email: data?.email, contact: data?.contact, role: data?.role, password: data?.password }
+        let obj = { name: data?.name, email: data?.email, contact: data?.contact, role: data?.role }
 
         registration(obj);
         // dispatch(userReg(obj));
         // showToastMessage(userData)
-        dispatch(userEmail(data?.email))
+        dispatch(userEmail(data?.contact))
     };
 
     const handleFileChange = (e) => {
@@ -199,13 +199,13 @@ export default function Register(props) {
             .email('Email is invalid'),
         role: Yup.string()
             .required('Role is required'),
-        password: Yup.string()
-            .required('Password is required')
-            .min(6, 'Password must be at least 6 characters')
-            .max(40, 'Password must not exceed 40 characters'),
-        confirmPassword: Yup.string()
-            .required('Confirm Password is required')
-            .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
+        // password: Yup.string()
+        //     .required('Password is required')
+        //     .min(6, 'Password must be at least 6 characters')
+        //     .max(40, 'Password must not exceed 40 characters'),
+        // confirmPassword: Yup.string()
+        //     .required('Confirm Password is required')
+        //     .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
         acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required')
     });
 
@@ -336,7 +336,7 @@ export default function Register(props) {
                                         onChange={handleFileChange}
                                     />
                                 </Grid>}
-                                <Grid item sm={12} md={12}>
+                                {/* <Grid item sm={12} md={12}>
                                     <TextField
                                         autoFocus
                                         margin="dense"
@@ -395,7 +395,7 @@ export default function Register(props) {
                                     <Typography variant="inherit" color="red">
                                         {errors.confirmPassword?.message}
                                     </Typography>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div className='d-flex justify-content-between w-100' >
                                         <div className='row'>

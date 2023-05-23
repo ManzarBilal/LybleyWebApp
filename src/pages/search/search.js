@@ -58,12 +58,14 @@ const Search = () => {
   let spareParts1=spareParts?.length>size ? spareParts?.filter((lt,index)=>index>=startIndex && index<=endIndex)  : spareParts;
 
   return (
-    <div className='container mt-4'>
-      <div className='d-flex justify-content-center'><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-03.png-1684751589484-776320794" height="230px" width="350px" className='m-0 p-0' alt='logo' /></div>
-      <div className='row mt-4'>
-        <div className='col-12'>
+    <div className='  mt-3'>
+      <div className='row  mt-3'>
+        <div className='col-12 d-flex justify-content-center' >
+        <img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-03.png-1684751589484-776320794" height="230px" width="300px"  alt='logo' />
+        </div>
+        <div className='col-12 mt-4'>
           <div className='form-group'>
-            <div className='d-flex justify-content-between'> <input type="text" className='form-control border border-2 border-dark' placeholder='Search' onChange={(e) => setSearch(e.currentTarget.value)} onKeyUp={(e) => onEnter(e)} />  <button className='btn btn-primary bg-dark ms-2' onClick={() => setParams()}>Search</button></div>
+            <div className='d-flex justify-content-between '> <input type="text" className='form-control border border-2 border-dark' placeholder='Search' onChange={(e) => setSearch(e.currentTarget.value)} onKeyUp={(e) => onEnter(e)} />  <button className='btn btn-primary bg-dark ms-2' onClick={() => setParams()}>Search</button></div>
           </div>
         </div>
 

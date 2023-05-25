@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import httpCommon from '@/http-common'
 import { useState } from 'react'
 import { Button } from '@mui/material'
@@ -16,6 +16,7 @@ import { Grid } from '@mui/material';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { currentOrder } from '@/redux/actions/order'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -55,11 +56,12 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-
+//https://sparetrade-manzarbilal.vercel.app
+//https://lybleyappbackend-production.up.railway.app
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
     const spData = useSelector(state=>state.checkoutData)
-    console.log("dfghj",spData);
+    const dispatch=useDispatch();
     const [pin,setPin]=useState("");
     const router=useRouter();
     const [checkoutData,setCheckoutData]=useState({
@@ -107,6 +109,8 @@ const Checkout = () => {
         try{
          const userId=localStorage.getItem("userId");
          let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
+         let {data}=response;
+         dispatch(currentOrder(data));
         }catch(err){
           console.log(err);
         }

@@ -12,6 +12,7 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import httpCommon from '@/http-common';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -26,7 +27,7 @@ function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
   const router=useRouter();
   const {order}=router.query;
-  console.log(order);
+
 
 
   return (
@@ -56,14 +57,82 @@ BootstrapDialogTitle.propTypes = {
 };
 const Confirmation = () => {
     const data = useSelector(state=>state.checkoutData)
+    const currentOrder=useSelector(state=>state.currentOrder);
+    console.log("currentOrder",currentOrder);
     const [open,setOpen]=useState(false);
     const handleClose = () => {
         setOpen(false);
-    
       };
       useEffect(()=>{
         setOpen(true)
-      },[])
+        deliveryOrder();
+      },[]);
+
+      const deliveryOrder=async()=>{
+        let totalPrice=currentOrder?.items?.map(it=>({price:it?.MRP*it?.quantity}));
+        let totalPrice1=totalPrice?.reduce((acc,curr)=> acc+curr?.price,0);
+        let item=currentOrder?.items.map(it=>(
+          {
+            name: it?.sparePartName,
+            sku: "asksn123",
+            units: it?.quantity,
+            selling_price: it?.MRP,
+            discount: "",
+            tax: "",
+            hsn: 441122
+          }
+        ))
+        ;
+        console.log("item",item);
+        let orderData=  {
+          "order_id": currentOrder?._id,
+          "order_date": new Date(currentOrder?.createdAt)?.toLocaleString(),
+          "pickup_location": "Lybley Pvt Ltd",
+          "channel_id": "",
+          "comment": "",
+          "billing_customer_name": currentOrder?.name,
+          "billing_last_name": "",
+          "billing_address": currentOrder?.address,
+          "billing_address_2": currentOrder?.address2,
+          "billing_city": currentOrder?.city,
+          "billing_pincode": currentOrder?.pin,
+          "billing_state": currentOrder?.state,
+          "billing_country": "India",
+          "billing_email": currentOrder?.email,
+          "billing_phone": currentOrder?.contact,
+          "shipping_is_billing": true,
+          "shipping_customer_name": "",
+          "shipping_last_name": "",
+          "shipping_address": "",
+          "shipping_address_2": "",
+          "shipping_city": "",
+          "shipping_pincode": "",
+          "shipping_country": "",
+          "shipping_state": "",
+          "shipping_email": "",
+          "shipping_phone": "",
+          "order_items": item,
+          "payment_method": "Prepaid",
+          "shipping_charges": 0,
+          "giftwrap_charges": 0,
+          "transaction_charges": 0,
+          "total_discount": 0,
+          "sub_total": totalPrice1,
+          "length": 10,
+          "breadth": 15,
+          "height": 20,
+          "weight": 2.5
+        }
+        console.log(orderData);
+           try{
+            let response=await httpCommon.post("/createDeliveryOrder",orderData);
+            let {data}=response;
+            console.log("order",data);
+           }catch(err){
+            console.log(err.response.data);
+           }
+      }
+
   return (
     <BootstrapDialog
     onClose={handleClose}

@@ -14,3 +14,12 @@ export const getOrderById = (id) => {
         }
     }
 }
+
+export const currentOrder=(data)=>{
+   return async(dispatch)=>{
+      dispatch({
+        type:"CURRENT_ORDER",
+        payload:data
+      })
+   }
+}

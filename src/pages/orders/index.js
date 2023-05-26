@@ -26,7 +26,7 @@ const Orders = () => {
     const TrackOrder = async (orderId) => {
         try {
 
-            let response = await httpCommon.get(`trackOrder/${orderId}`)
+            let response = await httpCommon.get(`/trackOrder/${orderId}`)
             let { data } = response;
             setTrackDetail(data)
         }
@@ -37,7 +37,7 @@ const Orders = () => {
     const ReturnOrder = async (orderId) => {
         try {
 
-            let response = await httpCommon.get(`returnOrder`)
+            let response = await httpCommon.post(`/returnOrder`)
             let { data } = response;
             setTrackDetail(data)
         }
@@ -47,8 +47,8 @@ const Orders = () => {
     }
     const CancelOrder = async (orderId) => {
         try {
-
-            let response = await httpCommon.get(`cancelOrder`)
+            let obj={ids:[orderId]};
+            let response = await httpCommon.post(`/cancelOrder`,obj);
             let { data } = response;
             setTrackDetail(data)
         }
@@ -56,7 +56,7 @@ const Orders = () => {
             console.log(err)
         }
     }
-    console.log("trackDetail", trackDetail)
+
     return (
         <div >
             <Header />

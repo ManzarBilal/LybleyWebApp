@@ -58,7 +58,6 @@ BootstrapDialogTitle.propTypes = {
 const Confirmation = () => {
     const data = useSelector(state=>state.checkoutData)
     const currentOrder=useSelector(state=>state.currentOrder);
-    console.log("currentOrder",currentOrder);
     const [open,setOpen]=useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -83,7 +82,6 @@ const Confirmation = () => {
           }
         ))
         ;
-        console.log("item",item);
         let orderData=  {
           "order_id": currentOrder?._id,
           "order_date": new Date(currentOrder?.createdAt)?.toLocaleString(),
@@ -123,11 +121,9 @@ const Confirmation = () => {
           "height": 20,
           "weight": 2.5
         }
-        console.log(orderData);
            try{
             let response=await httpCommon.post("/createDeliveryOrder",orderData);
             let {data}=response;
-            console.log("order",data);
            }catch(err){
             console.log(err.response.data);
            }

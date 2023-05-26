@@ -112,9 +112,9 @@ const Orders = () => {
                                         <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
                                     </div>
                                     <div className='row mt-2 d-flex   align-items-center1'>
-                                        <div className="col-6 col-md-6 text-center"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
+                                        <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
                                         {/* <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm'onClick={()=>ReturnOrder(order?._id)}>Return Order</button></div> */}
-                                        <div className="col-6 col-md-6 text-center"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?._id)}>Cancel Order</button></div>
+                                        <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?._id)}>Cancel Order</button></div>
                                     </div>
                                 </div>
 

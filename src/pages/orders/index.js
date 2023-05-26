@@ -3,8 +3,13 @@ import Header from '../header';
 import Footer from '../footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderById } from '@/redux/actions/order';
+import httpCommon from '@/http-common';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Orders = () => {
+
+    const [trackDetail, setTrackDetail] = useState([])
 
     const dispatch = useDispatch();
     const ordersArray = useSelector(state => state.orders)
@@ -15,7 +20,43 @@ const Orders = () => {
         dispatch(getOrderById(userId));
     }, [])
 
-const orders=ordersArray.reverse()
+    const orders = ordersArray.reverse()
+
+
+    const TrackOrder = async (orderId) => {
+        try {
+
+            let response = await httpCommon.get(`trackOrder/${orderId}`)
+            let { data } = response;
+            setTrackDetail(data)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const ReturnOrder = async (orderId) => {
+        try {
+
+            let response = await httpCommon.get(`returnOrder`)
+            let { data } = response;
+            setTrackDetail(data)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const CancelOrder = async (orderId) => {
+        try {
+
+            let response = await httpCommon.get(`cancelOrder`)
+            let { data } = response;
+            setTrackDetail(data)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    console.log("trackDetail", trackDetail)
     return (
         <div >
             <Header />
@@ -68,11 +109,20 @@ const orders=ordersArray.reverse()
                                     </div>
                                     <div className='col-6 col-md-1'>
                                         <div className='fw-bold'>Technician</div>
-                                        <div>{item?.technician >0 ? `Booked for ${item?.technician}`: "No"}</div>
+                                        <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
+                                    </div>
+                                    <div className='row mt-2 d-flex   align-items-center1'>
+                                        <div className="col-6 col-md-6 text-center"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
+                                        {/* <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm'onClick={()=>ReturnOrder(order?._id)}>Return Order</button></div> */}
+                                        <div className="col-6 col-md-6 text-center"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?._id)}>Cancel Order</button></div>
                                     </div>
                                 </div>
+
+
                             )} </div>
+
                         </div>
+
                     </div>
                 )
                     :

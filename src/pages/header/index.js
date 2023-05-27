@@ -102,8 +102,9 @@ function Header(props) {
             className="m-0 p-0"
           >
            <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
+           <div className="text-white fw-bold m-0 p-0 ms-2">{userInfo?.name}</div> 
           </Button>
-          <div class="text-white fw-bold m-0 p-0">{userInfo?.name}</div> 
+          
           </div>
           <Menu
             id="basic-menu"

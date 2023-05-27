@@ -1,0 +1,18 @@
+
+
+.brandLodoMargin{
+    margin-bottom: 20px;
+    margin-left: 11px;
+    margin-right: 11px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .brandLodoMargin{
+        margin-bottom: 20px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+}

@@ -5,12 +5,67 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrderById } from '@/redux/actions/order';
 import httpCommon from '@/http-common';
 import { useState } from 'react';
-import axios from 'axios';
+import { Button, DialogContent, Grid, Dialog, DialogTitle, IconButton } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import CloseIcon from '@mui/icons-material/Close';
+import style from "../login/login.module.css"
+import "bootstrap/dist/css/bootstrap.css"
+
+
+
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+}));
+
+function BootstrapDialogTitle(props) {
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+}
+
+BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+};
 
 const Orders = () => {
 
     const [trackDetail, setTrackDetail] = useState([])
+    const [returnDetail, setReturnDetail] = useState([])
+    const [cancelDetail, setCancelDetail] = useState([])
+    const [open, setOpen] = React.useState(false);
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const dispatch = useDispatch();
     const ordersArray = useSelector(state => state.orders)
 
@@ -20,7 +75,7 @@ const Orders = () => {
         dispatch(getOrderById(userId));
     }, [])
 
-    const orders = ordersArray.reverse()
+
 
 
     const TrackOrder = async (orderId) => {
@@ -29,6 +84,7 @@ const Orders = () => {
             let response = await httpCommon.get(`/trackOrder/${orderId}`)
             let { data } = response;
             setTrackDetail(data)
+            setOpen(true)
         }
         catch (err) {
             console.log(err)
@@ -39,7 +95,7 @@ const Orders = () => {
 
             let response = await httpCommon.post(`/returnOrder`)
             let { data } = response;
-            setTrackDetail(data)
+            setReturnDetail(data)
         }
         catch (err) {
             console.log(err)
@@ -47,16 +103,20 @@ const Orders = () => {
     }
     const CancelOrder = async (orderId) => {
         try {
-            let obj={ids:[orderId]};
-            let response = await httpCommon.post(`/cancelOrder`,obj);
+            let obj = { ids: [orderId] };
+            let response = await httpCommon.post(`/cancelOrder`, obj);
             let { data } = response;
-            setTrackDetail(data)
+            setCancelDetail(data)
         }
         catch (err) {
             console.log(err)
         }
     }
+    const orders = ordersArray.reverse()
 
+    console.log("trackDetail", trackDetail);
+    console.log("returnDetail", returnDetail);
+    console.log("cancelDetail", cancelDetail);
     return (
         <div >
             <Header />
@@ -123,6 +183,100 @@ const Orders = () => {
 
                         </div>
 
+
+                        <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                        >
+                            <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                                Track Order
+                            </BootstrapDialogTitle>
+                            <DialogContent >
+                                <Grid className={`${style.mainDiv}`}>
+                                    {/* <Grid item sm={12} md={12}>
+                                        <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810' height="70" width="60" /></div>
+                                    </Grid> */}
+                                    <Grid item sm={12} md={12} >
+                                        <div className="trackCard">
+                                            <div className="title">Purchase Reciept</div>
+                                            <div className="info">
+                                                <div className="row">
+                                                    <div className="col-7">
+                                                        <span id="heading">Date</span><br />
+                                                        <span id="details">10 October 2018</span>
+                                                    </div>
+                                                    <div className="col-5 pull-right">
+                                                        <span id="heading">Order No.</span><br />
+                                                        <span id="details">012j1gvs356c</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="pricing">
+                                                <div className="row">
+                                                    <div className="col-9">
+                                                        <span id="name">BEATS Solo 3 Wireless Headphones</span>
+                                                    </div>
+                                                    <div className="col-3">
+                                                        <span id="price">£299.99</span>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-9">
+                                                        <span id="name">Shipping</span>
+                                                    </div>
+                                                    <div className="col-3">
+                                                        <span id="price">£33.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="total">
+                                                <div className="row">
+                                                    <div className="col-9" />
+                                                    <div className="col-3"><big>£262.99</big></div>
+                                                </div>
+                                            </div>
+                                            <div className="tracking">
+                                                <div className="title">Tracking Order</div>
+                                            </div>
+                                            <div className="progress-track">
+                                                <ul id="progressbar">
+                                                    <li className="step0 active " id="step1">Ordered</li>
+                                                    <li className="step0 active text-center" id="step2">Shipped</li>
+                                                    <li className="step0   text-right" id="step3">On the way</li>
+                                                    <li className="step0 text-right" id="step4">Delivered</li>
+                                                </ul>
+                                            </div>
+                                            {/* <div className="footer">
+                                                <div className="row">
+                                                    <div className="col-2"><img className="img-fluid" src="https://i.imgur.com/YBWc55P.png" /></div>
+                                                    <div className="col-10">Want any help? Please &nbsp;<a> contact us</a></div>
+                                                </div>
+                                            </div> */}
+                                        </div>
+                                    </Grid>
+
+                                    <Grid item sm={12} md={12}   sx={{ display: "flex",marginTop:"30px" ,marginBottom:"15px", justifyContent: "space-between" }}>
+                                        <div className='d-flex justify-content-between w-100'>
+
+                                            {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
+
+                                            <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                                CANCEL
+                                            </Button>
+                                            <Button className='ms-md-4' variant='contained' autoFocus onClick={handleClose} >
+                                                OK
+                                            </Button>
+
+                                        </div>
+                                    </Grid>
+
+
+                                </Grid>
+
+                            </DialogContent>
+
+                        </BootstrapDialog>
                     </div>
                 )
                     :

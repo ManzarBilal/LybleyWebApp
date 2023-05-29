@@ -56,6 +56,8 @@ BootstrapDialogTitle.propTypes = {
 const Orders = () => {
 
     const [trackDetail, setTrackDetail] = useState([])
+    const [trackDetailById, setTrackDetailById] = useState([])
+    const [fiveDays, setFiveDays] = useState()
     const [returnDetail, setReturnDetail] = useState([])
     const [cancelDetail, setCancelDetail] = useState([])
     const [open, setOpen] = React.useState(false);
@@ -84,6 +86,12 @@ const Orders = () => {
             let response = await httpCommon.get(`/trackOrder/${orderId}`)
             let { data } = response;
             setTrackDetail(data)
+            let findData = orders?.find(f1 => f1?._id === orderId)
+            setTrackDetailById(findData)
+            const constexDate = new Date(new Date(findData?.createdAt)?.toString())
+            const inFiveDays = new Date(new Date(constexDate)?.setDate(constexDate?.getDate() + 5))
+            setFiveDays(inFiveDays?.toLocaleString());
+            //  addDays()
             setOpen(true)
         }
         catch (err) {
@@ -113,10 +121,7 @@ const Orders = () => {
         }
     }
     const orders = ordersArray.reverse()
-
-    console.log("trackDetail", trackDetail);
-    console.log("returnDetail", returnDetail);
-    console.log("cancelDetail", cancelDetail);
+   
     return (
         <div >
             <Header />
@@ -191,6 +196,10 @@ const Orders = () => {
                         >
                             <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
                                 Track Order
+                                {/* <div className='row'>
+                                    <div className='col-12 col-md-3 col-lg-3'>Order Id :</div>
+                                    <div className='col-12 col-md-9 col-lg-9'>{trackDetailById?._id}</div>
+                                </div> */}
                             </BootstrapDialogTitle>
                             <DialogContent >
                                 <Grid className={`${style.mainDiv}`}>
@@ -202,20 +211,26 @@ const Orders = () => {
                                             <div className="title">Purchase Reciept</div>
                                             <div className="info">
                                                 <div className="row">
-                                                    <div className="col-7">
+                                                    <div className="col-12">
                                                         <span id="heading">Date</span><br />
-                                                        <span id="details">10 October 2018</span>
+                                                        <span id="details"> {new Date(trackDetailById?.createdAt).toLocaleString()}</span>
                                                     </div>
-                                                    <div className="col-5 pull-right">
-                                                        <span id="heading">Order No.</span><br />
-                                                        <span id="details">012j1gvs356c</span>
+                                                    <div className="col-12 pull-right">
+                                                        <div id="heading">Order No.</div>
+                                                        <div id="details" style={{ width: "10px" }} > {trackDetailById?._id}</div>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <span id="heading"> Expected Delivery Date</span><br />
+                                                        <span id="details"> {fiveDays && fiveDays?.toLocaleString()}
+
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="pricing">
+                                            {/* <div className="pricing">
                                                 <div className="row">
                                                     <div className="col-9">
-                                                        <span id="name">BEATS Solo 3 Wireless Headphones</span>
+                                                        <span id="name">{trackDetailById?._id} </span>
                                                     </div>
                                                     <div className="col-3">
                                                         <span id="price">£299.99</span>
@@ -235,14 +250,14 @@ const Orders = () => {
                                                     <div className="col-9" />
                                                     <div className="col-3"><big>£262.99</big></div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="tracking">
                                                 <div className="title">Tracking Order</div>
                                             </div>
                                             <div className="progress-track">
                                                 <ul id="progressbar">
-                                                    <li className="step0 active " id="step1">Ordered</li>
-                                                    <li className="step0 active text-center" id="step2">Shipped</li>
+                                                    <li className="step0 active " id="step1">Order Confirm</li>
+                                                    <li className="step0  text-center" id="step2">Shipped</li>
                                                     <li className="step0   text-right" id="step3">On the way</li>
                                                     <li className="step0 text-right" id="step4">Delivered</li>
                                                 </ul>
@@ -256,7 +271,7 @@ const Orders = () => {
                                         </div>
                                     </Grid>
 
-                                    <Grid item sm={12} md={12}   sx={{ display: "flex",marginTop:"30px" ,marginBottom:"15px", justifyContent: "space-between" }}>
+                                    <Grid item sm={12} md={12} sx={{ display: "flex", marginTop: "30px", marginBottom: "15px", justifyContent: "space-between" }}>
                                         <div className='d-flex justify-content-between w-100'>
 
                                             {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}

@@ -90,7 +90,7 @@ const UserProfile = () => {
    
     return (
         <>
-            <Header  userDetail={userDetails} />
+            <Header  random={randomValue} />
             <div className="container rounded bg-white mt-5 mb-5">
                 <div className="row">
                     <div className="col-md-4 border-right">

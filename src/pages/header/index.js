@@ -68,6 +68,7 @@ function Header(props) {
     }
   }, [randomValue])
 
+   
    //https://lybley-webapp-collection.s3.amazonaws.com/PNG-04.png-1683867426179-153282453
    //https://lybley-webapp-collection.s3.amazonaws.com/PNG-01%20%282%29.png-1683267967762-208485470
   return (
@@ -101,8 +102,10 @@ function Header(props) {
             onClick={handleClick}
             className="m-0 p-0"
           >
-           <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
-           <div className="text-white fw-bold m-0 p-0 ms-2">{userInfo?.name}</div> 
+          {props?.userDetail?.image===""? <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
+           :<img src={props?.userDetail?.image} alt="profile Photo"height={"40"} width={"40"} style={{borderRadius: "50%"}}/>
+        }
+           <div className="text-white fw-bold m-0 p-0 ms-2">{props?.userDetail?.name}</div> 
           </Button>
           
           </div>
@@ -115,7 +118,7 @@ function Header(props) {
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}><Link className="text-decoration-none text-dark" href="/userProfile">Profile</Link></MenuItem>
             <MenuItem onClick={handleClose}><Link className="text-decoration-none text-dark" href="/orders">Order</Link> </MenuItem>
             <hr className="m-0 p-0"></hr>
             <MenuItem onClick={handleLogout} >Logout</MenuItem>

@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
 import style from "../login/login.module.css"
 import "bootstrap/dist/css/bootstrap.css"
+import { useRouter } from 'next/router';
 
 
 
@@ -54,7 +55,8 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const Orders = () => {
-
+    const router=useRouter();
+    const [active,setActive]=useState(1)
     const [trackDetail, setTrackDetail] = useState([])
     const [trackDetailById, setTrackDetailById] = useState([])
     const [fiveDays, setFiveDays] = useState()
@@ -85,6 +87,7 @@ const Orders = () => {
 
             let response = await httpCommon.get(`/trackOrder/${orderId}`)
             let { data } = response;
+            router.push(data[0].tracking_data?.track_url);
             setTrackDetail(data)
             let findData = orders?.find(f1 => f1?._id === orderId)
             setTrackDetailById(findData)
@@ -92,7 +95,8 @@ const Orders = () => {
             const inFiveDays = new Date(new Date(constexDate)?.setDate(constexDate?.getDate() + 5))
             setFiveDays(inFiveDays?.toLocaleString());
             //  addDays()
-            setOpen(true)
+            // setOpen(true)
+
         }
         catch (err) {
             console.log(err)
@@ -129,8 +133,13 @@ const Orders = () => {
                 <div className='mt-5'>
                     <h1 ><span className='bg-dark text-white p-2  text-center'>My Orders</span></h1>
                 </div>
+                <div className="mt-4">
+                <button className={`btn ${active===1 ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={()=>setActive(1)}>Ordered</button>
+                <button className={`btn ${active===2 ? "btn-dark" : "btn-outline-secondary text-dark"} ms-2 me-2`} onClick={()=>setActive(2)}>Delivered</button>
+                <button className={`btn ${active===3 ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={()=>setActive(3)}>Canceled</button>
+                </div>
                 {orders?.length > 0 ? orders?.map((order, i) =>
-                    <div className='mt-5 border p-2'>
+                    <div className='mt-3 border p-2'>
                         <div key={i} className='row d-flex align-items-center1' >
                             {/* <div className='col-md-2 col-12 me-5'>
                                 <div className='fw-bold'>  Order Id

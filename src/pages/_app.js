@@ -7,8 +7,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 export default function App({ Component, pageProps }) {
 
   return <Provider store={store}>
-    {/* <PersistGate persistor={persistStor}> */}
+    <PersistGate persistor={persistStor}>
       <Component {...pageProps} />
-    {/* </PersistGate> */}
+    </PersistGate>
   </Provider>
 }

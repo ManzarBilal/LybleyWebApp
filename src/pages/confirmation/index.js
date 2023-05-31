@@ -63,8 +63,9 @@ const Confirmation = () => {
         setOpen(false);
       };
       useEffect(()=>{
-        setOpen(true)
         deliveryOrder();
+        console.log("useEffect");
+       // setOpen(true)
       },[]);
 
       const deliveryOrder=async()=>{
@@ -130,6 +131,8 @@ const Confirmation = () => {
       }
 
   return (
+  <>
+    <div>Ordered</div>
     <BootstrapDialog
     onClose={handleClose}
     aria-labelledby="customized-dialog-title"
@@ -175,6 +178,7 @@ const Confirmation = () => {
     </DialogContent>
 
   </BootstrapDialog>
+  </>
   )
 }
 

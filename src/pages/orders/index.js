@@ -125,7 +125,7 @@ const Orders = () => {
         }
     }
     const orders = ordersArray.reverse()
-   
+   console.log(trackDetail);
     return (
         <div >
             <Header />

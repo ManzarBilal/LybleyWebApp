@@ -64,8 +64,8 @@ const Confirmation = () => {
       };
       useEffect(()=>{
         deliveryOrder();
-        console.log("useEffect");
-       // setOpen(true)
+        
+       setOpen(true)
       },[]);
 
       const deliveryOrder=async()=>{
@@ -125,6 +125,8 @@ const Confirmation = () => {
            try{
             let response=await httpCommon.post("/createDeliveryOrder",orderData);
             let {data}=response;
+            console.log(data);
+            await httpCommon.patch(`/updateShipOrderId/${currentOrder?._id}`,{shipOrderId:data?.order_id,shipmentId:data?.shipment_id});
            }catch(err){
             console.log(err.response.data);
            }
@@ -132,7 +134,7 @@ const Confirmation = () => {
 
   return (
   <>
-    <div>Ordered</div>
+     
     <BootstrapDialog
     onClose={handleClose}
     aria-labelledby="customized-dialog-title"

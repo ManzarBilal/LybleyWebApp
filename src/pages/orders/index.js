@@ -55,8 +55,8 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const Orders = () => {
-    const router=useRouter();
-    const [active,setActive]=useState(1)
+    const router = useRouter();
+    const [active, setActive] = useState("ORDER")
     const [trackDetail, setTrackDetail] = useState([])
     const [trackDetailById, setTrackDetailById] = useState([])
     const [fiveDays, setFiveDays] = useState()
@@ -89,7 +89,7 @@ const Orders = () => {
             let { data } = response;
             router.push(data[0].tracking_data?.track_url);
             setTrackDetail(data)
-            let findData = orders?.find(f1 => f1?._id === orderId)
+            let findData = ordersArray?.find(f1 => f1?._id === orderId)
             setTrackDetailById(findData)
             const constexDate = new Date(new Date(findData?.createdAt)?.toString())
             const inFiveDays = new Date(new Date(constexDate)?.setDate(constexDate?.getDate() + 5))
@@ -113,20 +113,25 @@ const Orders = () => {
             console.log(err)
         }
     }
-    const CancelOrder = async (orderId) => {
+    const CancelOrder = async (orderId, id) => {
         try {
-            let orderId1=+orderId;
-            let obj = { ids: [orderId1] };
+            let obj = { ids: [orderId] };
             let response = await httpCommon.post(`/cancelOrder`, obj);
             let { data } = response;
+            if (data?.status_code === 200) {
+                await httpCommon.patch(`/updateShipOrderId/${id}`, { status: "CANCEL" });
+
+            }
+
             setCancelDetail(data)
         }
         catch (err) {
             console.log(err)
         }
     }
-    const orders = ordersArray.reverse()
-   console.log(trackDetail);
+    const orderData = active ? ordersArray?.filter(f1 => f1.status === active) : ordersArray;
+    const orderData1 = ordersArray.reverse()
+    console.log(trackDetail);
     return (
         <div >
             <Header />
@@ -135,11 +140,11 @@ const Orders = () => {
                     <h1 ><span className='bg-dark text-white p-2  text-center'>My Orders</span></h1>
                 </div>
                 <div className="mt-4">
-                <button className={`btn ${active===1 ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={()=>setActive(1)}>Ordered</button>
-                <button className={`btn ${active===2 ? "btn-dark" : "btn-outline-secondary text-dark"} ms-2 me-2`} onClick={()=>setActive(2)}>Delivered</button>
-                <button className={`btn ${active===3 ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={()=>setActive(3)}>Canceled</button>
+                    <button className={`btn ${active === "ORDER" ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={() => setActive("ORDER")}>Ordered</button>
+                    <button className={`btn ${active === "DELIVER" ? "btn-dark" : "btn-outline-secondary text-dark"} ms-2 me-2`} onClick={() => setActive("DELIVER")}>Delivered</button>
+                    <button className={`btn ${active === "CANCEL" ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={() => setActive("CANCEL")}>Canceled</button>
                 </div>
-                {orders?.length > 0 ? orders?.map((order, i) =>
+                {orderData?.length > 0 ? orderData?.map((order, i) =>
                     <div className='mt-3 border p-2'>
                         <div key={i} className='row d-flex align-items-center1' >
                             {/* <div className='col-md-2 col-12 me-5'>
@@ -150,6 +155,10 @@ const Orders = () => {
                             </div> */}
                             <div className='col-md-2 col-12 '>
                                 <div className='row'>
+                                <div className='fw-bold col-md-12 col-6'> Order Id
+                                    </div>
+                                    <div className='col-md-12 col-6'> {order?._id}
+                                    </div>
                                     <div className='fw-bold col-md-12 col-6'> User Name
                                     </div>
                                     <div className='col-md-12 col-6'> {order?.name}
@@ -187,9 +196,14 @@ const Orders = () => {
                                         <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
                                     </div>
                                     <div className='row mt-2 d-flex   align-items-center1'>
-                                        <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
-                                        {/* <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm'onClick={()=>ReturnOrder(order?._id)}>Return Order</button></div> */}
-                                        <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?._id)}>Cancel Order</button></div>
+                                        {order?.status === "ORDER" ?
+                                            <>
+                                                <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
+                                                <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id)}>Cancel Order</button></div>
+                                            </>
+                                            : ""}
+                                        {order?.status === "DELIVER" ? <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id)}>Return Order</button></div>
+                                            : ""}
                                     </div>
                                 </div>
 

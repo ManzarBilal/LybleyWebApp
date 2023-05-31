@@ -157,7 +157,7 @@ const Orders = () => {
                                 <div className='row'>
                                 <div className='fw-bold col-md-12 col-6'> Order Id
                                     </div>
-                                    <div className='col-md-12 col-6'> {order?._id}
+                                    <div className='col-md-12 col-6' style={{fontSize:"10px"}}> {order?._id}
                                     </div>
                                     <div className='fw-bold col-md-12 col-6'> User Name
                                     </div>

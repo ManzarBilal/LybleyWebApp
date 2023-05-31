@@ -71,10 +71,14 @@ const Confirmation = () => {
       const deliveryOrder=async()=>{
         let totalPrice=currentOrder?.items?.map(it=>({price:it?.MRP*it?.quantity}));
         let totalPrice1=totalPrice?.reduce((acc,curr)=> acc+curr?.price,0);
+        let length=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.length),0);
+        let height=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.height),0);
+        let breadth=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.breadth),0);
+        let weight=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.weight),0);
         let item=currentOrder?.items.map(it=>(
           {
             name: it?.sparePartName,
-            sku: "asksn123",
+            sku: it?.skuNo,
             units: it?.quantity,
             selling_price: it?.MRP,
             discount: "",
@@ -117,10 +121,10 @@ const Confirmation = () => {
           "transaction_charges": 0,
           "total_discount": 0,
           "sub_total": totalPrice1,
-          "length": 10,
-          "breadth": 15,
-          "height": 20,
-          "weight": 2.5
+          "length": length,
+          "breadth": breadth,
+          "height": height,
+          "weight": weight
         }
            try{
             let response=await httpCommon.post("/createDeliveryOrder",orderData);

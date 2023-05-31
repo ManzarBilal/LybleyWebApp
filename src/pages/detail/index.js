@@ -68,7 +68,7 @@ const Detail = (props) => {
 
   const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
   const getSparePart = discountSpareParts?.find(f => f?._id === id);
-
+  console.log(getSparePart);
   const playerRef = useRef(null);
 
   let sp = allSpareParts?.find((sp1, index) => index === 0);
@@ -89,7 +89,7 @@ const Detail = (props) => {
     let data = discountSpareParts?.find(f => f?._id === id);
     let tech = bool ? data?.technician : technician;
     const userId = localStorage.getItem("userId");
-    let obj = { userId: userId, brandId: data?.userId, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
+    let obj = { userId: userId, brandId: data?.userId,skuNo:data?.skuNo,length:data?.length,weight:data?.weight,breadth:data?.breadth,height:data?.height, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
     console.log("obj",obj);
     if (user && tech === 0) {
       setCartValue(true);
@@ -107,7 +107,7 @@ const Detail = (props) => {
     setCheck("BUY");
     let tech = bool ? getSparePart?.technician : technician;
     if (userId) {
-      let obj = { userId: userId, brandId: getSparePart?.userId, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician: tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
+      let obj = { userId: userId, brandId: getSparePart?.userId,skuNo:getSparePart?.skuNo,length:getSparePart?.length,weight:getSparePart?.weight,breadth:getSparePart?.breadth,height:getSparePart?.height, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician: tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
       dispatch(handleCheckout([obj]));
       if (user && tech === 0) {
         setDialogOpen(true);

@@ -115,7 +115,8 @@ const Orders = () => {
     }
     const CancelOrder = async (orderId) => {
         try {
-            let obj = { ids: [orderId] };
+            let orderId1=+orderId;
+            let obj = { ids: [orderId1] };
             let response = await httpCommon.post(`/cancelOrder`, obj);
             let { data } = response;
             setCancelDetail(data)

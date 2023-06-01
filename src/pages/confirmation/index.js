@@ -65,7 +65,7 @@ const Confirmation = () => {
       useEffect(()=>{
         deliveryOrder();
         
-       setOpen(true)
+     //  setOpen(true)
       },[]);
 
       const deliveryOrder=async()=>{
@@ -75,7 +75,7 @@ const Confirmation = () => {
         let height=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.height),0);
         let breadth=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.breadth),0);
         let weight=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.weight),0);
-        let item=currentOrder?.items?.map(it=>(
+        let item=currentOrder?.items.map(it=>(
           {
             name: it?.sparePartName,
             sku: it?.skuNo,
@@ -137,6 +137,8 @@ const Confirmation = () => {
       }
 
   return (
+    <>
+                <Link href="/" className='text-decoration-none'> <button className="btn btn-primary"> Back to home</button></Link>
   <>
      
     <BootstrapDialog
@@ -184,6 +186,7 @@ const Confirmation = () => {
     </DialogContent>
 
   </BootstrapDialog>
+  </>
   </>
   )
 }

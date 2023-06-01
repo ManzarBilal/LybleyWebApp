@@ -75,7 +75,7 @@ const Confirmation = () => {
         let height=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.height),0);
         let breadth=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.breadth),0);
         let weight=currentOrder?.items?.reduce((acc,curr)=> acc+(+curr?.weight),0);
-        let item=currentOrder?.items.map(it=>(
+        let item=currentOrder?.items?.map(it=>(
           {
             name: it?.sparePartName,
             sku: it?.skuNo,
@@ -167,7 +167,7 @@ const Confirmation = () => {
                 {data?.map((d1, i) =>
                   <div key={i} className='border mb-2 p-3' >
 
-                    <div className=''>  <span className='fw-bold'> OrderId :</span> {d1?.orderId} </div>
+                    {/* <div className=''>  <span className='fw-bold'> OrderId :</span> {d1?.orderId} </div> */}
                     <div className=' '>  <span className='fw-bold'> Product Name :</span>  {d1?.sparePartName} </div>
                     <div className=' '>  <span className='fw-bold'> Quantity :</span>  {d1?.quantity} </div>
                     <div className=' '> <span className='fw-bold'> Price :</span> Rs. {d1?.MRP * d1?.quantity} </div>

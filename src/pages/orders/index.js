@@ -273,8 +273,8 @@ const Orders = () => {
                                                 <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id)}>Cancel Order</button></div>
                                             </>
                                             : ""}
-                                        <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id)}>Return Order</button></div>
-
+                                        {order?.status === "DELIVER" ? <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id)}>Return Order</button></div>
+                                            : ""}
                                     </div>
                                 </div>
 

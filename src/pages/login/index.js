@@ -247,16 +247,16 @@ export default function Login(props) {
                                 {errors.password?.message}
                             </Typography> */}
                         <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
-                            <div className='d-flex justify-content-between w-100'>
+                            <div className='d-flex justify-content-between1 w-100'>
 
                                 {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
 
-                                <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                {/* <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                     CANCEL
-                                </Button>
+                                </Button> */}
 
 
-                                <Button className='ms-md-4' variant='contained' autoFocus onClick={handleSubmit(submit)}>
+                                <Button className='w-100' variant='contained' autoFocus onClick={handleSubmit(submit)}>
                                     SIGNIN
                                 </Button>
 

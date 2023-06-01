@@ -396,20 +396,21 @@ export default function Register(props) {
                                         {errors.confirmPassword?.message}
                                     </Typography>
                                 </Grid> */}
-                                <Grid item sm={12} md={12} mt={5} sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div className='d-flex justify-content-between w-100' >
-                                        <div className='row'>
-                                            <div className={`${style.common_curs} ${style.loginTxtF} ${style.paddTopAcnt}  text-primary col-md-7 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
-                                            <div className='col-md-5 col-12 mb-3 d-flex justify-content-between'>
-                                                <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                <Grid item sm={12} md={12} mt={5}  >
+                                    
+                                        <div className='row ms-2 me-2'>
+                                            
+                                                {/* <Button variant='contained' color='secondary' autoFocus onClick={handleClose}>
                                                     CANCEL
-                                                </Button>
-                                                <Button className='ms-3 ' variant='contained' autoFocus onClick={handleSubmit(onSubmit)} >
+                                                </Button> */}
+                                                <Button className='w-100 col-md-12 col-12 mb-3 d-flex justify-content-center' variant='contained' autoFocus onClick={handleSubmit(onSubmit)} >
                                                     SIGNUP
                                                 </Button>
-                                            </div>
+                                           
+                                            <div className={`${style.common_curs} ${style.loginTxtF} ${style.paddTopAcnt}  text-primary col-md-12 col-12 mb-3`} onClick={handleLogin}> Already have an account?/SignIn  </div>
+
                                         </div>
-                                    </div>
+                                   
                                 </Grid>
                             </form>
                         </Grid>

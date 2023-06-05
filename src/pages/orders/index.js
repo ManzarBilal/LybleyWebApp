@@ -63,6 +63,7 @@ const Orders = () => {
     const [fiveDays, setFiveDays] = useState()
     const [returnDetail, setReturnDetail] = useState([])
     const [cancelDetail, setCancelDetail] = useState([])
+    const [deliverData, setDeliveryData] = useState("")
     const [open, setOpen] = React.useState(false);
     const [randonValue, setRandomValue] = useState("")
 
@@ -77,20 +78,24 @@ const Orders = () => {
 
     useEffect(() => {
         let userId = localStorage.getItem("userId")
-
         dispatch(getOrderById(userId));
     }, [randonValue])
 
-
-
+ 
 
     const TrackOrder = async (orderId) => {
         try {
-
             let response = await httpCommon.get(`/trackOrder/${orderId}`)
             let { data } = response;
             router.push(data[0].tracking_data?.track_url);
+            
             setTrackDetail(data)
+            if(data[0].tracking_data?.shipment_track[0].current_status==="Delivered"){
+                let responseStatus= await httpCommon.patch(`/updateShipOrderId/${orderId}`, {status: "DELIVER" });
+                }
+                let x = Math.floor((Math.random() * 100) + 1);
+                setRandomValue(x)
+            
             let findData = ordersArray?.find(f1 => f1?._id === orderId)
             setTrackDetailById(findData)
             const constexDate = new Date(new Date(findData?.createdAt)?.toString())
@@ -169,7 +174,7 @@ const Orders = () => {
             }
 
 
-            let responseReturn = await httpCommon.get(`/returnOrder`, returnData)
+            let responseReturn = await httpCommon.post(`/returnOrder`, returnData)
             let { dataReturn } = responseReturn;
 
             setReturnDetail(dataReturn)
@@ -182,15 +187,14 @@ const Orders = () => {
         }
 
     }
-    const CancelOrder = async (orderId, id) => {
+    const CancelOrder = async (orderId, id,brandId,MRP,quantity) => {
         try {
-            let obj = { ids: [orderId] };
-            let response = await httpCommon.post(`/cancelOrder`, obj);
-            let { data } = response;
-            if (data?.status_code === 200) {
-                await httpCommon.patch(`/updateShipOrderId/${id}`, { status: "CANCEL" });
-
-            }
+            // let obj = { ids: [orderId] };
+            // let response = await httpCommon.post(`/cancelOrder`, obj);
+            // let { data } = response;
+            // if (data?.status_code === 200) {
+               let response= await httpCommon.patch(`/updateShipOrderId/${id}`, {brandId:brandId,MRP:MRP,quantity:quantity, status: "CANCEL" });
+          //  }
 
             setCancelDetail(data)
             let x = Math.floor((Math.random() * 100) + 1);
@@ -202,7 +206,8 @@ const Orders = () => {
     }
     const orderData = active ? ordersArray?.filter(f1 => f1.status === active) : ordersArray;
     const orderData1 = ordersArray.reverse()
-    console.log(trackDetail);
+    console.log("deliverData",deliverData);
+    console.log("trackDetail",trackDetail);
     return (
         <div >
             <Header />
@@ -270,7 +275,7 @@ const Orders = () => {
                                         {order?.status === "ORDER" ?
                                             <>
                                                 <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
-                                                <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id)}>Cancel Order</button></div>
+                                                <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId,order?._id,item?.brandId,item?.MRP,item?.quantity)}>Cancel Order</button></div>
                                             </>
                                             : ""}
                                         {order?.status === "DELIVER" ? <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id)}>Return Order</button></div>

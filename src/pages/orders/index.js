@@ -66,6 +66,8 @@ const Orders = () => {
     const [deliverData, setDeliveryData] = useState("")
     const [open, setOpen] = React.useState(false);
     const [randonValue, setRandomValue] = useState("")
+    const [returnData,setReturnData]=useState({});
+    const [allReturn,setReturn]=useState([]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -77,25 +79,42 @@ const Orders = () => {
     const ordersArray = useSelector(state => state.orders)
 
     useEffect(() => {
+        getAllReturnOrder();
         let userId = localStorage.getItem("userId")
         dispatch(getOrderById(userId));
     }, [randonValue])
 
- 
+
+    const getAllReturnOrder=async()=>{
+          try{
+            let response=await httpCommon.get("/getAllReturnOrder");
+            let {data}=response;
+            setReturn(data);
+          }catch(err){
+            console.log(err);
+          }
+    }
 
     const TrackOrder = async (orderId) => {
+        
         try {
-            let response = await httpCommon.get(`/trackOrder/${orderId}`)
+        //     if(active==="DELIVER"){
+        //     let response=await httpCommon.get(`/getReturnOrder/${id}`);
+        //    var  returnTrack=response?.data?._id;
+        //     }
+        //     console.log("dafshj")
+            let id=active==="DELIVER" ? "64745b59710094051132dbd21" : orderId;
+            let response = await httpCommon.get(`/trackOrder/${id}`)
             let { data } = response;
             router.push(data[0].tracking_data?.track_url);
-            
+
             setTrackDetail(data)
-            if(data[0].tracking_data?.shipment_track[0].current_status==="Delivered"){
-                let responseStatus= await httpCommon.patch(`/updateShipOrderId/${orderId}`, {status: "DELIVER" });
-                }
-                let x = Math.floor((Math.random() * 100) + 1);
-                setRandomValue(x)
-            
+            if (data[0].tracking_data?.shipment_track[0].current_status === "Delivered") {
+                let responseStatus = await httpCommon.patch(`/updateShipOrderId/${orderId}`, { status: "DELIVER" });
+            }
+            let x = Math.floor((Math.random() * 100) + 1);
+            setRandomValue(x)
+
             let findData = ordersArray?.find(f1 => f1?._id === orderId)
             setTrackDetailById(findData)
             const constexDate = new Date(new Date(findData?.createdAt)?.toString())
@@ -111,7 +130,6 @@ const Orders = () => {
     }
     const ReturnOrder = async (orderId) => {
         let orderData = ordersArray?.find(f1 => f1?._id === orderId)
-
         let totalPrice = orderData?.items?.map(it => ({ price: it?.MRP * it?.quantity }));
         let totalPrice1 = totalPrice?.reduce((acc, curr) => acc + curr?.price, 0);
         let length = orderData?.items?.reduce((acc, curr) => acc + (+curr?.length), 0);
@@ -131,14 +149,17 @@ const Orders = () => {
         ))
 
         try {
+            let obj={name:orderData.name,email:orderData.email,contact:orderData.contact,city:orderData.city,state:orderData.state,pin:orderData.pin,customerId:orderData.customerId,address:orderData.address,address2:orderData.address2,status:"RETURN",orderId:orderData._id,items:orderData.items,shipment:orderData.shipment,shipOrderId:orderData.shipOrderId}
+            let response1=await httpCommon.post("/createReturnOrder",obj);
+            let data1=response1?.data;
 
             let response = await httpCommon.get(`/getSpecificOrder/${orderData?.shipOrderId}`)
             let { data } = response;
 
             let returnData = {
-                "order_id": orderData?._id,
+                "order_id": data1?._id,
                 "order_date": new Date(orderData?.createdAt).toLocaleDateString(),
-                "channel_id": orderData?._id,
+                "channel_id": data?.data?.channel_id,
                 "pickup_customer_name": orderData?.name,
                 "pickup_last_name": "",
                 "company_name": " ",
@@ -166,18 +187,18 @@ const Orders = () => {
                 "payment_method": "PREPAID",
                 "total_discount": "0",
                 "sub_total": totalPrice1,
-                "length": length,
-                "breadth": breadth,
-                "height": height,
-                "weight": weight
+                "length": +length,
+                "breadth": +breadth,
+                "height": +height,
+                "weight": +weight
 
             }
 
 
             let responseReturn = await httpCommon.post(`/returnOrder`, returnData)
-            let { dataReturn } = responseReturn;
+            let data2 = responseReturn?.data;
 
-            setReturnDetail(dataReturn)
+            setReturnDetail(data2);
 
             let x = Math.floor((Math.random() * 100) + 1);
             setRandomValue(x)
@@ -187,14 +208,14 @@ const Orders = () => {
         }
 
     }
-    const CancelOrder = async (orderId, id,brandId,MRP,quantity) => {
+    const CancelOrder = async (orderId, id, brandId, MRP, quantity) => {
         try {
-            // let obj = { ids: [orderId] };
-            // let response = await httpCommon.post(`/cancelOrder`, obj);
-            // let { data } = response;
-            // if (data?.status_code === 200) {
-               let response= await httpCommon.patch(`/updateShipOrderId/${id}`, {brandId:brandId,MRP:MRP,quantity:quantity, status: "CANCEL" });
-          //  }
+            let obj = { ids: [orderId] };
+            let response = await httpCommon.post(`/cancelOrder`, obj);
+            let { data } = response;
+            if (data?.status_code === 200) {
+            let response = await httpCommon.patch(`/updateShipOrderId/${id}`, { brandId: brandId, MRP: MRP, quantity: quantity, status: "CANCEL" });
+             }
 
             setCancelDetail(data)
             let x = Math.floor((Math.random() * 100) + 1);
@@ -206,8 +227,8 @@ const Orders = () => {
     }
     const orderData = active ? ordersArray?.filter(f1 => f1.status === active) : ordersArray;
     const orderData1 = ordersArray.reverse()
-    console.log("deliverData",deliverData);
-    console.log("trackDetail",trackDetail);
+    console.log("deliverData", deliverData);
+    console.log("trackDetail", trackDetail);
     return (
         <div >
             <Header />
@@ -275,11 +296,14 @@ const Orders = () => {
                                         {order?.status === "ORDER" ?
                                             <>
                                                 <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
-                                                <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId,order?._id,item?.brandId,item?.MRP,item?.quantity)}>Cancel Order</button></div>
+                                                <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id, item?.brandId, item?.MRP, item?.quantity)}>Cancel Order</button></div>
                                             </>
                                             : ""}
-                                        {order?.status === "DELIVER" ? <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id)}>Return Order</button></div>
-                                            : ""}
+                                        {(order?.status === "DELIVER" && allReturn.find(f1=> f1?.orderId===order?._id)) ?
+
+                                       <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
+                                               
+                                         : (order?.status === "ORDER" || order?.status === "CANCEL") ? ""  : <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id,)}>Return Order</button></div>}
                                     </div>
                                 </div>
 

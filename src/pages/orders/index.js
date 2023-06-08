@@ -106,8 +106,14 @@ const Orders = () => {
             let id=active==="DELIVER" ? "64745b59710094051132dbd21" : orderId;
             let response = await httpCommon.get(`/trackOrder/${id}`)
             let { data } = response;
-            router.push(data[0].tracking_data?.track_url);
+            if(data?.length===0)
+            {
+                handleClickOpen()
 
+            }
+            else{
+                router.push(data[0].tracking_data?.track_url);  
+            }
             setTrackDetail(data)
             if (data[0].tracking_data?.shipment_track[0].current_status === "Delivered") {
                 let responseStatus = await httpCommon.patch(`/updateShipOrderId/${orderId}`, { status: "DELIVER" });
@@ -337,15 +343,15 @@ const Orders = () => {
                                                 <div className="row">
                                                     <div className="col-12">
                                                         <span id="heading">Date</span><br />
-                                                        <span id="details"> {new Date(trackDetailById?.createdAt).toLocaleString()}</span>
+                                                        <span id="details"> {(order?.createdAt && new Date(order?.createdAt).toLocaleString())}</span>
                                                     </div>
                                                     <div className="col-12 pull-right">
                                                         <div id="heading">Order No.</div>
                                                         <div id="details" style={{ width: "10px" }} > {trackDetailById?._id}</div>
                                                     </div>
                                                     <div className="col-12">
-                                                        <span id="heading"> Expected Delivery Date</span><br />
-                                                        <span id="details"> {fiveDays && fiveDays?.toLocaleString()}
+                                                        <span id="heading"> Status</span><br />
+                                                        <span id="details">  Order Confirmed
 
                                                         </span>
                                                     </div>
@@ -375,7 +381,7 @@ const Orders = () => {
                                                     <div className="col-3"><big>£262.99</big></div>
                                                 </div>
                                             </div> */}
-                                            <div className="tracking">
+                                            {/* <div className="tracking">
                                                 <div className="title">Tracking Order</div>
                                             </div>
                                             <div className="progress-track">
@@ -385,7 +391,7 @@ const Orders = () => {
                                                     <li className="step0   text-right" id="step3">On the way</li>
                                                     <li className="step0 text-right" id="step4">Delivered</li>
                                                 </ul>
-                                            </div>
+                                            </div> */}
                                             {/* <div className="footer">
                                                 <div className="row">
                                                     <div className="col-2"><img className="img-fluid" src="https://i.imgur.com/YBWc55P.png" /></div>

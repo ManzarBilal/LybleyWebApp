@@ -6,7 +6,7 @@ const AboutUs = () => {
 
 
   return (
-    <div className='bg-light'>
+    <div  className='bg-light'>
       <Header />
       <div className='container mt-5'>
         <div className='row'>

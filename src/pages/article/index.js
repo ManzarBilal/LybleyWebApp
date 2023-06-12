@@ -6,7 +6,7 @@ import Cards from '../cards';
 
 const Article = () => {
     return (
-        <div className='bg-light'>
+        <div  className='bg-light'>
             <Header />
             <div class="container">
                 <h1 className='text-primary text-center mt-3'>Articles</h1>

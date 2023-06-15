@@ -159,8 +159,7 @@ const Orders = () => {
             }
         ))
         if (userInfo?.role === "Reseller") {
-            
-            console.log("reseller return created")
+            router.push(`/qrScanner?id=${orderData?._id}`);
         }
         else
             try {

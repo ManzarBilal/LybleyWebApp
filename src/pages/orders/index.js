@@ -66,8 +66,8 @@ const Orders = () => {
     const [deliverData, setDeliveryData] = useState("")
     const [open, setOpen] = React.useState(false);
     const [randonValue, setRandomValue] = useState("")
-    const [returnData,setReturnData]=useState({});
-    const [allReturn,setReturn]=useState([]);
+    const [returnData, setReturnData] = useState({});
+    const [allReturn, setReturn] = useState([]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -85,34 +85,33 @@ const Orders = () => {
     }, [randonValue])
 
 
-    const getAllReturnOrder=async()=>{
-          try{
-            let response=await httpCommon.get("/getAllReturnOrder");
-            let {data}=response;
+    const getAllReturnOrder = async () => {
+        try {
+            let response = await httpCommon.get("/getAllReturnOrder");
+            let { data } = response;
             setReturn(data);
-          }catch(err){
+        } catch (err) {
             console.log(err);
-          }
+        }
     }
 
     const TrackOrder = async (orderId) => {
-        
+
         try {
-        //     if(active==="DELIVER"){
-        //     let response=await httpCommon.get(`/getReturnOrder/${id}`);
-        //    var  returnTrack=response?.data?._id;
-        //     }
-        //     console.log("dafshj")
-            let id=active==="DELIVER" ? "64745b59710094051132dbd21" : orderId;
+            if (active === "DELIVER") {
+                let response = await httpCommon.get(`/getReturnOrder/${id}`);
+                var returnTrack = response?.data?._id;
+            }
+            //     console.log("dafshj")
+            let id = active === "DELIVER" ? returnTrack : orderId;
             let response = await httpCommon.get(`/trackOrder/${id}`)
             let { data } = response;
-            if(data?.length===0)
-            {
+            if (data?.length === 0) {
                 handleClickOpen()
 
             }
-            else{
-                router.push(data[0].tracking_data?.track_url);  
+            else {
+                router.push(data[0].tracking_data?.track_url);
             }
             setTrackDetail(data)
             if (data[0].tracking_data?.shipment_track[0].current_status === "Delivered") {
@@ -135,6 +134,9 @@ const Orders = () => {
         }
     }
     const ReturnOrder = async (orderId) => {
+        let userData = localStorage.getItem("user")
+        let userInfo = JSON.parse(userData)
+
         let orderData = ordersArray?.find(f1 => f1?._id === orderId)
         let totalPrice = orderData?.items?.map(it => ({ price: it?.MRP * it?.quantity }));
         let totalPrice1 = totalPrice?.reduce((acc, curr) => acc + curr?.price, 0);
@@ -142,6 +144,9 @@ const Orders = () => {
         let height = orderData?.items?.reduce((acc, curr) => acc + (+curr?.height), 0);
         let breadth = orderData?.items?.reduce((acc, curr) => acc + (+curr?.breadth), 0);
         let weight = orderData?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
+
+        console.log("userInfo", userInfo);
+        console.log("orderData", orderData);
         let item = orderData?.items?.map(it => (
             {
                 name: it?.sparePartName,
@@ -153,65 +158,69 @@ const Orders = () => {
                 hsn: 441122
             }
         ))
+        if (userInfo?.role === "Reseller") {
+            
+            console.log("reseller return created")
+        }
+        else
+            try {
+                let obj = { name: orderData.name, email: orderData.email, contact: orderData.contact, city: orderData.city, state: orderData.state, pin: orderData.pin, customerId: orderData.customerId, address: orderData.address, address2: orderData.address2, status: "RETURN", orderId: orderData._id, items: orderData.items, shipment: orderData.shipment, shipOrderId: orderData.shipOrderId }
+                let response1 = await httpCommon.post("/createReturnOrder", obj);
+                let data1 = response1?.data;
 
-        try {
-            let obj={name:orderData.name,email:orderData.email,contact:orderData.contact,city:orderData.city,state:orderData.state,pin:orderData.pin,customerId:orderData.customerId,address:orderData.address,address2:orderData.address2,status:"RETURN",orderId:orderData._id,items:orderData.items,shipment:orderData.shipment,shipOrderId:orderData.shipOrderId}
-            let response1=await httpCommon.post("/createReturnOrder",obj);
-            let data1=response1?.data;
+                let response = await httpCommon.get(`/getSpecificOrder/${orderData?.shipOrderId}`)
+                let { data } = response;
 
-            let response = await httpCommon.get(`/getSpecificOrder/${orderData?.shipOrderId}`)
-            let { data } = response;
+                let returnData = {
+                    "order_id": data1?._id,
+                    "order_date": new Date(orderData?.createdAt).toLocaleDateString(),
+                    "channel_id": data?.data?.channel_id,
+                    "pickup_customer_name": orderData?.name,
+                    "pickup_last_name": "",
+                    "company_name": " ",
+                    "pickup_address": orderData?.address,
+                    "pickup_address_2": orderData?.address2,
+                    "pickup_city": orderData?.city,
+                    "pickup_state": orderData?.state,
+                    "pickup_country": "India",
+                    "pickup_pincode": +(orderData?.pin),
+                    "pickup_email": orderData?.email,
+                    "pickup_phone": orderData?.contact,
+                    "pickup_isd_code": "91",
+                    "shipping_customer_name": data?.data?.pickup_address?.name,
+                    "shipping_last_name": "",
+                    "shipping_address": data?.data?.pickup_address?.address,
+                    "shipping_address_2": data?.data?.pickup_address?.address_2,
+                    "shipping_city": data?.data?.pickup_address?.city,
+                    "shipping_country": data?.data?.pickup_address?.country,
+                    "shipping_pincode": +(data?.data?.pickup_address?.pin_code),
+                    "shipping_state": data?.data?.pickup_address?.state,
+                    "shipping_email": data?.data?.pickup_address?.email,
+                    "shipping_isd_code": "91",
+                    "shipping_phone": +(data?.data?.pickup_address?.phone),
+                    "order_items": item,
+                    "payment_method": "PREPAID",
+                    "total_discount": "0",
+                    "sub_total": totalPrice1,
+                    "length": +length,
+                    "breadth": +breadth,
+                    "height": +height,
+                    "weight": +weight
 
-            let returnData = {
-                "order_id": data1?._id,
-                "order_date": new Date(orderData?.createdAt).toLocaleDateString(),
-                "channel_id": data?.data?.channel_id,
-                "pickup_customer_name": orderData?.name,
-                "pickup_last_name": "",
-                "company_name": " ",
-                "pickup_address": orderData?.address,
-                "pickup_address_2": orderData?.address2,
-                "pickup_city": orderData?.city,
-                "pickup_state": orderData?.state,
-                "pickup_country": "India",
-                "pickup_pincode": +(orderData?.pin),
-                "pickup_email": orderData?.email,
-                "pickup_phone": orderData?.contact,
-                "pickup_isd_code": "91",
-                "shipping_customer_name": data?.data?.pickup_address?.name,
-                "shipping_last_name": "",
-                "shipping_address": data?.data?.pickup_address?.address,
-                "shipping_address_2": data?.data?.pickup_address?.address_2,
-                "shipping_city": data?.data?.pickup_address?.city,
-                "shipping_country": data?.data?.pickup_address?.country,
-                "shipping_pincode": +(data?.data?.pickup_address?.pin_code),
-                "shipping_state": data?.data?.pickup_address?.state,
-                "shipping_email": data?.data?.pickup_address?.email,
-                "shipping_isd_code": "91",
-                "shipping_phone": +(data?.data?.pickup_address?.phone),
-                "order_items": item,
-                "payment_method": "PREPAID",
-                "total_discount": "0",
-                "sub_total": totalPrice1,
-                "length": +length,
-                "breadth": +breadth,
-                "height": +height,
-                "weight": +weight
+                }
 
+
+                let responseReturn = await httpCommon.post(`/returnOrder`, returnData)
+                let data2 = responseReturn?.data;
+
+                setReturnDetail(data2);
+
+                let x = Math.floor((Math.random() * 100) + 1);
+                setRandomValue(x)
             }
-
-
-            let responseReturn = await httpCommon.post(`/returnOrder`, returnData)
-            let data2 = responseReturn?.data;
-
-            setReturnDetail(data2);
-
-            let x = Math.floor((Math.random() * 100) + 1);
-            setRandomValue(x)
-        }
-        catch (err) {
-            console.log(err)
-        }
+            catch (err) {
+                console.log(err)
+            }
 
     }
     const CancelOrder = async (orderId, id, brandId, MRP, quantity) => {
@@ -220,8 +229,8 @@ const Orders = () => {
             let response = await httpCommon.post(`/cancelOrder`, obj);
             let { data } = response;
             if (data?.status_code === 200) {
-            let response = await httpCommon.patch(`/updateShipOrderId/${id}`, { brandId: brandId, MRP: MRP, quantity: quantity, status: "CANCEL" });
-             }
+                let response = await httpCommon.patch(`/updateShipOrderId/${id}`, { brandId: brandId, MRP: MRP, quantity: quantity, status: "CANCEL" });
+            }
 
             setCancelDetail(data)
             let x = Math.floor((Math.random() * 100) + 1);
@@ -305,11 +314,11 @@ const Orders = () => {
                                                 <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id, item?.brandId, item?.MRP, item?.quantity)}>Cancel Order</button></div>
                                             </>
                                             : ""}
-                                        {(order?.status === "DELIVER" && allReturn.find(f1=> f1?.orderId===order?._id)) ?
+                                        {(order?.status === "DELIVER" && allReturn.find(f1 => f1?.orderId === order?._id)) ?
 
-                                       <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
-                                               
-                                         : (order?.status === "ORDER" || order?.status === "CANCEL") ? ""  : <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id,)}>Return Order</button></div>}
+                                            <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
+
+                                            : (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id,)}>Return Order</button></div>}
                                     </div>
                                 </div>
 

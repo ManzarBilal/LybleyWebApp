@@ -20,6 +20,7 @@
         "@react-icons/all-files": "^4.1.0",
         "axios": "^1.3.4",
         "bootstrap": "^5.2.3",
+        "html5-qrcode": "^2.3.8",
         "mui-one-time-password-input": "^1.1.0",
         "next": "13.2.4",
         "react": "18.2.0",

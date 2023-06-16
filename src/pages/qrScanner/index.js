@@ -1,20 +1,35 @@
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
+import ReactPlayer from 'react-player'
+import httpCommon from '@/http-common'
 
 const QrScanner = () => {
   const [scanResult, setScanResult] = useState(null)
   const [verify, setVerify] = useState(false)
+  const [video, setVideo] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [randomValue, setRandomValue] = useState("");
+  const [returnVideo, setReturnVideo] = useState();
 
+  const [partvideo, setPartVideo] = useState(null)
+  console.log("partvideo",partvideo)
+  const [videoUrl, setVideoUrl] = useState("")
   const ordersArray = useSelector(state => state.orders)
 
   const router = useRouter()
   const { id } = router.query;
+
+  const playerRef = useRef(null);
+
+  const orderItemId=useSelector(state=>state.orderItem)
+ 
   useEffect(() => {
 
     const scanner = new Html5QrcodeScanner('reader', {
       qrbox: {
+        top: 20,
         width: 350,
         height: 350,
       },
@@ -29,8 +44,14 @@ const QrScanner = () => {
     function error(err) {
       console.log(err);
     }
+    GetAllReturnVideoByOrderId()
+  }, [randomValue])
 
-  }, [])
+  const handleVideo = () => {
+    setVideo(true)
+    setVerify(true)
+
+  }
 
   const handleVerify = () => {
 
@@ -39,17 +60,71 @@ const QrScanner = () => {
 
 
     if (scanResult === productId?.sparePartId) {
+      alert("Match Product Id")
       setVerify(true)
     } else {
       alert("QR Code Not Verified")
     }
   }
 
+  const handleFileChange = (e) => {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    if (!file) return;
+    setVideoUrl(URL.createObjectURL(file));
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0])
+      if (e.target.name === "file") {
+        // setImage(e.target.files[0]);
+        setPartVideo(e.target.files[0])
+      }
+    }
+  };
+
+  const addProductVideo = async () => {
+    let orderData = ordersArray?.find(f1 => f1?._id === id)
+  
+    let orderItem = orderData?.items?.find(f1 => f1?.sparePartId === orderItemId?.itemId)
+
+    const formData = new FormData()
+    formData.append("orderId", orderData?._id);
+    formData.append("brandId", orderItem?.brandId);
+    formData.append("video", partvideo);
+    try {
+      setLoading(true);
+      let response = await httpCommon.post("/verifyReturnOrder", formData);
+      let { data } = response;
+      setLoading(false);
+      
+      let x = Math.floor((Math.random() * 10) + 1);
+      setRandomValue(x)
+       
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const GetAllReturnVideoByOrderId = async () => {
+
+    try {
+
+      let response = await httpCommon.get(`/getReturnVerify/${id}`)
+      let { data } = response
+      setReturnVideo(data)
+
+    }
+    catch (err) {
+      console.log(err)
+
+
+    }
+  }
+  console.log("returnVideo",returnVideo);
   const ReturnOrder = async (orderId) => {
     let userData = localStorage.getItem("user")
     let userInfo = JSON.parse(userData)
 
-    let orderData = ordersArray?.find(f1 => f1?._id === orderId)
+    let orderData = ordersArray?.find(f1 => f1?._id === id)
     let totalPrice = orderData?.items?.map(it => ({ price: it?.MRP * it?.quantity }));
     let totalPrice1 = totalPrice?.reduce((acc, curr) => acc + curr?.price, 0);
     let length = orderData?.items?.reduce((acc, curr) => acc + (+curr?.length), 0);
@@ -57,20 +132,21 @@ const QrScanner = () => {
     let breadth = orderData?.items?.reduce((acc, curr) => acc + (+curr?.breadth), 0);
     let weight = orderData?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
 
-
-    let item = orderData?.items?.map(it => (
-      {
-        name: it?.sparePartName,
-        sku: it?.skuNo,
-        units: it?.quantity,
-        selling_price: it?.MRP,
-        discount: "",
-        tax: "",
-        hsn: 441122
-      }
+    let orderItem = orderData?.items?.filter(f1 => f1?.sparePartId === orderItemId?.itemId)
+       console.log("orderItem",orderItem);
+    let item = orderItem?.map(it => (
+        {
+            name: it?.sparePartName,
+            sku: it?.skuNo,
+            units: it?.quantity,
+            selling_price: it?.MRP,
+            discount: "",
+            tax: "",
+            hsn: 441122
+        }
     ))
     console.log("verify");
-
+    alert("Match Product Id")
     // try {
     //     let obj = { name: orderData.name, email: orderData.email, contact: orderData.contact, city: orderData.city, state: orderData.state, pin: orderData.pin, customerId: orderData.customerId, address: orderData.address, address2: orderData.address2, status: "RETURN", orderId: orderData._id, items: orderData.items, shipment: orderData.shipment, shipOrderId: orderData.shipOrderId }
     //     let response1 = await httpCommon.post("/createReturnOrder", obj);
@@ -135,13 +211,54 @@ const QrScanner = () => {
       {/* <h2 className='mt-5 text-center'>Please Scan Qr Code</h2> */}
 
       {scanResult ? <div className='mt-5 pt-5'> success: <a href={"http://" + scanResult}>{scanResult} </a>
-        {verify === false ? <button className='btn btn-primary' onClick={() => handleVerify()}>Verify</button> : ""}
-        {verify === true ? <button className='btn btn-primary' onClick={() => ReturnOrder(scanResult)}>Create Return</button>
+        {verify === false ? <button className='btn btn-primary ms-5' onClick={() => handleVerify()}>Verify</button> : ""}
+        {verify === true ? <button className='btn btn-primary ms-5' onClick={() => ReturnOrder(scanResult)}>Create Return</button>
           : ""}
       </div>
-        : <div id="reader" className='mt-5 pt-5'>  </div>}
+        :
+        <>
+          {video === true ? "" : <div className='mt-2 mb-2 text-center'><button className='btn btn-primary mt-2 ' onClick={() => handleVideo()}> Without QR Code </button></div>
+          }
+          {video === true ? <div className=' row mt-2  mb-5 text-start'>
+            <div className='col-12 col-md-4 col-lg-4'></div>
+            {returnVideo?.length>0 ?
 
+              <div className='col-12 col-md-4 col-lg-4'>
+                <div> Id</div>
+                <div> Id</div>
+                <div>Video</div>
+                <div> Id</div>
+                <div>Status</div>
+                <div> Id</div>
+                <div> Action</div>
+                <div> Id</div>
+              </div>
 
+              : <div className='col-12 col-md-4 col-lg-4'>
+                <h2 className='text-center'> Upload Video </h2>
+                <div className="col-md-12 mt-4">
+                  <label className="form-label">Product video Upload</label>
+                  <small className="d-block text-muted mb-2">Only portrait or square video, 2M max and 2000px max-height.</small>
+                  <div id='create-token' className='dropzoneww'>
+                    <div className='mb-3' >
+                      <input id='filesize' onChange={(e) => handleFileChange(e)} name="file" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .mp4, .webm, .mp3, awv, .ogg, .glb"></input>
+                    </div>
+                    {videoUrl === "" ? <div className='text-danger fw-bold text-center'>Please select Video</div> : <ReactPlayer ref={playerRef} url={videoUrl} controls width="200px" height="200px" />}
+
+                  </div>
+                  <button type="submit" className="btn btn-primary mt-5" disabled={loading} onClick={addProductVideo}>{loading ? "Uploading" : "Add Product Video"}</button>
+                </div>
+              </div>
+            }
+            <div className='col-12 col-md-4 col-lg-4'></div>
+
+          </div>
+            : ""}
+          {video === false ?
+            <div id="reader" className=''>  </div>
+            : ""}
+        </>
+      }
     </div>
 
   )

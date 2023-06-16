@@ -9,6 +9,7 @@ import addToCart from "./cartReducer";
 import checkout from "./checkoutReducer";
 import allOrders from "./orderReducer";
 import currentOrder from "./currentOrder";
+import orderItems from "./returnItemReducer";
 
 const { combineReducers } = require("redux");
 
@@ -23,7 +24,8 @@ const rootReducer=combineReducers({
       cartItems:addToCart,
       checkoutData:checkout,
       orders:allOrders,
-      currentOrder:currentOrder
+      currentOrder:currentOrder,
+      orderItem:orderItems
 })
 
 export default rootReducer;

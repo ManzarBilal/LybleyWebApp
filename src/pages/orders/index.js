@@ -13,6 +13,7 @@ import style from "../login/login.module.css"
 import "bootstrap/dist/css/bootstrap.css"
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { returnItem } from '@/redux/actions/returnItem';
 
 
 
@@ -133,7 +134,7 @@ const Orders = () => {
             console.log(err)
         }
     }
-    const ReturnOrder = async (orderId) => {
+    const ReturnOrder = async (orderId,itemId) => {
         let userData = localStorage.getItem("user")
         let userInfo = JSON.parse(userData)
 
@@ -145,9 +146,9 @@ const Orders = () => {
         let breadth = orderData?.items?.reduce((acc, curr) => acc + (+curr?.breadth), 0);
         let weight = orderData?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
 
-        console.log("userInfo", userInfo);
-        console.log("orderData", orderData);
-        let item = orderData?.items?.map(it => (
+        let orderItem = orderData?.items?.filter(f1 => f1?.sparePartId === itemId)
+           
+        let item = orderItem?.map(it => (
             {
                 name: it?.sparePartName,
                 sku: it?.skuNo,
@@ -159,6 +160,7 @@ const Orders = () => {
             }
         ))
         if (userInfo?.role === "Reseller") {
+            dispatch(returnItem({itemId:itemId}))
             router.push(`/qrScanner?id=${orderData?._id}`);
         }
         else
@@ -241,8 +243,7 @@ const Orders = () => {
     }
     const orderData = active ? ordersArray?.filter(f1 => f1.status === active) : ordersArray;
     const orderData1 = ordersArray.reverse()
-    console.log("deliverData", deliverData);
-    console.log("trackDetail", trackDetail);
+    
     return (
         <div >
             <Header />
@@ -317,7 +318,7 @@ const Orders = () => {
 
                                             <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
 
-                                            : (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id,)}>Return Order</button></div>}
+                                            : (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id,item?.sparePartId)}>Return Order</button></div>}
                                     </div>
                                 </div>
 

@@ -33,9 +33,10 @@ const Detail = (props) => {
   const [userDetail, setUserDetail] = useState({});
   const [videoUrl, setVideoUrl] = useState([])
   const [hasWindow, setHasWindow] = useState(false);
+  const [adminId,setAdminId]=useState("");
+  const [adminProduct,setAdminProduct]=useState({});
 
-
-
+  console.log("adminProduct",adminProduct);
   const getVideos = async () => {
     try {
       let response = await httpCommon.get("/getAllVideos");
@@ -59,6 +60,7 @@ const Detail = (props) => {
     }
 
     getVideos()
+    getAdminDetail();
     getUser(obj?._id);
   }, [dispatch]);
   const router = useRouter()
@@ -85,6 +87,19 @@ const Detail = (props) => {
       console.log(err);
     }
   }
+
+  const getAdminDetail=async()=>{
+       try{
+        let response=await httpCommon.get("/getAdminDetail");
+        let {data}=response;
+        setAdminId(data?._id);
+        let response1=await httpCommon.post("/getSparePartByAdminId",{id:data?._id,partName:getSparePart?.partName})
+        setAdminProduct(response1?.response?.data);
+       }catch(err){
+        console.log(err);
+       }
+  }
+
   const handleAddToCart = (id, bool) => {
     let data = discountSpareParts?.find(f => f?._id === id);
     let tech = bool ? data?.technician : technician;

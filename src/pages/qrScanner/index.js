@@ -219,41 +219,7 @@ const QrScanner = () => {
         <>
           {video === true ? "" : <div className='mt-2 mb-2 text-center'><button className='btn btn-primary mt-2 ' onClick={() => handleVideo()}> Without QR Code </button></div>
           }
-          {video === true ? <div className=' row mt-2  mb-5 text-start'>
-            <div className='col-12 col-md-4 col-lg-4'></div>
-            {returnVideo?.length>0 ?
-
-              <div className='col-12 col-md-4 col-lg-4'>
-                <div> Id</div>
-                <div> Id</div>
-                <div>Video</div>
-                <div> Id</div>
-                <div>Status</div>
-                <div> Id</div>
-                <div> Action</div>
-                <div> Id</div>
-              </div>
-
-              : <div className='col-12 col-md-4 col-lg-4'>
-                <h2 className='text-center'> Upload Video </h2>
-                <div className="col-md-12 mt-4">
-                  <label className="form-label">Product video Upload</label>
-                  <small className="d-block text-muted mb-2">Only portrait or square video, 2M max and 2000px max-height.</small>
-                  <div id='create-token' className='dropzoneww'>
-                    <div className='mb-3' >
-                      <input id='filesize' onChange={(e) => handleFileChange(e)} name="file" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .mp4, .webm, .mp3, awv, .ogg, .glb"></input>
-                    </div>
-                    {videoUrl === "" ? <div className='text-danger fw-bold text-center'>Please select Video</div> : <ReactPlayer ref={playerRef} url={videoUrl} controls width="200px" height="200px" />}
-
-                  </div>
-                  <button type="submit" className="btn btn-primary mt-5" disabled={loading} onClick={addProductVideo}>{loading ? "Uploading" : "Add Product Video"}</button>
-                </div>
-              </div>
-            }
-            <div className='col-12 col-md-4 col-lg-4'></div>
-
-          </div>
-            : ""}
+          
           {video === false ?
             <div id="reader" className=''>  </div>
             : ""}

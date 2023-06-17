@@ -161,6 +161,7 @@ const Orders = () => {
         ))
         if (userInfo?.role === "Reseller") {
             dispatch(returnItem({itemId:itemId}))
+            
             router.push(`/qrScanner?id=${orderData?._id}`);
         }
         else

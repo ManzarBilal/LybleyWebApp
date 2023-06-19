@@ -117,7 +117,7 @@ function Header(props) {
             onClick={handleClick}
             className="m-0 p-0"
           >
-          {userDetail?.image===""? <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
+          {userDetail?.image==="" || userDetail?.image===undefined ? <AccountCircleIcon sx={{ color: "white", backgroundColor: "black", borderRadius: "50%",fontSize:"40px" }} />
            :<img src={userDetail?.image} alt="profile Photo"height={"40"} width={"40"} style={{borderRadius: "50%"}}/>
         }
            <div className="text-white fw-bold m-0 p-0 ms-2">{userDetail?.name}</div> 

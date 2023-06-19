@@ -61,7 +61,7 @@ export default function Footer() {
                     </div>
 
                 </div>
-                <div className="text-white text-center"><p className="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a className="text-primary text-decoration-none" href="/">SpareTrade.in</a></p></div>
+                <div className="text-white text-center"><p className="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a className="text-primary text-decoration-none" href="/"> sparetrade.in </a></p></div>
             </footer>
         </>
     )

@@ -70,7 +70,7 @@ const Detail = (props) => {
 
   const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
   const getSparePart = discountSpareParts?.find(f => f?._id === id);
-  console.log(getSparePart);
+  // console.log(getSparePart);
   const playerRef = useRef(null);
 
   let sp = allSpareParts?.find((sp1, index) => index === 0);
@@ -94,18 +94,18 @@ const Detail = (props) => {
         let {data}=response;
         setAdminId(data?._id);
         let response1=await httpCommon.post("/getSparePartByAdminId",{id:data?._id,partName:getSparePart?.partName})
-        setAdminProduct(response1?.response?.data);
+     
+        setAdminProduct(response1?.data);
        }catch(err){
         console.log(err);
        }
   }
-
   const handleAddToCart = (id, bool) => {
     let data = discountSpareParts?.find(f => f?._id === id);
     let tech = bool ? data?.technician : technician;
     const userId = localStorage.getItem("userId");
     let obj = { userId: userId, brandId: data?.userId,skuNo:data?.skuNo,length:data?.length,weight:data?.weight,breadth:data?.breadth,height:data?.height, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
-    console.log("obj",obj);
+    // console.log("obj",obj);
     if (user && tech === 0) {
       setCartValue(true);
       setCart(obj);
@@ -171,6 +171,7 @@ const Detail = (props) => {
     setCartValue(false);
     setCart(null);
   }
+  
 
   return (
     <div className="bg_image ">
@@ -243,6 +244,25 @@ const Detail = (props) => {
           </div>
 
         </div>
+
+          <div className='col-md-12 mt-5'>
+        <h2 className='mb-3 fw-bold'>Compactible Product</h2>
+
+          <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4"  >
+                  <Link href={`/detail?id=${adminProduct._id}`} className="text-decoration-none text-dark">
+                    <div className={`${style.cardHeaderH} card border-0`}>
+                      <img src={adminProduct?.image} className={`${style.productDtlCard } card-img-top`} alt="..."   />
+                      <div className="card-body"  >
+                        <div className={`${style.productDtlCardFnttitle }`}>{adminProduct?.partName}</div>
+
+                        <div className={`${style.productDtlCardFnt } card-text`}>{"Best Price - " + adminProduct?.bestPrice + " INR"}</div>
+                        <div className={`${style.productDtlCardFnt } text-muted text-decoration-line-through`}>{"MRP - " + adminProduct?.MRP + " INR"}</div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+          </div>
+      
         <div className='col-md-12'>
           <div className='row mt-5 bg-light align-items-center ' >
             <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-4 pb-4' >

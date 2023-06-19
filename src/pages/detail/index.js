@@ -33,10 +33,9 @@ const Detail = (props) => {
   const [userDetail, setUserDetail] = useState({});
   const [videoUrl, setVideoUrl] = useState([])
   const [hasWindow, setHasWindow] = useState(false);
-  const [adminId,setAdminId]=useState("");
-  const [adminProduct,setAdminProduct]=useState({});
-
-  console.log("adminProduct",adminProduct);
+  const [adminId, setAdminId] = useState("");
+  const [adminProduct, setAdminProduct] = useState({});
+  const [product, setProduct] = useState(false)
   const getVideos = async () => {
     try {
       let response = await httpCommon.get("/getAllVideos");
@@ -46,6 +45,12 @@ const Detail = (props) => {
       console.log(err);
     }
   }
+  const router = useRouter()
+  const { id } = router.query;
+
+  const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
+  // const getSparePart =   discountSpareParts?.find(f => f?._id === id);
+  const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
 
 
@@ -62,20 +67,18 @@ const Detail = (props) => {
     getVideos()
     getAdminDetail();
     getUser(obj?._id);
-  }, [dispatch]);
-  const router = useRouter()
-  const { id } = router.query;
+  }, [dispatch, id]);
+
 
   const [loading, setLoading] = useState(false);
 
-  const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
-  const getSparePart = discountSpareParts?.find(f => f?._id === id);
+
   // console.log(getSparePart);
   const playerRef = useRef(null);
 
   let sp = allSpareParts?.find((sp1, index) => index === 0);
   let videoUrl1 = videoUrl?.filter(v1 => v1.productModel === sp?.productModel);
-   
+
   const [mainImage, setMainImage] = useState(getSparePart?.images[0]);
 
   const getUser = async (_id) => {
@@ -88,23 +91,22 @@ const Detail = (props) => {
     }
   }
 
-  const getAdminDetail=async()=>{
-       try{
-        let response=await httpCommon.get("/getAdminDetail");
-        let {data}=response;
-        setAdminId(data?._id);
-        let response1=await httpCommon.post("/getSparePartByAdminId",{id:data?._id,partName:getSparePart?.partName})
-     
-        setAdminProduct(response1?.data);
-       }catch(err){
-        console.log(err);
-       }
+  const getAdminDetail = async () => {
+    try {
+      let response = await httpCommon.get("/getAdminDetail");
+      let { data } = response;
+      setAdminId(data?._id);
+      let response1 = await httpCommon.post("/getSparePartByAdminId", { id: data?._id, partName: getSparePart?.partName })
+      setAdminProduct(response1?.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
   const handleAddToCart = (id, bool) => {
     let data = discountSpareParts?.find(f => f?._id === id);
     let tech = bool ? data?.technician : technician;
     const userId = localStorage.getItem("userId");
-    let obj = { userId: userId, brandId: data?.userId,skuNo:data?.skuNo,length:data?.length,weight:data?.weight,breadth:data?.breadth,height:data?.height, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
+    let obj = { userId: userId, brandId: data?.userId, skuNo: data?.skuNo, length: data?.length, weight: data?.weight, breadth: data?.breadth, height: data?.height, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
     // console.log("obj",obj);
     if (user && tech === 0) {
       setCartValue(true);
@@ -122,7 +124,7 @@ const Detail = (props) => {
     setCheck("BUY");
     let tech = bool ? getSparePart?.technician : technician;
     if (userId) {
-      let obj = { userId: userId, brandId: getSparePart?.userId,skuNo:getSparePart?.skuNo,length:getSparePart?.length,weight:getSparePart?.weight,breadth:getSparePart?.breadth,height:getSparePart?.height, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician: tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
+      let obj = { userId: userId, brandId: getSparePart?.userId, skuNo: getSparePart?.skuNo, length: getSparePart?.length, weight: getSparePart?.weight, breadth: getSparePart?.breadth, height: getSparePart?.height, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician: tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
       dispatch(handleCheckout([obj]));
       if (user && tech === 0) {
         setDialogOpen(true);
@@ -171,7 +173,7 @@ const Detail = (props) => {
     setCartValue(false);
     setCart(null);
   }
-  
+
 
   return (
     <div className="bg_image ">
@@ -211,7 +213,7 @@ const Detail = (props) => {
                         <div className="regular-price"> <span className='fw-bold me-2' >Best Price :</span>{" "} <span className='text-danger fw-bold'> {getSparePart?.bestPrice} INR </span> <span className='text-muted'> <sub> (18% GST included)</sub></span></div></div>
                       <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR</span></div>
                       <div className='fw-bold'>Part Number :  <span className='text-muted'>{" "}{getSparePart?.partNo}</span></div>
-                      <div className='mt-2'><p style={{fontFamily:"sans-serif"}}> {getSparePart?.description}
+                      <div className='mt-2'><p style={{ fontFamily: "sans-serif" }}> {getSparePart?.description}
                       </p></div>
                       <div>
                         <div className="d-flex flex-wrap mb-3">
@@ -245,24 +247,26 @@ const Detail = (props) => {
 
         </div>
 
-          <div className='col-md-12 mt-5'>
-        <h2 className='mb-3 fw-bold'>Compactible Product</h2>
+       {product ===false ?
+        <div className='col-md-12 mt-5'>
+          <h2 className='mb-3 fw-bold'>Compactible Product</h2>
 
           <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4"  >
-                  <Link href={`/detail?id=${adminProduct._id}`} className="text-decoration-none text-dark">
-                    <div className={`${style.cardHeaderH} card border-0`}>
-                      <img src={adminProduct?.image} className={`${style.productDtlCard } card-img-top`} alt="..."   />
-                      <div className="card-body"  >
-                        <div className={`${style.productDtlCardFnttitle }`}>{adminProduct?.partName}</div>
 
-                        <div className={`${style.productDtlCardFnt } card-text`}>{"Best Price - " + adminProduct?.bestPrice + " INR"}</div>
-                        <div className={`${style.productDtlCardFnt } text-muted text-decoration-line-through`}>{"MRP - " + adminProduct?.MRP + " INR"}</div>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
+            <div className={`${style.cardHeaderH} card border-0`} style={{ cursor: "pointer" }} onClick={() => setProduct(true)}>
+              <img src={adminProduct?.images?.filter((img, i) => i === 0)} className={`${style.productDtlCard} card-img-top`} alt="..." />
+              <div className="card-body"  >
+                <div className={`${style.productDtlCardFnttitle}`}>{adminProduct?.partName}</div>
+
+                <div className={`${style.productDtlCardFnt} card-text`}>{"Best Price - " + adminProduct?.bestPrice + " INR"}</div>
+                <div className={`${style.productDtlCardFnt} text-muted text-decoration-line-through`}>{"MRP - " + adminProduct?.MRP + " INR"}</div>
+              </div>
+            </div>
+
           </div>
-      
+        </div>
+        :""}
+
         <div className='col-md-12'>
           <div className='row mt-5 bg-light align-items-center ' >
             <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-4 pb-4' >
@@ -278,10 +282,10 @@ const Detail = (props) => {
           <div className='mt-5 '>
             <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
             <div className='row mt-3'>
-              {videoUrl1.length===0 ?  <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available  </div>
-              : videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
-                {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
-              </div>))     
+              {videoUrl1.length === 0 ? <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available  </div>
+                : videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
+                  {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
+                </div>))
               }
             </div>
           </div>

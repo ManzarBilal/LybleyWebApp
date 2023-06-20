@@ -247,7 +247,7 @@ const Detail = (props) => {
 
         </div>
 
-       {product ===false ?
+       {product ===false && adminProduct?.length>0 ? 
         <div className='col-md-12 mt-5'>
           <h2 className='mb-3 fw-bold'>Compactible Product</h2>
 

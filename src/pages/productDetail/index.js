@@ -122,7 +122,7 @@ const ProductDetail = () => {
             </div>
 
             <div className='row mt-5'>
-              <div className='mb-3'><h2>Spare Parts</h2></div>
+              <div className='mb-3'><h2> <u>Spare Parts</u></h2></div>
 
                {getSpareParts2?.map((p1, i) =>
                 <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4" key={i} >

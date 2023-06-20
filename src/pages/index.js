@@ -9,6 +9,7 @@ import BrandsLogo from './brandsLogo'
 import Footer from './footer'
 import style from "./common.module.css"
 import { ToastContainer } from 'react-toastify'
+import Blog from './blog'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -29,6 +30,7 @@ export default function Home() {
          
             <Search />
             <BrandsLogo />
+        <Blog />
         </div>
         </div>
       </div>

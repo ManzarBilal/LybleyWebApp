@@ -44,13 +44,13 @@ const Brand = () => {
             <div >
 
               <img className={`${style.brandBannerHgt} rounded`} src={brand?.brandBanner} alt='' width="100%" />
-              <h3 className='mt-3' style={{ fontFamily: "sans-serif" }}>About us</h3>
+              <h3 className='mt-3' style={{ fontFamily: "sans-serif" }}><u>About us </u></h3>
               <p className={`${style.bradAboutLg}`} style={{ textAlign: "justify", fontFamily: "sans-serif" }}>{brand?.aboutUs}</p>
               {brand?.aboutUs?.length > 0 ?
                 <p className={`${style.bradAboutSm}`} style={{ textAlign: "justify", fontFamily: "sans-serif" }}>{show ? brand?.aboutUs : brand?.aboutUs?.substring(0, 165) + "..."} {show === false ? <a className='text-decoration-none' onClick={() => setShowText(true)} style={{ cursor: "pointer" }}>Read more</a> : <a href='#' className='text-decoration-none' onClick={() => setShowText(false)} style={{ cursor: "pointer" }}>Hide</a>}</p>
                 : ""}
               <div className='row mt-5'>
-                <div className='mb-3'><h2>Categories</h2></div>
+                <div className='mb-3'><h2><u>Categories </u></h2></div>
                 {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories1?.map(p1 =>
                   <div className={`${style.cardHead} col-lg-3 col-md-6 col-6  d-flex justify-content-center mb-3`}> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'><Cards center={true} img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>
                 )}

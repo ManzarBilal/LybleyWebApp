@@ -15,10 +15,15 @@ const ProductDescription = () => {
    const router = useRouter();
    const dispatch = useDispatch();
    const { id } = router.query;
+
+   const allBrands = useSelector(state => state?.brands)
+   const brandsCategories = useSelector(state => state.categories)
+
+
    const product = useSelector(state => state?.products)
    useEffect(() => {
       dispatch(getProductById(id));
-   }, [dispatch,id]);
+   }, [dispatch, id]);
 
    const handleClose = () => {
       setOpen(false);
@@ -30,6 +35,10 @@ const ProductDescription = () => {
    let endIndex = product?.length > (startIndex + size - 1) ? startIndex + size - 1 : product?.length - 1;
    let product1 = product?.length > size ? product?.filter((lt, index) => index >= startIndex && index <= endIndex) : product;
 
+   const brandLogo = allBrands?.allBrands?.find(f1 => f1?._id === (product?.length>0 ?product[0].userId :"" ))
+   const categoryLogo = brandsCategories?.find(f1 => f1?._id === id)
+   // ?.filter((it,i)=>i===0)?.userId);
+   
    return (
       <div className='bg_image'>
          <Header />
@@ -37,8 +46,31 @@ const ProductDescription = () => {
             {/* <div>
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
           </div> */}
-            <div className='row '>
-               <div className='mb-3'><h2>Products</h2></div>
+            <div className='row mt-5 mb-5  '>
+               <div className='col-12 col-md-4 col-lg-4 border'>
+                  <div className='mt-3 mb-3  align-items-center d-flex justify-content-between '>
+                     <div>
+                        <h2><u>Brand </u></h2>
+                        <div><h2>{brandLogo?.brandName}</h2></div>
+                     </div>
+                     <img className='rounded' src={brandLogo?.brandLogo} alt='logo' height="150" width="150" />
+                  </div>
+               </div>
+               <div className='col-12 col-md-4 col-lg-4'>
+               </div>
+               <div className='col-12 col-md-4 col-lg-4 border'>
+                  <div className='mt-3 mb-3  align-items-center d-flex justify-content-between'>
+                  <div>
+                        <h2><u>Category </u></h2>
+                        <div><h2>{categoryLogo?.categoryName}</h2></div>
+                     </div>
+                     <img className='rounded' src={categoryLogo?.categoryImage} alt='logo' height="150" width="150" />
+                  </div>
+               </div>
+
+            </div>
+            <div >
+               <div className='mb-3'><h2><u>Products</u></h2></div>
                {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product1?.map((item, i) =>
                   <div className='col-lg-3 col-md-6 col-6  d-flex justify-content-center mb-3' key={i}>
                      <Cards productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />

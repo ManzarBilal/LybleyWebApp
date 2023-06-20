@@ -95,10 +95,10 @@ const ProductDetail = () => {
           <div className='col-12 mt-5'>
             <div className='row mt-5'>
               <div className='col-lg-8 col-md-6 col-12'>
-                <img src={productImage?.productImage} className='rounded-circle' height="250" width="200" />
+                <img src={productImage?.productImage} className='rounded-circle' height="300" width="300" />
                 <h4 className='ms-md-4' >{productImage?.productName}</h4>
               </div>
-
+     
               <div className='col-lg-4 col-md-6 mt-5 col-12 '>
                 <Box   >
                   <FormControl fullWidth>

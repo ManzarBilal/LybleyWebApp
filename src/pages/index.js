@@ -23,7 +23,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      {/* <Header />
       <div className='container'>
       <div className=' row d-flex justify-content-center'>
         <div className='col-12 col-md-8'>
@@ -31,12 +31,14 @@ export default function Home() {
             <Search />
             <BrandsLogo />
         <Blog />
-              
         </div>
         </div>
       </div>
-      <Footer />
+      <Footer /> */}
+      <>
+      <div className='w-100 h-100 '><h1 className='d-flex text-center align-items-center'>We are Building</h1></div>
       <ToastContainer />
+      </>
     </>
   )
 }

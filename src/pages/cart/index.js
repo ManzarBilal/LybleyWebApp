@@ -138,13 +138,18 @@ export default function Cart(props) {
     let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity})): [];
     return (
         <div>
-            <Button onClick={handleClickOpen}>
-                <div className={props?.detail ? "ms-4 p-2 text-white fw-bold d-flex" : "d-flex ms-4 p-2 text-white fw-bold"} >
+            <Button onClick={handleClickOpen} >
+                <div className='d-flex'>
+                <div   className={props?.detail ? "ms-4 p-1 text-white fw-bold d-flex" : "d-flex ms-4 p-1 text-white fw-bold"} >
                     <div className='me-2'>Cart</div>
-                    <Badge badgeContent={cartItems && cartItems.length>0 ?cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0):"0"} color='secondary'>
-                        <ShoppingCartIcon color={props?.detail ? "" : "white"} />
-                    </Badge>
+                    
                 </div>
+                <div className='pt-2 me-2 text-white fw-bold'>
+                    <Badge  badgeContent={cartItems && cartItems.length>0 ?cartItems?.reduce((acc,curr)=> acc+curr?.quantity , 0):"0"} color='secondary'>
+                        <ShoppingCartIcon  color={props?.detail ? "" : "white"} />
+                    </Badge>
+                    </div>
+                    </div>
             </Button>
             <BootstrapDialog
                 onClose={handleClose}

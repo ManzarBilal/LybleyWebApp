@@ -53,7 +53,7 @@ const Detail = (props) => {
   const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
 
-
+  console.log(getSparePart)
   useEffect(() => {
     const user = localStorage.getItem("user");
     let obj = JSON.parse(user)
@@ -180,7 +180,7 @@ const Detail = (props) => {
       {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
       <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
       <div className='container mt-5'>
-        <h2 className='mb-3 fw-bold'>Product Detail</h2>
+        <h2 className='mb-5  fw-bold'><u>Product Detail</u></h2>
         <div className="col-md-12">
           <div className="card bg-light">
             <div className="card-body">
@@ -214,13 +214,17 @@ const Detail = (props) => {
                       <div className="sale-price text-muted"><span className='me-2 ' >MRP :</span>{" "} <span className='text-decoration-line-through'> {getSparePart?.MRP} INR</span></div>
                       <div className='fw-bold'>Part Number :  <span className='text-muted'>{" "}{getSparePart?.partNo}</span></div>
                       <div className='mt-2'><p style={{ fontFamily: "sans-serif" }}> {getSparePart?.description}
-                      </p></div>
+                      </p>
+                      </div>
+                      <div ><span className="fw-bold"> Brand Name :</span>  {getSparePart?.brandName}</div>
+                        <div className='mt-2 mb-3'><span className="fw-bold"> Category Name :</span>  {getSparePart?.category}</div>
                       <div>
                         <div className="d-flex flex-wrap mb-3">
                           <div className="mt-2 mt-sm-0  me-1">
-                            <div className="">
+                            <div className="mt-2">
                               <span className='fw-bold me-2'>Qty.</span> <button className='btn btn-outline-danger btn-sm me-2' onClick={() => dispatch(decrement(-1))}>-</button> <span className='text-dark'> {qty} </span> <button className='btn btn-outline-success btn-sm ms-2' onClick={() => dispatch(increment(1))}>+</button>
                             </div>
+                            
                           </div>
 
                           <ToastContainer />
@@ -239,17 +243,30 @@ const Detail = (props) => {
                       </div>
                     </div>
                   </div>
+                  
                 </div>
 
               </div>
             </div>
           </div>
+         
 
         </div>
+        <div className='row mt-5 bg-light align-items-center ' >
+            <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-4 pb-4' >
+              <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
+            </div>
+            <div className='col-md-5 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
+              <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>3 Days Assured Return</div>
+            </div>
+            <div className='col-md-3 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
+              <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
+            </div>
+          </div>
 
        {product ===false && adminProduct?.length>0 ? 
         <div className='col-md-12 mt-5'>
-          <h2 className='mb-3 fw-bold'>Compactible Product</h2>
+          <h2 className='mb-3 fw-bold'><u>Compactible Product</u></h2>
 
           <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4"  >
 
@@ -268,17 +285,7 @@ const Detail = (props) => {
         :""}
 
         <div className='col-md-12'>
-          <div className='row mt-5 bg-light align-items-center ' >
-            <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-4 pb-4' >
-              <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
-            </div>
-            <div className='col-md-5 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
-              <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>10 Days Assured Return</div>
-            </div>
-            <div className='col-md-3 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
-              <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
-            </div>
-          </div>
+         
           <div className='mt-5 '>
             <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
             <div className='row mt-3'>

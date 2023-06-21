@@ -49,11 +49,12 @@ const Detail = (props) => {
   const { id } = router.query;
 
   const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
-  // const getSparePart =   discountSpareParts?.find(f => f?._id === id);
-  const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
+   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
+  //const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
 
-  console.log(getSparePart)
+  console.log("allSpareparts",allSpareParts);
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     let obj = JSON.parse(user)

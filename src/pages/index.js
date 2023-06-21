@@ -36,8 +36,33 @@ export default function Home() {
       </div>
       <Footer /> */}
       <>
-      <div className='w-100 h-100 '><h1 className='d-flex text-center align-items-center'>We are Building</h1></div>
-      <ToastContainer />
+        <div className=' container'>
+          <div className='d-flex align-items-center justify-content-center' style={{width:"100%",height:"100vh",top:"50%"}}>
+          <div className='row d-flex align-items-center' >
+            <div className='col-12 col-md-4 col-lg-4'>
+            </div>
+
+            <div className='col-12 col-md-4 col-lg-4'>
+              <img src='https://lybley.store/public/assets/img/maintainance.svg' alt='dev' className='img-fluid' height={500} width={500} />
+            </div>
+            <div className='col-12 col-md-4 col-lg-4'>
+            </div>
+            <div className='col-12 col-md-3 col-lg-3'>
+            </div>
+
+            <div className='col-12 col-md-6 col-lg-6 mt-5'>
+
+              <h3 className='text-center'>We are under Development.</h3>
+
+            </div>
+            <div className='col-12 col-md-3 col-lg-3'>
+            </div>
+
+          </div>
+          </div>
+        </div>
+
+        <ToastContainer />
       </>
     </>
   )

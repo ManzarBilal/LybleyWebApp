@@ -3,6 +3,7 @@ import Header from '../header'
 import Search from '../search/search'
 import BrandsLogo from '../brandsLogo'
 import Footer from '../footer'
+import Blog from '../blog'
 
 const Dev = () => {
   return (
@@ -14,6 +15,7 @@ const Dev = () => {
          
             <Search />
             <BrandsLogo />
+            <Blog />
         </div>
         </div>
       </div>

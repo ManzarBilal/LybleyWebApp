@@ -4,14 +4,14 @@ import Cards from '../cards';
 import brandLogo from "../../assets/lybley_logo.png";
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { allSparePart } from '@/redux/actions/sparePart';
+import { allSparePart, getAllSpareParts } from '@/redux/actions/sparePart';
 import Link from 'next/link';
 import httpCommon from '@/http-common';
 import style from "../common.module.css";
 
 const Search = () => {
   const router = useRouter();
-  // const dispatch=useDispatch();
+   const dispatch=useDispatch();
   // const [data,setData]=useState({});
   const [search, setSearch] = useState("")
   const [spareParts, setSparePart] = useState([]);
@@ -45,6 +45,7 @@ const Search = () => {
     router.query.sparePart = search;
     router.push(router);
     getSparePart(search);
+    dispatch(allSparePart(search))
   }
 
   //https://lybley-webapp-collection.s3.amazonaws.com/PNG-01.png-1683103978537-428964797

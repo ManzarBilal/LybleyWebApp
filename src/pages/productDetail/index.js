@@ -120,6 +120,7 @@ const ProductDetail = () => {
                 </Box>
               </div>
             </div>
+            <div className='mt-5 fw-bold'> Home / Category /  Product / <span className='text-primary'>Sparepart </span> </div>
 
             <div className='row mt-5'>
               <div className='mb-3'><h2> <u>Spare Parts</u></h2></div>

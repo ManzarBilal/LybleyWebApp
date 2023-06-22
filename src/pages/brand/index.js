@@ -38,13 +38,13 @@ const Brand = () => {
       <div className='container'>
         <div className=' row d-flex justify-content-center'>
           <div className='col-12'>
-            <div className='mt-5 mb-5'>
+            <div className='mt-5 mb-3'>
               <img className='rounded' src={brand?.brandLogo} alt='logo' height="100" width="100" />
             </div>
             <div >
-
               <img className={`${style.brandBannerHgt} rounded`} src={brand?.brandBanner} alt='' width="100%" />
-              <h3 className='mt-3' style={{ fontFamily: "sans-serif" }}><u>About us </u></h3>
+              <div className='mt-5 fw-bold'> Home /<span className='text-primary'> Category</span></div>
+              <h3 className='mt-4' style={{ fontFamily: "sans-serif" }}><u>About us </u></h3>
               <p className={`${style.bradAboutLg}`} style={{ textAlign: "justify", fontFamily: "sans-serif" }}>{brand?.aboutUs}</p>
               {brand?.aboutUs?.length > 0 ?
                 <p className={`${style.bradAboutSm}`} style={{ textAlign: "justify", fontFamily: "sans-serif" }}>{show ? brand?.aboutUs : brand?.aboutUs?.substring(0, 165) + "..."} {show === false ? <a className='text-decoration-none' onClick={() => setShowText(true)} style={{ cursor: "pointer" }}>Read more</a> : <a href='#' className='text-decoration-none' onClick={() => setShowText(false)} style={{ cursor: "pointer" }}>Hide</a>}</p>

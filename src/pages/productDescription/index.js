@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById } from '@/redux/actions/product';
-
+import style from "../common.module.css";
 
 const ProductDescription = () => {
    const [page, setPage] = useState(1);
@@ -35,10 +35,11 @@ const ProductDescription = () => {
    let endIndex = product?.length > (startIndex + size - 1) ? startIndex + size - 1 : product?.length - 1;
    let product1 = product?.length > size ? product?.filter((lt, index) => index >= startIndex && index <= endIndex) : product;
 
-   const brandLogo = allBrands?.allBrands?.find(f1 => f1?._id === (product?.length>0 ?product[0].userId :"" ))
+   const brandLogo = allBrands?.allBrands?.find(f1 => f1?._id === (product?.length>0 ? product[0].userId :"" ))
    const categoryLogo = brandsCategories?.find(f1 => f1?._id === id)
    // ?.filter((it,i)=>i===0)?.userId);
-   
+   console.log("ertgh",brandLogo)
+
    return (
       <div className='bg_image'>
          <Header />
@@ -46,7 +47,7 @@ const ProductDescription = () => {
             {/* <div>
              <img src='https://images.jdmagicbox.com/quickquotes/images_main/imlvo8wloe-148846219-g70if.jpg' alt='3D image' height="150" width="200" />
           </div> */}
-            <div className='row mt-5 mb-5  '>
+            {/* <div className='row mt-5 mb-5  '>
                <div className='col-12 col-md-4 col-lg-4 border'>
                   <div className='mt-3 mb-3  align-items-center d-flex justify-content-between '>
                      <div>
@@ -68,9 +69,19 @@ const ProductDescription = () => {
                   </div>
                </div>
 
+            </div> */}
+             <div className='col-12'>
+            <div className='mt-5 mb-3'>
+              <img className='rounded' src={brandLogo?.brandLogo} alt='logo' height="100" width="100" />
+            </div>
             </div>
             <div >
-               <div className='mb-3'><h2><u>Products</u></h2></div>
+
+            <img className={`${style.brandBannerHgt} rounded`} src={brandLogo?.brandBanner} alt='' width="100%" />
+
+            <div className='mt-5 fw-bold'>Home / Category / <span className='text-primary'>Product</span></div>
+
+               <div className='mb-4 mt-4'><h2><u>Products</u></h2></div>
                {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product1?.map((item, i) =>
                   <div className='col-lg-3 col-md-6 col-6  d-flex justify-content-center mb-3' key={i}>
                      <Cards productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />

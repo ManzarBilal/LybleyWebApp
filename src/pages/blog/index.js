@@ -45,11 +45,11 @@ const Blog = () => {
                                 <div  >
                                     <img src={d1?.image} style={{ width: "100%", height: "200px" }} alt="..." />
                                 </div>
-                                <div className="card-body  mt-2"  >
+                                <div className="card-body "  >
 
-                                    <h5 className={d1?._id !== truncateId || truncate === false ? "card-title text-truncate" : "card-title"}>{d1?.title}</h5>
+                                    <p className={d1?._id !== truncateId || truncate === false ? "card-title text-truncate fw-bold fs-5" : "card-title fw-bold fs-5"}>{d1?.title}</p>
                                     <p className={d1?._id !== truncateId || truncate === false ? "card-text text-truncate" : "card-text"} >{d1?.content} </p>
-                                    <div className="d-flex justify-content-between align-items-end"><div className='text-primary' onClick={(e) => handleView(d1?._id)}> {d1?._id !== truncateId ? "View" : "Hide"} </div>  <div className='text-muted'> <small> <DateRangeIcon color='primary' /> {new Date(d1?.createdAt)?.toDateString()}</small></div></div>
+                                    <div className="d-flex justify-content-between align-items-end"><div className='text-primary'style={{cursor:"pointer"}} onClick={(e) => handleView(d1?._id)}> {d1?._id !== truncateId || truncate === false  ? "View" : "Hide"} </div>  <div className='text-muted'> <small> <DateRangeIcon color='primary' /> {new Date(d1?.createdAt)?.toDateString()}</small></div></div>
                                 </div>
                             </div>
                         </div>)}

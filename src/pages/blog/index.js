@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import httpCommon from '@/http-common'
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import style from "../common.module.css"
+import Link from 'next/link';
 
 const Blog = () => {
     const [data, setData] = useState([]);
@@ -19,7 +20,7 @@ const Blog = () => {
             let response = await httpCommon.get("/getAllBlogs");
             let { data } = response;
             setData(data);
-            console.log("data", data);
+            
         } catch (err) {
             console.log(err);
         }
@@ -35,22 +36,26 @@ const Blog = () => {
 
     const viewAllData=viewAll===true ? data :data?.slice(0,3)
     return (
-        <div className='mt-3'>
+        <div className=' mt-3'>
             <h1> <u> Blog</u></h1>
             <div className="d-flex justify-content-between">
                 <div className="row ">
                     {viewAllData?.map(d1 =>
-                        <div className='mt-5 col-12 col-md-4 col-lg-4'>
-                            <div className={ `${style.cardHeaderH} card `} >
+                        <div className='mt-5 col-12 col-md-4 col-lg-4' >
+                            <div className={ `${style.cardHeaderH} card`} >
+                                <Link href={`/blogDetail?id=${d1?._id}`} className='text-decoration-none text-dark'>
                                 <div  >
-                                    <img src={d1?.image} style={{ width: "100%", height: "200px" }} alt="..." />
+                                    <img src={d1?.image} style={{ width:"100%",  height: "200px" }} alt="blogImage" />
                                 </div>
-                                <div className="card-body "  >
+                                <div className="card body p-2"  >
 
-                                    <p className={d1?._id !== truncateId || truncate === false ? "card-title text-truncate fw-bold fs-5" : "card-title fw-bold fs-5"}>{d1?.title}</p>
-                                    <p className={d1?._id !== truncateId || truncate === false ? "card-text text-truncate" : "card-text"} >{d1?.content} </p>
-                                    <div className="d-flex justify-content-between align-items-end"><div className='text-primary'style={{cursor:"pointer"}} onClick={(e) => handleView(d1?._id)}> {d1?._id !== truncateId || truncate === false  ? "View" : "Hide"} </div>  <div className='text-muted'> <small> <DateRangeIcon color='primary' /> {new Date(d1?.createdAt)?.toDateString()}</small></div></div>
+                                    <p className={d1?._id !== truncateId || truncate === false ? "  text-truncate1 fw-bold fs-5" : "  fw-bold fs-5"}>{d1?.title}</p>
+                                    <p className={d1?._id !== truncateId || truncate === false ? "card-text1 text-truncate" : "card-text text-truncate "} >{(d1?.content)?.substr(0,28)} </p>
+                                    <div className="d-flex justify-content-between align-items-end">
+                                        {/* <div className='text-primary'style={{cursor:"pointer"}} onClick={(e) => handleView(d1?._id)}> {d1?._id !== truncateId || truncate === false  ? "View" : "Hide"} </div>   */}
+                                        <div className='text-muted'> <small> <DateRangeIcon color='primary' /> {new Date(d1?.createdAt)?.toDateString()}</small></div></div>
                                 </div>
+                                </Link>
                             </div>
                         </div>)}
 
@@ -91,9 +96,9 @@ const Blog = () => {
                 <p>
                     Visit <a href='/' target='_blank'>www.sparetrade.in</a> and discover a world of genuine spare parts at your fingertips. Start buying or selling with confidence on SpareTrade, where your spare parts needs are met with utmost care and satisfaction.
                 </p>
-                <div className='d-flex justify-content-between'>
+                {/* <div className='d-flex justify-content-between'>
                     <div className='fw-bold text-primary'> #SpareTrade</div> <div className='fw-bold text-primary'> #OnlineMarketplace </div> <div className='fw-bold text-primary'>#SpareParts</div>  <div className='fw-bold text-primary'>#GenuineParts</div> <div className='fw-bold text-primary'>#QualityAssured</div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

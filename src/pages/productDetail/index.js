@@ -127,7 +127,7 @@ const ProductDetail = () => {
 
                {getSpareParts2?.map((p1, i) =>
                 <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4" key={i} >
-                  <Link href={`/detail?id=${p1._id}`} className="text-decoration-none text-dark">
+                  <Link href={`/productDetailPage?id=${p1._id}`} className="text-decoration-none text-dark">
                     <div className={`${style.cardHeaderH} card border-0`}>
                       <img src={p1?.images[0]} className={`${style.productDtlCard } card-img-top`} alt="..."   />
                       <div className="card-body"  >

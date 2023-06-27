@@ -14,6 +14,8 @@ import "bootstrap/dist/css/bootstrap.css"
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { returnItem } from '@/redux/actions/returnItem';
+import ProductReview from './ProductReview';
+ 
 
 
 
@@ -257,42 +259,43 @@ const Orders = () => {
                     <button className={`btn ${active === "DELIVER" ? "btn-dark" : "btn-outline-secondary text-dark"} ms-2 me-2`} onClick={() => setActive("DELIVER")}>Delivered</button>
                     <button className={`btn ${active === "CANCEL" ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={() => setActive("CANCEL")}>Canceled</button>
                 </div>
-                {orderData?.length > 0 ? orderData?.map((order, i) =>{
+                {orderData?.length > 0 ? orderData?.map((order, i) => {
 
                     const deliveryDate = new Date();
-                    const updateAtD=new Date(order?.createdAt)
-                    
+                    const updateAtD = new Date(order?.createdAt)
+
                     updateAtD.setDate(updateAtD.getDate() + 20);
                     const timeDifference = updateAtD.getTime() - Date.now();
                     let userData = localStorage.getItem("user")
                     let userInfo = JSON.parse(userData)
-                    console.log("userInfo",userInfo);
-                    return( <div className='mt-3 border p-2'>
-                       
-                            <div key={i} className='row d-flex align-items-center1' >
-                                {/* <div className='col-md-2 col-12 me-5'>
+                  
+                    return (<div className='mt-3 border p-2'>
+
+                        <div key={i} className='row d-flex align-items-center1' >
+                            {/* <div className='col-md-2 col-12 me-5'>
                                 <div className='fw-bold'>  Order Id
                                 </div>
                                 <div> {order?._id}
                                 </div>
                             </div> */}
-                                <div className='col-md-2 col-12 '>
-                                    <div className='row'>
-                                        <div className='fw-bold col-md-12 col-6'> Order Id
-                                        </div>
-                                        <div className='col-md-12 col-6' style={{ fontSize: "10px" }}> {order?._id}
-                                        </div>
-                                        <div className='fw-bold col-md-12 col-6'> User Name
-                                        </div>
-                                        <div className='col-md-12 col-6'> {order?.name}
-                                        </div>
-                                        <div className='fw-bold col-md-12 col-6'>Order Date & Time
-                                        </div>
-                                        <div className='col-md-12 col-6'> {new Date(order?.createdAt).toLocaleDateString()} &nbsp;{new Date(order?.createdAt).toLocaleTimeString()}
-                                        </div>
+                            <div className='col-md-2 col-12 '>
+                                <div className='row'>
+                                    <div className='fw-bold col-md-12 col-6'> Order Id
+                                    </div>
+                                    <div className='col-md-12 col-6' style={{ fontSize: "10px" }}> {order?._id}
+                                    </div>
+                                    <div className='fw-bold col-md-12 col-6'> User Name
+                                    </div>
+                                    <div className='col-md-12 col-6'> {order?.name}
+                                    </div>
+                                    <div className='fw-bold col-md-12 col-6'>Order Date & Time
+                                    </div>
+                                    <div className='col-md-12 col-6'> {new Date(order?.createdAt).toLocaleDateString()} &nbsp;{new Date(order?.createdAt).toLocaleTimeString()}
                                     </div>
                                 </div>
-                                <div className='col-md-10 col-12 '>{order?.items?.map((item, i) =>
+                            </div>
+                            <div className='col-md-10 col-12 '>{order?.items?.map((item, i) =>
+                                <>
                                     <div key={i} className='row d-flex align-items-center1'>
                                         <div className='col-12 col-md-1 me-md-3'>
                                             <div className='fw-bold'>Image</div>
@@ -327,63 +330,69 @@ const Orders = () => {
                                                 : ""}
                                             {(order?.status === "DELIVER" && allReturn.find(f1 => f1?.orderId === order?._id)) ?
 
-                                                <div className="col-6 col-md-6 text-end"> 
-                                                <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
+                                                <div className="col-6 col-md-6 text-end">
+                                                    <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
 
-                                                : 
-                                                (order?.status === "ORDER" || order?.status === "CANCEL") ?  "" : userInfo?.role==="End user" ?
-                                                <div className="col-6 col-md-6 text-center"> { timeDifference <= 0 && order?.status==="DELIVER" ?   <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button> : "" }</div>
-                                                 : <div className="col-6 col-md-6 text-center">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button>  </div>
-                                                }
+                                                :
+                                                (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : userInfo?.role === "End user" ?
+                                                    <div className="col-6 col-md-6 text-center"> {timeDifference <= 0 && order?.status === "DELIVER" ? <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button> : ""}</div>
+                                                    : <div className="col-6 col-md-6 text-center">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button>  </div>
+                                            }
                                         </div>
 
                                     </div>
+                                    <div className='row'>
+                                        <div className='p-2 '> <hr></hr></div>
+                                        <ProductReview   product={item} />
+                                        <div className='mb-3 col-12'></div>
+                                    </div>
+                                </>
+                            )} </div>
+
+                        </div>
+                        
 
 
-                                )} </div>
 
-                            </div>
-
-
-                            <BootstrapDialog
-                                onClose={handleClose}
-                                aria-labelledby="customized-dialog-title"
-                                open={open}
-                            >
-                                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                                    Track Order
-                                    {/* <div className='row'>
+                        <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                        >
+                            <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                                Track Order
+                                {/* <div className='row'>
                                     <div className='col-12 col-md-3 col-lg-3'>Order Id :</div>
                                     <div className='col-12 col-md-9 col-lg-9'>{trackDetailById?._id}</div>
                                 </div> */}
-                                </BootstrapDialogTitle>
-                                <DialogContent >
-                                    <Grid className={`${style.mainDiv}`}>
-                                        {/* <Grid item sm={12} md={12}>
+                            </BootstrapDialogTitle>
+                            <DialogContent >
+                                <Grid className={`${style.mainDiv}`}>
+                                    {/* <Grid item sm={12} md={12}>
                                         <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810' height="70" width="60" /></div>
                                     </Grid> */}
-                                        <Grid item sm={12} md={12} >
-                                            <div className="trackCard">
-                                                <div className="title">Purchase Reciept</div>
-                                                <div className="info">
-                                                    <div className="row">
-                                                        <div className="col-12">
-                                                            <span id="heading">Date</span><br />
-                                                            <span id="details"> {(order?.createdAt && new Date(order?.createdAt).toLocaleString())}</span>
-                                                        </div>
-                                                        <div className="col-12 pull-right">
-                                                            <div id="heading">Order No.</div>
-                                                            <div id="details" style={{ width: "10px" }} > {trackDetailById?._id}</div>
-                                                        </div>
-                                                        <div className="col-12">
-                                                            <span id="heading"> Status</span><br />
-                                                            <span id="details">  Order Confirmed
+                                    <Grid item sm={12} md={12} >
+                                        <div className="trackCard">
+                                            <div className="title">Purchase Reciept</div>
+                                            <div className="info">
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <span id="heading">Date</span><br />
+                                                        <span id="details"> {(order?.createdAt && new Date(order?.createdAt).toLocaleString())}</span>
+                                                    </div>
+                                                    <div className="col-12 pull-right">
+                                                        <div id="heading">Order No.</div>
+                                                        <div id="details" style={{ width: "10px" }} > {trackDetailById?._id}</div>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <span id="heading"> Status</span><br />
+                                                        <span id="details">  Order Confirmed
 
-                                                            </span>
-                                                        </div>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                {/* <div className="pricing">
+                                            </div>
+                                            {/* <div className="pricing">
                                                 <div className="row">
                                                     <div className="col-9">
                                                         <span id="name">{trackDetailById?._id} </span>
@@ -407,7 +416,7 @@ const Orders = () => {
                                                     <div className="col-3"><big>£262.99</big></div>
                                                 </div>
                                             </div> */}
-                                                {/* <div className="tracking">
+                                            {/* <div className="tracking">
                                                 <div className="title">Tracking Order</div>
                                             </div>
                                             <div className="progress-track">
@@ -418,38 +427,39 @@ const Orders = () => {
                                                     <li className="step0 text-right" id="step4">Delivered</li>
                                                 </ul>
                                             </div> */}
-                                                {/* <div className="footer">
+                                            {/* <div className="footer">
                                                 <div className="row">
                                                     <div className="col-2"><img className="img-fluid" src="https://i.imgur.com/YBWc55P.png" /></div>
                                                     <div className="col-10">Want any help? Please &nbsp;<a> contact us</a></div>
                                                 </div>
                                             </div> */}
-                                            </div>
-                                        </Grid>
-
-                                        <Grid item sm={12} md={12} sx={{ display: "flex", marginTop: "30px", marginBottom: "15px", justifyContent: "space-between" }}>
-                                            <div className='d-flex justify-content-between w-100'>
-
-                                                {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
-
-                                                <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                                    CANCEL
-                                                </Button>
-                                                <Button className='ms-md-4' variant='contained' autoFocus onClick={handleClose} >
-                                                    OK
-                                                </Button>
-
-                                            </div>
-                                        </Grid>
-
-
+                                        </div>
                                     </Grid>
 
-                                </DialogContent>
+                                    <Grid item sm={12} md={12} sx={{ display: "flex", marginTop: "30px", marginBottom: "15px", justifyContent: "space-between" }}>
+                                        <div className='d-flex justify-content-between w-100'>
 
-                            </BootstrapDialog>
-                        </div>
-                 ) })
+                                            {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
+
+                                            <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                                CANCEL
+                                            </Button>
+                                            <Button className='ms-md-4' variant='contained' autoFocus onClick={handleClose} >
+                                                OK
+                                            </Button>
+
+                                        </div>
+                                    </Grid>
+
+
+                                </Grid>
+
+                            </DialogContent>
+
+                        </BootstrapDialog>
+                    </div>
+                    )
+                })
                     :
                     <div className='d-flex mt-5 justify-content-center '>
                         <div className='fw-bold border p-5'>You have no order.

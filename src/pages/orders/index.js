@@ -71,6 +71,7 @@ const Orders = () => {
     const [randonValue, setRandomValue] = useState("")
     const [returnData, setReturnData] = useState({});
     const [allReturn, setReturn] = useState([]);
+    const [reviews ,setReviews]=useState([]);
     const [returnHide, setReturnHide] = useState(false)
     const handleClickOpen = () => {
         setOpen(true);
@@ -83,6 +84,7 @@ const Orders = () => {
 
     useEffect(() => {
         getAllReturnOrder();
+        getReview();
         let userId = localStorage.getItem("userId")
         dispatch(getOrderById(userId));
     }, [randonValue])
@@ -244,6 +246,17 @@ const Orders = () => {
             console.log(err)
         }
     }
+    const getReview=async()=>{
+        try{
+            let userData = localStorage.getItem("user")
+            let userInfo = JSON.parse(userData)
+            let response=await httpCommon.get(`/getReviewCustomerId/${userInfo?._id}`);
+            let {data}=response;
+            setReviews(data);
+        }catch(err){
+            console.log(err);
+        }
+    }
     const orderData = active ? ordersArray?.filter(f1 => f1.status === active) : ordersArray;
     const orderData1 = ordersArray.reverse()
 
@@ -343,7 +356,7 @@ const Orders = () => {
                                     </div>
                                     <div className='row'>
                                         <div className='p-2 '> <hr></hr></div>
-                                        <ProductReview   product={item} />
+                                        <ProductReview setRandomValue={setRandomValue} review={reviews?.find(f1=>f1?.productId===item?.sparePartId)}  product={item} />
                                         <div className='mb-3 col-12'></div>
                                     </div>
                                 </>

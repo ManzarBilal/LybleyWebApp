@@ -271,7 +271,7 @@ const Detail = (props) => {
 
           <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4"  >
 
-            <div className={`${style.cardHeaderH} card border-0`} style={{ cursor: "pointer" }} onClick={() =>{ setProduct(true);setMainImage(adminProduct?.images?.filter((img, i) => i === 0)) }}>
+            <div className={`${style.cardHeaderH} card border-0`} style={{ cursor: "pointer" }} onClick={() =>{ setProduct(true); setMainImage(adminProduct?.images?.filter((img, i) => i === 0)) }}>
               <img src={adminProduct?.images?.filter((img, i) => i === 0)} className={`${style.productDtlCard} card-img-top`} alt="..." />
               <div className="card-body"  >
                 <div className={`${style.productDtlCardFnttitle}`}>{adminProduct?.partName}</div>

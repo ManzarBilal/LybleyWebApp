@@ -264,8 +264,8 @@ function ProductDetail (props){
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-8 col-md-12">
-                                                        <ReviewDiscription />
-                                                        <nav aria-label="...">
+                                                        <ReviewDiscription id={id} />
+                                                        {/* <nav aria-label="...">
                                                             <ul className="pagination justify-content-end">
                                                                 <li className="page-item disabled">
                                                                     <span className="page-link">Previous</span>
@@ -279,7 +279,7 @@ function ProductDetail (props){
                                                                     <a className="page-link" href='#!'>Next</a>
                                                                 </li>
                                                             </ul>
-                                                        </nav>
+                                                        </nav> */}
                                                     </div>
                                             </div>
                                         </Tab.Pane>

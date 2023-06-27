@@ -24,7 +24,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 
-function ProductDetail (props){
+function ProductDetail(props) {
 
 
   const dispatch = useDispatch();
@@ -58,11 +58,11 @@ function ProductDetail (props){
   const { id } = router.query;
 
   const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
-//   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
+  //   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
   const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
 
-  console.log("allSpareparts",allSpareParts);
+  console.log("allSpareparts", allSpareParts);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -184,88 +184,66 @@ function ProductDetail (props){
     setCart(null);
   }
 
-        return (
-            <>
-             {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
-            <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
-            <div className="bg-light">
-                <div className='container'>
-                <div className="row g-3 mb-3">
-                    <h2 className='mt-5 fw-bold'>Product Detail</h2>
-                    <OculusVR handleBuy={handleBuy} handleAddToCart={handleAddToCart} handleCheckbox={handleCheckbox} technician={technician} qty={qty} mainImage={mainImage} getSparePart={getSparePart} setMainImage={setMainImage} />
-                </div>
-                <div className='row mt-5 bg-white align-items-center ' >
-            <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-4 pb-4' >
-              <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
-            </div>
-            <div className='col-md-5 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
-              <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>3 Days Assured Return</div>
-            </div>
-            <div className='col-md-3 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
-              <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
-            </div>
+  return (
+    <>
+      {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
+      <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
+      <div className="bg-light">
+        <div className='container'>
+          <div className="row g-3 mb-3">
+            <h2 className='mt-5 fw-bold'>Product Detail</h2>
+            <OculusVR setProduct={setProduct} product={product} adminProduct={adminProduct}  handleBuy={handleBuy} handleAddToCart={handleAddToCart} handleCheckbox={handleCheckbox} technician={technician} qty={qty} mainImage={mainImage} getSparePart={getSparePart} setMainImage={setMainImage} />
           </div>
 
-       {product ===false && adminProduct?.length>0 ? 
-        <div className='col-md-12 mt-5'>
-          <h2 className='mb-3 fw-bold'><u>Compactible Product</u></h2>
 
-          <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4"  >
+          {/* {product === false && adminProduct?.length > 0 ?
+            <div className='col-md-12 mt-5'>
+              <h2 className='mb-3 fw-bold'><u>Compactible Product</u></h2>
 
-            <div className={`${style.cardHeaderH} card border-0`} style={{ cursor: "pointer" }} onClick={() =>{ setProduct(true);setMainImage(adminProduct?.images?.filter((img, i) => i === 0)) }}>
-              <img src={adminProduct?.images?.filter((img, i) => i === 0)} className={`${style.productDtlCard} card-img-top`} alt="..." />
-              <div className="card-body"  >
-                <div className={`${style.productDtlCardFnttitle}`}>{adminProduct?.partName}</div>
+              <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4"  >
 
-                <div className={`${style.productDtlCardFnt} card-text`}>{"Best Price - " + adminProduct?.bestPrice + " INR"}</div>
-                <div className={`${style.productDtlCardFnt} text-muted text-decoration-line-through`}>{"MRP - " + adminProduct?.MRP + " INR"}</div>
+                <div className={`${style.cardHeaderH} card border-0`} style={{ cursor: "pointer" }} onClick={() => { setProduct(true); setMainImage(adminProduct?.images?.filter((img, i) => i === 0)) }}>
+                  <img src={adminProduct?.images?.filter((img, i) => i === 0)} className={`${style.productDtlCard} card-img-top`} alt="..." />
+                  <div className="card-body"  >
+                    <div className={`${style.productDtlCardFnttitle}`}>{adminProduct?.partName}</div>
+
+                    <div className={`${style.productDtlCardFnt} card-text`}>{"Best Price - " + adminProduct?.bestPrice + " INR"}</div>
+                    <div className={`${style.productDtlCardFnt} text-muted text-decoration-line-through`}>{"MRP - " + adminProduct?.MRP + " INR"}</div>
+                  </div>
+                </div>
+
               </div>
             </div>
+            : ""}
+ */}
 
-          </div>
-        </div>
-        :""}
-
-        <div className='col-md-12'>
-         
-          <div className='mt-5 '>
-            <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
-            <div className='row mt-3'>
-              {videoUrl1.length === 0 ? <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available  </div>
-                : videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
-                  {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
-                </div>))
-              }
-            </div>
-          </div>
-        </div>
-                <div className="row g-3 mb-3 mt-5">
-                    <div className="col-md-12">
-                        <Tab.Container defaultActiveKey="first" className="card">
-                            <Row>
-                                <Col sm={12}>
-                                    <Nav className="nav nav-tabs tab-body-header rounded  d-inline-flex mb-3" role="tablist">
-                                        <Nav.Item className="nav-item"><Nav.Link eventKey="first" className="nav-link " data-bs-toggle="tab" href="#review" role="tab">Reviews</Nav.Link></Nav.Item>
-                                        <Nav.Item className="nav-item"><Nav.Link eventKey="second" className="nav-link" data-bs-toggle="tab" href="#descriptions" role="tab">Descriptions</Nav.Link></Nav.Item>
-                                        <Nav.Item className="nav-item"><Nav.Link eventKey="third" className="nav-link" data-bs-toggle="tab" href="#about" role="tab">About</Nav.Link></Nav.Item>
-                                    </Nav>
-                                </Col>
-                                <Col sm={12}>
-                                    <Tab.Content className="tab-content">
-                                        <Tab.Pane eventKey="first" className="tab-pane fade show" id="review">
-                                            <div className="row clearfix g-3">
-                                                    <div className="col-lg-4 col-md-12">
-                                                        <div className="feedback-info sticky-top1">
-                                                            <div className="card">
-                                                                <div className="card-body">
-                                                                    <ProgressBar />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-8 col-md-12">
-                                                        <ReviewDiscription id={id} />
-                                                        {/* <nav aria-label="...">
+          <div className="row g-3 mb-3 mt-5">
+            <div className="col-md-12">
+              <Tab.Container defaultActiveKey="first" className="card">
+                <Row>
+                  <Col sm={12}>
+                    <Nav className="nav nav-tabs tab-body-header rounded  d-inline-flex mb-3" role="tablist">
+                      <Nav.Item className="nav-item"><Nav.Link eventKey="first" className="nav-link " data-bs-toggle="tab" href="#review" role="tab">Reviews</Nav.Link></Nav.Item>
+                      <Nav.Item className="nav-item"><Nav.Link eventKey="second" className="nav-link" data-bs-toggle="tab" href="#descriptions" role="tab">Descriptions</Nav.Link></Nav.Item>
+                      {/* <Nav.Item className="nav-item"><Nav.Link eventKey="third" className="nav-link" data-bs-toggle="tab" href="#about" role="tab">About</Nav.Link></Nav.Item> */}
+                    </Nav>
+                  </Col>
+                  <Col sm={12}>
+                    <Tab.Content className="tab-content">
+                      <Tab.Pane eventKey="first" className="tab-pane fade show" id="review">
+                        <div className="row clearfix g-3">
+                          <div className="col-lg-4 col-md-12">
+                            <div className="feedback-info sticky-top1">
+                              <div className="card">
+                                <div className="card-body">
+                                  <ProgressBar />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-lg-8 col-md-12">
+                            <ReviewDiscription id={id} />
+                            {/* <nav aria-label="...">
                                                             <ul className="pagination justify-content-end">
                                                                 <li className="page-item disabled">
                                                                     <span className="page-link">Previous</span>
@@ -280,33 +258,57 @@ function ProductDetail (props){
                                                                 </li>
                                                             </ul>
                                                         </nav> */}
-                                                    </div>
-                                            </div>
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="second" className="tab-pane fade show" id="descriptions">
-                                            <div className='card'>
-                                                <div className="card-body">
-                                                    <Discription />
-                                                </div>
-                                            </div>
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="third" className="tab-pane fade show" id="about">
-                                            <div className='card'>
-                                                <div className="card-body">
-                                                    <About />
-                                                </div>
-                                            </div>
-                                        </Tab.Pane>
-                                    </Tab.Content>
-                                </Col>
-                            </Row>
-                        </Tab.Container>
-                    </div>
-                </div>
-                </div>
+                          </div>
+                        </div>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="second" className="tab-pane fade show" id="descriptions">
+                        <div className='card'>
+                          <div className="card-body">
+                            <Discription getSparePart={getSparePart}/>
+                          </div>
+                        </div>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="third" className="tab-pane fade show" id="about">
+                        <div className='card'>
+                          <div className="card-body">
+                            <About />
+                          </div>
+                        </div>
+                      </Tab.Pane>
+                    </Tab.Content>
+                  </Col>
+                </Row>
+              </Tab.Container>
             </div>
-            <Footer />
-            </>
-        )
-    }
+          </div>
+          <div className='row mt-5 bg-white align-items-center ' >
+            <div className='col-md-4 col-12 d-flex justify-content-md-center fw-bold pt-4 pb-4' >
+              <div> <LocalShippingIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>Dispatch within 1 day</div>
+            </div>
+            <div className='col-md-5 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
+              <div><AssignmentReturnIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>3 Days Assured Return</div>
+            </div>
+            <div className='col-md-3 col-12  d-flex justify-content-md-center fw-bold pt-md-4 pb-4' >
+              <div><ReceiptIcon fontSize='large' color='primary' /> </div><div className='ms-2 pt-1'>GST invoice</div>
+            </div>
+          </div>
+          <div className='col-md-12'>
+
+            <div className='mt-5 '>
+              <div><h2 className=' fw-bold'>DIY VIDEO</h2></div>
+              <div className='row mt-3'>
+                {videoUrl1.length === 0 ? <div className='col-12  d-flex justify-content-center   fw-bold pt-5  pb-5 bg-dark text-white'> No Data available  </div>
+                  : videoUrl1?.map((url, i) => (<div className='col-md-3 col-12 mb-3' key={i}>
+                    {hasWindow && <ReactPlayer ref={playerRef} url={url?.video} controls height="250" width="200" />}
+                  </div>))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  )
+}
 export default ProductDetail;

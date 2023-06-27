@@ -27,7 +27,7 @@ function ReviewDiscription(props) {
                     return <li key={'kdmowem' + i} className="card mb-2">
                         <div className="card-body p-lg-4 p-3">
                             <div className="d-flex mb-3 pb-3 border-bottom flex-wrap">
-                                <img  style={{width:"50px" ,height:"50px"}} className="avatar rounded" src="https://c8.alamy.com/comp/2F9GW5A/the-electric-motor-from-the-washing-machine-spare-parts-used-to-repair-home-appliances-isolated-background-2F9GW5A.jpg" alt="" />
+                                <img  style={{width:"50px" ,height:"50px"}} className="avatar rounded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPzBF74hA1avhZGbDvPRJK-cAaN7KL9I8ew&usqp=CAU" alt="" />
                                 <div className="flex-fill ms-3 text-truncate">
                                     <h6 className="mb-0"><span>{d.customerName}</span></h6>
                                     <span className="text-muted">{new Date(d.createdAt)?.toDateString()}</span>

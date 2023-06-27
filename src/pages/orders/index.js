@@ -69,7 +69,7 @@ const Orders = () => {
     const [randonValue, setRandomValue] = useState("")
     const [returnData, setReturnData] = useState({});
     const [allReturn, setReturn] = useState([]);
-
+    const [returnHide, setReturnHide] = useState(false)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -134,7 +134,7 @@ const Orders = () => {
             console.log(err)
         }
     }
-    const ReturnOrder = async (orderId,itemId) => {
+    const ReturnOrder = async (orderId, itemId) => {
         let userData = localStorage.getItem("user")
         let userInfo = JSON.parse(userData)
 
@@ -147,7 +147,7 @@ const Orders = () => {
         let weight = orderData?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
 
         let orderItem = orderData?.items?.filter(f1 => f1?.sparePartId === itemId)
-           
+
         let item = orderItem?.map(it => (
             {
                 name: it?.sparePartName,
@@ -160,8 +160,8 @@ const Orders = () => {
             }
         ))
         if (userInfo?.role === "Reseller") {
-            dispatch(returnItem({itemId:itemId}))
-            
+            dispatch(returnItem({ itemId: itemId }))
+
             router.push(`/qrScanner?id=${orderData?._id}`);
         }
         else
@@ -244,7 +244,7 @@ const Orders = () => {
     }
     const orderData = active ? ordersArray?.filter(f1 => f1.status === active) : ordersArray;
     const orderData1 = ordersArray.reverse()
-    
+
     return (
         <div >
             <Header />
@@ -257,117 +257,133 @@ const Orders = () => {
                     <button className={`btn ${active === "DELIVER" ? "btn-dark" : "btn-outline-secondary text-dark"} ms-2 me-2`} onClick={() => setActive("DELIVER")}>Delivered</button>
                     <button className={`btn ${active === "CANCEL" ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={() => setActive("CANCEL")}>Canceled</button>
                 </div>
-                {orderData?.length > 0 ? orderData?.map((order, i) =>
-                    <div className='mt-3 border p-2'>
-                        <div key={i} className='row d-flex align-items-center1' >
-                            {/* <div className='col-md-2 col-12 me-5'>
+                {orderData?.length > 0 ? orderData?.map((order, i) =>{
+
+                    const deliveryDate = new Date();
+                    const updateAtD=new Date(order?.createdAt)
+                    
+                    updateAtD.setDate(updateAtD.getDate() + 20);
+                    const timeDifference = updateAtD.getTime() - Date.now();
+                    let userData = localStorage.getItem("user")
+                    let userInfo = JSON.parse(userData)
+                    console.log("userInfo",userInfo);
+                    return( <div className='mt-3 border p-2'>
+                       
+                            <div key={i} className='row d-flex align-items-center1' >
+                                {/* <div className='col-md-2 col-12 me-5'>
                                 <div className='fw-bold'>  Order Id
                                 </div>
                                 <div> {order?._id}
                                 </div>
                             </div> */}
-                            <div className='col-md-2 col-12 '>
-                                <div className='row'>
-                                    <div className='fw-bold col-md-12 col-6'> Order Id
-                                    </div>
-                                    <div className='col-md-12 col-6' style={{ fontSize: "10px" }}> {order?._id}
-                                    </div>
-                                    <div className='fw-bold col-md-12 col-6'> User Name
-                                    </div>
-                                    <div className='col-md-12 col-6'> {order?.name}
-                                    </div>
-                                    <div className='fw-bold col-md-12 col-6'>Order Date & Time
-                                    </div>
-                                    <div className='col-md-12 col-6'> {new Date(order?.createdAt).toLocaleDateString()} &nbsp;{new Date(order?.createdAt).toLocaleTimeString()}
+                                <div className='col-md-2 col-12 '>
+                                    <div className='row'>
+                                        <div className='fw-bold col-md-12 col-6'> Order Id
+                                        </div>
+                                        <div className='col-md-12 col-6' style={{ fontSize: "10px" }}> {order?._id}
+                                        </div>
+                                        <div className='fw-bold col-md-12 col-6'> User Name
+                                        </div>
+                                        <div className='col-md-12 col-6'> {order?.name}
+                                        </div>
+                                        <div className='fw-bold col-md-12 col-6'>Order Date & Time
+                                        </div>
+                                        <div className='col-md-12 col-6'> {new Date(order?.createdAt).toLocaleDateString()} &nbsp;{new Date(order?.createdAt).toLocaleTimeString()}
+                                        </div>
                                     </div>
                                 </div>
+                                <div className='col-md-10 col-12 '>{order?.items?.map((item, i) =>
+                                    <div key={i} className='row d-flex align-items-center1'>
+                                        <div className='col-12 col-md-1 me-md-3'>
+                                            <div className='fw-bold'>Image</div>
+                                            <img className='rounded p-2' src={item?.sparePartImage} alt={item?.sparePartImage} height="70" width="70" />
+                                        </div>
+                                        <div className='col-6 col-md-2'>
+                                            <div className='fw-bold'>Spare Part Name</div>
+                                            <div>{item?.sparePartName}</div></div>
+                                        <div className='col-6 col-md-2'>
+                                            <div className='fw-bold'>Spare Part Model</div>
+                                            <div>{item?.sparePartModel}</div></div>
+                                        <div className='col-6 col-md-3'>
+                                            <div className='fw-bold'> Spare Part Category</div>
+                                            <div>{item?.sparePartCategory}</div></div>
+                                        <div className='col-6 col-md-1'>
+                                            <div className='fw-bold'> Quantity</div>
+                                            <div>{item?.quantity}</div></div>
+                                        <div className='col-6 col-md-1'>
+                                            <div className='fw-bold'>MRP</div>
+                                            <div>{item?.MRP}</div>
+                                        </div>
+                                        <div className='col-6 col-md-1'>
+                                            <div className='fw-bold'>Technician</div>
+                                            <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
+                                        </div>
+                                        <div className='row mt-2 d-flex   align-items-center1'>
+                                            {order?.status === "ORDER" ?
+                                                <>
+                                                    <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
+                                                    <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id, item?.brandId, item?.MRP, item?.quantity)}>Cancel Order</button></div>
+                                                </>
+                                                : ""}
+                                            {(order?.status === "DELIVER" && allReturn.find(f1 => f1?.orderId === order?._id)) ?
+
+                                                <div className="col-6 col-md-6 text-end"> 
+                                                <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
+
+                                                : 
+                                                (order?.status === "ORDER" || order?.status === "CANCEL") ?  "" : userInfo?.role==="End user" ?
+                                                <div className="col-6 col-md-6 text-center"> { timeDifference <= 0 && order?.status==="DELIVER" ?   <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button> : "" }</div>
+                                                 : <div className="col-6 col-md-6 text-center">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button>  </div>
+                                                }
+                                        </div>
+
+                                    </div>
+
+
+                                )} </div>
+
                             </div>
-                            <div className='col-md-10 col-12 '>{order?.items?.map((item, i) =>
-                                <div key={i} className='row d-flex align-items-center1'>
-                                    <div className='col-12 col-md-1 me-md-3'>
-                                        <div className='fw-bold'>Image</div>
-                                        <img className='rounded p-2' src={item?.sparePartImage} alt={item?.sparePartImage} height="70" width="70" />
-                                    </div>
-                                    <div className='col-6 col-md-2'>
-                                        <div className='fw-bold'>Spare Part Name</div>
-                                        <div>{item?.sparePartName}</div></div>
-                                    <div className='col-6 col-md-2'>
-                                        <div className='fw-bold'>Spare Part Model</div>
-                                        <div>{item?.sparePartModel}</div></div>
-                                    <div className='col-6 col-md-3'>
-                                        <div className='fw-bold'> Spare Part Category</div>
-                                        <div>{item?.sparePartCategory}</div></div>
-                                    <div className='col-6 col-md-1'>
-                                        <div className='fw-bold'> Quantity</div>
-                                        <div>{item?.quantity}</div></div>
-                                    <div className='col-6 col-md-1'>
-                                        <div className='fw-bold'>MRP</div>
-                                        <div>{item?.MRP}</div>
-                                    </div>
-                                    <div className='col-6 col-md-1'>
-                                        <div className='fw-bold'>Technician</div>
-                                        <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
-                                    </div>
-                                    <div className='row mt-2 d-flex   align-items-center1'>
-                                        {order?.status === "ORDER" ?
-                                            <>
-                                                <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
-                                                <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id, item?.brandId, item?.MRP, item?.quantity)}>Cancel Order</button></div>
-                                            </>
-                                            : ""}
-                                        {(order?.status === "DELIVER" && allReturn.find(f1 => f1?.orderId === order?._id)) ?
-
-                                            <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
-
-                                            : (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id,item?.sparePartId)}>Return Order</button></div>}
-                                    </div>
-                                </div>
 
 
-                            )} </div>
-
-                        </div>
-
-
-                        <BootstrapDialog
-                            onClose={handleClose}
-                            aria-labelledby="customized-dialog-title"
-                            open={open}
-                        >
-                            <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                                Track Order
-                                {/* <div className='row'>
+                            <BootstrapDialog
+                                onClose={handleClose}
+                                aria-labelledby="customized-dialog-title"
+                                open={open}
+                            >
+                                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                                    Track Order
+                                    {/* <div className='row'>
                                     <div className='col-12 col-md-3 col-lg-3'>Order Id :</div>
                                     <div className='col-12 col-md-9 col-lg-9'>{trackDetailById?._id}</div>
                                 </div> */}
-                            </BootstrapDialogTitle>
-                            <DialogContent >
-                                <Grid className={`${style.mainDiv}`}>
-                                    {/* <Grid item sm={12} md={12}>
+                                </BootstrapDialogTitle>
+                                <DialogContent >
+                                    <Grid className={`${style.mainDiv}`}>
+                                        {/* <Grid item sm={12} md={12}>
                                         <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810' height="70" width="60" /></div>
                                     </Grid> */}
-                                    <Grid item sm={12} md={12} >
-                                        <div className="trackCard">
-                                            <div className="title">Purchase Reciept</div>
-                                            <div className="info">
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <span id="heading">Date</span><br />
-                                                        <span id="details"> {(order?.createdAt && new Date(order?.createdAt).toLocaleString())}</span>
-                                                    </div>
-                                                    <div className="col-12 pull-right">
-                                                        <div id="heading">Order No.</div>
-                                                        <div id="details" style={{ width: "10px" }} > {trackDetailById?._id}</div>
-                                                    </div>
-                                                    <div className="col-12">
-                                                        <span id="heading"> Status</span><br />
-                                                        <span id="details">  Order Confirmed
+                                        <Grid item sm={12} md={12} >
+                                            <div className="trackCard">
+                                                <div className="title">Purchase Reciept</div>
+                                                <div className="info">
+                                                    <div className="row">
+                                                        <div className="col-12">
+                                                            <span id="heading">Date</span><br />
+                                                            <span id="details"> {(order?.createdAt && new Date(order?.createdAt).toLocaleString())}</span>
+                                                        </div>
+                                                        <div className="col-12 pull-right">
+                                                            <div id="heading">Order No.</div>
+                                                            <div id="details" style={{ width: "10px" }} > {trackDetailById?._id}</div>
+                                                        </div>
+                                                        <div className="col-12">
+                                                            <span id="heading"> Status</span><br />
+                                                            <span id="details">  Order Confirmed
 
-                                                        </span>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            {/* <div className="pricing">
+                                                {/* <div className="pricing">
                                                 <div className="row">
                                                     <div className="col-9">
                                                         <span id="name">{trackDetailById?._id} </span>
@@ -391,7 +407,7 @@ const Orders = () => {
                                                     <div className="col-3"><big>£262.99</big></div>
                                                 </div>
                                             </div> */}
-                                            {/* <div className="tracking">
+                                                {/* <div className="tracking">
                                                 <div className="title">Tracking Order</div>
                                             </div>
                                             <div className="progress-track">
@@ -402,38 +418,38 @@ const Orders = () => {
                                                     <li className="step0 text-right" id="step4">Delivered</li>
                                                 </ul>
                                             </div> */}
-                                            {/* <div className="footer">
+                                                {/* <div className="footer">
                                                 <div className="row">
                                                     <div className="col-2"><img className="img-fluid" src="https://i.imgur.com/YBWc55P.png" /></div>
                                                     <div className="col-10">Want any help? Please &nbsp;<a> contact us</a></div>
                                                 </div>
                                             </div> */}
-                                        </div>
+                                            </div>
+                                        </Grid>
+
+                                        <Grid item sm={12} md={12} sx={{ display: "flex", marginTop: "30px", marginBottom: "15px", justifyContent: "space-between" }}>
+                                            <div className='d-flex justify-content-between w-100'>
+
+                                                {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
+
+                                                <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
+                                                    CANCEL
+                                                </Button>
+                                                <Button className='ms-md-4' variant='contained' autoFocus onClick={handleClose} >
+                                                    OK
+                                                </Button>
+
+                                            </div>
+                                        </Grid>
+
+
                                     </Grid>
 
-                                    <Grid item sm={12} md={12} sx={{ display: "flex", marginTop: "30px", marginBottom: "15px", justifyContent: "space-between" }}>
-                                        <div className='d-flex justify-content-between w-100'>
+                                </DialogContent>
 
-                                            {/* <div className={`${style.common_curs} ${style.paddTopFrgt} text-primary col-md-6 col-12 mb-3 `} onClick={handleForget}>Forget Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
-
-                                            <Button className='' variant='contained' color='secondary' autoFocus onClick={handleClose}>
-                                                CANCEL
-                                            </Button>
-                                            <Button className='ms-md-4' variant='contained' autoFocus onClick={handleClose} >
-                                                OK
-                                            </Button>
-
-                                        </div>
-                                    </Grid>
-
-
-                                </Grid>
-
-                            </DialogContent>
-
-                        </BootstrapDialog>
-                    </div>
-                )
+                            </BootstrapDialog>
+                        </div>
+                 ) })
                     :
                     <div className='d-flex mt-5 justify-content-center '>
                         <div className='fw-bold border p-5'>You have no order.

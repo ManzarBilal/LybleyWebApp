@@ -14,6 +14,8 @@ import "bootstrap/dist/css/bootstrap.css"
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { returnItem } from '@/redux/actions/returnItem';
+import ProductReview from './ProductReview';
+ 
 
 
 
@@ -69,7 +71,7 @@ const Orders = () => {
     const [randonValue, setRandomValue] = useState("")
     const [returnData, setReturnData] = useState({});
     const [allReturn, setReturn] = useState([]);
-
+    const [returnHide, setReturnHide] = useState(false)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -134,7 +136,7 @@ const Orders = () => {
             console.log(err)
         }
     }
-    const ReturnOrder = async (orderId,itemId) => {
+    const ReturnOrder = async (orderId, itemId) => {
         let userData = localStorage.getItem("user")
         let userInfo = JSON.parse(userData)
 
@@ -147,7 +149,7 @@ const Orders = () => {
         let weight = orderData?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
 
         let orderItem = orderData?.items?.filter(f1 => f1?.sparePartId === itemId)
-           
+
         let item = orderItem?.map(it => (
             {
                 name: it?.sparePartName,
@@ -160,8 +162,8 @@ const Orders = () => {
             }
         ))
         if (userInfo?.role === "Reseller") {
-            dispatch(returnItem({itemId:itemId}))
-            
+            dispatch(returnItem({ itemId: itemId }))
+
             router.push(`/qrScanner?id=${orderData?._id}`);
         }
         else
@@ -244,7 +246,7 @@ const Orders = () => {
     }
     const orderData = active ? ordersArray?.filter(f1 => f1.status === active) : ordersArray;
     const orderData1 = ordersArray.reverse()
-    
+
     return (
         <div >
             <Header />
@@ -257,8 +259,18 @@ const Orders = () => {
                     <button className={`btn ${active === "DELIVER" ? "btn-dark" : "btn-outline-secondary text-dark"} ms-2 me-2`} onClick={() => setActive("DELIVER")}>Delivered</button>
                     <button className={`btn ${active === "CANCEL" ? "btn-dark" : "btn-outline-secondary text-dark"}`} onClick={() => setActive("CANCEL")}>Canceled</button>
                 </div>
-                {orderData?.length > 0 ? orderData?.map((order, i) =>
-                    <div className='mt-3 border p-2'>
+                {orderData?.length > 0 ? orderData?.map((order, i) => {
+
+                    const deliveryDate = new Date();
+                    const updateAtD = new Date(order?.createdAt)
+
+                    updateAtD.setDate(updateAtD.getDate() + 20);
+                    const timeDifference = updateAtD.getTime() - Date.now();
+                    let userData = localStorage.getItem("user")
+                    let userInfo = JSON.parse(userData)
+                  
+                    return (<div className='mt-3 border p-2'>
+
                         <div key={i} className='row d-flex align-items-center1' >
                             {/* <div className='col-md-2 col-12 me-5'>
                                 <div className='fw-bold'>  Order Id
@@ -283,50 +295,63 @@ const Orders = () => {
                                 </div>
                             </div>
                             <div className='col-md-10 col-12 '>{order?.items?.map((item, i) =>
-                                <div key={i} className='row d-flex align-items-center1'>
-                                    <div className='col-12 col-md-1 me-md-3'>
-                                        <div className='fw-bold'>Image</div>
-                                        <img className='rounded p-2' src={item?.sparePartImage} alt={item?.sparePartImage} height="70" width="70" />
-                                    </div>
-                                    <div className='col-6 col-md-2'>
-                                        <div className='fw-bold'>Spare Part Name</div>
-                                        <div>{item?.sparePartName}</div></div>
-                                    <div className='col-6 col-md-2'>
-                                        <div className='fw-bold'>Spare Part Model</div>
-                                        <div>{item?.sparePartModel}</div></div>
-                                    <div className='col-6 col-md-3'>
-                                        <div className='fw-bold'> Spare Part Category</div>
-                                        <div>{item?.sparePartCategory}</div></div>
-                                    <div className='col-6 col-md-1'>
-                                        <div className='fw-bold'> Quantity</div>
-                                        <div>{item?.quantity}</div></div>
-                                    <div className='col-6 col-md-1'>
-                                        <div className='fw-bold'>MRP</div>
-                                        <div>{item?.MRP}</div>
-                                    </div>
-                                    <div className='col-6 col-md-1'>
-                                        <div className='fw-bold'>Technician</div>
-                                        <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
-                                    </div>
-                                    <div className='row mt-2 d-flex   align-items-center1'>
-                                        {order?.status === "ORDER" ?
-                                            <>
-                                                <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
-                                                <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id, item?.brandId, item?.MRP, item?.quantity)}>Cancel Order</button></div>
-                                            </>
-                                            : ""}
-                                        {(order?.status === "DELIVER" && allReturn.find(f1 => f1?.orderId === order?._id)) ?
+                                <>
+                                    <div key={i} className='row d-flex align-items-center1'>
+                                        <div className='col-12 col-md-1 me-md-3'>
+                                            <div className='fw-bold'>Image</div>
+                                            <img className='rounded p-2' src={item?.sparePartImage} alt={item?.sparePartImage} height="70" width="70" />
+                                        </div>
+                                        <div className='col-6 col-md-2'>
+                                            <div className='fw-bold'>Spare Part Name</div>
+                                            <div>{item?.sparePartName}</div></div>
+                                        <div className='col-6 col-md-2'>
+                                            <div className='fw-bold'>Spare Part Model</div>
+                                            <div>{item?.sparePartModel}</div></div>
+                                        <div className='col-6 col-md-3'>
+                                            <div className='fw-bold'> Spare Part Category</div>
+                                            <div>{item?.sparePartCategory}</div></div>
+                                        <div className='col-6 col-md-1'>
+                                            <div className='fw-bold'> Quantity</div>
+                                            <div>{item?.quantity}</div></div>
+                                        <div className='col-6 col-md-1'>
+                                            <div className='fw-bold'>MRP</div>
+                                            <div>{item?.MRP}</div>
+                                        </div>
+                                        <div className='col-6 col-md-1'>
+                                            <div className='fw-bold'>Technician</div>
+                                            <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
+                                        </div>
+                                        <div className='row mt-2 d-flex   align-items-center1'>
+                                            {order?.status === "ORDER" ?
+                                                <>
+                                                    <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>
+                                                    <div className="col-6 col-md-6 text-start"> <button className='btn btn-danger btn-sm' onClick={() => CancelOrder(order?.shipOrderId, order?._id, item?.brandId, item?.MRP, item?.quantity)}>Cancel Order</button></div>
+                                                </>
+                                                : ""}
+                                            {(order?.status === "DELIVER" && allReturn.find(f1 => f1?.orderId === order?._id)) ?
 
-                                            <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
+                                                <div className="col-6 col-md-6 text-end">
+                                                    <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Return Order</button></div>
 
-                                            : (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : <div className="col-6 col-md-6 text-center"> <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id,item?.sparePartId)}>Return Order</button></div>}
+                                                :
+                                                (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : userInfo?.role === "End user" ?
+                                                    <div className="col-6 col-md-6 text-center"> {timeDifference <= 0 && order?.status === "DELIVER" ? <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button> : ""}</div>
+                                                    : <div className="col-6 col-md-6 text-center">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button>  </div>
+                                            }
+                                        </div>
+
                                     </div>
-                                </div>
-
-
+                                    <div className='row'>
+                                        <div className='p-2 '> <hr></hr></div>
+                                        <ProductReview   product={item} />
+                                        <div className='mb-3 col-12'></div>
+                                    </div>
+                                </>
                             )} </div>
 
                         </div>
+                        
+
 
 
                         <BootstrapDialog
@@ -433,7 +458,8 @@ const Orders = () => {
 
                         </BootstrapDialog>
                     </div>
-                )
+                    )
+                })
                     :
                     <div className='d-flex mt-5 justify-content-center '>
                         <div className='fw-bold border p-5'>You have no order.

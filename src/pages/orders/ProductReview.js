@@ -1,11 +1,15 @@
 import httpCommon from '@/http-common';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 
 function  ProductReview(props) {
      const {product}=props
-    
-    const [review ,setReview]=useState("")
+    const [review ,setReview]=useState(props?.review?.review);
+    const [reviews ,setReviews]=useState([]);
+
+    //   useEffect(()=>{
+    //       getReview();
+    //   },[]);
 
     const showToastMessage = (data) => {
         // console.log(data?.status)
@@ -35,23 +39,45 @@ function  ProductReview(props) {
         try {
             let response = await httpCommon.post("/createReview",obj);
             let { data } = response;
+            let x = Math.floor((Math.random() * 100) + 1);
+            props?.setRandomValue(x)
             showToastMessage(data)
         } catch (err) {
             console.log(err);
         }
     }
+
+
+    const editReview=async()=>{
+        try{
+            let userData = localStorage.getItem("user")
+            let userInfo = JSON.parse(userData)
+            let response=await httpCommon.patch(`/editReview/${props?.review?._id}`,{review:review});
+            let {data}=response;
+            let x = Math.floor((Math.random() * 100) + 1);
+            props?.setRandomValue(x)
+            showToastMessage(data)
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return (
          
             <>
             
             <div className=' col-md-6 col-lg-6 col-12' >
                 <div className="form-outline">
-                    <textarea className="form-control" id="textAreaExample3" onChange={(e)=>setReview(e.target.value)} rows="2" placeholder='Product review'></textarea>
+                    <textarea className="form-control" id="textAreaExample3" value={review} onChange={(e)=>setReview(e.target.value)} rows="2" placeholder='Product review'></textarea>
                     {/* <label className="form-label" for="textAreaExample3">Message</label> */}
                 </div>
             </div>
             <div className=' col-md-6 col-lg-6 col-12'style={{marginTop:"22px"}} >
+                {props?.review?.productId===product?.sparePartId ?
+                <button className='btn btn-primary' onClick={()=>editReview()} >Edit Review</button>
+                :
                 <button className='btn btn-primary'onClick={()=>PostReview()} >Post Review</button>
+}
             </div>
             <ToastContainer />
             </>

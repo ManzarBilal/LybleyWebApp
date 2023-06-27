@@ -58,8 +58,8 @@ function ProductDetail (props){
   const { id } = router.query;
 
   const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
-   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
-  //const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
+//   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
+  const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
 
   console.log("allSpareparts",allSpareParts);
@@ -189,7 +189,7 @@ function ProductDetail (props){
              {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
             <Header bool={showLogin} setShowLogin={setShowLogin} randomValue={randomValue} detail={true} />
             <div className="bg-light">
-                <div className='container-xxl'>
+                <div className='container'>
                 <div className="row g-3 mb-3">
                     <h2 className='mt-5 fw-bold'>Product Detail</h2>
                     <OculusVR handleBuy={handleBuy} handleAddToCart={handleAddToCart} handleCheckbox={handleCheckbox} technician={technician} qty={qty} mainImage={mainImage} getSparePart={getSparePart} setMainImage={setMainImage} />

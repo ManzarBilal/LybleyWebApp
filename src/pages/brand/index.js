@@ -41,6 +41,8 @@ console.log("brandsCategories  ",brandsCategories );
   return (
     <div className='bg_image '>
       <Header />
+
+      
       {brandsCategoriesR?.showLoading === true ? <div className='mt-5 text-center'><ReactLoader /></div>
         :
         <div className='container'>

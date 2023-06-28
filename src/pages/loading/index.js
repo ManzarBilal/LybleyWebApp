@@ -2,7 +2,7 @@ import React from 'react'
 import { ColorRing } from 'react-loader-spinner'
 
 
-export const ReactLoader = () => {
+export default function ReactLoader()  {
     return (
         <div>
             <ColorRing
@@ -17,3 +17,5 @@ export const ReactLoader = () => {
         </div>
     )
 }
+
+ 

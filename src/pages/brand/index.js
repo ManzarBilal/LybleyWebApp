@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 import httpCommon from '@/http-common';
 import style from "../common.module.css";
 import { showLoading } from '@/redux/actions/sparePart';
-import { ReactLoader } from '../loading';
+import ReactLoader from '../loading';
+ 
 
 const Brand = () => {
   const router = useRouter();

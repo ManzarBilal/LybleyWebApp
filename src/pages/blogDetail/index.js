@@ -5,7 +5,8 @@ import style from "../common.module.css"
 import { useRouter } from 'next/router'
 import httpCommon from '@/http-common'
 import DateRangeIcon from '@mui/icons-material/DateRange';
-import { ReactLoader } from '../loading'
+import ReactLoader from '../loading'
+ 
 
 
 const BlogDetail = () => {
@@ -37,7 +38,7 @@ const BlogDetail = () => {
     return (
         <>
             <Header />
-            {loading===true ? <div className='mt-5 text-center'><ReactLoader /></div> 
+            {loading===true ? <div  className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div> 
             :
             <div className='container'>
                 <div className='mt-5'>

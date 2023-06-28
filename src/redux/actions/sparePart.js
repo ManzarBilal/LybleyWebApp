@@ -1,4 +1,6 @@
 import http from "../../http-common"
+ 
+
 export const getAllSpareParts = (id) => {
     return async (dispatch) => {
         try {
@@ -7,8 +9,10 @@ export const getAllSpareParts = (id) => {
                 type: "GET_SPAREPARTS",
                 payload: response.data,
             })
+            dispatch(showLoading(false))
         }
         catch (err) {
+            dispatch(showLoading(false))
             console.log(err)
         }
     }
@@ -22,7 +26,10 @@ export const allSparePart=(search)=>{
                 type:"ALL_SPAREPARTS",
                 payload:response.data
             })
+            dispatch(showLoading(false))
+
         }catch(err){
+            dispatch(showLoading(false))
             console.log(err);
         }
     }

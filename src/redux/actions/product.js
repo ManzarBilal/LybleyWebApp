@@ -1,4 +1,5 @@
 import http from "../../http-common"
+import { showLoading } from "./sparePart";
 
 
 export const getProductById = (id) => {
@@ -9,8 +10,12 @@ export const getProductById = (id) => {
                 type: "GET_PRODUCT",
                 payload: response.data,
             })
+            dispatch(showLoading(false))
+
         }
         catch (err) {
+            dispatch(showLoading(false))
+
             console.log(err)
         }
     }

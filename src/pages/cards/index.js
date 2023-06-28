@@ -75,7 +75,7 @@ const Cards = (props) => {
                 <div>{props?.bestPrice}</div>
               </Link>
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}> <div className='text-muted text-decoration-line-through'>{props?.mrp}</div> </Link>
-              {props?.product === true ? <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  style={{ cursor:"pointer" }}>{props?.description?.substring(0, 20)}...  &nbsp;&nbsp;&nbsp;&nbsp;<VisibilityIcon onClick={handleClickOpen} /></div>
+              {props?.product === true ? <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  style={{ cursor:"pointer" }}>{props?.description?.substring(0, 15)}...  &nbsp;&nbsp;&nbsp;&nbsp;<VisibilityIcon onClick={handleClickOpen} /></div>
                 : <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</div>}
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
             </div>

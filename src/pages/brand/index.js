@@ -43,7 +43,7 @@ const brandsCategories=brandsCategoriesR?.data
       <Header />
 
 
-      {brandsCategoriesR?.showLoading === true ? <div className='mt-5 text-center'><ReactLoader /></div>
+      {brandsCategoriesR?.showLoading === true ? <div className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div>
         :
         <div className='container'>
           <div className=' row d-flex justify-content-center'>

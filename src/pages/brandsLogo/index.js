@@ -31,8 +31,8 @@ const BrandsLogo = () => {
           <div className='col-12' > <h3 className='text-center'>No Brand Found</h3></div> 
           :
             brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.map((img, i) =>
-              <div key={i} className={` ${style.brandLodoMargin} d-flex justify-content-between col-md-3 col-lg-1 col-3`} >
-                <Link href={`/brand?id=${img?._id}`} > <img className='rounded' src={img?.brandLogo} alt={img?.brandName} height="45" width="45" /> </Link>
+              <div key={i} className={` ${style.brandLodoMargin} d-flex justify-content-between col-md-3 col-lg-2 col-3`} >
+                <Link href={`/brand?id=${img?._id}`} > <img className={` ${style.brandLogoImage} rounded`} src={img?.brandLogo} alt={img?.brandName}   /> </Link>
               </div>
             )}
         </div>

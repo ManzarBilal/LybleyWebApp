@@ -348,8 +348,8 @@ const Orders = () => {
 
                                                 :
                                                 (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : userInfo?.role === "End user" ?
-                                                    <div className="col-6 col-md-6 text-center"> {timeDifference <= 0 && order?.status === "DELIVER" ? <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button> : ""}</div>
-                                                    : <div className="col-6 col-md-6 text-center">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button>  </div>
+                                                    <div className="col-12 col-md-12 text-end"> {timeDifference <= 0 && order?.status === "DELIVER" ? <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button> : ""}</div>
+                                                    : <div className="col-12 col-md-12 text-end">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button>  </div>
                                             }
                                         </div>
 

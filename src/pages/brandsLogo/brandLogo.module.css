@@ -6,7 +6,10 @@
     margin-right: 11px;
 }
 
-
+.brandLogoImage{
+width: 100px;
+height: 100px;
+}
 
 @media only screen and (max-width: 600px) {
     .brandLodoMargin{
@@ -14,5 +17,9 @@
         margin-left: 0px;
         margin-right: 0px;
     }
+    .brandLogoImage{
+        width: 50px;
+        height: 50px;
+        }
 
 }

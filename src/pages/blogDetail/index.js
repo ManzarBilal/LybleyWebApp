@@ -31,7 +31,8 @@ const BlogDetail = () => {
             <Header />
             <div className='container'>
                 <div className='mt-5'>
-                    <img className={`${style.brandBannerHgt} rounded`} src={data?.image} alt='' width="100%" />
+                {/* ${style.brandBannerHgt} */}
+                    <img className={` fluid-img rounded`} src={data?.image} alt='' width="100%" />
 
                 </div>
                 <div className='mt-5'>

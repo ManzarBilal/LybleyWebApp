@@ -55,7 +55,7 @@ function OculusVR(props) {
                                         <i className="fa fa-star text-warning"></i>
                                         <i className="fa fa-star text-warning"></i>
                                         <i className="fa fa-star text-warning"></i>
-                                        <span className="text-muted ms-3">(449 customer review)</span>
+                                        <span className="text-muted ms-3">( <span class="badge bg-primary"> {props?.reviews?.length}</span> customer review )</span>
                                     </div>
                                     {product === false && adminProduct?.length > 0 ?
                                     <div className="product-items flex-wrap">

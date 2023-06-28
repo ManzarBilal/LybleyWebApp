@@ -45,6 +45,7 @@ function ProductDetail(props) {
   const [adminId, setAdminId] = useState("");
   const [adminProduct, setAdminProduct] = useState({});
   const [product, setProduct] = useState(false)
+  const [reviews,setReviews]=useState([])
   const getVideos = async () => {
     try {
       let response = await httpCommon.get("/getAllVideos");
@@ -62,7 +63,7 @@ function ProductDetail(props) {
   const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
 
-  console.log("allSpareparts", allSpareParts);
+ 
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -73,13 +74,21 @@ function ProductDetail(props) {
     if (typeof window !== "undefined") {
       setHasWindow(true);
     }
-
+    getReviews()
     getVideos()
     getAdminDetail();
     getUser(obj?._id);
   }, [dispatch, id]);
 
-
+  const getReviews=async()=>{
+    try{
+        let response=await httpCommon.get(`/getReviewByProductId/${id}`);
+        let {data}=response;
+        setReviews(data);
+    }catch(err){
+       console.log(err);
+    }
+}
   const [loading, setLoading] = useState(false);
 
 
@@ -183,7 +192,7 @@ function ProductDetail(props) {
     setCartValue(false);
     setCart(null);
   }
-
+ 
   return (
     <>
       {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
@@ -192,7 +201,7 @@ function ProductDetail(props) {
         <div className='container'>
           <div className="row g-3 mb-3">
             <h2 className='mt-5 fw-bold'>Product Detail</h2>
-            <OculusVR setProduct={setProduct} product={product} adminProduct={adminProduct}  handleBuy={handleBuy} handleAddToCart={handleAddToCart} handleCheckbox={handleCheckbox} technician={technician} qty={qty} mainImage={mainImage} getSparePart={getSparePart} setMainImage={setMainImage} />
+            <OculusVR reviews={reviews} setProduct={setProduct} product={product} adminProduct={adminProduct}  handleBuy={handleBuy} handleAddToCart={handleAddToCart} handleCheckbox={handleCheckbox} technician={technician} qty={qty} mainImage={mainImage} getSparePart={getSparePart} setMainImage={setMainImage} />
           </div>
 
 
@@ -242,7 +251,7 @@ function ProductDetail(props) {
                             </div>
                           </div>
                           <div className="col-lg-8 col-md-12">
-                            <ReviewDiscription id={id} />
+                            <ReviewDiscription reviews={reviews}  />
                             {/* <nav aria-label="...">
                                                             <ul className="pagination justify-content-end">
                                                                 <li className="page-item disabled">

@@ -136,7 +136,7 @@ const Checkout = () => {
           let {data}=response;
           if(data?.status===true){
             createOrder();
-            router.push("https://sparetrade-manzarbilal.vercel.app/confirmation");
+            router.push("https://www.sparetrade.in/confirmation");
           }
           }catch(err){
             console.log(err);

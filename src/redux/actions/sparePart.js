@@ -27,3 +27,15 @@ export const allSparePart=(search)=>{
         }
     }
 }
+export const showLoading = (status) => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: "LOADING",
+                payload: status,
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}

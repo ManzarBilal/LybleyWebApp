@@ -3,31 +3,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import httpCommon from '@/http-common';
 
 function ReviewDiscription(props) {
-        const [reviews,setReviews]=useState([]);
-          
-        useEffect(()=>{
-           getReviews();
-        },[props?.id])
+    // const [reviews,setReviews]=useState([]);
 
-        const getReviews=async()=>{
-            try{
-                let response=await httpCommon.get(`/getReviewByProductId/${props?.id}`);
-                let {data}=response;
-                setReviews(data);
-            }catch(err){
-               console.log(err);
-            }
-        }
+    // useEffect(()=>{
+    //    getReviews();
+    // },[props?.id])
 
+    // const getReviews=async()=>{
+    //     try{
+    //         let response=await httpCommon.get(`/getReviewByProductId/${props?.id}`);
+    //         let {data}=response;
+    //         setReviews(data);
+    //     }catch(err){
+    //        console.log(err);
+    //     }
+    // }
 
+    const { reviews } = props
     return (
         <ul className="list-unstyled mb-4">
             {
-                reviews?.map((d, i) => {
+                reviews?.length > 0 ? reviews?.map((d, i) => {
                     return <li key={'kdmowem' + i} className="card mb-2">
                         <div className="card-body p-lg-4 p-3">
                             <div className="d-flex mb-3 pb-3 border-bottom flex-wrap">
-                                <img  style={{width:"50px" ,height:"50px"}} className="avatar rounded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPzBF74hA1avhZGbDvPRJK-cAaN7KL9I8ew&usqp=CAU" alt="" />
+                                <img style={{ width: "50px", height: "50px" }} className="avatar rounded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPzBF74hA1avhZGbDvPRJK-cAaN7KL9I8ew&usqp=CAU" alt="" />
                                 <div className="flex-fill ms-3 text-truncate">
                                     <h6 className="mb-0"><span>{d.customerName}</span></h6>
                                     <span className="text-muted">{new Date(d.createdAt)?.toDateString()}</span>
@@ -49,7 +49,7 @@ function ReviewDiscription(props) {
                                 {
                                     d.type === 'second' ? <div>
                                         <div className="d-flex mt-3 pt-3 border-top">
-                                            <img style={{width:"50px" ,height:"50px"}}  className="avatar rounded" src={d.img} alt="" />
+                                            <img style={{ width: "50px", height: "50px" }} className="avatar rounded" src={d.img} alt="" />
                                             <div className="flex-fill ms-3 text-truncate">
                                                 <p className="mb-0"><span>{d.secondname}</span> <small className="msg-time text-muted">5 Day ago</small></p>
                                                 <span className="text-muted">{d.secondtime}</span>
@@ -65,7 +65,13 @@ function ReviewDiscription(props) {
                             </div>
                         </div>
                     </li>
+
                 })
+                    : <li  className="card mb-2">
+                        <div className="card-body p-lg-4 p-3">
+                            <div className="d-flex mb-3 pb-3 border-bottom flex-wrap">No customer review </div>
+                        </div>
+                    </li>
             }
         </ul>
 

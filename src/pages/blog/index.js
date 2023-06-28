@@ -37,9 +37,9 @@ const Blog = () => {
     const viewAllData=viewAll===true ? data :data?.slice(0,3)
     return (
         <div className=' mt-3'>
-            <h1> <u> Blog</u></h1>
+            <h1> <u> Articles & Reviews</u></h1>
             <div className="d-flex justify-content-between">
-                <div className="row ">
+                <div className="row w-100">
                     {viewAllData?.map(d1 =>
                         <div className='mt-5 col-12 col-md-4 col-lg-4' >
                             <div className={ `${style.cardHeaderH} card`} >

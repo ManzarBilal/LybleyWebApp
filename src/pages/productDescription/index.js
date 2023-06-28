@@ -38,7 +38,7 @@ const ProductDescription = () => {
    const brandLogo = allBrands?.allBrands?.find(f1 => f1?._id === (product?.length>0 ? product[0].userId :"" ))
    const categoryLogo = brandsCategories?.find(f1 => f1?._id === id)
    // ?.filter((it,i)=>i===0)?.userId);
-   console.log("ertgh",brandLogo)
+ 
 
    return (
       <div className='bg_image'>

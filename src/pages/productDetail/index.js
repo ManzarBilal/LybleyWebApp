@@ -33,10 +33,12 @@ const ProductDetail = () => {
   const getSpareParts = useSelector(state => state?.spareParrts);
   const brandsCategories = useSelector(state => state.categories)
   const products = useSelector(state => state.products)
+  const allBrands = useSelector(state => state?.brands)
+ 
 
-
+ let brandImage=allBrands?.allBrands?.find(f1 => f1?._id === (getSpareParts?.length>0 ? getSpareParts[0].userId :"" ))
   let productImage = products?.find(el => el?._id === getSpareParts.find((f1, i) => i === 0)?.productId);
-
+ 
 
   const [faultType, setFaultType] = React.useState('all');
   const [allFaults, setAllFaults] = React.useState([]);
@@ -87,12 +89,18 @@ const ProductDetail = () => {
   let startIndex=(pageNum-1)*size;
   let endIndex= getSpareParts1?.length > (startIndex+size-1) ? startIndex+size-1 : getSpareParts1?.length-1;
   let getSpareParts2=getSpareParts1?.length>size ? getSpareParts1?.filter((lt,index)=>index>=startIndex && index<=endIndex)  : getSpareParts1;
+
   return (
     <div className='bg_image'>
       <Header />
       <div className='container'>
         <div className='row d-flex justify-content-center'>
-          <div className='col-12 mt-5'>
+        <div className='col-12'>
+            <div className='mt-5'>
+              <img className='rounded' src={brandImage?.brandLogo} alt='logo' height="100" width="100" />
+            </div>
+            </div>
+          <div className='col-12 '>
             <div className='row mt-5'>
               <div className='col-lg-8 col-md-6 col-12'>
                 <img src={productImage?.productImage} className='rounded-circle' height="300" width="300" />

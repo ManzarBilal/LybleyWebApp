@@ -36,13 +36,12 @@ const brandsCategories=brandsCategoriesR?.data
   let startIndex = (pageNum - 1) * size;
   let endIndex = brandsCategories?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.length - 1;
   let brandsCategories1 = brandsCategories?.length > size ? brandsCategories?.filter((lt, index) => index >= startIndex && index <= endIndex) : brandsCategories;
-console.log("brandsCategories?.showLoading ",brandsCategories?.showLoading );
-console.log("brandsCategories  ",brandsCategories );
+ 
   return (
     <div className='bg_image '>
       <Header />
 
-      
+
       {brandsCategoriesR?.showLoading === true ? <div className='mt-5 text-center'><ReactLoader /></div>
         :
         <div className='container'>

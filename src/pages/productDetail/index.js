@@ -37,7 +37,7 @@ const ProductDetail = () => {
   const brandsCategories = useSelector(state => state.categories)
   const productsR = useSelector(state => state.products)
   const products=productsR?.data
-  console.log("products",products);
+  
   const allBrands = useSelector(state => state?.brands)
 
 

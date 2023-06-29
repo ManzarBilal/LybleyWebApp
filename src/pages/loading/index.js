@@ -7,8 +7,8 @@ export default function ReactLoader()  {
         <div>
             <ColorRing
                 visible={true}
-                height="160"
-                width="160"
+                height="100"
+                width="100"
                 ariaLabel="blocks-loading"
                 wrapperStyle={{}}
                 wrapperClass="blocks-wrapper"

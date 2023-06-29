@@ -23,7 +23,9 @@ const ProductDescription = () => {
 
 
    const productR = useSelector(state => state?.products)
+  
    const product = productR?.data
+    
 
    useEffect(() => {
       dispatch(showLoading(true))

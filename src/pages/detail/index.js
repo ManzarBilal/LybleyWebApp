@@ -53,7 +53,7 @@ const Detail = (props) => {
   //const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
 
-  console.log("allSpareparts",allSpareParts);
+  
 
   useEffect(() => {
     const user = localStorage.getItem("user");

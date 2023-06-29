@@ -277,7 +277,7 @@ const Orders = () => {
                     const deliveryDate = new Date();
                     const updateAtD = new Date(order?.createdAt)
 
-                    updateAtD.setDate(updateAtD.getDate() + 20);
+                    updateAtD.setDate(updateAtD.getDate() + 3);
                     const timeDifference = updateAtD.getTime() - Date.now();
                     let userData = localStorage.getItem("user")
                     let userInfo = JSON.parse(userData)

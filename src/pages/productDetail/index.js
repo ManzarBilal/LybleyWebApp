@@ -33,9 +33,11 @@ const ProductDetail = () => {
 
   const getSparePartsR = useSelector(state => state?.spareParrts);
   const getSpareParts=getSparePartsR?.data
-  console.log("getSpareParts",getSpareParts);
+  
   const brandsCategories = useSelector(state => state.categories)
-  const products = useSelector(state => state.products)
+  const productsR = useSelector(state => state.products)
+  const products=productsR?.data
+  console.log("products",products);
   const allBrands = useSelector(state => state?.brands)
 
 
@@ -78,7 +80,7 @@ const ProductDetail = () => {
   }
 
   let brandImage = allBrands?.allBrands?.find(f1 => f1?._id === (getSpareParts?.length > 0 ? getSpareParts[0].userId : ""))
-  let productImage = products?.data?.find(el => el?._id === getSpareParts?.find((f1, i) => i === 0)?.productId);
+  let productImage = products?.find(el => el?._id === getSpareParts?.find((f1, i) => i === 0)?.productId);
 
 
 

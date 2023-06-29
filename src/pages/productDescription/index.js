@@ -92,7 +92,7 @@ const ProductDescription = () => {
                   <div className='mb-4 mt-4'><h2><u>Products</u></h2></div>
                   {product.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product1?.map((item, i) =>
                      <div className='col-lg-3 col-md-6 col-6  d-flex justify-content-center mb-3' key={i}>
-                        {/* <Cards productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} /> */}
+                        <Cards productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
 
 
                         {/* <img className='img-fluid w-100' src={item?.productImage} style={{height:"280px"}} /> */}

@@ -45,11 +45,11 @@ const Blog = () => {
                             <div className={ `${style.cardHeaderH} card`} >
                                 <Link href={`/blogDetail?id=${d1?._id}`} className='text-decoration-none text-dark'>
                                 <div  >
-                                    <img src={d1?.image} style={{ width:"100%",  height: "200px" }} alt="blogImage" />
+                                    <img src={d1?.image} style={{ width:"100%",  height: "200px" }} alt= {d1?.metaTitle} />
                                 </div>
                                 <div className="card body p-2"  >
 
-                                    <p className={d1?._id !== truncateId || truncate === false ? "  text-truncate1 fw-bold fs-5" : "  fw-bold fs-5"}>{d1?.title}</p>
+                                    <p className={d1?._id !== truncateId || truncate === false ? "  text-truncate1 fw-bold fs-5" : "  fw-bold fs-5"}>{(d1?.title)?.substr(0,18)}{d1?.title?.length>18 ? "..." :""}</p>
                                     <p className={d1?._id !== truncateId || truncate === false ? "card-text1 text-truncate" : "card-text text-truncate "} >{(d1?.content)?.substr(0,28)} </p>
                                     <div className="d-flex justify-content-between align-items-end">
                                         {/* <div className='text-primary'style={{cursor:"pointer"}} onClick={(e) => handleView(d1?._id)}> {d1?._id !== truncateId || truncate === false  ? "View" : "Hide"} </div>   */}

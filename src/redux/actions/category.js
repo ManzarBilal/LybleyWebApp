@@ -18,3 +18,21 @@ export const getAllCategories = (id) => {
         }
     }
 }
+export const getAllBrandCategories = (id) => {
+    return async (dispatch) => {
+        try {
+            let response = await http.get(`/getAllProductCategories`);
+            dispatch({
+                type: "GET_ALL_BRAND_CATEGORY",
+                payload: response.data,
+            })
+            dispatch(showLoading(false))
+        }
+        
+        catch (err) {
+            console.log(err)
+            dispatch(showLoading(false))
+
+        }
+    }
+}

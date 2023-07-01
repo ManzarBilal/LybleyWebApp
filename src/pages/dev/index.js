@@ -4,6 +4,7 @@ import Search from '../search/search'
 import BrandsLogo from '../brandsLogo'
 import Footer from '../footer'
 import Blog from '../blog'
+import Category from '../category'
 
 const Dev = () => {
   return (
@@ -15,6 +16,7 @@ const Dev = () => {
          
             <Search />
             <BrandsLogo />
+            <Category />
             <Blog />
         </div>
         </div>

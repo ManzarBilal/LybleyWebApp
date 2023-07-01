@@ -65,7 +65,7 @@ const Cards = (props) => {
         {props?.product === true ?
           <>
             <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
-              <img src={props.img} className={`${style.cardImage} img-fluid`}   alt="..." />
+              <img src={props.img} className={`${style.cardImage} img-fluid`}   alt= {props?.categoryName} />
             </Link>
             <div className="card-body">
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>

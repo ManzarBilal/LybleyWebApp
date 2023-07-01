@@ -50,14 +50,14 @@ const BlogDetail = () => {
                     <div className='mt-3'>
                         <div className='fs-12 text-primary'>{data?.category}</div>
                     </div>
-                    <div className='mt-5'>
+                    <div className='mt-5 text-center'>
                         {/* ${style.brandBannerHgt} */}
                         <img className={`img-fluid rounded`} src={data?.image} alt={data?.metaTitle} width="50%" />
 
                     </div>
 
                     <div>
-                        <div style={{fontSize:"16px",fontWeight:"400",color:"#1b1b28",fontFamily:"ColfaxAI, helvetica, sans-serif"}}  className=' mt-5'>{data?.content}</div>
+                        <div style={{whiteSpace: 'pre-wrap' ,fontSize:"16px",fontWeight:"400",color:"#1b1b28",fontFamily:"ColfaxAI, helvetica, sans-serif"}}  className=' mt-5'>{data?.content}</div>
                     </div>
                    
                 </div>

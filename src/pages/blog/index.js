@@ -5,6 +5,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import style from "../common.module.css"
 import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import BasicPopover from './popHover';
 
 const Blog = () => {
     const [data, setData] = useState([]);
@@ -45,32 +46,35 @@ const Blog = () => {
                         <div className='mt-5 col-12 col-md-4 col-lg-4' >
                             <div className={`${style.cardHeaderH} card`} >
                                 <Link href={`/blogDetail?id=${d1?._id}`} className='text-decoration-none text-dark'>
-                                    <div  >
-                                        <img src={d1?.image} style={{ width: "100%", height: "200px" }} alt={d1?.metaTitle} />
-                                    </div>
-                                    <div className="card body p-2"  >
+                                <div  >
+                                    <img src={d1?.image} style={{ width: "100%", height: "200px" }} alt={d1?.metaTitle} />
+                                </div>
+                                <div className="card body p-2"  >
 
-                                        <p className={d1?._id !== truncateId || truncate === false ? "  text-truncate1 fw-bold fs-5" : "  fw-bold fs-5"}>{(d1?.title)?.substr(0, 18)}{d1?.title?.length > 18 ? "..." : ""}</p>
-                                        <div style={{height:"50px",fontSize:"12px"}} className={d1?._id !== truncateId || truncate === false ? " text-muted" : "  text-muted "} >{(d1?.shortDescription)?.substr(0, 100)} {d1?.shortDescription?.length > 100 ? "..." : ""}  </div>
-                                        <div className="d-flex1 justify-content-between align-items-end ">
-                                            {/* <div className='text-primary'style={{cursor:"pointer"}} onClick={(e) => handleView(d1?._id)}> {d1?._id !== truncateId || truncate === false  ? "View" : "Hide"} </div>
+                                    <p className={d1?._id !== truncateId || truncate === false ? "  text-truncate1 fw-bold fs-5" : "  fw-bold fs-5"}>{(d1?.title)?.substr(0, 18)}{d1?.title?.length > 18 ? "..." : ""}</p>
+                                    
+                                       <BasicPopover  shortDes={d1?.shortDescription}/>
+                                     
+                                    <div className="d-flex1 justify-content-between align-items-end ">
+                                        {/* <div className='text-primary'style={{cursor:"pointer"}} onClick={(e) => handleView(d1?._id)}> {d1?._id !== truncateId || truncate === false  ? "View" : "Hide"} </div>
                                                */}
-                                            
-                                           
-                                            <div className='mt-3 text-muted'> <small>  {new Date(d1?.createdAt)?.toDateString()}</small></div></div>
-                                            <div className=''>
-                                                <div style={{fontSize:"12px", }} className='text-primary' >{(d1?.category)?.substr(0, 18)}{d1?.category?.length > 18 ? "..." : ""} </div>
-                                            </div>
-                                            <div className='mt-3 mb-3'>
-                                                <div className='fs-12 text-primary fw-bold'>Read Full Blog <ArrowForwardIcon className='ms-1' /></div> 
-                                            </div>
+
+
+                                        <div className='mt-3 text-muted'> <small>  {new Date(d1?.createdAt)?.toDateString()}</small></div></div>
+                                    <div className=''>
+                                        <div style={{ fontSize: "12px", }} className='text-primary' >{(d1?.category)?.substr(0, 18)}{d1?.category?.length > 18 ? "..." : ""} </div>
                                     </div>
+                                    <div className='mt-3 mb-3'>
+                                        <div className='fs-12 text-primary fw-bold'>Read Full Blog <ArrowForwardIcon className='ms-1' /></div>
+                                    </div>
+                                </div>
                                 </Link>
                             </div>
                         </div>)}
 
                 </div>
             </div>
+     
             {data?.length > 3 ? <div className='text-center'> <button className='mt-4 btn btn-dark' onClick={(e) => handleViewAll()} >{viewAll === true ? "Hide" : "View All"}</button>  </div> : ""}
             <div className='mt-5' style={{ textAlign: "justify", padding: "25px 30px 15px", boxShadow: "0 3px 10px #ebebeb" }}>
                 <h4 className='text-primary  '>Welcome to SpareTrade.in, the #1 online marketplace for buying and selling spare parts!</h4>

@@ -64,15 +64,23 @@
     /* transform: translateY(-3px);  */
     /* box-shadow: 0 5px 20px rgba(0,0,0,.2); */
     transition: all .5s;
+    /* transform: scale(0.9)  */
 
 
+ }
+ 
+ .homePcategory{
+    height: 160px;
+ }
+ .homePcategoryHead :hover{
+    transform: scale(1.03)
  }
  .cardImageSearch{
     height: 150px;
     width: 250px;
 }
 .cardImage{
-    height: 270px;
+    height: 160px;
     width: 250px;
 }
 .cardTitle{
@@ -103,7 +111,9 @@
         height: 160px;
         width: 160px;
     }
-    
+    .homePcategory{
+        height: 100px;
+     }
     .cardTitle{
         width: 110px;
         font-size: 13px;

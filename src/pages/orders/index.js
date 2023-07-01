@@ -16,7 +16,7 @@ import axios from 'axios';
 import { returnItem } from '@/redux/actions/returnItem';
 import ProductReview from './ProductReview';
  
-
+import HelpIcon from '@mui/icons-material/Help';
 
 
 
@@ -334,7 +334,11 @@ const Orders = () => {
                                             <div className='fw-bold'>Technician</div>
                                             <div>{item?.technician > 0 ? `Booked for ${item?.technician}` : "No"}</div>
                                         </div>
+                                        
                                         <div className='row mt-2 d-flex   align-items-center1'>
+                                        <div className='col-12 text-end'>
+                                            <div className='mb-2'><HelpIcon /> </div>
+                                        </div>
                                             {order?.status === "ORDER" ?
                                                 <>
                                                     <div className="col-6 col-md-6 text-end"> <button className='btn btn-primary btn-sm text-center' onClick={() => TrackOrder(order?._id)} >Track Order</button></div>

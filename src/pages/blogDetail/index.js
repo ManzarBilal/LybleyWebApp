@@ -17,8 +17,8 @@ const BlogDetail = () => {
 
 
     useEffect(() => {
-        getBlog();
-    }, []);
+       getBlog();
+    }, [id]);
 
 
     const getBlog = async () => {

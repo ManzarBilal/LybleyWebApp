@@ -18,6 +18,15 @@ export const getAllSpareParts = (id) => {
     }
 }
 
+export const getSparePartsByCat = (data) => {
+    return async (dispatch) => {
+            dispatch({
+                type: "GET_SPAREPARTS",
+                payload: data,
+            })
+        }
+}
+
 export const allSparePart=(search)=>{
     return async(dispatch)=>{
         try{

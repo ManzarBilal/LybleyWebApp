@@ -39,7 +39,7 @@ const Blog = () => {
     const viewAllData = viewAll === true ? data : data?.slice(0, 3)
     return (
         <div className=' mt-3'>
-            <h1> <u> Articles & Reviews</u></h1>
+            <h1> <u> Articles , Reviews &  Videos</u></h1>
             <div className="d-flex justify-content-between">
                 <div className="row w-100">
                     {viewAllData?.map(d1 =>

@@ -9,9 +9,11 @@ import Footer from '../footer';
 import style from "../common.module.css";
 import { showLoading } from '@/redux/actions/sparePart';
 import ReactLoader from '../loading';
+import { useRouter } from 'next/router';
 
 
 const Category = () => {
+const router=useRouter();
 
     const [page, setPage] = useState(1);
     const [show, setShowText] = useState(false);
@@ -35,6 +37,10 @@ const Category = () => {
     let endIndex = brandsCategories?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.length - 1;
     let brandsCategories1 = brandsCategories?.length > size ? brandsCategories?.filter((lt, index) => index >= startIndex && index <= endIndex) : brandsCategories;
 
+const handleSpareParts=(category)=>{
+router.push(`/sparepartsByCategory?category=${category}`);
+}
+
     return (
         <div className='bg_image '>
 
@@ -49,7 +55,7 @@ const Category = () => {
 
                                     {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories1?.map(p1 =>
 
-                                        <div className={`${style.cardHead} ${style.homePcategoryHead} col-lg-4 col-md-4 col-6  d-flex justify-content-center mb-5`}> <Link href={`/productDescription?id=${p1?._id}`} className='text-decoration-none'>
+                                        <div className={`${style.cardHead} ${style.homePcategoryHead} col-lg-4 col-md-4 col-6  d-flex justify-content-center mb-5`}> <div onClick={()=>handleSpareParts(p1?.categoryName)} className='text-decoration-none'>
                                             <div className={`${style.cardHeaderH}`}>
                                                 <div className="card border-0" >
                                                     <div className={`${style.homePcategory} mt-2 text-center`}  >
@@ -59,7 +65,7 @@ const Category = () => {
 
                                                 </div>
                                             </div>
-                                        </Link></div>
+                                        </div></div>
                                     )}
 
 

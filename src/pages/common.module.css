@@ -71,6 +71,7 @@
  
  .homePcategory{
     height: 160px;
+    cursor: pointer;
  }
  .homePcategoryHead :hover{
     transform: scale(1.03)

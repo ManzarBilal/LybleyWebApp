@@ -29,7 +29,8 @@ function ProductDetail(props) {
 
   const dispatch = useDispatch();
   const [showLogin, setShowLogin] = useState(false);
-  const allSparePartsR = useSelector(state => state?.spareParrts);
+   const allSparePartsR = useSelector(state => state?.spareParrts);
+ // const [allSparePartsR,setAllSparePartsR]=useState([])
   const allSpareParts=allSparePartsR?.data
   
   const qty = useSelector(state => state?.value);
@@ -57,6 +58,7 @@ function ProductDetail(props) {
       console.log(err);
     }
   }
+
   const router = useRouter()
   const { id } = router.query;
 
@@ -64,7 +66,7 @@ function ProductDetail(props) {
   //   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
   const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
-
+console.log(discountSpareParts);
  
 
   useEffect(() => {
@@ -98,7 +100,7 @@ function ProductDetail(props) {
   const playerRef = useRef(null);
 
   let sp = allSpareParts?.find((sp1, index) => index === 0);
-  console.log("sp",sp);
+ 
   let videoUrl1 = videoUrl?.filter(v1 => v1.productModel === sp?.productModel);
 
   const [mainImage, setMainImage] = useState(getSparePart?.images[0]);

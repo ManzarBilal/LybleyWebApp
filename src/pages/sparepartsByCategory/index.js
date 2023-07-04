@@ -51,7 +51,7 @@ const SparePartsByCategory = () => {
         router.push(router);
     }
 
-    let spareParts1 = brandName || modelName ? spareParts?.filter(f1 => f1?.brandName === brandName && f1?.productModel===modelName ) : spareParts;
+    let spareParts1 = brandName ? spareParts?.filter(f1 => f1?.brandName === brandName) : (brandName && modelName) ? spareParts?.filter(f1 => f1?.brandName === brandName && f1?.productModel===modelName ) : spareParts;
     let models=spareParts?.filter(f1=>f1?.category===catName);
     const array1 = models?.map(c1 => c1?.productModel);
     const uniqueModels = [...new Set(array1)];

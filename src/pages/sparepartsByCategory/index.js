@@ -97,7 +97,7 @@ const SparePartsByCategory = () => {
                         </div>
                         <div className='col-12 col-md-9 col-lg-9'>
 
-                            <div className='row ms-lg-5 mt-3 mt-md-0 mt-lg-0 d-flex justify-content-betweenq'>
+                            <div className='row ms-lg-5 mt-3 mt-md-0 mt-lg-0 d-flex justify-content-start'>
                                 <div className="d-flex justify-content-between align-items-center"> <h3 className='fw-bold ms-md-3'> <u> Spare Parts </u></h3> <div className='d-flex'><h5 className='me-1'>{spareParts1?.length}</h5>results</div></div>
                                 {spareParts2?.length === 0 ? <h3 className='text-center mt-5'>No Spare Parts available</h3> : spareParts2?.map((p1, i) => <div className="col-lg-4 col-md-6 col-6 d-flex justify-content-center mb-4 mt-3" key={i} >
                                     <Link href={`/productDetailPage?id=${p1._id}`} className="text-decoration-none text-dark">

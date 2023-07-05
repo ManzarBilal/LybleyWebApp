@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 
 const Category = () => {
-const router=useRouter();
+    const router = useRouter();
 
     const [page, setPage] = useState(1);
     const [show, setShowText] = useState(false);
@@ -37,9 +37,9 @@ const router=useRouter();
     let endIndex = brandsCategories?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.length - 1;
     let brandsCategories1 = brandsCategories?.length > size ? brandsCategories?.filter((lt, index) => index >= startIndex && index <= endIndex) : brandsCategories;
 
-const handleSpareParts=(category)=>{
-router.push(`/sparepartsByCategory?category=${category}`);
-}
+    const handleSpareParts = (category) => {
+        router.push(`/sparepartsByCategory?category=${category}`);
+    }
 
     return (
         <div className='bg_image '>
@@ -53,9 +53,9 @@ router.push(`/sparepartsByCategory?category=${category}`);
                                 <div className='row mt-5'>
                                     <div className='mb-5'><h2><u>Categories </u></h2></div>
 
-                                    {brandsCategories?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories1?.map(p1 =>
+                                    {brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.map(p1 =>
 
-                                        <div className={`${style.cardHead} ${style.homePcategoryHead} col-lg-4 col-md-4 col-6  d-flex justify-content-center mb-5`}> <div onClick={()=>handleSpareParts(p1?.categoryName)} className='text-decoration-none'>
+                                        <div className={`${style.cardHead} ${style.homePcategoryHead} col-lg-4 col-md-4 col-6  d-flex justify-content-center mb-5`}> <div onClick={() => handleSpareParts(p1?.categoryName)} className='text-decoration-none'>
                                             <div className={`${style.cardHeaderH}`}>
                                                 <div className="card border-0" >
                                                     <div className={`${style.homePcategory} mt-2 text-center`}  >
@@ -72,7 +72,7 @@ router.push(`/sparepartsByCategory?category=${category}`);
 
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center mt-3">
-                                    {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {brandsCategories?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {brandsCategories?.length}</div> : ""}{endIndex + 1 === brandsCategories?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}
+                                    {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length}</div> : ""}{endIndex + 1 === brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}
                                 </div>
                             </div>
                         </div>

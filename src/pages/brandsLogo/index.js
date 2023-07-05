@@ -27,7 +27,7 @@ const BrandsLogo = () => {
     <div className='container mt-3'>
       <div class="d-flex justify-content-between">
         <div className='row w-100'>
-          {brandsLogo1?.length === 0 ?
+          { brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length === 0 ?
           <div className='col-12' > <h3 className='text-center'>No Brand Found</h3></div> 
           :
             brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.map((img, i) =>

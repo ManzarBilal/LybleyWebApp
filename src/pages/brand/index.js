@@ -11,6 +11,7 @@ import httpCommon from '@/http-common';
 import style from "../common.module.css";
 import { showLoading } from '@/redux/actions/sparePart';
 import ReactLoader from '../loading';
+import { getAllBrands } from '@/redux/actions/brand';
 
 
 const Brand = () => {
@@ -29,6 +30,7 @@ const Brand = () => {
 
   useEffect(() => {
     dispatch(showLoading(true))
+    dispatch(getAllBrands());
     dispatch(getAllCategories(id));
   }, [dispatch, id]);
 

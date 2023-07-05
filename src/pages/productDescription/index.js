@@ -10,6 +10,7 @@ import { getProductById } from '@/redux/actions/product';
 import style from "../common.module.css";
 import { showLoading } from '@/redux/actions/sparePart'
 import ReactLoader from '../loading'
+import { getAllBrands } from '@/redux/actions/brand'
 
 const ProductDescription = () => {
    const [page, setPage] = useState(1);
@@ -28,6 +29,7 @@ const ProductDescription = () => {
 
    useEffect(() => {
       dispatch(showLoading(true))
+    dispatch(getAllBrands());
       dispatch(getProductById(id));
    }, [dispatch, id]);
 

@@ -18,6 +18,7 @@ import httpCommon from '@/http-common';
 import { getProductById } from '@/redux/actions/product';
 import style from "../common.module.css";
 import ReactLoader from '../loading';
+import { getAllBrands } from '@/redux/actions/brand';
 
 const ProductDetail = () => {
 
@@ -61,6 +62,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(showLoading(true))
+    dispatch(getAllBrands());
     dispatch(getAllSpareParts(id));
     if (typeof window !== "undefined") {
       setHasWindow(true);

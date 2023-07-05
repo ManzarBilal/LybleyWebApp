@@ -149,7 +149,7 @@ const ProductDetail = () => {
                   <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4" key={i} >
                     <Link href={`/productDetailPage?id=${p1._id}`} className="text-decoration-none text-dark">
                       <div className={`${style.cardHeaderH} card border-0`}>
-                        <img src={p1?.images[0]} className={`${style.productDtlCard} card-img-top`} alt="..." />
+                        <img src={p1?.images[0]} className={`${style.productDtlCard1} img-fluid ms-3`} alt={p1?.partName}   />
                         <div className="card-body"  >
                           <div className={`${style.productDtlCardFnttitle}`}>{p1?.partName}</div>
 

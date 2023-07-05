@@ -49,6 +49,7 @@ export default function Footer() {
                             <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/article" ><li style={{color:"#acabad"}}>Article</li></Link>
                             <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/sparePartBrands" ><li style={{color:"#acabad"}}>Brands</li></Link>
                             <Link className={`${style.footerLink} text-decoration-none text-muted`} href="/SiteMap" ><li style={{color:"#acabad"}}>SiteMap</li></Link>
+                            <Link className={`${style.footerLink} text-decoration-none text-muted`} target="_blank" href="https://brand.sparetrade.in/" ><li style={{color:"#acabad"}}>Sign In Seller</li></Link>
                             </ul>
                             {/* <p className="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
                     <form action="#">

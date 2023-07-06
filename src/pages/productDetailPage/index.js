@@ -66,7 +66,7 @@ function ProductDetail(props) {
   //   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
   const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 
-console.log(discountSpareParts);
+// console.log(discountSpareParts);
  
 
   useEffect(() => {

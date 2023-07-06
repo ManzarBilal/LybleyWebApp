@@ -32,7 +32,7 @@ const BrandsLogo = () => {
           :
             brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.map((img, i) =>
               <div key={i} className={` ${style.brandLodoMargin} d-flex justify-content-between col-md-3 col-lg-2 col-3`} >
-                <Link href={`/brand?id=${img?._id}`} > <img className={` ${style.brandLogoImage} rounded`} src={img?.brandLogo} alt={img?.brandName}   /> </Link>
+                <Link href={`/brand?id=${img?._id}`} > <img className={` ${style.brandLogoImage} rounded`} src={img?.brandLogo} alt={img?.brandName} onClick={()=>localStorage.setItem("brandLogoId",img?._id)}  /> </Link>
               </div>
             )}
         </div>

@@ -80,8 +80,9 @@ const ProductDetail = () => {
       console.log(err);
     }
   }
-
-  let brandImage = allBrands?.allBrands?.find(f1 => f1?._id === (getSpareParts?.length > 0 ? getSpareParts[0].userId : ""))
+  const brand=localStorage.getItem("brandLogoId")
+ 
+  let brandImage = allBrands?.allBrands?.find(f1 => f1?._id === (getSpareParts?.length > 0 ? getSpareParts[0].userId : brand))
   let productImage = products?.find(el => el?._id === getSpareParts?.find((f1, i) => i === 0)?.productId);
 
 

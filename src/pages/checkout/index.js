@@ -58,6 +58,7 @@ BootstrapDialogTitle.propTypes = {
 
 //https://sparetrade-manzarbilal.vercel.app
 //https://lybleyappbackend-production.up.railway.app
+//https://lybleyappbackend-production.up.railway.app
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
     const spData = useSelector(state=>state.checkoutData)
@@ -136,7 +137,7 @@ const Checkout = () => {
           let {data}=response;
           if(data?.status===true){
             createOrder();
-            router.push("https://www.sparetrade.in/confirmation");
+            router.push("https://wwww.sparetrade.in/confirmation");
           }
           }catch(err){
             console.log(err);

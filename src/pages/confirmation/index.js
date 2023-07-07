@@ -123,10 +123,10 @@ const Confirmation = () => {
       "transaction_charges": 0,
       "total_discount": 0,
       "sub_total": totalPrice1,
-      "length": length,
-      "breadth": breadth,
-      "height": height,
-      "weight": weight
+      "length": +length,
+      "breadth": +breadth,
+      "height": +height,
+      "weight": +weight
     }
     try {
       let response = await httpCommon.post("/createDeliveryOrder", orderData);

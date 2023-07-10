@@ -17,14 +17,14 @@ const ProductDescription = () => {
    const router = useRouter();
    const { id } = router.query;
    const dispatch = useDispatch();
+   const brand=localStorage.getItem("brandLogoId")
 
    const allBrands = useSelector(state => state?.brands)
    const brandsCategories = useSelector(state => state.categories)
 
 
    const productR = useSelector(state => state?.products)
-  
-   const product = productR?.data
+   const product = productR?.data?.filter(f1=>f1?.userId===brand)
     
 
    useEffect(() => {
@@ -42,7 +42,6 @@ const ProductDescription = () => {
    let startIndex = (pageNum - 1) * size;
    let endIndex = product?.length > (startIndex + size - 1) ? startIndex + size - 1 : product?.length - 1;
    const product1 = product?.length > size ? product?.filter((lt, index) => index >= startIndex && index <= endIndex) : product;
-    const brand=localStorage.getItem("brandLogoId")
  
    const brandLogo = allBrands?.allBrands?.find(f1 => f1?._id === (product?.length > 0 ? product[0].userId : brand))
    const categoryLogo = brandsCategories?.data?.find(f1 => f1?._id === id)

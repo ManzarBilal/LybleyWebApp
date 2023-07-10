@@ -20,3 +20,21 @@ export const getProductById = (id) => {
         }
     }
 }
+export const getProductByBrand = (id) => {
+    return async (dispatch) => {
+        try {
+            let response = await http.get(`/allProductsByBrand/${id}`);
+            dispatch({
+                type: "GET_PRODUCT_BY_BRAND",
+                payload: response.data,
+            })
+            dispatch(showLoading(false))
+
+        }
+        catch (err) {
+            dispatch(showLoading(false))
+
+            console.log(err)
+        }
+    }
+}

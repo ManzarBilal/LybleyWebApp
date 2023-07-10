@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategories } from '@/redux/actions/category';
+import { getAllBrandCategories  } from '@/redux/actions/category';
 import Header from '../header';
 import Cards from '../cards';
 import Footer from '../footer';
@@ -12,6 +12,7 @@ import style from "../common.module.css";
 import { showLoading } from '@/redux/actions/sparePart';
 import ReactLoader from '../loading';
 import { getAllBrands } from '@/redux/actions/brand';
+import { getProductByBrand } from '@/redux/actions/product';
 
 
 const Brand = () => {
@@ -22,8 +23,15 @@ const Brand = () => {
 
 
   const dispatch = useDispatch();
+
+  const productR = useSelector(state => state?.products)
+  const product = productR?.data
+
   const brandsCategoriesR = useSelector(state => state.categories)
-  const brandsCategories = brandsCategoriesR?.data
+  const catByBrand=brandsCategoriesR?.data?.filter(f1=> f1?.userId===id)
+  const catByProductModel=brandsCategoriesR?.data?.filter(f1=>product?.find(f2=>f2?.productCategory===f1?.categoryName))
+  const mergedBrandsCategories = catByBrand.concat(catByProductModel);
+  const brandsCategories=[...new Set(mergedBrandsCategories)];
 
   const allBrands = useSelector(state => state?.brands)
   let brand = allBrands?.allBrands?.find(el => el._id === id);
@@ -31,15 +39,17 @@ const Brand = () => {
   useEffect(() => {
     dispatch(showLoading(true))
     dispatch(getAllBrands());
-    dispatch(getAllCategories(id));
+    dispatch(getAllBrandCategories());
+    dispatch(getProductByBrand(id))
   }, [dispatch, id]);
 
   let pageNum = page;
-  let size = 12;
+  let size =12;
   let startIndex = (pageNum - 1) * size;
-  let endIndex = brandsCategories?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.length - 1;
+  let endIndex = brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length - 1;
   let brandsCategories1 = brandsCategories?.length > size ? brandsCategories?.filter((lt, index) => index >= startIndex && index <= endIndex) : brandsCategories;
 
+ 
   return (
     <div className='bg_image '>
       <Header />
@@ -84,7 +94,7 @@ const Brand = () => {
                   {/* <Cards center={true} img={p1?.categoryImage} title={p1?.categoryName} brand={true} /> </Link></div>  */}
                 </div>
                 <div className="d-flex justify-content-center align-items-center mt-3">
-                  {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length}</div> : ""}{endIndex + 1 === brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}
+                  {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length}</div> : ""} {endIndex + 1 === brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}
                 </div>
               </div>
             </div>

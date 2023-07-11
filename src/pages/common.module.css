@@ -85,7 +85,7 @@
     width: 250px;
 }
 .cardTitle{
-    width: 200px;
+    width: 100%;
 }@media only screen and (min-width: 1000px) {
     .faqsHead {
         margin-left: 200px;
@@ -116,7 +116,7 @@
         height: 100px;
      }
     .cardTitle{
-        width: 110px;
+        width: 100%;
         font-size: 13px;
         font-weight: bold;
         white-space: nowrap;

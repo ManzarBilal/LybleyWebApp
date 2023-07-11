@@ -43,7 +43,7 @@ export default function Home() {
             </div>
 
             <div className='col-12 col-md-4 col-lg-4'>
-              <img src='https://lybley.store/public/assets/img/maintainance.svg' alt='dev' className='img-fluid' height={500} width={500} />
+              <img src='https://www.seekpng.com/png/detail/279-2795569_web-development-web-development-illustration-png.png' alt='dev' className='img-fluid' height={500} width={800} />
             </div>
             <div className='col-12 col-md-4 col-lg-4'>
             </div>

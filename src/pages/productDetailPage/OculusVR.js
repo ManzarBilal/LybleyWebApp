@@ -89,15 +89,15 @@ function OculusVR(props) {
                                     <div className='fw-bold mb-2'>Part Number :  <span className='fw-bold fs-5'>{" "}{getSparePart?.partNo}</span></div>
                                     <div ><span className="fw-bold"> Brand Name :</span>  {getSparePart?.brandName}</div>
                                     <div className='mt-2 mb-3'><span className="fw-bold"> Category Name :</span>  {getSparePart?.category}</div>
-                                    <div>{(getSparePart?.description)?.substr(0,209)}{"..."} </div>
+                                    <div>{(getSparePart?.description)?.substr(0,209)}{getSparePart?.description?.length>208 ?"...":""} </div>
                                     <div className="product-btn mb-2">
                                        
                                         <div className='form-check mb-3'>
                                             <input type="checkbox" className='form-check-input' value={getSparePart?.technician} checked={technician === 0 ? false : true} onChange={(e) => props?.handleCheckbox(e.currentTarget.value)} />
                                             <label className='form-check-label'>Book Technician to fit it - {getSparePart?.technician} INR only</label>
                                         </div>
-                                        <div className='d-flex align-items-center'>
-                                        <div className="d-flex flex-wrap">
+                                        <div className='d-flex align-items-center row'>
+                                        <div className="col-12 col-md-4 d-flex flex-wrap">
                                             <div className="d-flex flex-wrap  ">
                                                 <div className=" mt-sm-0  me-1">
                                                     <div className="">
@@ -110,8 +110,12 @@ function OculusVR(props) {
 
                                             </div>
                                         </div>
-                                        <button className="btn bg-dark text-white mx-3 mt-2  mt-sm-0" onClick={props?.handleBuy}> Buy Now</button>
-                                        <button onClick={(e) => props?.handleAddToCart(getSparePart?._id)} className="btn bg-dark text-white mx-1 mt-2 mt-sm-0 w-sm-100"> Add to Cart</button>
+                                        <div className='col-6 col-md-4 '>
+                                        <button className="btn bg-dark text-white mx-md-3 mx-md-2 mt-3  mt-sm-0" onClick={props?.handleBuy}> Buy Now</button>
+                                        </div> 
+                                        <div className='col-6 col-md-4 '>
+                                        <button onClick={(e) => props?.handleAddToCart(getSparePart?._id)} className="btn bg-dark text-white mx-md-1 mx-md-2 mt-3  mt-sm-0 w-sm-100"> Add to Cart</button>
+                                        </div>
                                         </div>
 
                                     </div>

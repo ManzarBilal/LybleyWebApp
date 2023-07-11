@@ -92,6 +92,7 @@ const ProductDescription = () => {
                   <div className='mt-5 fw-bold'>Home / Category / <span className='text-primary'>Product</span></div>
 
                   <div className='mb-4 mt-4'><h2><u>Products</u></h2></div>
+                  <div className='row'>
                   {product?.length === 0 ? <h4 className='text-center'>Product Comming soon!</h4> : product1?.map((item, i) =>
                      <div className='col-lg-3 col-md-6 col-6  d-flex justify-content-center mb-3' key={i}>
                         <Cards productId={id} id={item?._id} product={true} img={item?.productImage} description={item?.productDescription} title={item?.productName} brand={true} />
@@ -100,6 +101,8 @@ const ProductDescription = () => {
                         {/* <img className='img-fluid w-100' src={item?.productImage} style={{height:"280px"}} /> */}
                      </div>
                   )}
+                     </div>
+
                </div>
                <div className="d-flex justify-content-center align-items-center mt-3">
                   {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {product?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {product?.length}</div> : ""}{endIndex + 1 === product?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}

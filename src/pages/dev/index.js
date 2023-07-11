@@ -8,7 +8,7 @@ import Category from '../category'
 
 const Dev = () => {
   return (
-    <div> 
+    <div  > 
          <Header />
       <div className='container'>
       <div className=' row d-flex justify-content-center'>

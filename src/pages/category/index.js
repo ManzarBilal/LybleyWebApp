@@ -34,7 +34,7 @@ const Category = () => {
     let pageNum = page;
     let size = 12;
     let startIndex = (pageNum - 1) * size;
-    let endIndex = brandsCategories?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.length - 1;
+    let endIndex = brandsCategories?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length - 1;
     let brandsCategories1 = brandsCategories?.length > size ? brandsCategories?.filter((lt, index) => index >= startIndex && index <= endIndex) : brandsCategories;
 
     const handleSpareParts = (category) => {
@@ -42,7 +42,7 @@ const Category = () => {
     }
 
     return (
-        <div className='bg_image '>
+        <div className='bg_image '  >
 
             {brandsCategoriesR?.showLoading === true ? <div className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div>
                 :

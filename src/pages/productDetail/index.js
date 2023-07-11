@@ -82,8 +82,10 @@ const ProductDetail = () => {
   }
   const brand=localStorage.getItem("brandLogoId")
  
-  let brandImage = allBrands?.allBrands?.find(f1 => f1?._id === (getSpareParts?.length > 0 ? getSpareParts[0].userId : brand))
-  let productImage = products?.find(el => el?._id === getSpareParts?.find((f1, i) => i === 0)?.productId);
+  let brandImage = allBrands?.allBrands?.find(f1 => f1?._id === (getSpareParts?.length > 0 ? brand  : brand))
+  // console.log("brandImage",getSpareParts[0].userIds,getSpareParts?.length > 0);
+  // let productImage = products?.find(el => el?._id === getSpareParts?.find((f1, i) => i === 0)?.productId);
+  let productImage = products?.find(el => el?._id === id);
 
 
 
@@ -100,7 +102,7 @@ const ProductDetail = () => {
   let startIndex = (pageNum - 1) * size;
   let endIndex = getSpareParts1?.length > (startIndex + size - 1) ? startIndex + size - 1 : getSpareParts1?.length - 1;
   let getSpareParts2 = getSpareParts1?.length > size ? getSpareParts1?.filter((lt, index) => index >= startIndex && index <= endIndex) : getSpareParts1;
-
+console.log("getSpareParts2",getSpareParts2);
   return (
     <div className='bg_image'>
       <Header />
@@ -116,7 +118,7 @@ const ProductDetail = () => {
             <div className='col-12 '>
               <div className='row mt-5'>
                 <div className='col-lg-8 col-md-6 col-12'>
-                  <img src={productImage?.productImage} className='rounded-circle' height="300" width="300" />
+                  <img src={productImage?.productImage} className='rounded-circle1' height="300" width="300" />
                   <h4 className='ms-md-4' >{productImage?.productName}</h4>
                 </div>
 
@@ -146,11 +148,12 @@ const ProductDetail = () => {
               <div className='row mt-5'>
                 <div className='mb-3'><h2> <u>Spare Parts</u></h2></div>
 
-                {getSpareParts2?.map((p1, i) =>
+                { getSpareParts2?.length>0 ?
+                getSpareParts2?.map((p1, i) =>
                   <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4" key={i} >
                     <Link href={`/productDetailPage?id=${p1._id}`} className="text-decoration-none text-dark">
                       <div className={`${style.cardHeaderH} card border-0`}>
-                        <img src={p1?.images[0]} className={`${style.productDtlCard} img-fluid ms-3`} alt={p1?.partName}    />
+                        <img src={p1?.images[0]} className={`${style.productDtlCard} img-fluid m-3`} alt={p1?.partName}    />
                         <div className="card-body"  >
                           <div className={`${style.productDtlCardFnttitle}`}>{p1?.partName}</div>
 
@@ -160,7 +163,9 @@ const ProductDetail = () => {
                       </div>
                     </Link>
                   </div>
-                )}
+                
+                )  :<div className='fw-bold text-center'> SpareParts Comming soon!</div>
+                }
                 <div className="d-flex justify-content-center align-items-center mt-3">
                   {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {getSpareParts1?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {getSpareParts1?.length}</div> : ""}{endIndex + 1 === getSpareParts1?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}
                 </div>

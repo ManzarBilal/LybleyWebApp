@@ -215,14 +215,11 @@ const Orders = () => {
 
                 }
 
-
                 let responseReturn = await httpCommon.post(`/returnOrder`, returnData)
                 let data2 = responseReturn?.data;
 
                 setReturnDetail(data2);
-
-                let x = Math.floor((Math.random() * 100) + 1);
-                setRandomValue(x)
+                setRandomValue(data2)
             }
             catch (err) {
                 console.log(err)

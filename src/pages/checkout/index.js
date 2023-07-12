@@ -112,6 +112,7 @@ const Checkout = () => {
          let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
          let {data}=response;
          dispatch(currentOrder(data));
+         router.push("/confirmation");
         }catch(err){
           console.log(err);
         }
@@ -137,7 +138,6 @@ const Checkout = () => {
           let {data}=response;
           if(data?.status===true){
             createOrder();
-            router.push("https://www.sparetrade.in/confirmation");
           }
           }catch(err){
             console.log(err);

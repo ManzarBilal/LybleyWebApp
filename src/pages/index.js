@@ -23,47 +23,49 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <Header />
+      <Header />
       <div className='container'>
-      <div className=' row d-flex justify-content-center'>
-        <div className='col-12 col-md-8'>
-         
+        <div className=' row d-flex justify-content-center'>
+          <div className='col-12 col-md-8'>
+
             <Search />
             <BrandsLogo />
-        <Blog />
-        </div>
+            <Category />
+            <Blog />
+        <ToastContainer />
+          </div>
         </div>
       </div>
-      <Footer /> */}
-      <>
+      <Footer />
+      {/* <>
         <div className=' container'>
-          <div className='d-flex align-items-center justify-content-center' style={{width:"100%",height:"100vh",top:"50%"}}>
-          <div className='row d-flex align-items-center' >
-            <div className='col-12 col-md-4 col-lg-4'>
-            </div>
+          <div className='d-flex align-items-center justify-content-center' style={{ width: "100%", height: "100vh", top: "50%" }}>
+            <div className='row d-flex align-items-center' >
+              <div className='col-12 col-md-4 col-lg-4'>
+              </div>
 
-            <div className='col-12 col-md-4 col-lg-4'>
-              <img src='https://www.seekpng.com/png/detail/279-2795569_web-development-web-development-illustration-png.png' alt='dev' className='img-fluid' height={500} width={800} />
-            </div>
-            <div className='col-12 col-md-4 col-lg-4'>
-            </div>
-            <div className='col-12 col-md-3 col-lg-3'>
-            </div>
+              <div className='col-12 col-md-4 col-lg-4'>
+                <img src='https://www.seekpng.com/png/detail/279-2795569_web-development-web-development-illustration-png.png' alt='dev' className='img-fluid' height={500} width={800} />
+              </div>
+              <div className='col-12 col-md-4 col-lg-4'>
+              </div>
+              <div className='col-12 col-md-3 col-lg-3'>
+              </div>
 
-            <div className='col-12 col-md-6 col-lg-6 mt-5'>
+              <div className='col-12 col-md-6 col-lg-6 mt-5'>
 
-              <h3 className='text-center'>We are under Development.</h3>
+                <h3 className='text-center'>We are under Development.</h3>
+
+              </div>
+              <div className='col-12 col-md-3 col-lg-3'>
+              </div>
 
             </div>
-            <div className='col-12 col-md-3 col-lg-3'>
-            </div>
-
-          </div>
           </div>
         </div>
 
         <ToastContainer />
-      </>
+      </> */}
     </>
   )
 }

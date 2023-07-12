@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import { increment, decrement, setOne } from "../../redux/actions/index"
 import { useDispatch } from 'react-redux';
-
+import VerifiedIcon from '@mui/icons-material/Verified';
+import GppMaybeIcon from '@mui/icons-material/GppMaybe';
 
 function OculusVR(props) {
     const dispatch = useDispatch();
@@ -17,7 +18,8 @@ function OculusVR(props) {
         setMainImage(getSparePart?.images[0])
     }, [getSparePart]);
 
-
+const oem=getSparePart?.seller==="BRAND" ? true :false;
+ 
  
     return (
         <div className="col-md-12">
@@ -48,15 +50,11 @@ function OculusVR(props) {
                             </div>
                             <div className="col-lg-6">
                                 <div className="product-details-content mt-45">
+                                    <div className='d-flex'>
                                     <h2 className="fw-bold fs-4">{getSparePart?.partName}</h2>
-                                    <div className="my-2">
-                                        <i className="fa fa-star text-warning"></i>
-                                        <i className="fa fa-star text-warning"></i>
-                                        <i className="fa fa-star text-warning"></i>
-                                        <i className="fa fa-star text-warning"></i>
-                                        <i className="fa fa-star text-warning"></i>
-                                        <span className="text-muted ms-3">( <span  > {props?.reviews?.length}</span> customer review )</span>
+                                    <span className="text-muted ms-3">( <span  > {props?.reviews?.length}</span> customer review )</span>
                                     </div>
+                          
                                     {product === false && adminProduct?.length > 0 ?
                                     <div className="product-items flex-wrap">
                                         <h6 className="item-title fw-bold">Compactible Product</h6>
@@ -82,20 +80,17 @@ function OculusVR(props) {
                                         </div>
                                     </div> */}
                                     <div className="product-price">
-                                        <h6 className="price-title fw-bold">Price</h6>
+                                        <h6 className="price-title fs-3 fw-bold">PRICE</h6>
                                         <p className="sale-price">{getSparePart?.bestPrice} INR <span className='text-muted'> <sub>  </sub></span></p>
                                         <p className="regular-price text-danger">{getSparePart?.MRP} INR</p>
                                     </div>
                                     <div className='fw-bold mb-2'>Part Number :  <span className='fw-bold fs-5'>{" "}{getSparePart?.partNo}</span></div>
                                     <div ><span className="fw-bold"> Brand Name :</span>  {getSparePart?.brandName}</div>
+                                   {oem ? <div ><span className="fw-bold">OEM : </span>  {getSparePart?.brandName} <VerifiedIcon  color='primary' /> </div>:""}
                                     <div className='mt-2 mb-3'><span className="fw-bold"> Category Name :</span>  {getSparePart?.category}</div>
                                     <div>{(getSparePart?.description)?.substr(0,209)}{getSparePart?.description?.length>208 ?"...":""} </div>
                                     <div className="product-btn mb-2">
-                                       
-                                        <div className='form-check mb-3'>
-                                            <input type="checkbox" className='form-check-input' value={getSparePart?.technician} checked={technician === 0 ? false : true} onChange={(e) => props?.handleCheckbox(e.currentTarget.value)} />
-                                            <label className='form-check-label'>Book Technician to fit it - {getSparePart?.technician} INR only</label>
-                                        </div>
+                                    
                                         <div className='d-flex align-items-center row'>
                                         <div className="col-12 col-md-4 d-flex flex-wrap">
                                             <div className="d-flex flex-wrap  ">
@@ -117,7 +112,10 @@ function OculusVR(props) {
                                         <button onClick={(e) => props?.handleAddToCart(getSparePart?._id)} className="btn bg-dark text-white mx-md-1 mx-md-2 mt-3  mt-sm-0 w-sm-100"> Add to Cart</button>
                                         </div>
                                         </div>
-
+                                        <div className='form-check mt-4'>
+                                            <input type="checkbox" className='form-check-input fw-bold' value={getSparePart?.technician} checked={technician === 0 ? false : true} onChange={(e) => props?.handleCheckbox(e.currentTarget.value)} />
+                                            <label className='form-check-label fw-bold'>Book Technician to fit it - {getSparePart?.technician} INR only</label>
+                                        </div>
                                     </div>
 
                                 </div>

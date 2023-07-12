@@ -86,7 +86,7 @@ const oem=getSparePart?.seller==="BRAND" ? true :false;
                                     </div>
                                     <div className='fw-bold mb-2'>Part Number :  <span className='fw-bold fs-5'>{" "}{getSparePart?.partNo}</span></div>
                                     <div ><span className="fw-bold"> Brand Name :</span>  {getSparePart?.brandName}</div>
-                                    <div ><span className="fw-bold">OEM</span>  {getSparePart?.brandName} {oem ? <VerifiedIcon  color='primary' />:<GppMaybeIcon    />}</div>
+                                   {oem ? <div ><span className="fw-bold">OEM : </span>  {getSparePart?.brandName} <VerifiedIcon  color='primary' /> </div>:""}
                                     <div className='mt-2 mb-3'><span className="fw-bold"> Category Name :</span>  {getSparePart?.category}</div>
                                     <div>{(getSparePart?.description)?.substr(0,209)}{getSparePart?.description?.length>208 ?"...":""} </div>
                                     <div className="product-btn mb-2">

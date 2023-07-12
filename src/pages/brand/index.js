@@ -80,7 +80,7 @@ const Brand = () => {
                         <div className={`${style.cardHeaderH}`}>
                           <div className="card border-0" >
                             <div className={`${style.homePcategory} mt-2 text-center`}  >
-                              <img src={p1?.categoryImage} className={`${style.cardImage1} img-fluid`} alt={p1?.categoryName} width="50%" height="50%" />
+                              <img src={p1?.categoryImage} className={`${style.cardImage1} img-fluid p-5`} alt={p1?.categoryName} width="200px" height="100px" />
                             </div>
                             <div className="mb-3 text-center"   >{p1?.categoryName} </div>
 

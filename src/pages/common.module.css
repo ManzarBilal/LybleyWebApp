@@ -70,7 +70,8 @@
  }
  
  .homePcategory{
-    height: 160px;
+    /* width: 100% !important; */
+    height: 180px;
     cursor: pointer;
  }
  .homePcategoryHead :hover{

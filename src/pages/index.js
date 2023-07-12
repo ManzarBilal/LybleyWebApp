@@ -10,6 +10,7 @@ import Footer from './footer'
 import style from "./common.module.css"
 import { ToastContainer } from 'react-toastify'
 import Blog from './blog'
+import Category from './category'
 
 
 const inter = Inter({ subsets: ['latin'] })

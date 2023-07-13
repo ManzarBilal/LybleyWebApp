@@ -32,11 +32,11 @@ const Category = () => {
     }, [dispatch]);
 
     let pageNum = page;
-    let size = 12;
+    let size = 6;
     let startIndex = (pageNum - 1) * size;
     let endIndex = brandsCategories?.length > (startIndex + size - 1) ? startIndex + size - 1 : brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length - 1;
     let brandsCategories1 = brandsCategories?.length > size ? brandsCategories?.filter((lt, index) => index >= startIndex && index <= endIndex) : brandsCategories;
-
+    console.log(brandsCategories1);
     const handleSpareParts = (category) => {
         router.push(`/sparepartsByCategory?category=${category}`);
     }
@@ -72,7 +72,7 @@ const Category = () => {
 
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center mt-3">
-                                    {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length}</div> : ""}{endIndex + 1 === brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}
+                                    {page === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage(page - 1)}>Prev</button>} {brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length > size ? <div className='ms-2 me-2'>{startIndex + 1}-{endIndex + 1} of {brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length}</div> : ""}{endIndex + 1 === brandsCategories?.filter(b1 => b1?.status === "ACTIVE")?.length ? "" : <button className="btn btn-primary" onClick={() => setPage(page + 1)}>Next</button>}
                                 </div>
                             </div>
                         </div>

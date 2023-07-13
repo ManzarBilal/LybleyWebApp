@@ -87,6 +87,7 @@ const ProductDetail = () => {
   // let productImage = products?.find(el => el?._id === getSpareParts?.find((f1, i) => i === 0)?.productId);
   let productImage = products?.find(el => el?._id === id);
 
+  let filterFaults=allFaults?.filter(f1=>f1?.productModel===productImage?.productName)
 
 
 
@@ -102,7 +103,7 @@ const ProductDetail = () => {
   let startIndex = (pageNum - 1) * size;
   let endIndex = getSpareParts1?.length > (startIndex + size - 1) ? startIndex + size - 1 : getSpareParts1?.length - 1;
   let getSpareParts2 = getSpareParts1?.length > size ? getSpareParts1?.filter((lt, index) => index >= startIndex && index <= endIndex) : getSpareParts1;
-console.log("getSpareParts2",getSpareParts2);
+// console.log("getSpareParts2",getSpareParts2);
   return (
     <div className='bg_image'>
       <Header />
@@ -136,7 +137,7 @@ console.log("getSpareParts2",getSpareParts2);
                         onChange={handleChange}
                       >
                         <MenuItem value={"all"}> Select Fault</MenuItem>
-                        {allFaults && allFaults?.map((item, i) => <MenuItem key={i} value={item?.faultName}>{item?.faultName}</MenuItem>
+                        {filterFaults && filterFaults?.map((item, i) => <MenuItem key={i} value={item?.faultName}>{item?.faultName}</MenuItem>
                         )}
                       </Select>
                     </FormControl>

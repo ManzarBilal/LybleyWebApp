@@ -85,24 +85,29 @@ const Blog = () => {
                     Whether you are a brand looking to sell your spare parts directly to customers or an individual searching for that specific component, SpareTrade is here to cater to your needs. Our platform brings together a vast range of spare parts from renowned brands, ensuring authenticity, quality, and competitive pricing.
                 </p>
                 <h5 className='text-primary mt-2'> Why choose SpareTrade?</h5>
-                <p>
-                    1️⃣ Wide Selection: Browse through an extensive catalog of spare parts for various categories, all in one place. With a diverse range of options, you can easily find the specific part you need.
+                <p >
+                    <li >  Wide Selection: Browse through an extensive catalog of spare parts for various categories, all in one place. With a diverse range of options, you can easily find the specific part you need.
+                     </li>
                 </p>
                 <p>
-                    2️⃣ Authenticity Guaranteed: We prioritize authenticity and quality. All spare parts listed on our platform are sourced directly from trusted brands, eliminating the risk of counterfeit products.
-
+                <li >  Authenticity Guaranteed: We prioritize authenticity and quality. All spare parts listed on our platform are sourced directly from trusted brands, eliminating the risk of counterfeit products.
+                </li> 
                 </p>
                 <p>
-                    3️⃣ Easy Buying and Selling: SpareTrade provides a user-friendly interface, making it simple to navigate and search for the spare parts you require. Sellers can also list their products hassle-free, reaching a wide audience of potential buyers.
+                <li >  Easy Buying and Selling: SpareTrade provides a user-friendly interface, making it simple to navigate and search for the spare parts you require. Sellers can also list their products hassle-free, reaching a wide audience of potential buyers.
+                </li> 
                 </p>
                 <p>
-                    4️⃣ Secure Transactions: Our platform ensures secure transactions, protecting both buyers and sellers. With robust payment gateways and data encryption, you can shop with peace of mind.
+                <li >  Secure Transactions: Our platform ensures secure transactions, protecting both buyers and sellers. With robust payment gateways and data encryption, you can shop with peace of mind.
+                </li> 
                 </p>
                 <p>
-                    5️⃣ Verified Sellers: We verify the authenticity and credibility of sellers on our platform, promoting a safe and trustworthy buying experience. Customer reviews and ratings further contribute to transparency and trust.
+                <li >  Verified Sellers: We verify the authenticity and credibility of sellers on our platform, promoting a safe and trustworthy buying experience. Customer reviews and ratings further contribute to transparency and trust.
+                </li> 
                 </p>
                 <p>
-                    6️⃣ Convenient Delivery: SpareTrade facilitates smooth and efficient delivery of your purchased spare parts, right to your doorstep. We partner with reliable logistics providers to ensure timely and reliable shipments.
+                <li >  Convenient Delivery: SpareTrade facilitates smooth and efficient delivery of your purchased spare parts, right to your doorstep. We partner with reliable logistics providers to ensure timely and reliable shipments.
+                </li> 
                 </p>
                 <p>
                     Whether you're a brand looking to expand your reach or a customer in need of spare parts, SpareTrade is your go-to online marketplace. Join us today and experience the convenience, authenticity, and reliability that SpareTrade has to offer.

@@ -66,6 +66,7 @@ const Cards = (props) => {
       <div className= "card border-0" >
         {props?.product === true ?
           <>
+          <div className='d-none d-md-block d-lg-block'>
             <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
               <img src={props.img} className={`${style.cardImage} img-fluid`}   alt= {props?.categoryName} />
             </Link>
@@ -84,6 +85,29 @@ const Cards = (props) => {
               </div>
                 : <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</div>}
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
+            </div>
+            </div>
+            {/* mobile view  */}
+            <div  className='d-block d-md-none d-lg-none'>
+            <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
+              <img src={props.img} className={`${style.cardImage} img-fluid`}   alt= {props?.categoryName} />
+            </Link>
+            <div className="card-body">
+              <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
+                <div className={`${style.cardTitle} card-title`}  >{props.title?.substring(0, 18)}{props?.title?.length>17 ? "..." :""} </div>
+              </Link>
+              <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>
+                <div>{props?.bestPrice}</div>
+              </Link>
+              <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}> <div className='text-muted text-decoration-line-through'>{props?.mrp}</div> </Link>
+              {props?.product === true ? 
+              <div className={`${style.cardTitle} d-flex justify-content-between card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'>
+                <div  style={{ cursor:"pointer" }}>{props?.description?.substring(0, 15)}{props?.description?.length>15 ? "..." :""}   </div>
+                <div><VisibilityIcon onClick={handleClickOpen} /></div>
+              </div>
+                : <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 18)}</div>}
+              {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
+            </div>
             </div>
           </>
           :

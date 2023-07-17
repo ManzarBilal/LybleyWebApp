@@ -23,6 +23,7 @@ const SparePartsByCategory = () => {
     const { category } = router.query;
     const [catName, setCatName] = useState(category);
     const allBrands = useSelector(state => state.brands)
+   
     const dispatch=useDispatch();
     useEffect(() => {
         getAllSpareParts();
@@ -76,7 +77,7 @@ const SparePartsByCategory = () => {
                             <div className="border" >
                                 <h4 className='fw-bold border p-3 bg-light mb-0'>Filter & Refine Results</h4>
                                 <div style={{ height: "200px", overflowY: "scroll" }}>
-                                    {allBrands?.allBrands?.map((brand, i) => <div key={i} type="button" className={`border p-1 ${brandName === brand?.brandName ? "bg-dark text-white" : "text-muted"}`} onClick={(e) => setBrandName(brand?.brandName)} ><span className='ms-2 fw-bold'>{brand?.brandName}</span></div>
+                                    {allBrands?.allBrands?.filter(f1=>f1?.role==="BRAND")?.map((brand, i) => <div key={i} type="button" className={`border p-1 ${brandName === brand?.brandName ? "bg-dark text-white" : "text-muted"}`} onClick={(e) => setBrandName(brand?.brandName)} ><span className='ms-2 fw-bold'>{brand?.brandName}</span></div>
                                     )}
                                 </div>
                             </div>

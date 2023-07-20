@@ -117,10 +117,10 @@ function ProductDetail(props) {
 
   const getAdminDetail = async () => {
     try {
-      let response = await httpCommon.get("/getAdminDetail");
-      let { data } = response;
-      setAdminId(data?._id);
-      let response1 = await httpCommon.post("/getSparePartByAdminId", { id: data?._id, partName: getSparePart?.partName })
+      // let response = await httpCommon.get("/getAdminDetail");
+      // let { data } = response;
+      // setAdminId(data?._id);
+      let response1 = await httpCommon.post("/getCompactibleSparePartsByName", {name: getSparePart?.partName })
       setAdminProduct(response1?.data);
     } catch (err) {
       console.log(err);

@@ -20,7 +20,7 @@ function OculusVR(props) {
 
 const oem=getSparePart?.seller==="BRAND" ? true :false;
  
- 
+ console.log("adminProduct",adminProduct);
     return (
         <div className="col-md-12">
             <div className="card">
@@ -57,13 +57,13 @@ const oem=getSparePart?.seller==="BRAND" ? true :false;
                           
                                     {product === false && adminProduct?.length > 0 ?
                                     <div className="product-items flex-wrap">
-                                        <h6 className="item-title fw-bold">Compactible Product</h6>
+                                        <h6 className="item-title fw-bold">Compactible Spare Part </h6>
                                         <div className="items-wrapper d-flex" id="select-item-1">
                                             <div className="single-item ">
                                                 <div className="items-image lift">
                                                     <img src={adminProduct?.images?.filter((img, i) => i === 0)} alt={adminProduct?.metaTitle}  onClick={() => {  props?.setProduct(true); setMainImage(adminProduct?.images?.filter((img, i) => i === 0)) }}/>
                                                 </div>
-                                                <p className="text">{adminProduct?.partName}</p>
+                                                <p className="text fw-bold">{adminProduct?.partName}</p>
                                             </div>
                                             
                                         </div>
@@ -87,7 +87,7 @@ const oem=getSparePart?.seller==="BRAND" ? true :false;
                                     <div className='fw-bold mb-2'>Part Number :  <span className='fw-bold fs-5'>{" "}{getSparePart?.partNo}</span></div>
                                     <div ><span className="fw-bold"> Brand Name :</span>  {getSparePart?.brandName}</div>
                                    {oem ? <div ><span className="fw-bold">OEM : </span>  {getSparePart?.brandName} <VerifiedIcon  color='primary' /> </div>:""}
-                                    <div className='mt-2 mb-3'><span className="fw-bold"> Category Name :</span>  {getSparePart?.category}</div>
+                                   {product === false ? <div className='mt-2 mb-3'><span className="fw-bold"> Category Name :</span>  {getSparePart?.category}</div>:""}
                                     <div>{(getSparePart?.description)?.substr(0,209)}{getSparePart?.description?.length>208 ?"...":""} </div>
                                     <div className="product-btn mb-2">
                                     
@@ -116,6 +116,19 @@ const oem=getSparePart?.seller==="BRAND" ? true :false;
                                             <input type="checkbox" className='form-check-input fw-bold' value={getSparePart?.technician} checked={technician === 0 ? false : true} onChange={(e) => props?.handleCheckbox(e.currentTarget.value)} />
                                             <label className='form-check-label fw-bold'>Book Technician to fit it - {getSparePart?.technician} INR only</label>
                                         </div>
+                                        {product === true ?
+                                         <div className='form-check mt-4'>
+                                           <div className='fw-bold'>Compactible With </div>
+                                           <div className='d-flex fw-bold '>
+                                          {adminProduct?.compactibleWith?.map((item,i)=> 
+                                          
+                                          <div className='btn btn-sm btn-success m-2' key={i}>{item}  </div>
+                                          
+                                          )}
+                                           </div>
+                                          
+                                        </div>
+                                         :""}
                                     </div>
 
                                 </div>

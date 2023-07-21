@@ -60,8 +60,8 @@ const oem=getSparePart?.seller==="BRAND" ? true :false;
                                         <h6 className="item-title fw-bold">Compactible Spare Part </h6>
                                         <div className="items-wrapper d-flex" id="select-item-1">
                                             <div className="single-item ">
-                                                <div className="items-image lift">
-                                                    <img src={adminProduct?.images?.filter((img, i) => i === 0)} alt={adminProduct?.metaTitle}  onClick={() => {  props?.setProduct(true); setMainImage(adminProduct?.images?.filter((img, i) => i === 0)) }}/>
+                                                <div className="items-image lift shadow">
+                                                    <img className='p-2' src={adminProduct?.images?.filter((img, i) => i === 0)} alt={adminProduct?.metaTitle}  onClick={() => {  props?.setProduct(true); setMainImage(adminProduct?.images?.filter((img, i) => i === 0)) }}/>
                                                 </div>
                                                 <p className="text fw-bold">{adminProduct?.partName}</p>
                                             </div>

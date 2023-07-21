@@ -38,7 +38,8 @@ const Category = () => {
     let brandsCategories1 = brandsCategories?.length > size ? brandsCategories?.filter((lt, index) => index >= startIndex && index <= endIndex) : brandsCategories;
     console.log(brandsCategories1);
     const handleSpareParts = (category) => {
-        router.push(`/sparepartsByCategory?category=${category}`);
+        const param=encodeURIComponent(category);
+        router.push(`/sparepartsByCategory?category=${param}`);
     }
 
     return (

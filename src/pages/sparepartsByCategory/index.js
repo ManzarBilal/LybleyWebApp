@@ -21,21 +21,21 @@ const SparePartsByCategory = () => {
     const brandsCategories = useSelector(state => state.categories);
     const router = useRouter();
     const { category } = router.query;
-    const category1=decodeURIComponent(category);
-    const [catName, setCatName] = useState(category1);
+   // const category1=decodeURIComponent(category);
+    const [catName, setCatName] = useState(category);
     const allBrands = useSelector(state => state.brands)
 
     const dispatch = useDispatch();
     useEffect(() => {
         getAllSpareParts();
-    }, [category1]);
+    }, [category]);
 
     const getAllSpareParts = async () => {
         try {
             setLoading(true)
-            const category2=encodeURIComponent(category1);
-            console.log(category2);
-            let response = await httpCommon.get(`/sparePartByCategory?category=${category1}`)
+            console.log(category);
+            const ct1=encodeURIComponent(category.trim());
+            let response = await httpCommon.get(`/sparePartByCategory?category=${ct1}`)
             let { data } = response;
             setSpareParts(data)
             dispatch(getSparePartsByCat(data));

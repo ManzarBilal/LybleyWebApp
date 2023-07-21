@@ -21,7 +21,7 @@ const Blog = () => {
         try {
             let response = await httpCommon.get("/getAllBlogs");
             let { data } = response;
-            setData(data);
+            setData(data?.reverse());
 
         } catch (err) {
             console.log(err);

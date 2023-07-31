@@ -9,9 +9,7 @@ import BasicPopover from './popHover';
 
 const Blog = () => {
     const [data, setData] = useState([]);
-    const [truncate, setTruncate] = useState(false);
     const [viewAll, setViewAll] = useState(false);
-    const [truncateId, setTruncateId] = useState("");
 
     useEffect(() => {
         getBlogs();
@@ -26,10 +24,6 @@ const Blog = () => {
         } catch (err) {
             console.log(err);
         }
-    }
-    const handleView = (id) => {
-        setTruncateId(id)
-        setTruncate(!truncate)
     }
 
     const handleViewAll = () => {
@@ -51,7 +45,7 @@ const Blog = () => {
                                 </div>
                                 <div className="card body p-2"  >
 
-                                    <p className={d1?._id !== truncateId || truncate === false ? "  text-truncate1 fw-bold fs-5" : "  fw-bold fs-5"}>{(d1?.title)?.substr(0, 18)}{d1?.title?.length > 18 ? "..." : ""}</p>
+                                    <p className="fw-bold fs-5 text-truncate">{d1?.title}</p>
                                     
                                        <BasicPopover  shortDes={d1?.shortDescription}/>
                                      

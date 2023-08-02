@@ -105,6 +105,18 @@ a {
     color-scheme: dark;
   }
 } */
+
+.whatsAppCss{
+ position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+.whatsAppCssSize{
+  font-size: 80px !important;
+}
+
 .bg_image1{
   background-image: url("https://wellingtonshomeelectrical.co.uk/media/mageplaza/blog/post/i/s/istock-1196974664.jpg");
    width: 100%;
@@ -138,6 +150,10 @@ a {
   border-right: none;
 }
 @media(max-width:768px){
+
+  .whatsAppCssSize{
+    font-size: 40px !important;
+  }
   .trackCard{
       width: 90%;
   }

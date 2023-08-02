@@ -11,6 +11,7 @@ import style from "./common.module.css"
 import { ToastContainer } from 'react-toastify'
 import Blog from './blog'
 import Category from './category'
+import WhatsApp from './whatsapp'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -38,6 +39,9 @@ export default function Home() {
         </div>
       </div>
       <Footer />
+<div className='whatsAppCss'><WhatsApp />
+</div>
+
       {/* <>
         <div className=' container'>
           <div className='d-flex align-items-center justify-content-center' style={{ width: "100%", height: "100vh", top: "50%" }}>

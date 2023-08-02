@@ -2,7 +2,7 @@ import React from 'react'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 const WhatsApp = () => {
     const phoneNumber = '9953889657'; // Replace with the phone number you want to chat with
-    const message = 'Hello!'; // Replace with the default message
+    const message = 'Hello, i am looking for Spare Parts!'; // Replace with the default message
   
     const handleClick = () => {
       const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;

@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrands } from '@/redux/actions/brand';
 import style from "./brandLogo.module.css"
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 const BrandsLogo = () => {
   const dispatch = useDispatch();
@@ -45,11 +47,17 @@ const BrandsLogo = () => {
             )}
         </div>
         <div class="d-flex flex-column align-items-center">
-          {page === 1 ? "" : <span style={{ cursor: "pointer" }} className='text-primary' onClick={() => setPage(page - 1)}><img src="https://lybley-webapp-collection.s3.amazonaws.com/download%20%281%29.png-1685358572061-710678286" height="15px" alt="up" /></span>}
+          {page === 1 ? "" : <span style={{ cursor: "pointer" }} className='text-primary' onClick={() => setPage(page - 1)}>
+            {/* <img src="https://lybley-webapp-collection.s3.amazonaws.com/download%20%281%29.png-1685358572061-710678286" height="15px" alt="up" /> */}
+            <ArrowDropUpIcon />
+            </span>}
           {abc1.map(a1 =>
             <div style={{ cursor: "pointer" }} className="text-primary" >{abcSearch === a1 ? <h4 onClick={() => setABCSearch("")}>{a1}</h4> : <span onClick={() => setABCSearch(a1)}>{a1}</span>}</div>
           )}
-          {(endIndex + 1) === 26 ? "" : <span style={{ cursor: "pointer" }} className='text-primary' onClick={() => setPage(page + 1)}><img src="https://lybley-webapp-collection.s3.amazonaws.com/download.png-1685358657113-341080787" alt="down" height="15px" /></span>}
+          {(endIndex + 1) === 26 ? "" : <span style={{ cursor: "pointer" }} className='text-primary' onClick={() => setPage(page + 1)}>
+            {/* <img src="https://lybley-webapp-collection.s3.amazonaws.com/download.png-1685358657113-341080787" alt="down" height="15px" /> */}
+            <ArrowDropDownIcon />
+            </span>}
         </div>
       </div>
       <div className="d-flex justify-content-center align-items-center mt-3">

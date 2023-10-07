@@ -15,6 +15,7 @@ const Search = () => {
   // const [data,setData]=useState({});
   const [search, setSearch] = useState("")
   const [spareParts, setSparePart] = useState([]);
+  const [noSpare,setNoSpare]=useState(false);
   const [page,setPage]=useState(1);
   
   //   const getData=async ()=>{
@@ -30,6 +31,9 @@ const Search = () => {
       let response = await httpCommon.get(`/allSparePart?sparePart=${search}`);
       let { data } = response;
       setSparePart(data);
+      if(data?.length===0){
+        setNoSpare(true);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -62,18 +66,18 @@ const Search = () => {
     <div className='  mt-3'>
       <div className='row  mt-3'>
         <div className='col-12 d-flex justify-content-center' >
-        <img className={`${style.searchLogoHead}`} src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-03.png-1684751589484-776320794"    alt='logo' />
+        <img className={`${style.searchLogoHead}`} src="https://sparetrade-bucket.s3.ap-south-1.amazonaws.com/PNG-03.png-1696666653849-610526898"    alt='logo' />
         </div>
         <div className='col-12 mt-4'>
           <div className='form-group'>
-            <div className='d-flex justify-content-between '> <input type="text" className='form-control border border-2 border-dark' placeholder='Search' onChange={(e) => setSearch(e.currentTarget.value)} onKeyUp={(e) => onEnter(e)} />  <button className='btn btn-primary bg-dark ms-2' onClick={() => setParams()}>Search</button></div>
+            <div className='d-flex justify-content-between '> <input type="text" className='form-control border border-2 border-dark' placeholder='Search' onChange={(e) =>{ setSearch(e.currentTarget.value); setNoSpare(false)}} onKeyUp={(e) => onEnter(e)} />  <button className='btn btn-primary bg-dark ms-2' onClick={() => setParams()}>Search</button></div>
           </div>
         </div>
 
       </div>
       <div className='row mt-4'>
 
-        {spareParts1?.map((p1, i) =>
+        {noSpare ? <h3 className='text-center'>Comming soon!</h3> : spareParts1?.map((p1, i) =>
           <div className='col-lg-4 col-md-6 col-6 d-flex justify-content-center mb-3'>
             <Link href={`/productDetailPage?id=${p1._id}`} className="text-decoration-none text-dark">
               <div className= {`${style.cardHeaderH} card border-0`}>

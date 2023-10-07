@@ -10,7 +10,7 @@ export default function Footer() {
                     {/* <div className="row gy-4 gx-5"> */}
                     <div className="row gy-4    ">
                         <div className="col-lg-4 col-md-6 col-6">
-                            <h5 className="h1 text-white"><Link href="/"><img src="https://lybley-webapp-collection.s3.amazonaws.com/PNG-04.png-1683867426179-153282453" alt="logo" height="45px" width="40px" />
+                            <h5 className="h1 text-white"><Link href="/"><img src="https://sparetrade-bucket.s3.ap-south-1.amazonaws.com/PNG-04.png-1696666719117-358429831" alt="logo" height="45px" width="40px" />
                             </Link></h5>
                             <p className="small" style={{color:"#acabad"}}>India's biggest online marketplaces for spare parts.</p>
                             {/* <p className="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a className="text-primary" href="#">Bootstrapious.com</a></p> */}

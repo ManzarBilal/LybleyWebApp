@@ -30,9 +30,9 @@ const BrandsLogo = () => {
   let pageNum1 = page1;
   let size1 = 20;
   let startIndex1 = (pageNum1 - 1) * size1;
-  let endIndex1 = brandsLogo1?.length > (startIndex1 + size1 - 1) ? startIndex1 + size1 - 1 : brandsLogo1?.length - 1;
-  let brandsLogo2 = brandsLogo1?.length > size ? brandsLogo1?.filter((lt, index) => index >= startIndex1 && index <= endIndex1) : brandsLogo1;
-
+  let endIndex1 = brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length > (startIndex1 + size1 - 1) ? startIndex1 + size1 - 1 : brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length - 1;
+  let brandsLogo2 = brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length > size1 ? brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.filter((lt, index) => index >= startIndex1 && index <= endIndex1) : brandsLogo1.filter(b1 => b1?.approval === "APPROVED");
+  console.log(endIndex1 + 1,brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length);
   return (
     <div className='container mt-3'>
       <div class="d-flex justify-content-between">
@@ -61,7 +61,7 @@ const BrandsLogo = () => {
         </div>
       </div>
       <div className="d-flex justify-content-center align-items-center mt-3">
-      {page1 === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage1(page1 - 1)}>Prev</button>} {brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length > size1? <div className='ms-2 me-2'>{startIndex1 + 1}-{endIndex1 + 1} of {brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length}</div> : ""}{endIndex1 + 1 === brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length ? "" : <button className="btn btn-primary" onClick={() => setPage1(page1 + 1)}>Next</button>}
+      {page1 === 1 ? "" : <button className="btn btn-primary" onClick={() => setPage1(page1 - 1)}>Prev</button>} {brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length > size1? <div className='ms-2 me-2'>{startIndex1 + 1}-{endIndex1 + 1} of {brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length}</div> : ""} {endIndex1 + 1 === brandsLogo1?.filter(b1 => b1?.approval === "APPROVED")?.length ? "" : <button className="btn btn-primary" onClick={() => setPage1(page1 + 1)}>Next</button>}
       </div>
     </div>
   )

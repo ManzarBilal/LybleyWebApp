@@ -65,9 +65,15 @@ const Brand = () => {
               </div>
               <div >
                 <img className={`${style.brandBannerHgt} rounded`} src={brand?.brandBanner} alt='' width="100%" />
-                <div className='mt-5 fw-bold'> Home /<span className='text-primary'> Category</span></div>
-                <h3 className='mt-4' style={{ fontFamily: "sans-serif" }}><u>About us </u></h3>
+             <div className='row'>
+              <div className='col-2'></div>
+              <div className='col-12 col-mg-8 col-lg-8'>
+              <div className='mt-5 fw-bold'> Home /<span className='text-primary'> Category</span></div>
+              <h3 className='mt-4' style={{ fontFamily: "sans-serif" }}><u>About us </u></h3>
                 <p className={`${style.bradAboutLg}`} style={{ textAlign: "justify", fontFamily: "sans-serif", whiteSpace: "pre-wrap" }}>{brand?.aboutUs}</p>
+              </div>
+              <div className='col-2'></div>
+              </div>   
                 {brand?.aboutUs?.length > 0 ?
                   <p className={`${style.bradAboutSm}`} style={{ textAlign: "justify", fontFamily: "sans-serif", whiteSpace: "pre-wrap" }}>{show ? brand?.aboutUs : brand?.aboutUs?.substring(0, 165) + "..."} {show === false ? <a className='text-decoration-none' onClick={() => setShowText(true)} style={{ cursor: "pointer" }}>Read more</a> : <a href='#' className='text-decoration-none' onClick={() => setShowText(false)} style={{ cursor: "pointer" }}>Hide</a>}</p>
                   : ""}

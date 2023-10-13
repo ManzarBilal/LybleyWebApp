@@ -82,9 +82,12 @@
     width: 250px;
 }
 .cardImage{
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
+    padding: 20px;
+     
 }
+ 
 .cardTitle{
     width: 100%;
 }@media only screen and (min-width: 1000px) {

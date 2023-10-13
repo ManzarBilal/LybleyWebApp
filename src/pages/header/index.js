@@ -59,11 +59,11 @@ function Header(props) {
     let x = Math.floor((Math.random() * 10) + 1);
     setRandomValue(x);
     handleClose()
-    window.location.reload(false);
+    // window.location.reload(false);
     localStorage.removeItem("userId");
     localStorage.removeItem("user");
     localStorage.removeItem("userRole");
-    router.push("https://www.sparetrade.in");
+    window.location.href="https://www.sparetrade.in";
 
   }
   useEffect(() => {

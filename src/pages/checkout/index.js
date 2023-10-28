@@ -125,7 +125,7 @@ const Checkout = () => {
        let response=await httpCommon.post("/payment",{amount:amount+techAmount});
        let {data}=response;
        const options = {
-        key: "rzp_test_rrscy4JQbxWgbO", // Enter the Key ID generated from the Dashboard
+        key: "rzp_live_yEWZ902y0STtSb", // Enter the Key ID generated from the Dashboard
         amount: data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
         name: "SpareTrade", //your business name

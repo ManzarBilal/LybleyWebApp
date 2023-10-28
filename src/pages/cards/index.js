@@ -66,9 +66,9 @@ const Cards = (props) => {
       <div className= "card border-0" >
         {props?.product === true ?
           <>
-          <div className='d-none d-md-block d-lg-block'>
+          <div className='d-none d-md-block d-lg-block '>
             <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
-              <img src={props.img} className={`${style.cardImage} img-fluid`}   alt= {props?.categoryName} />
+              <img src={props.img}  className={`${style.cardImage} img-fluid`}   alt= {props?.categoryName} />
             </Link>
             <div className="card-body">
               <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`}>

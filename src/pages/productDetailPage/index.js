@@ -62,7 +62,7 @@ function ProductDetail(props) {
   const router = useRouter()
   const { id } = router.query;
 
-  const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts?.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((10 / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
+  const discountSpareParts = (userDetail?.role === "Reseller" && userDetail?.discount === "VERIFIED") ? allSpareParts?.map(s1 => ({ ...s1, bestPrice: +(s1?.bestPrice - ((+userDetail?.discountPercentage / 100) * (+s1?.bestPrice)))?.toFixed(0) })) : allSpareParts;
   //   const getSparePart =   discountSpareParts?.find(f => f?._id === id);
   const getSparePart = (product === true) ? adminProduct : discountSpareParts?.find(f => f?._id === id);
 

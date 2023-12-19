@@ -85,10 +85,10 @@ const Brand = () => {
                       <div className={`${style.cardHead} ${style.homePcategoryHead}  `}> <div   className='text-decoration-none'>
                         <div className={`${style.cardHeaderH}`}>
                           <div className="card border-0" >
-                            <div className={`${style.homePcategory} mt-2 text-center`}  >
+                            <div className={`${style.homePcategory} mt-2 text-center d-flex justify-content-center align-items-center`}  >
                               <img src={p1?.categoryImage} className={`${style.cardImage1} img-fluid p-5`} alt={p1?.categoryName} width="200px" height="100px" />
                             </div>
-                            <div className="mb-3 text-center"   >{p1?.categoryName} </div>
+                            <div className={`${style.textCateName} mb-3 text-center px-4 text-truncate `}   >{p1?.categoryName} </div>
 
                           </div>
                         </div>

@@ -77,7 +77,7 @@ const Confirmation = () => {
     let height = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.height), 0);
     let breadth = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.breadth), 0);
     let weight = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
-    let item = currentOrder?.items.map(it => (
+    let item = currentOrder?.items?.map(it => (
       {
         name: it?.sparePartName,
         sku: it?.skuNo,
@@ -89,10 +89,11 @@ const Confirmation = () => {
       }
     ))
       ;
+
     let orderData = {
       "order_id": currentOrder?._id,
       "order_date": new Date(currentOrder?.createdAt)?.toLocaleString(),
-      "pickup_location": "Lybley Pvt Ltd",
+      "pickup_location": "",
       "channel_id": "",
       "comment": "",
       "billing_customer_name": currentOrder?.name,
@@ -129,7 +130,7 @@ const Confirmation = () => {
       "weight": +weight
     }
     try {
-      let response = await httpCommon.post("/createDeliveryOrder", orderData);
+      let response = await httpCommon.post("/createDeliveryOrder", {orderData:orderData,userId:userId});
       let { data } = response;
     } catch (err) {
       console.log(err.response.data);

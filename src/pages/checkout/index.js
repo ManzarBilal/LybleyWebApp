@@ -178,7 +178,7 @@ const Checkout = () => {
     setPin(e.currentTarget.value)
     getStateAndCity(e.currentTarget.value);
   };
-//https://sparetrade-manzarbilal.vercel.app
+   //https://sparetrade-manzarbilal.vercel.app
    let {name,contact,email,address,address2,state,city}=checkoutData;
   return (
     <>

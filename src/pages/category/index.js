@@ -57,12 +57,12 @@ const Category = () => {
                                     {brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.length === 0 ? <h4 className='text-center'>Comming soon!</h4> : brandsCategories1?.filter(b1 => b1?.status === "ACTIVE")?.map(p1 =>
 
                                         <div className={`${style.cardHead} ${style.homePcategoryHead} col-lg-4 col-md-4 col-6  d-flex justify-content-center mb-5 `}> <div onClick={() => handleSpareParts(p1?.categoryName)} className='text-decoration-none'>
-                                            <div className={`${style.cardHeaderH} `}>
+                                            <div className={`${style.cardHeaderH}  `}>
                                                 <div className="card border-0" >
-                                                    <div className={`${style.homePcategory} mtq-2 text-center`}  >
+                                                    <div className={`${style.homePcategory} mtq-2 text-center d-flex justify-content-center align-items-center`}  >
                                                         <img src={p1?.categoryImage} className={`${style.cardImage1} img-fluid p-5`} alt={p1?.categoryName} width="200px" height="100px"/>
                                                     </div>
-                                                    <div className="mb-3 text-center"   >{p1?.categoryName} </div>
+                                                    <div  className={`${style.textCateName} mb-3 text-center px-4 text-truncate `}   >{p1?.categoryName} </div>
 
                                                 </div>
                                             </div>

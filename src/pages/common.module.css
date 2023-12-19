@@ -13,10 +13,11 @@
     background-color: #f5881f;
 }
 
-.searchLogoHead{
+.searchLogoHead {
     height: 210px;
     width: 300px;
 }
+
 .footerLink :hover {
     color: white !important;
     font-weight: bold !important;
@@ -29,21 +30,24 @@
 .brandBannerHgt {
     height: 350px;
 }
-.bradAboutLg{
+
+.bradAboutLg {
     display: block;
 
 }
-.bradAboutSm{
+
+.bradAboutSm {
     display: none;
 
 }
+
 .productDtlCard {
     height: 200px;
     width: 240px;
 }
 
 .productDtlCardFnttitle {
-    width:200px;
+    width: 200px;
     font-size: 17px;
     font-weight: bold;
     white-space: nowrap;
@@ -55,42 +59,55 @@
     font-size: 16px;
 }
 
- .cardHeaderH{
-    border-radius: 5px ;
+.cardHeaderH {
+    border-radius: 10px;
     transition: all .3s;
-    box-shadow: 3px 5px 10px rgba(0,0,0,.3);
- }
- .cardHeaderH :hover{
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, .3);
+
+}
+
+.cardHeaderH :hover {
     /* transform: translateY(-3px);  */
     /* box-shadow: 0 5px 20px rgba(0,0,0,.2); */
     transition: all .5s;
     /* transform: scale(0.9)  */
 
 
- }
- 
- .homePcategory{
+}
+
+.homePcategory {
     /* width: 100% !important; */
     height: 180px;
     cursor: pointer;
- }
- .homePcategoryHead :hover{
+}
+
+.homePcategoryHead :hover {
     transform: scale(1.03)
- }
- .cardImageSearch{
+}
+
+.cardImageSearch {
     height: 150px;
     width: 250px;
 }
-.cardImage{
+
+.cardImage {
     height: 200px;
     width: 200px;
     padding: 20px;
-     
+
 }
- 
-.cardTitle{
+
+.cardTitle {
     width: 100%;
-}@media only screen and (min-width: 1000px) {
+
+
+}
+
+.textCateName {
+    width: 200px;
+}
+
+@media only screen and (min-width: 1000px) {
     .faqsHead {
         margin-left: 200px;
         margin-right: 200px;
@@ -101,25 +118,31 @@
     .img_width_detail {
         width: 220px;
     }
-    .searchLogoHead{
+
+    .searchLogoHead {
         height: 130px;
         width: 200px;
     }
+
     .brandBannerHgt {
         height: 130px;
     }
-    .cardImageSearch{
+
+    .cardImageSearch {
         height: 100px;
         width: 200px;
     }
-    .cardImage{
+
+    .cardImage {
         height: 160px;
         width: 160px;
     }
-    .homePcategory{
+
+    .homePcategory {
         height: 100px;
-     }
-    .cardTitle{
+    }
+
+    .cardTitle {
         width: 100%;
         font-size: 13px;
         font-weight: bold;
@@ -128,18 +151,21 @@
         text-overflow: ellipsis;
     }
 
-    .bradAboutLg{
-       display: none;
+    .bradAboutLg {
+        display: none;
     }
-    .bradAboutSm{
-         display: block;
+
+    .bradAboutSm {
+        display: block;
     }
+
     .productDtlCard {
         height: 110px;
         width: 150px;
     }
+
     .productDtlCardFnttitle {
-        width:140px;
+        width: 140px;
         font-size: 13px;
         font-weight: bold;
         white-space: nowrap;
@@ -149,5 +175,15 @@
 
     .productDtlCardFnt {
         font-size: 13px;
+    }
+    
+    .textCateName {
+        width: 160px;
+        font-size: 13px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
     }
 }

@@ -111,7 +111,7 @@ const Checkout = () => {
          const userId=localStorage.getItem("userId");
          let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
          let {data}=response;
-         dispatch(currentOrder(data));
+         dispatch(currentOrder({...data,userId:userId}));
          router.push("/confirmation");
          
         }catch(err){

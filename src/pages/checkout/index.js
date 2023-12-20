@@ -113,6 +113,7 @@ const Checkout = () => {
          let {data}=response;
          dispatch(currentOrder(data));
          router.push("/confirmation");
+         
         }catch(err){
           console.log(err);
         }

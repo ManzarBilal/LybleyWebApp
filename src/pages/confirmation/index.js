@@ -77,6 +77,9 @@ const Confirmation = () => {
     let height = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.height), 0);
     let breadth = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.breadth), 0);
     let weight = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
+    let [getId] = currentOrder?.items;
+    let brandId=getId?.brandId;
+    
     let item = currentOrder?.items?.map(it => (
       {
         name: it?.sparePartName,
@@ -130,7 +133,8 @@ const Confirmation = () => {
       "weight": +weight
     }
     try {
-      let response = await httpCommon.post("/createDeliveryOrder", {orderData:orderData,userId:userId});
+      
+      let response = await httpCommon.post("/createDeliveryOrder", {orderData:orderData,userId:brandId});
       let { data } = response;
     } catch (err) {
       console.log(err.response.data);

@@ -182,7 +182,7 @@ export default function Login(props) {
                 <DialogContent >
                     <Grid className={`${style.mainDiv}`}>
                         <Grid item sm={12} md={12}>
-                            <div className=' d-flex justify-content-center mb-2'>  <img src='https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810' height="70" width="60" /></div>
+                            <div className=' d-flex justify-content-center mb-2'>  <img src='/favicon.ico' height="70" width="60" /></div>
                         </Grid>
                         <Grid item sm={12} md={12}>
                             <TextField

@@ -39,10 +39,10 @@ const oem=getSparePart?.seller==="BRAND" ? true :false;
                                     </div>
                                     <div className="product-image">
 
-                                        <div className="product-image-active tab-content" id="v-pills-tabContent">
+                                        <div className="product-image-active tab-content p-4" id="v-pills-tabContent">
 
                                             <a href='#!' className="single-image lift" id="v-pills-one">
-                                                <img src={mainImage} alt="" />
+                                                <img src={mainImage} alt=""  />
                                             </a>
                                         </div>
                                     </div>

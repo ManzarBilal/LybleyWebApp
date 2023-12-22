@@ -38,7 +38,7 @@ const Blog = () => {
                 <div className="row w-100 m-0">
                     {viewAllData?.map(d1 =>
                         <div className='mt-5 col-12 col-md-4 col-lg-4' >
-                            <div className={`${style.cardHeaderH} card `} >
+                            <div className={`${style.cardHeaderHBlog} card `} >
                                 <Link href={`/blogDetail?id=${d1?._id}`} className='text-decoration-none text-dark'>
                                 <div  >
                                     <img src={d1?.image} style={{ width: "100%", height: "200px" }} alt={d1?.metaTitle} />

@@ -195,10 +195,10 @@ width: 18rem;
     
     .cardHeaderH2 {
        
-        width: 190px;
+        width: 160px !important;
     }
     .productDetailHeaderH{
-        width: 190px; 
+        width: 160px; 
         height: 250px !important;
     }
     .bradAboutLg {

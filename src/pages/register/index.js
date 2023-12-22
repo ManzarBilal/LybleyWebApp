@@ -329,7 +329,7 @@ export default function Register(props) {
                                     </Typography>
                                 </Grid>
                                 {role === "Reseller" && <Grid item sm={12} md={12}>
-                                    <label className='fw-bold'>Upload Document :</label> <br />
+                                    <label ><span className='fw-bold'>Upload Document :</span> <span className='text-muted'>( GST/Shop Image or any Certificate ) </span></label> <br />
                                     <input
                                         type="file"
                                         name="file"

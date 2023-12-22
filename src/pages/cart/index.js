@@ -135,7 +135,9 @@ export default function Cart(props) {
     }
     console.warn("hello")
     var totalPrice=0;
-    let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity})): [];
+    let tot= cartItems && cartItems.length>0 ? cartItems?.map(c1=>({totPrice:c1?.MRP*c1?.quantity,tech:c1?.technician})): [];
+
+    console.log("cartItem",cartItem);
     return (
         <div>
             <Button onClick={handleClickOpen} >
@@ -185,7 +187,7 @@ export default function Cart(props) {
 
                                                     <div className=' ' >
                                                         <div className="">MRP</div>
-                                                        <div className='mt-2'> <strong>Rs. {item?.MRP*item?.quantity} </strong>  </div>
+                                                        <div className='mt-2'> <strong>Rs. {(item?.MRP *item?.quantity)+ (+item?.technician)} </strong>  </div>
                                                         <div className='d-flex justify-content-center' ><button className='btn btn-danger btn-sm' onClick={() => dispatch(deleteCart({sparePartId:item?.sparePartId}))} >Remove</button> </div>
                                                     </div>
 
@@ -207,7 +209,7 @@ export default function Cart(props) {
                         <Grid item sm={12} md={12}>
                             <div className='p-3 d-flex justify-content-between' >
                                 <div className='fw-bold' >TOTAL</div>
-                                <div className='fw-bold'>Rs. {tot && tot.length>0 ? tot?.reduce((acc,curr)=> (acc+curr?.totPrice) , 0):"0"} </div>
+                                <div className='fw-bold'>Rs. {tot && tot.length>0 ? tot?.reduce((acc,curr)=> ((acc+curr?.totPrice+(+curr?.tech))) , 0):"0"} </div>
                             </div>
                         </Grid>
 

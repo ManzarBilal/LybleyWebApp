@@ -6,6 +6,7 @@ import { increment, decrement, setOne } from "../../redux/actions/index"
 import { useDispatch } from 'react-redux';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import GppMaybeIcon from '@mui/icons-material/GppMaybe';
+import httpCommon from '@/http-common';
 
 function OculusVR(props) {
     const dispatch = useDispatch();
@@ -15,12 +16,13 @@ function OculusVR(props) {
     const [mainImage, setMainImage] = useState("");
 
     useEffect(() => {
-        setMainImage(getSparePart?.images[0])
+        setMainImage(getSparePart?.images[0]);
     }, [getSparePart]);
 
+
+
 const oem=getSparePart?.seller==="BRAND" ? true :false;
- 
- console.log("adminProduct",adminProduct);
+
     return (
         <div className="col-md-12">
             <div className="card">
@@ -113,8 +115,8 @@ const oem=getSparePart?.seller==="BRAND" ? true :false;
                                         </div>
                                         </div>
                                         <div className='form-check mt-4'>
-                                            <input type="checkbox" className='form-check-input fw-bold' value={getSparePart?.technician} checked={technician === 0 ? false : true} onChange={(e) => props?.handleCheckbox(e.currentTarget.value)} />
-                                            <label className='form-check-label fw-bold'>Book Technician to fit it - {getSparePart?.technician} INR only</label>
+                                            <input type="checkbox" className='form-check-input fw-bold' value={props?.technicianCharge} checked={technician === 0 ? false : true} onChange={(e) => props?.handleCheckbox(e.currentTarget.value)} />
+                                            <label className='form-check-label fw-bold'>Book Technician to fit it - {props?.technicianCharge} INR only</label>
                                         </div>
                                         {product === true ?
                                          <div className='form-check mt-4'>

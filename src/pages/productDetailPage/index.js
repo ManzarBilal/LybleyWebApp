@@ -37,7 +37,7 @@ function ProductDetail(props) {
   const [technician, setTechnician] = useState(0);
   const [randomValue, setRandomValue] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [cartValue, setCartValue] = useState(false)
+  const [cartValue, setCartValue] = useState(false);
   const [cart, setCart] = useState(null);
   const [user, setUser] = useState("");
   const [check, setCheck] = useState("");
@@ -49,6 +49,8 @@ function ProductDetail(props) {
   const [adminProduct, setAdminProduct] = useState({});
   const [product, setProduct] = useState(false)
   const [reviews,setReviews]=useState([])
+  const [technicianCharge,setTechnicianCharge]=useState(0);
+
   const getVideos = async () => {
     try {
       let response = await httpCommon.get("/getAllVideos");
@@ -82,6 +84,7 @@ function ProductDetail(props) {
     getVideos()
     getAdminDetail();
     getUser(obj?._id);
+    getCategoryPrice(getSparePart?.category);
   }, [dispatch, id]);
 
   const getReviews=async()=>{
@@ -128,10 +131,10 @@ function ProductDetail(props) {
   }
   const handleAddToCart = (id, bool) => {
     let data = discountSpareParts?.find(f => f?._id === id);
-    let tech = bool ? data?.technician : technician;
+    let tech = bool ? technicianCharge : technician;
     const userId = localStorage.getItem("userId");
     let obj = { userId: userId, brandId: data?.userId, skuNo: data?.skuNo, length: data?.length, weight: data?.weight, breadth: data?.breadth, height: data?.height, sparePartId: data?._id, MRP: data?.bestPrice, technician: tech, sparePartModel: data?.productModel, sparePartCategory: data?.category, sparePartName: data?.partName, sparePartImage: data?.images[0], quantity: qty }
-    // console.log("obj",obj);
+   
     if (user && tech === 0) {
       setCartValue(true);
       setCart(obj);
@@ -146,7 +149,7 @@ function ProductDetail(props) {
   const handleBuy = (e, bool) => {
     const userId = localStorage.getItem("userId")
     setCheck("BUY");
-    let tech = bool ? getSparePart?.technician : technician;
+    let tech = bool ? technicianCharge : technician;
     if (userId) {
       let obj = { userId: userId, brandId: getSparePart?.userId, skuNo: getSparePart?.skuNo, length: getSparePart?.length, weight: getSparePart?.weight, breadth: getSparePart?.breadth, height: getSparePart?.height, sparePartId: getSparePart?._id, MRP: getSparePart?.bestPrice, technician: tech, sparePartModel: getSparePart?.productModel, sparePartCategory: getSparePart?.category, sparePartName: getSparePart?.partName, sparePartImage: getSparePart?.images[0], quantity: qty }
       dispatch(handleCheckout([obj]));
@@ -197,7 +200,17 @@ function ProductDetail(props) {
     setCartValue(false);
     setCart(null);
   }
- 
+
+  const getCategoryPrice=async(name)=>{
+    try{
+      let response = await httpCommon.get(`/getCategoryByName?name=${name}`);
+      let {data}=response;
+      setTechnicianCharge(data?.technicianCharges);
+      console.log(data);
+    }catch(err){
+    console.log(err);
+    }
+} 
   return (
     <>
       {(user && <AlertDialog open={dialogOpen} handleClose={handleClose} onCloseNo={cartValue ? handleCloseCart : handleCloseDialog} />)}
@@ -206,7 +219,7 @@ function ProductDetail(props) {
         <div className='container'>
           <div className="row g-3 mb-3">
             <h2 className='mt-5 fw-bold'>Product Detail</h2>
-            <OculusVR reviews={reviews} setProduct={setProduct} product={product} adminProduct={adminProduct}  handleBuy={handleBuy} handleAddToCart={handleAddToCart} handleCheckbox={handleCheckbox} technician={technician} qty={qty} mainImage={mainImage} getSparePart={getSparePart} setMainImage={setMainImage} />
+            <OculusVR reviews={reviews} technicianCharge={technicianCharge} setProduct={setProduct} product={product} adminProduct={adminProduct}  handleBuy={handleBuy} handleAddToCart={handleAddToCart} handleCheckbox={handleCheckbox} technician={technician} qty={qty} mainImage={mainImage} getSparePart={getSparePart} setMainImage={setMainImage} />
           </div>
 
 

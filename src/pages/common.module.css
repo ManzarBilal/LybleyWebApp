@@ -65,6 +65,12 @@
     box-shadow: 3px 5px 10px rgba(0, 0, 0, .3);
     /* width: 300px; */
 }
+.cardHeaderHBlog {
+    border-radius: 10px;
+    transition: all .3s;
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, .3);
+    /* width: 300px; */
+}
 .cardHeaderH2 {
     border-radius: 10px;
     transition: all .3s;
@@ -184,8 +190,9 @@ width: 18rem;
     }
     .cardHeaderH {
        
-        width: 190px;
+        width: 160px;
     }
+    
     .cardHeaderH2 {
        
         width: 190px;

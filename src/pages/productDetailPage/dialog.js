@@ -33,7 +33,7 @@ export default function AlertDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            If you want to book technician click on the checkbox
+            If you want to book technician agree please.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

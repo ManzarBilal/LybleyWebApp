@@ -63,11 +63,11 @@ const Cards = (props) => {
   return (
     <>
   <div className={`${style.cardHeaderH}`}>
-      <div className= "card border-0" >
+      <div className= "card border-0 rounded-5 " >
         {props?.product === true ?
           <>
           <div className='d-none d-md-block d-lg-block '>
-            <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
+            <Link className='text-decoration-none d-flex justify-content-center align-items-center' href={`/productDetail?id=${props?.id}`} >
               <img src={props.img}  className={`${style.cardImage} img-fluid`}   alt= {props?.categoryName} />
             </Link>
             <div className="card-body">
@@ -89,7 +89,7 @@ const Cards = (props) => {
             </div>
             {/* mobile view  */}
             <div  className='d-block d-md-none d-lg-none'>
-            <Link className='text-decoration-none' href={`/productDetail?id=${props?.id}`} >
+            <Link className='text-decoration-none d-flex justify-content-center align-items-center' href={`/productDetail?id=${props?.id}`} >
               <img src={props.img} className={`${style.cardImage} img-fluid`}   alt= {props?.categoryName} />
             </Link>
             <div className="card-body">

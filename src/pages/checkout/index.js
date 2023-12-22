@@ -62,7 +62,7 @@ BootstrapDialogTitle.propTypes = {
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
     const spData = useSelector(state=>state.checkoutData)
-    const dispatch=useDispatch();
+    // const dispatch=useDispatch();
     const [pin,setPin]=useState("");
     const router=useRouter();
     const [checkoutData,setCheckoutData]=useState({
@@ -74,11 +74,13 @@ const Checkout = () => {
       state:"",
       city:""
     })
-    let data1=spData?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
+    
 
     useEffect(()=>{
        getUserDetail();
     },[]);
+
+    let data1=spData?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
 
     const getUserDetail=async()=>{
       try{
@@ -106,19 +108,19 @@ const Checkout = () => {
       console.log(err);
     }
   }
-    const createOrder=async()=>{
-        try{
-         const userId=localStorage.getItem("userId");
-         let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
-         let {data}=response;
-         dispatch(currentOrder(data));
-         router.push("/confirmation");
+    // const createOrder=async()=>{
+    //     try{
+    //      const userId=localStorage.getItem("userId");
+    //      let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
+    //      let {data}=response;
+    //      dispatch(currentOrder(data));
+    //      router.push("/confirmation");
          
-        }catch(err){
-          console.log(err);
-        }
-    } 
-
+    //     }catch(err){
+    //       console.log(err);
+    //     }
+    // } 
+//https://sparetradebackend-production.up.railway.app
     const payment=async()=>{
       try{
         let techAmount=spData?.reduce((acc, curr) => acc + (+curr.technician), 0)
@@ -135,10 +137,11 @@ const Checkout = () => {
         order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async function (orderDetails){
           try{
-          let response =await axios.post("https://sparetradebackend-production.up.railway.app/paymentVerification",{response:orderDetails});
+          const userId=localStorage.getItem("userId");
+          let response =await axios.post("https://sparetradebackend-production.up.railway.app/paymentVerification",{response:orderDetails,customerData:{...checkoutData,customerId:userId,items:spData,pin:pin}});
           let {data}=response;
           if(data?.status===true){
-            createOrder();
+            router.push("/confirmation");
           }
           }catch(err){
             console.log(err);

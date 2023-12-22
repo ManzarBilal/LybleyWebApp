@@ -59,87 +59,87 @@ BootstrapDialogTitle.propTypes = {
 };
 const Confirmation = () => {
   const data = useSelector(state => state.checkoutData)
-  const currentOrder = useSelector(state => state.currentOrder);
+  // const currentOrder = useSelector(state => state.currentOrder);
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
-  useEffect(() => {
-    deliveryOrder();
+  // useEffect(() => {
+  //   deliveryOrder();
 
-    //  setOpen(true)
-  }, []);
+  //   //  setOpen(true)
+  // }, []);
 
-  const deliveryOrder = async () => {
-    let totalPrice = currentOrder?.items?.map(it => ({ price: it?.MRP * it?.quantity }));
-    let totalPrice1 = totalPrice?.reduce((acc, curr) => acc + curr?.price, 0);
-    let length = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.length), 0);
-    let height = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.height), 0);
-    let breadth = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.breadth), 0);
-    let weight = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
-    let [getId] = currentOrder?.items;
-    let brandId=getId?.brandId;
+  // const deliveryOrder = async () => {
+  //   let totalPrice = currentOrder?.items?.map(it => ({ price: it?.MRP * it?.quantity }));
+  //   let totalPrice1 = totalPrice?.reduce((acc, curr) => acc + curr?.price, 0);
+  //   let length = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.length), 0);
+  //   let height = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.height), 0);
+  //   let breadth = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.breadth), 0);
+  //   let weight = currentOrder?.items?.reduce((acc, curr) => acc + (+curr?.weight), 0);
+  //   let [getId] = currentOrder?.items;
+  //   let brandId=getId?.brandId;
     
-    let item = currentOrder?.items?.map(it => (
-      {
-        name: it?.sparePartName,
-        sku: it?.skuNo,
-        units: it?.quantity,
-        selling_price: it?.MRP,
-        discount: "",
-        tax: "",
-        hsn: 441122
-      }
-    ))
-      ;
+  //   let item = currentOrder?.items?.map(it => (
+  //     {
+  //       name: it?.sparePartName,
+  //       sku: it?.skuNo,
+  //       units: it?.quantity,
+  //       selling_price: it?.MRP,
+  //       discount: "",
+  //       tax: "",
+  //       hsn: 441122
+  //     }
+  //   ))
+  //     ;
 
-    let orderData = {
-      "order_id": currentOrder?._id,
-      "order_date": new Date(currentOrder?.createdAt)?.toLocaleString(),
-      "pickup_location": "",
-      "channel_id": "",
-      "comment": "",
-      "billing_customer_name": currentOrder?.name,
-      "billing_last_name": "",
-      "billing_address": currentOrder?.address,
-      "billing_address_2": currentOrder?.address2,
-      "billing_city": currentOrder?.city,
-      "billing_pincode": currentOrder?.pin,
-      "billing_state": currentOrder?.state,
-      "billing_country": "India",
-      "billing_email": currentOrder?.email,
-      "billing_phone": currentOrder?.contact,
-      "shipping_is_billing": true,
-      "shipping_customer_name": "",
-      "shipping_last_name": "",
-      "shipping_address": "",
-      "shipping_address_2": "",
-      "shipping_city": "",
-      "shipping_pincode": "",
-      "shipping_country": "",
-      "shipping_state": "",
-      "shipping_email": "",
-      "shipping_phone": "",
-      "order_items": item,
-      "payment_method": "Prepaid",
-      "shipping_charges": 0,
-      "giftwrap_charges": 0,
-      "transaction_charges": 0,
-      "total_discount": 0,
-      "sub_total": totalPrice1,
-      "length": +length,
-      "breadth": +breadth,
-      "height": +height,
-      "weight": +weight
-    }
-    try {
+  //   let orderData = {
+  //     "order_id": currentOrder?._id,
+  //     "order_date": new Date(currentOrder?.createdAt)?.toLocaleString(),
+  //     "pickup_location": "",
+  //     "channel_id": "",
+  //     "comment": "",
+  //     "billing_customer_name": currentOrder?.name,
+  //     "billing_last_name": "",
+  //     "billing_address": currentOrder?.address,
+  //     "billing_address_2": currentOrder?.address2,
+  //     "billing_city": currentOrder?.city,
+  //     "billing_pincode": currentOrder?.pin,
+  //     "billing_state": currentOrder?.state,
+  //     "billing_country": "India",
+  //     "billing_email": currentOrder?.email,
+  //     "billing_phone": currentOrder?.contact,
+  //     "shipping_is_billing": true,
+  //     "shipping_customer_name": "",
+  //     "shipping_last_name": "",
+  //     "shipping_address": "",
+  //     "shipping_address_2": "",
+  //     "shipping_city": "",
+  //     "shipping_pincode": "",
+  //     "shipping_country": "",
+  //     "shipping_state": "",
+  //     "shipping_email": "",
+  //     "shipping_phone": "",
+  //     "order_items": item,
+  //     "payment_method": "Prepaid",
+  //     "shipping_charges": 0,
+  //     "giftwrap_charges": 0,
+  //     "transaction_charges": 0,
+  //     "total_discount": 0,
+  //     "sub_total": totalPrice1,
+  //     "length": +length,
+  //     "breadth": +breadth,
+  //     "height": +height,
+  //     "weight": +weight
+  //   }
+  //   try {
       
-      let response = await httpCommon.post("/createDeliveryOrder", {orderData:orderData,userId:brandId});
-      let { data } = response;
-    } catch (err) {
-      console.log(err.response.data);
-    }
-  }
+  //     let response = await httpCommon.post("/createDeliveryOrder", {orderData:orderData,userId:brandId});
+  //     let { data } = response;
+  //   } catch (err) {
+  //     console.log(err.response.data);
+  //   }
+  // }
   //ertyu
 
   return (

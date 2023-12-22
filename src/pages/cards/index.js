@@ -62,7 +62,7 @@ const Cards = (props) => {
 
   return (
     <>
-  <div className={`${style.cardHeaderH}`}>
+  <div className={`${style.cardHeaderH2}`}>
       <div className= "card border-0 rounded-5 " >
         {props?.product === true ?
           <>

@@ -113,13 +113,15 @@ const ProductDetail = () => {
           <div className='row d-flex justify-content-center'>
             <div className='col-12'>
               <div className='mt-5'>
-                <img className='rounded' src={brandImage?.brandLogo} alt='logo' height="100" width="100" />
+                <img className='rounded' src={brandImage?.brandLogo} alt='logo' height="100px" width="100px" />
               </div>
             </div>
             <div className='col-12 '>
               <div className='row mt-5'>
                 <div className='col-lg-8 col-md-6 col-12'>
-                  <img src={productImage?.productImage} className='rounded-circle1' height="300" width="300" />
+                  <div className={`${style.productDetailImageHead}  `} >
+                  <img src={productImage?.productImage} className={`${style.productDetailImage} img-fluid`}   />
+                  </div>
                   <h4 className='ms-md-4' >{productImage?.productName}</h4>
                 </div>
 
@@ -153,8 +155,10 @@ const ProductDetail = () => {
                 getSpareParts2?.map((p1, i) =>
                   <div className="col-lg-3 col-md-6 col-6 d-flex justify-content-center mb-4" key={i} >
                     <Link href={`/productDetailPage?id=${p1._id}`} className="text-decoration-none text-dark">
-                      <div className={`${style.cardHeaderH} card border-0`}>
+                      <div className={`${style.productDetailHeaderH} card border-0`}>
+                        <div className='d-flex justify-content-center align-items-center'>
                         <img src={p1?.images[0]} className={`${style.productDtlCard} img-fluid m-3`} alt={p1?.partName}    />
+                        </div>
                         <div className="card-body"  >
                           <div className={`${style.productDtlCardFnttitle}`}>{p1?.partName}</div>
 

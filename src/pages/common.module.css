@@ -65,6 +65,12 @@
     box-shadow: 3px 5px 10px rgba(0, 0, 0, .3);
     /* width: 300px; */
 }
+.cardHeaderH2 {
+    border-radius: 10px;
+    transition: all .3s;
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, .3);
+    width: 300px;
+}
 .productDetailHeaderH{
     border-radius: 10px;
     transition: all .3s;
@@ -77,6 +83,14 @@
     transition: all .5s; 
 }
 .cardHeaderH :hover {
+    /* transform: translateY(-3px);  */
+    /* box-shadow: 0 5px 20px rgba(0,0,0,.2); */
+    transition: all .5s;
+    /* transform: scale(0.9)  */
+
+
+}
+.cardHeaderH2 :hover {
     /* transform: translateY(-3px);  */
     /* box-shadow: 0 5px 20px rgba(0,0,0,.2); */
     transition: all .5s;
@@ -101,7 +115,7 @@
 }
 
 .cardImage {
-    height: 13rem;
+    height: 13rem !important;
     /* width: 200px; */
     padding: 20px;
 
@@ -152,7 +166,7 @@ width: 18rem;
     }
 
     .cardImage {
-        height: 160px;
+        height: 160px !important;
         /* width: 160px; */
     }
 
@@ -169,6 +183,10 @@ width: 18rem;
         text-overflow: ellipsis;
     }
     .cardHeaderH {
+       
+        width: 190px;
+    }
+    .cardHeaderH2 {
        
         width: 190px;
     }

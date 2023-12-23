@@ -61,37 +61,43 @@ BootstrapDialogTitle.propTypes = {
 //https://lybleyappbackend-production.up.railway.app
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
-    const spData = useSelector(state=>state.checkoutData)
-    // const dispatch=useDispatch();
-    const [pin,setPin]=useState("");
-    const router=useRouter();
-    const [checkoutData,setCheckoutData]=useState({
-      name:"",
-      contact:"",
-      email:"",
-      address:"",
-      address2:"",
-      state:"",
-      city:""
-    })
-    
+  const [saveAddress, setSaveAddress] = React.useState(false);
+  const spData = useSelector(state => state.checkoutData)
+  // const dispatch=useDispatch();
+  const [pin, setPin] = useState("");
+  const router = useRouter();
+  const [checkoutData, setCheckoutData] = useState({
+    name: "",
+    contact: "",
+    email: "",
+    address: "",
+    address2: "",
+    state: "",
+    city: ""
+  })
 
-    useEffect(()=>{
-       getUserDetail();
-    },[]);
 
-    let data1=spData?.map(c1=>({totPrice:c1?.MRP*c1?.quantity}));
+  useEffect(() => {
+    getUserDetail();
+  }, []);
 
-    const getUserDetail=async()=>{
-      try{
-         const userId=localStorage.getItem("userId");
-         let response=await httpCommon.get(`/userDetail/${userId}`);
-         let {data}=response;
-         setCheckoutData({...checkoutData,name:data?.name,contact:data?.contact,email:data?.email});
-         }catch(err){
-          console.log(err);
-         }
+  let data1 = spData?.map(c1 => ({ totPrice: c1?.MRP * c1?.quantity }));
+
+  const getUserDetail = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      let response = await httpCommon.get(`/userDetail/${userId}`);
+      let { data } = response;
+      console.log(data);
+      setCheckoutData({ ...checkoutData, name: data?.name, contact: data?.contact, email: data?.email, address:data?.address,
+      address2: data?.address2,
+      state: data?.state,
+      city: data?.city });
+      setPin(data?.pin);
+    } catch (err) {
+      console.log(err);
     }
+  }
 
   const handleChange = (e) => {
     const { currentTarget: input } = e;
@@ -108,26 +114,32 @@ const Checkout = () => {
       console.log(err);
     }
   }
-    // const createOrder=async()=>{
-    //     try{
-    //      const userId=localStorage.getItem("userId");
-    //      let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
-    //      let {data}=response;
-    //      dispatch(currentOrder(data));
-    //      router.push("/confirmation");
-         
-    //     }catch(err){
-    //       console.log(err);
-    //     }
-    // } 
-//https://sparetradebackend-production.up.railway.app
-    const payment=async()=>{
-      try{
-        let techAmount=spData?.reduce((acc, curr) => acc + (+curr.technician), 0)
-        let amount=data1?.reduce((acc, curr) => acc + (+curr.totPrice), 0)
-       let response=await httpCommon.post("/payment",{amount:amount+techAmount});
-       let {data}=response;
-       const options = {
+  // const createOrder=async()=>{
+  //     try{
+  //      const userId=localStorage.getItem("userId");
+  //      let response=await httpCommon.post("/createOrder",{...checkoutData,customerId:userId,items:spData,pin:pin});
+  //      let {data}=response;
+  //      dispatch(currentOrder(data));
+  //      router.push("/confirmation");
+
+  //     }catch(err){
+  //       console.log(err);
+  //     }
+  // } 
+  //https://sparetradebackend-production.up.railway.app
+  const payment = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if(saveAddress){
+      let { address, address2, state, city } = checkoutData;
+      console.log("checkoutData",checkoutData);
+      await httpCommon.patch(`/updateUserDetail/${userId}`,{address:address, address2:address2, state:state, city:city,pin:pin})
+      }
+      let techAmount = spData?.reduce((acc, curr) => acc + (+curr.technician), 0)
+      let amount = data1?.reduce((acc, curr) => acc + (+curr.totPrice), 0);
+      let response = await httpCommon.post("/payment", { amount: amount + techAmount });
+      let { data } = response;
+      const options = {
         key: "rzp_live_yEWZ902y0STtSb", // Enter the Key ID generated from the Dashboard
         amount: data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
@@ -135,36 +147,36 @@ const Checkout = () => {
         description: "Payment for order",
         image: "https://lybley-webapp-collection.s3.amazonaws.com/PNG-031.png-1684751868223-284237810",
         order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        handler: async function (orderDetails){
-          try{
-          const userId=localStorage.getItem("userId");
-          let response =await axios.post("https://sparetradebackend-production.up.railway.app/paymentVerification",{response:orderDetails,customerData:{...checkoutData,customerId:userId,items:spData,pin:pin}});
-          let {data}=response;
-          if(data?.status===true){
-            router.push("/confirmation");
-          }
-          }catch(err){
+        handler: async function (orderDetails) {
+          try {
+            const userId = localStorage.getItem("userId");
+            let response = await axios.post("https://sparetradebackend-production.up.railway.app/paymentVerification", { response: orderDetails, customerData: { ...checkoutData, customerId: userId, items: spData, pin: pin } });
+            let { data } = response;
+            if (data?.status === true) {
+              router.push("/confirmation");
+            }
+          } catch (err) {
             console.log(err);
           }
-      },
+        },
         prefill: {
-            name: checkoutData.name, //your customer's name
-            email: checkoutData.email,
-            contact: checkoutData.contact
+          name: checkoutData.name, //your customer's name
+          email: checkoutData.email,
+          contact: checkoutData.contact
         },
         notes: {
-            "address": "Razorpay Corporate Office"
+          "address": "Razorpay Corporate Office"
         },
         theme: {
-            color: "#3399cc"
+          color: "#3399cc"
         }
-    };
-    const rzp1 = new window.Razorpay(options);
-        rzp1.open();
-      }catch(err){
-        console.log(err);
-      }
-  } 
+      };
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const handleClickOpen = (e) => {
     e.preventDefault();
@@ -172,7 +184,7 @@ const Checkout = () => {
     setOpen(true);
 
   }
-  
+
   const handleClose = () => {
     setOpen(false);
 
@@ -182,8 +194,9 @@ const Checkout = () => {
     setPin(e.currentTarget.value)
     getStateAndCity(e.currentTarget.value);
   };
-   //https://sparetrade-manzarbilal.vercel.app
-   let {name,contact,email,address,address2,state,city}=checkoutData;
+  //https://sparetrade-manzarbilal.vercel.app
+  let { name, contact, email, address, address2, state, city } = checkoutData;
+ 
   return (
     <>
       <div className='bg-light'>
@@ -206,8 +219,8 @@ const Checkout = () => {
                       <small className="text-muted">Quantity : {d1?.quantity}</small>
                       <div>Technician : {d1?.technician}</div>
                     </div>
-                    <span className="text-muted">RS.{d1?.MRP * d1?.quantity} <small className='text-muted'>(18% GST included)</small></span> 
-                    
+                    <span className="text-muted">RS.{d1?.MRP * d1?.quantity} <small className='text-muted'>(18% GST included)</small></span>
+
                   </li>)}
                 {/* <li className="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
@@ -232,7 +245,7 @@ const Checkout = () => {
                 </li> */}
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Total (INR)</span>
-                  <strong>RS.{data1?.reduce((acc, curr) => acc + curr.totPrice, 0)+spData?.reduce((acc, curr) => acc + (+curr.technician), 0)}</strong>
+                  <strong>RS.{data1?.reduce((acc, curr) => acc + curr.totPrice, 0) + spData?.reduce((acc, curr) => acc + (+curr.technician), 0)}</strong>
                 </li>
               </ul>
               {/* <form className="card p-2">
@@ -272,22 +285,22 @@ const Checkout = () => {
                     </div>
                   </div>
                   <div className="col-md-6 mb-3">
-                  <label htmlFor="email">
-                    Contact <span className="text-muted"></span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="contact"
-                    placeholder=""
-                    name="contact"
-                    value={contact}
-                    onChange={handleChange}
-                  />
-                  <div className="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
+                    <label htmlFor="email">
+                      Contact <span className="text-muted"></span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="contact"
+                      placeholder=""
+                      name="contact"
+                      value={contact}
+                      onChange={handleChange}
+                    />
+                    <div className="invalid-feedback">
+                      Please enter a valid email address for shipping updates.
+                    </div>
                   </div>
-                </div>
                 </div>
                 {/* <div className="mb-3">
                   <label htmlFor="username">Username</label>
@@ -417,6 +430,8 @@ const Checkout = () => {
                 <div className="form-check custom-checkbox">
                   <input
                     type="checkbox"
+                    value={saveAddress}
+                    onChange={()=>setSaveAddress(!saveAddress)}
                     className="form-check-input"
                     id="save-info"
                   />
@@ -425,14 +440,14 @@ const Checkout = () => {
                   </label>
                 </div>
                 <hr className="mb-4" />
-                <Button variant='contained' onClick={(e)=>payment()}>
+                <Button variant='contained' onClick={(e) => payment()}>
                   Continue to checkout
                 </Button>
               </form>
             </div>
           </div>
           <footer className="my-5 pt-5 text-muted text-center text-small">
-           <Link className='text-decoration-none' href={"/"}> <p className="mb-1">©2022-2023 SpareTrade</p></Link>
+            <Link className='text-decoration-none' href={"/"}> <p className="mb-1">©2022-2023 SpareTrade</p></Link>
             {/* <ul className="list-inline">
               <li className="list-inline-item">
                 <a href="#">Privacy</a>

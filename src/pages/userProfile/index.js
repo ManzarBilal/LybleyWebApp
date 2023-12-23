@@ -10,13 +10,13 @@ const UserProfile = () => {
     const [file, setFile] = useState("")
     const [randomValue, setRandomValue] = useState("")
     const [load, setLoad] = useState(false)
-    const [editData, setEditData] = useState({ name: userDetails?.name, email: userDetails?.email, contact:userDetails?.contact })
+    const [editData, setEditData] = useState({ name: userDetails?.name, email: userDetails?.email, contact: userDetails?.contact })
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const data = JSON.parse(localStorage.getItem("user"))
             setData(data)
         }
-        
+
         getUserDetails()
     }, [randomValue])
 
@@ -28,12 +28,15 @@ const UserProfile = () => {
             let response = await httpCommon.get(`/userDetail/${dataU?._id}`);
             let { data } = response;
             setUserDetails(data)
-            setEditData({ name: data?.name,contact:data?.contact, email: data?.email })
+            setEditData({
+                name: data?.name, contact: data?.contact, email: data?.email, address: data?.address, address2: data?.address2,
+                pin: data?.pin, state: data?.state, city: data?.city,
+            })
         } catch (err) {
             console.log(err);
         }
     }
- 
+
     const handleFileChange = (e) => {
         const reader = new FileReader();
         if (e.target.files[0]) {
@@ -76,26 +79,46 @@ const UserProfile = () => {
     const handleChangeData = (e) => {
         if (e.target.name === "name") {
             setEditData({ ...editData, name: e.target.value })
-            console.log(editData);
+
         }
         if (e.target.name === "email") {
-            setEditData({ ...editData,email: e.target.value })
-            console.log(editData);
+            setEditData({ ...editData, email: e.target.value })
+
         }
         if (e.target.name === "contact") {
-            setEditData({ ...editData,contact: e.target.value })
-            console.log(editData);
+            setEditData({ ...editData, contact: e.target.value })
+
+        }
+        if (e.target.name === "address") {
+            setEditData({ ...editData, address: e.target.value })
+
+        }
+        if (e.target.name === "address2") {
+            setEditData({ ...editData, address2: e.target.value })
+
+        }
+        if (e.target.name === "pin") {
+            setEditData({ ...editData, pin: e.target.value })
+
+        }
+        if (e.target.name === "state") {
+            setEditData({ ...editData, state: e.target.value })
+
+        }
+        if (e.target.name === "city") {
+            setEditData({ ...editData, city: e.target.value })
+
         }
     }
-   
+
     return (
         <>
-            <Header  random={randomValue} />
+            <Header random={randomValue} />
             <div className="container rounded bg-white mt-5 mb-5">
                 <div className="row">
                     <div className="col-md-4 border-right">
                         <div className="d-flex flex-column align-items-center text-center p-3 ">
-                        <div className='fw-bold text-center mt-2'>Change Profile  </div>
+                            <div className='fw-bold text-center mt-2'>Change Profile  </div>
                             {userDetails?.image === "" ? <img
                                 className="rounded-circle mt-3"
                                 width="150px"
@@ -120,8 +143,8 @@ const UserProfile = () => {
                             <div className="fw-bold"> {userDetails?.name}</div>
                             <div>{userDetails?.email}</div>
                         </div>
-                       
-                       
+
+
 
                         {/* <span className="font-weight-bold"> {userData?.name}</span>
                         <span className="text-black-50">{userData?.email}</span> */}
@@ -134,10 +157,12 @@ const UserProfile = () => {
                             <div>{userDetails?.role}</div>
                         </div>
 
-                        <div className='d-flex justify-content-between'>
-                            <div className="fw-bold" > Discount</div>
-                            <div>{userDetails?.discount}</div>
-                        </div>
+                        {userDetails?.role === "End user" ? ""
+                            : <div className='d-flex justify-content-between'>
+                                <div className="fw-bold" > Discount</div>
+                                <div>{userDetails?.discount}</div>
+                            </div>
+                        }
                         <div className='d-flex justify-content-between'>
                             <div className="fw-bold"> Registration Date</div>
                             <div>{new Date(userDetails?.createdAt).toLocaleString()}</div>
@@ -148,8 +173,10 @@ const UserProfile = () => {
                             <div className="d-flex justify-content-between align-items-center pt-4">
                                 <h4 className="text-right">Profile Settings</h4>
                             </div>
-                            <div className="row mt-2">
-                                <div className="col-md-12">
+
+
+                            <div className="row ">
+                                <div className="col-md-6 col-12 mt-2">
                                     <label className="labels">Name</label>
                                     <input
                                         type="text"
@@ -157,13 +184,12 @@ const UserProfile = () => {
                                         placeholder="first name"
                                         name='name'
                                         defaultValue={userDetails?.name}
-                                        onChange={(e)=>handleChangeData(e)}
+                                        onChange={(e) => handleChangeData(e)}
                                     />
                                 </div>
 
-                            </div>
-                            <div className="row mt-3">
-                                <div className="col-md-12">
+
+                                <div className="col-md-6 col-12 mt-2">
                                     <label className="labels">Mobile Number</label>
                                     <input
                                         type="text"
@@ -171,10 +197,10 @@ const UserProfile = () => {
                                         placeholder="enter phone number"
                                         name='contact'
                                         defaultValue={userDetails?.contact}
-                                        onChange={(e)=>handleChangeData(e)}
+                                        onChange={(e) => handleChangeData(e)}
                                     />
                                 </div>
-                                <div className="col-md-12">
+                                <div className="col-md-12 mt-2">
                                     <label className="labels">Email ID</label>
                                     <input
                                         type="text"
@@ -182,10 +208,64 @@ const UserProfile = () => {
                                         placeholder="enter email id"
                                         name='email'
                                         defaultValue={userDetails?.email}
-                                        onChange={(e)=>handleChangeData(e)}
+                                        onChange={(e) => handleChangeData(e)}
                                     />
                                 </div>
-
+                                <div className="col-md-12 mt-2">
+                                    <label className="labels">Address</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="enter address"
+                                        name='address'
+                                        defaultValue={userDetails?.address}
+                                        onChange={(e) => handleChangeData(e)}
+                                    />
+                                </div>
+                                <div className="col-md-12 mt-2">
+                                    <label className="labels">Address2</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="enter address2"
+                                        name='address2'
+                                        defaultValue={userDetails?.address2}
+                                        onChange={(e) => handleChangeData(e)}
+                                    />
+                                </div>
+                                <div className="col-md-4 col-12 mt-2">
+                                    <label className="labels">Pin</label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="enter pin"
+                                        name='pin'
+                                        defaultValue={userDetails?.pin}
+                                        onChange={(e) => handleChangeData(e)}
+                                    />
+                                </div>
+                                <div className="col-md-4 col-12 mt-2">
+                                    <label className="labels">State</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="enter state"
+                                        name='state'
+                                        defaultValue={userDetails?.state}
+                                        onChange={(e) => handleChangeData(e)}
+                                    />
+                                </div>
+                                <div className="col-md-4 col-12 mt-2">
+                                    <label className="labels">Pin</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="enter city"
+                                        name='city'
+                                        defaultValue={userDetails?.city}
+                                        onChange={(e) => handleChangeData(e)}
+                                    />
+                                </div>
                                 {/* <div className="col-md-12">
                                 <label className="labels">Address Line 2</label>
                                 <input
@@ -254,7 +334,7 @@ const UserProfile = () => {
                             </div> */}
                             </div>
                             <div className="mt-5 text-center">
-                            <div ><button className='btn btn-primary btn-sm' disabled={load} onClick={(e) => uploadProfileValue(userData?._id)} >Save Details</button></div>
+                                <div ><button className='btn btn-primary btn-sm' disabled={load} onClick={(e) => uploadProfileValue(userData?._id)} >Save Details</button></div>
                             </div>
                         </div>
                     </div>

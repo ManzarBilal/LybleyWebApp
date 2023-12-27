@@ -134,7 +134,7 @@ const Cards = (props) => {
         </BootstrapDialogTitle>
         <DialogContent >
           <h4>Description</h4>
-          <div style={{textAlign:"justify"}}>{props?.description}</div>
+          <div style={{textAlign:"justify",whiteSpace:"pre-wrap"}}>{props?.description}</div>
         </DialogContent>
 
       </BootstrapDialog>

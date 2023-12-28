@@ -9,6 +9,7 @@ import Header from '../header'
 const QrScanner = () => {
   const [scanResult, setScanResult] = useState(null)
   const [verify, setVerify] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const ordersArray = useSelector(state => state.orders)
 
@@ -52,7 +53,7 @@ const QrScanner = () => {
 
 
     if (scanResult === productId?.sparePartId) {
-      alert("Match Product Id")
+      alert("Product Id matched")
       setVerify(true)
     } else {
       alert("QR Code Not Verified")
@@ -88,8 +89,9 @@ const QrScanner = () => {
       }
     ))
 
-    alert("Match Product Id")
+    // alert("Match Product Id")
     try {
+      setLoading(true)
       let obj = { name: orderData.name, email: orderData.email, contact: orderData.contact, city: orderData.city, state: orderData.state, pin: orderData.pin, customerId: orderData.customerId, address: orderData.address, address2: orderData.address2, status: "RETURN", orderId: orderData._id, items: orderData.items, shipment: orderData.shipment, shipOrderId: orderData.shipOrderId }
       let response1 = await httpCommon.post("/createReturnOrder", obj);
       let data1 = response1?.data;
@@ -138,11 +140,15 @@ const QrScanner = () => {
 
       let responseReturn = await httpCommon.post(`/returnOrder`, returnData)
       let data2 = responseReturn?.data;
+      setLoading(false)
+
       router.push("/orders");
 
     }
     catch (err) {
+      setLoading(false)
       console.log(err)
+
     }
 
   }
@@ -155,7 +161,7 @@ const QrScanner = () => {
 
         {scanResult ? <div className='mt-5 pt-5'> success: <a href={"http://" + scanResult}>{scanResult} </a>
           {verify === false ? <button className='btn btn-primary ms-5' onClick={() => handleVerify()}>Verify</button> : ""}
-          {verify === true ? <button className='btn btn-primary ms-5' onClick={() => ReturnOrder(scanResult)}>  Return Order</button>
+          {verify === true ? <button className='btn btn-primary ms-5' disabled={loading} onClick={() => ReturnOrder(scanResult)}>  Return Order</button>
             : ""}
         </div>
           :

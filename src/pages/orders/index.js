@@ -101,14 +101,15 @@ const Orders = () => {
     }
 
     const TrackOrder = async (orderId) => {
-
+         
         try {
             if (active === "DELIVER") {
-                let response = await httpCommon.get(`/getReturnOrder/${id}`);
+                let response = await httpCommon.get(`/getReturnOrder/${orderId}`);
                 var returnTrack = response?.data?._id;
             }
             //     console.log("dafshj")
             let id = active === "DELIVER" ? returnTrack : orderId;
+            
             let response = await httpCommon.get(`/trackOrder/${id}`)
             let { data } = response;
             if (data?.length === 0) {
@@ -350,8 +351,9 @@ const Orders = () => {
                                                 :
                                                 (order?.status === "ORDER" || order?.status === "CANCEL") ? "" : userInfo?.role === "End user" ?
                                                     <div className="col-12 col-md-12 text-end"> {timeDifference <= 0 && order?.status === "DELIVER" ? <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button> : ""}</div>
-                                                    : <div className="col-12 col-md-12 text-end">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Order </button>  </div>
+                                                    : <div className="col-12 col-md-12 text-end">    <button className='btn btn-warning btn-sm' onClick={() => ReturnOrder(order?._id, item?.sparePartId)}>Return Request </button>  </div>
                                             }
+                                                   
                                         </div>
 
                                     </div>
@@ -396,7 +398,7 @@ const Orders = () => {
                                                     </div>
                                                     <div className="col-12 pull-right">
                                                         <div id="heading">Order No.</div>
-                                                        <div id="details" style={{ width: "10px" }} > {trackDetailById?._id}</div>
+                                                        <div id="details" style={{ width: "10px" }} > {order?._id}</div>
                                                     </div>
                                                     <div className="col-12">
                                                         <span id="heading"> Status</span><br />

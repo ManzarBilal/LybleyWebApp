@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
-import Header from '../header';
-import Footer from '../footer';
+ 
 import style from "../common.module.css"
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement, setOne } from "../../redux/actions/index"
@@ -16,6 +15,7 @@ import ReactPlayer from 'react-player';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import Header from '../header';
 
 const Detail = (props) => {
   const dispatch = useDispatch();
@@ -299,7 +299,7 @@ const Detail = (props) => {
           </div>
         </div>
       </div>
-      <Footer />
+       
     </div>
   )
 }

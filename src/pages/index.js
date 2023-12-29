@@ -25,7 +25,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+       
       <div className='container'>
         <div className=' row d-flex justify-content-center'>
           <div className='col-12 col-md-8'>
@@ -38,7 +38,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer />
+      
 <div className='whatsAppCss'><WhatsApp />
 </div>
 

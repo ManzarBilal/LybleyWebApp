@@ -13,8 +13,7 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import httpCommon from '@/http-common';
-import Header from '../header';
-import Footer from '../footer';
+ 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -143,7 +142,7 @@ const Confirmation = () => {
   //ertyu
 
   return (
-    <><Header />
+    <> 
       <div className="mt-5 d-flex justify-content-center align-items-center">
         <div>
           <div className="mb-4 text-center">
@@ -166,7 +165,7 @@ const Confirmation = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      
       {/* <Link href="/" className='text-decoration-none'> <button className="btn btn-primary"> Back to home</button></Link> */}
       <>
 

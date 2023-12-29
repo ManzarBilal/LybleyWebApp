@@ -260,7 +260,7 @@ const Orders = () => {
 
     return (
         <div >
-            <Header />
+            
             <div className='container'>
                 <div className='mt-5'>
                     <h1 ><span className='bg-dark text-white p-2  text-center'>My Orders</span></h1>
@@ -483,7 +483,7 @@ const Orders = () => {
                     </div>
                 }
             </div>
-            <Footer />
+            
         </div>
     )
 }

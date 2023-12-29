@@ -3,9 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrandCategories } from '@/redux/actions/category';
-import Header from '../header';
-import Cards from '../cards';
-import Footer from '../footer';
+ 
 import style from "../common.module.css";
 import { showLoading } from '@/redux/actions/sparePart';
 import ReactLoader from '../loading';

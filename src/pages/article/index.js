@@ -1,13 +1,11 @@
 import React from 'react'
-import Header from '../header';
-import Footer from '../footer';
 import "bootstrap/dist/css/bootstrap.css"
 import Cards from '../cards';
 
 const Article = () => {
     return (
         <div  className='bg-light'>
-            <Header />
+            
             <div class="container">
                 <h1 className='text-primary text-center mt-3'>Articles</h1>
                 <div class="row">
@@ -75,7 +73,7 @@ const Article = () => {
       )}  
     </div>
     </div>
-            <Footer />
+           
         </div>
     )
 }

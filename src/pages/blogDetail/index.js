@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../header'
-import Footer from '../footer'
 import style from "../common.module.css"
 import { useRouter } from 'next/router'
 import httpCommon from '@/http-common'
@@ -37,7 +35,7 @@ const BlogDetail = () => {
 
     return (
         <>
-            <Header />
+         
             {loading === true ? <div className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div>
                 :
                 <div className='container'>
@@ -63,7 +61,7 @@ const BlogDetail = () => {
                 </div>
 
             }
-            <Footer />
+            
         </>
     )
 }

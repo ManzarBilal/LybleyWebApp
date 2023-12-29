@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import httpCommon from '@/http-common'
 import Header from '../header'
-import Footer from '../footer'
+ 
 
 const UserProfile = () => {
     const [userData, setData] = useState()
@@ -341,7 +341,7 @@ const UserProfile = () => {
 
                 </div>
             </div>
-            <Footer />
+            
         </>
     )
 }

@@ -81,7 +81,7 @@ const Cards = (props) => {
               {props?.product === true ? 
               <div className={`${style.cardTitle} d-flex justify-content-between card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'>
                 <div  style={{ cursor:"pointer" }}>{props?.description?.substring(0, 22)}{props?.description?.length>21 ? "..." :""}   </div>
-                <div><VisibilityIcon onClick={handleClickOpen} /></div>
+                <div style={{cursor:"pointer"}}><VisibilityIcon onClick={handleClickOpen} /></div>
               </div>
                 : <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 30)}</div>}
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
@@ -103,7 +103,7 @@ const Cards = (props) => {
               {props?.product === true ? 
               <div className={`${style.cardTitle} d-flex justify-content-between card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'>
                 <div  style={{ cursor:"pointer" }}>{props?.description?.substring(0, 15)}{props?.description?.length>15 ? "..." :""}   </div>
-                <div><VisibilityIcon onClick={handleClickOpen} /></div>
+                <div style={{cursor:"pointer"}}><VisibilityIcon onClick={handleClickOpen}  /></div>
               </div>
                 : <div className={`${style.cardTitle} card-text`} data-bs-toggle="tooltip" data-bs-placement="top" title='Click here'  >{props?.description?.substring(0, 18)}</div>}
               {props.brand ? "" : <a href="#" className="btn btn-primary">{props.link}</a>}
@@ -134,7 +134,7 @@ const Cards = (props) => {
         </BootstrapDialogTitle>
         <DialogContent >
           <h4>Description</h4>
-          <div style={{textAlign:"justify"}}>{props?.description}</div>
+          <div className='preWrapTxt' style={{textAlign:"justify" }}>{props?.description}</div>
         </DialogContent>
 
       </BootstrapDialog>

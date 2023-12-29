@@ -6,8 +6,7 @@ import ReactPlayer from 'react-player'
 import httpCommon from '@/http-common'
 import { useRouter } from 'next/router'
 import "bootstrap/dist/css/bootstrap.css"
-import Footer from '../footer'
-import Header from '../header'
+ 
 
 
 const WithoutQrScanner = () => {
@@ -185,7 +184,7 @@ const WithoutQrScanner = () => {
     }
     return (
         <>
-            <Header />
+            
             <div className='container  '>
 
                 <>
@@ -231,7 +230,7 @@ const WithoutQrScanner = () => {
                 </>
 
             </div>
-            <Footer />
+             
         </>
     )
 }

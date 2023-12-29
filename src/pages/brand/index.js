@@ -3,9 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrandCategories  } from '@/redux/actions/category';
-import Header from '../header';
-import Cards from '../cards';
-import Footer from '../footer';
+ 
 import { useRouter } from 'next/router';
 import httpCommon from '@/http-common';
 import style from "../common.module.css";
@@ -52,7 +50,7 @@ const Brand = () => {
  
   return (
     <div className='bg_image '>
-      <Header />
+       
 
 
       {brandsCategoriesR?.showLoading === true ? <div className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div>
@@ -107,7 +105,7 @@ const Brand = () => {
           </div>
         </div>
       }
-      <Footer />
+     
     </div>
   )
 }

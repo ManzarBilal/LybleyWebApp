@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import Header from '../header';
-import Footer from '../footer';
+ 
 
 const AboutUs = () => {
 
 
   return (
     <div  className='bg-light'>
-      <Header />
+     
       <div className='container mt-5'>
         <div className='row'>
           <div className='col-12 col-md-4 d-flex align-items-center '><img src="https://kewlmotors.com/wp-content/uploads/2021/06/about-kewl-motors.png" alt="logo"  className=' img-fluid' /></div>
@@ -35,7 +34,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-      <Footer />
+   
     </div>
   )
 }

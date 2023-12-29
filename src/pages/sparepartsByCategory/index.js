@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react'
 import ReactLoader from '../loading';
 import "bootstrap/dist/css/bootstrap.css"
 import style from "../common.module.css";
-import Header from '../header';
-import Footer from '../footer';
+ 
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { getSparePartsByCat } from '@/redux/actions/sparePart';
@@ -71,7 +70,7 @@ const SparePartsByCategory = () => {
 
     return (
         <>
-            <Header />
+             
             {loading === true ?
                 <div className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div>
                 :
@@ -132,7 +131,7 @@ const SparePartsByCategory = () => {
 
                 </div>
             }
-            <Footer />
+            
         </>
     )
 }

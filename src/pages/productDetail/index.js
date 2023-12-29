@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
-import Header from '../header';
-import Footer from '../footer';
+ 
 import Cards from '../cards';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -106,7 +105,7 @@ const ProductDetail = () => {
 // console.log("getSpareParts2",getSpareParts2);
   return (
     <div className='bg_image'>
-      <Header />
+     
       {getSparePartsR?.showLoading === true ? <div className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div>
         :
         <div className='container'>
@@ -197,7 +196,7 @@ const ProductDetail = () => {
           </div>
         </div>
       }
-      <Footer />
+      
     </div>
   )
 }

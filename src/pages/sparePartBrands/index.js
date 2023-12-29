@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from '../header';
-import Footer from '../footer';
+ 
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrands } from '@/redux/actions/brand';
 
@@ -16,7 +15,7 @@ const SparePartBrand = () => {
 
     return (
         <div>
-            <Header />
+             
             <div className='container mt-5'>
 
                 <div className='row  ms-md-5 me-md-5'>
@@ -30,7 +29,7 @@ const SparePartBrand = () => {
                     )}
                 </div>
             </div>
-            <Footer />
+           
         </div>
     )
 }

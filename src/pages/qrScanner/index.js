@@ -154,7 +154,7 @@ const QrScanner = () => {
   }
   return (
     <>
-      <Header />
+       
       <div className='container  '>
 
         {/* <h2 className='mt-5 text-center'>Please Scan Qr Code</h2> */}
@@ -173,7 +173,7 @@ const QrScanner = () => {
           </>
         }
       </div>
-      <Footer />
+      
     </>
   )
 }

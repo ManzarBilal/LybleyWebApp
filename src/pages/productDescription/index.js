@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import { useState } from 'react'
-import Header from '../header'
-import Footer from '../footer'
+ 
 import Cards from '../cards'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
@@ -50,7 +49,7 @@ const ProductDescription = () => {
 
    return (
       <div className='bg_image'>
-         <Header />
+        
          {productR?.showLoading === true ? <div className='vh-100 d-flex align-items-center justify-content-center'><ReactLoader /></div>
             :
             <div className='container mt-4' >
@@ -109,7 +108,7 @@ const ProductDescription = () => {
                </div>
             </div>
          }
-         <Footer />
+ 
       </div>
    )
 }

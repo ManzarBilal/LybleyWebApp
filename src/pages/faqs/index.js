@@ -1,6 +1,5 @@
 import React from 'react'
-import Header from '../header';
-import Footer from '../footer';
+ 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -11,7 +10,7 @@ import style from "../common.module.css"
 const Faqs = () => {
   return (
     <>
-      <Header />
+    
       <div className="container">
         <div className={`${style.faqsHead}`}>
         <div className='mt-5' >
@@ -147,7 +146,7 @@ const Faqs = () => {
           </div>
         </div>
       </div>
-      <Footer />
+       
     </>
   )
 }

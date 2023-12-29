@@ -320,5 +320,7 @@ a {
 }
 
 
-
+.preWrapTxt{
+  white-space: pre-wrap !important;
+}
 

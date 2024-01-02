@@ -65,6 +65,8 @@ const Checkout = () => {
   const spData = useSelector(state => state.checkoutData)
   // const dispatch=useDispatch();
   const [pin, setPin] = useState("");
+  const [errors, setErrors] = useState({});
+
   const router = useRouter();
   const [checkoutData, setCheckoutData] = useState({
     name: "",
@@ -103,6 +105,11 @@ const Checkout = () => {
     const { currentTarget: input } = e;
     let checkoutData1 = { ...checkoutData };
     checkoutData1[input.name] = input.value;
+    const updatedErrors = { ...errors };
+    if (updatedErrors[input.name]) {
+      delete updatedErrors[input.name];
+    }
+    setErrors(updatedErrors);
     setCheckoutData(checkoutData1);
   }
   const getStateAndCity = async (pin) => {
@@ -127,12 +134,33 @@ const Checkout = () => {
   //     }
   // } 
   //https://sparetradebackend-production.up.railway.app
+
+  const handleSubmit=()=>{
+    const errors1 = {};
+    let { name, contact, email, address, address2, state, city } = checkoutData;
+    errors1.name = !name ? " Please enter your Name." : "";
+    errors1.contact = !contact ? " Please enter your contact No." : "";
+    errors1.email = !email ? " Please enter your email." : "";
+    errors1.address = !address ? " Please enter your shipping address." : "";
+    errors1.pin = !pin ? " Please enter your pin." : "";
+    errors1.state = !state ? " Please enter your state." : "";
+    errors1.city = !city ? " Please enter your city." : "";
+  
+  let keys = Object.keys(errors1);
+  let count = keys.reduce((acc, curr) => (errors1[curr] ? acc + 1 : acc), 0);
+   if (count === 0) {
+    payment();
+  } else {
+    setErrors(errors1);
+  }
+}
+ 
   const payment = async () => {
     try {
       const userId = localStorage.getItem("userId");
       if(saveAddress){
       let { address, address2, state, city } = checkoutData;
-      console.log("checkoutData",checkoutData);
+      
       await httpCommon.patch(`/updateUserDetail/${userId}`,{address:address, address2:address2, state:state, city:city,pin:pin})
       }
       let techAmount = spData?.reduce((acc, curr) => acc + (+curr.technician), 0)
@@ -274,15 +302,13 @@ const Checkout = () => {
                       className="form-control"
                       id="name"
                       placeholder=""
-                      defaultValue=""
+                     
                       name='name'
                       value={name}
                       onChange={handleChange}
                       required=""
                     />
-                    <div className="invalid-feedback">
-                      Valid first name is required.
-                    </div>
+                     { errors?.name ? <div className='text-danger'>{ errors?.name }</div> :"" }
                   </div>
                   <div className="col-md-6 mb-3">
                     <label htmlFor="email">
@@ -297,9 +323,7 @@ const Checkout = () => {
                       value={contact}
                       onChange={handleChange}
                     />
-                    <div className="invalid-feedback">
-                      Please enter a valid email address for shipping updates.
-                    </div>
+                    { errors?.contact ? <div className='text-danger'>{ errors?.contact }</div> :"" }
                   </div>
                 </div>
                 {/* <div className="mb-3">
@@ -333,9 +357,7 @@ const Checkout = () => {
                     value={email}
                     onChange={handleChange}
                   />
-                  <div className="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
+                   { errors?.email ? <div className='text-danger'>{ errors?.email }</div> :"" }
                 </div>
                 <div className="mb-3">
                   <label htmlFor="address">Address</label>
@@ -349,9 +371,8 @@ const Checkout = () => {
                     onChange={handleChange}
                     required=""
                   />
-                  <div className="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
+                  { errors?.address ? <div className='text-danger'>{ errors?.address }</div> :"" }
+                  
                 </div>
                 <div className="mb-3">
                   <label htmlFor="address2">
@@ -380,6 +401,7 @@ const Checkout = () => {
                       required=""
                       onChange={(e) => handlePin(e)}
                     />
+                       { errors?.pin ? <div className='text-danger'>{ errors?.pin }</div> :"" }
                     <div className="invalid-feedback">Zip code required.</div>
                   </div>
                   <div className="col-md-5 mb-3">
@@ -394,9 +416,7 @@ const Checkout = () => {
                       <option value="">Choose...</option>
                       <option>{state}</option>
                     </select>
-                    <div className="invalid-feedback">
-                      Please select a valid country.
-                    </div>
+                    { errors?.state ? <div className='text-danger'>{ errors?.state }</div> :"" }
                   </div>
                   <div className="col-md-4 mb-3">
                     <label htmlFor="state">City</label>
@@ -410,9 +430,7 @@ const Checkout = () => {
                       <option value="">Choose...</option>
                       <option>{city}</option>
                     </select>
-                    <div className="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
+                    { errors?.city ? <div className='text-danger'>{ errors?.city }</div> :"" }
                   </div>
 
                 </div>
@@ -440,7 +458,7 @@ const Checkout = () => {
                   </label>
                 </div>
                 <hr className="mb-4" />
-                <Button variant='contained' onClick={(e) => payment()}>
+                <Button variant='contained' onClick={(e) => handleSubmit()}>
                   Continue to checkout
                 </Button>
               </form>

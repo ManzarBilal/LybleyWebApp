@@ -1,9 +1,10 @@
 import React from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
-import ChatTab from '../../components/App/chat/ChatTab';
-import EcommerceTab from '../../components/App/chat/EcommerceTab';
-import ContactTab from '../../components/App/chat/ContactTab';
-import ChatBox from '../../components/App/ChatBox/ChatBox';
+import ChatTab from '../../../../components/App/chat/ChatTab';
+import EcommerceTab from '../../../../components/App/chat/EcommerceTab';
+import ContactTab from '../../../../components/App/chat/ContactTab';
+import ChatBox from '../../../../components/App/ChatBox/ChatBox';
+ 
 
 function Chat() {
     return (

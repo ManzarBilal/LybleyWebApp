@@ -1,15 +1,17 @@
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import PageHeader1 from '../../components/common/PageHeader1';
-import httpCommon from "../../http-common";
-import { Link } from 'react-router-dom';
-import { ReactLoader } from '../../components/common/ReactLoader';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+ 
+ 
+
+import PageHeader1 from '../../../../components/common/PageHeader1';
+import ReactLoader from '@/pages/loading';
+import { useRouter } from 'next/router';
 
 function OrderList(props) {
 
 
-    const param = useParams()
+    const param = useRouter()
     const columns = () => {
         let userData = localStorage?.getItem("user")
         let user = JSON.parse(userData)
@@ -61,7 +63,7 @@ function OrderList(props) {
                 cell: (row) =>
                     <div className="btn-group" role="group" aria-label="Basic outlined example">
                        {user?.role==="ADMIN" ? "":
-                        <Link className='ps-2 pe-2 text-decoration' to={props?.url + `/shipRocketOrder-list/${row?.shipOrderId}`} > 
+                        <Link className='ps-2 pe-2 text-decoration' href={props?.url + `/shipRocketOrder-list/${row?.shipOrderId}`} > 
                         <button  type="button" className="btn btn-success">Go to ship  </button>
                         </Link>
             }

@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'react-bootstrap';
+import PageHeader1 from '../../../../components/common/PageHeader1';
+import ReactLoader from '@/pages/loading';
+import httpCommon from '@/http-common';
 import DataTable from 'react-data-table-component';
-import PageHeader1 from '../../components/common/PageHeader1';
-import httpCommon from "../../http-common";
-import { ConfirmBox } from '../../components/common/ConfirmBox';
-import { ToastMessage } from '../../components/common/ToastMessage';
-import Avatar4 from "../../assets/images/lg/avatar4.svg";
-import { ReactLoader } from '../../components/common/ReactLoader';
-import { Link, useHistory } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import axios from 'axios';
+ 
+ 
+ 
 
 
  

@@ -1,6 +1,7 @@
 import React from 'react';
-import PageHeader1 from '../../components/common/PageHeader1';
-import { SalaryslipAddressData, SalaryslipTable1Data, SalaryslipTable2Data } from '../../components/Data/AccountData/AccountData';
+ 
+import { SalaryslipAddressData, SalaryslipTable1Data, SalaryslipTable2Data } from '../../../../components/Data/AccountData/AccountData';
+import PageHeader1 from '../../../../components/common/PageHeader1';
 
 function Salaryslip (){
         return (

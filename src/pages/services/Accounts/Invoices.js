@@ -1,9 +1,10 @@
 import React from 'react';
 import { Col, Row, Tab } from 'react-bootstrap';
-import EmailInvoice from '../../components/Accounts/Invoice/EmailInvoice';
-import InvoiceList from '../../components/Accounts/Invoice/InvoiceList';
-import SimpleInvoice from '../../components/Accounts/Invoice/SimpleInvoice';
-import PageHeader1 from '../../components/common/PageHeader1';
+import PageHeader1 from '../../../../components/common/PageHeader1';
+import InvoiceList from '../../../../components/Accounts/Invoice/InvoiceList';
+import SimpleInvoice from '../../../../components/Accounts/Invoice/SimpleInvoice';
+import EmailInvoice from '../../../../components/Accounts/Invoice/EmailInvoice';
+ 
 
 function Invoices () {
            return (

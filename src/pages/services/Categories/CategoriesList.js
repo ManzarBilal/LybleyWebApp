@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PageHeader1 from '../../components/common/PageHeader1';
+import PageHeader1 from '../../../../components/common/PageHeader1';
+import Link from 'next/link';
+ 
 
 function CategoriesList () {
    const deletbutton1=()=> {
@@ -105,7 +106,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-success">Published</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton11() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -117,7 +118,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-warning">Scheduled</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton12() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -130,7 +131,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-success">Published</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button type="button" onClick={() => { deletbutton1() }} className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -142,7 +143,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-warning">Scheduled</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button type="button" onClick={() => { deletbutton2() }} className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -154,7 +155,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-success">Published</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton3() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -166,7 +167,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-warning">Scheduled</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton4() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -178,7 +179,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-success">Published</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => {deletbutton5() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -190,7 +191,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-danger">Hidden</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton6() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -202,7 +203,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-danger">Hidden</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => {deletbutton7() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -214,7 +215,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-success">Published</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton8() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -226,7 +227,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-success">Published</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton9() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>
@@ -238,7 +239,7 @@ function CategoriesList () {
                                                                 <td><span className="badge bg-success">Published</span></td>
                                                                 <td className=" dt-body-right">
                                                                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                                        <Link to="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
+                                                                        <Link href="categories-edit" className="btn btn-outline-secondary"><i className="icofont-edit text-success"></i></Link>
                                                                         <button onClick={() => { deletbutton10() }} type="button" className="btn btn-outline-secondary deleterow"><i className="icofont-ui-delete text-danger"></i></button>
                                                                     </div>
                                                                 </td>

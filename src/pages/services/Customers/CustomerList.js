@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
-import PageHeader1 from '../../components/common/PageHeader1';
-import { CustomerData } from '../../components/Data/CustomerData';
-import httpCommon from "../../http-common"
-import { ReactLoader } from '../../components/common/ReactLoader';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-
+import PageHeader1 from '../../../../components/common/PageHeader1';
+import ReactLoader from '@/pages/loading';
+import Link from 'next/link';
+import { CustomerData } from '../../../../components/Data/CustomerData';
+ 
+ 
 function CustomerList(props) {
     const [table_row, setTable_row] = useState([...CustomerData.rows]);
     const [ismodal, setIsmodal] = useState(false);
@@ -41,7 +41,7 @@ function CustomerList(props) {
             {
                 name: "CUSTOMER",
                 selector: (row) => row.name,
-                cell: row => <div style={{ backgroundColor: "#b4ebed", cursor: "pointer" }}><Link className='ps-2 pe-2 text-decoration' to={props?.url + `/customer-Allorders/${obj?.role === "ADMIN" ? row?._id : row?.customerId}`} >{row?.name}</Link></div>,
+                cell: row => <div style={{ backgroundColor: "#b4ebed", cursor: "pointer" }}><Link className='ps-2 pe-2 text-decoration' href={props?.url + `/customer-Allorders/${obj?.role === "ADMIN" ? row?._id : row?.customerId}`} >{row?.name}</Link></div>,
                 sortable: true, width: "150px"
             },
             {

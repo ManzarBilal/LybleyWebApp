@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
-import Avatar1 from '../../assets/images/xs/avatar1.svg';
-import Avatar2 from '../../assets/images/xs/avatar2.svg';
-import Avatar3 from '../../assets/images/xs/avatar3.svg';
-import Avatar4 from '../../assets/images/xs/avatar4.svg';
+ 
+import Link from 'next/link';
+import Avatar1 from '../../src/assets/images/xs/avatar1.svg';
+import Avatar2 from '../../src/assets/images/xs/avatar2.svg';
+import Avatar3 from '../../src/assets/images/xs/avatar3.svg';
+import Avatar4 from '../../src/assets/images/xs/avatar4.svg';
 
 export const CustomerData= {
    
@@ -15,7 +16,7 @@ export const CustomerData= {
         {
             name: "CUSTOMER",
             selector: (row) => row.name,
-            cell: row => <Link to={process.env.PUBLIC_URL+'/customer-detail'}>
+            cell: row => <Link href={process.env.PUBLIC_URL+'/customer-detail'}>
                 <img className="avatar rounded lg" src={row.image} alt="" />
                 <span className="px-2">{row.name}</span>
               </Link>,

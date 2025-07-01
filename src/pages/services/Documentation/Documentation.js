@@ -1,5 +1,7 @@
 import React from 'react';
-import PageHeader1 from '../../components/common/PageHeader1';
+import PageHeader1 from '../../../../components/common/PageHeader1';
+import Link from 'next/link';
+ 
 
 function Documentation() {
     return (
@@ -8,13 +10,13 @@ function Documentation() {
                 <div className="row">
                     <div className="col-12">
                         <PageHeader1 pagetitle='Documentation' documentation={true} />
-                        <div className="mb-3 pt-3 card" style={{ fontSize: 16 }}>
+                        {/* <div className="mb-3 pt-3 card" style={{ fontSize: 16 }}>
                             <div className="card-header">
                                 <h5 className="fw-bold"><i className="icofont-thumbs-up me-2"></i>Getting Started</h5>
                             </div>
                             <div className="card-body">
                                 <p>This guide will help you get started with <strong className="text-secondary">EBazar</strong>! All the important stuff –&nbsp;compiling the source, file structure, build tools, file includes –&nbsp;is documented here, but should you have any questions, always feel free to reach out to <span className="text-muted">pixelwibes@gmail.com</span></p>
-                                <p>If you really like our work, design, performance and support then <a href="https://themeforest.net/downloads"> please don't forgot to rate us</a> on Themeforest,<br /> it really motivate us to provide something better.
+                                <p>If you really like our work, design, performance and support then <Link href="https://themeforest.net/downloads">  please don't forgot to rate us</Link> on Themeforest,<br /> it really motivate us to provide something better.
                                     <span className="ms-2">
                                         <i className="fa fa-star text-warning"></i>
                                         <i className="fa fa-star text-warning"></i>
@@ -28,10 +30,10 @@ function Documentation() {
                                 <p>- It does not include any Business logic to produce database records.</p>
                                 <p>- All the Third-party plugins we use are installed via NPM and have their own support and updates separately. Pixelwibes can only provide support for the version of plugins used in the template. It applies to all the framework packages as well</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
-                    <div className="col-12">
+                    {/* <div className="col-12">
                         <div className="mb-3 pt-3 card">
                             <div className="card-header">
                                 <h5 className="fw-bold"><i className="icofont-code me-2"></i>Installation Setup</h5>
@@ -42,11 +44,11 @@ function Documentation() {
                                 <p>This template is built in React and requires Node v14.17.3 and NPM 6.14.13 to be Installed</p>
                                 <p>This template is built on react 17+</p>
                                 <ul>
-                                    <li><strong>Node.js and NPM:</strong>  You can download Node.js from <a href="https://nodejs.org" className="text-primary text-decoration-underline">NodeJS</a>. NPM comes bundled with Node.js</li>
+                                    <li><strong>Node.js and NPM:</strong>  You can download Node.js from <Link href="https://nodejs.org" className="text-primary text-decoration-underline">NodeJS</Link>. NPM comes bundled with Node.js</li>
                                     <li><strong>Project setup:</strong> After installing Node <code>npm install</code> command from the root of your project directory into terminal. It will install all the necessary dependencies for the application using package.json file.</li>
                                     <li><strong>Development server:</strong> Run <code>npm Start</code> command from project directory and navigate to <strong>http://localhost:4200/</strong> into your browser.</li>
                                     <li><strong>Build:</strong> Run <code>npm run build</code> command from project directory to build the project. The build artifacts will be stored in the dist/ directory.</li>
-                                    <li><strong>Further help:</strong> To get more help on the project setup, go and check out <a href="https://reactjs.org/"  className="text-primary text-decoration-underline">https://reactjs.org/</a>.</li>
+                                    <li><strong>Further help:</strong> To get more help on the project setup, go and check out <Link href="https://reactjs.org/"  className="text-primary text-decoration-underline">https://reactjs.org/</Link>.</li>
                                 </ul>
                             </div>
                         </div>
@@ -372,51 +374,51 @@ function Documentation() {
                                         <tbody>
                                             <tr>
                                                 <td>Google font</td>
-                                                <td><a href="https://fonts.google.com/">https://fonts.google.com/</a></td>
+                                                <td><Link href="https://fonts.google.com/">https://fonts.google.com/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Bootstrap</td>
-                                                <td><a href="https://v5.getbootstrap.com/">https://v5.getbootstrap.com/</a></td>
+                                                <td><Link href="https://v5.getbootstrap.com/">https://v5.getbootstrap.com/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Jquery</td>
-                                                <td><a href="https://jquery.com/">https://jquery.com/</a></td>
+                                                <td><Link href="https://jquery.com/">https://jquery.com/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>SASS</td>
-                                                <td><a href="https://sass-lang.com/">https://sass-lang.com/</a></td>
+                                                <td><Link href="https://sass-lang.com/">https://sass-lang.com/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Grunt</td>
-                                                <td><a href="https://gruntjs.com/">https://gruntjs.com/</a></td>
+                                                <td><Link href="https://gruntjs.com/">https://gruntjs.com/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>NPM</td>
-                                                <td><a href="https://www.npmjs.com/">https://www.npmjs.com/</a></td>
+                                                <td><Link href="https://www.npmjs.com/">https://www.npmjs.com/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Fontawesome</td>
-                                                <td><a href="https://fontawesome.com/v4.7.0/">https://fontawesome.com/v4.7.0/</a></td>
+                                                <td><Link href="https://fontawesome.com/v4.7.0/">https://fontawesome.com/v4.7.0/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Icon Font</td>
-                                                <td><a href="https://icofont.com/icons">https://icofont.com/icons</a></td>
+                                                <td><Link href="https://icofont.com/icons">https://icofont.com/icons</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Apex Charts</td>
-                                                <td><a href="https://apexcharts.com/">https://apexcharts.com/</a></td>
+                                                <td><Link href="https://apexcharts.com/">https://apexcharts.com/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Sparkline Charts</td>
-                                                <td><a href="https://omnipotent.net/jquery.sparkline/#s-about">https://omnipotent.net/jquery.sparkline/#s-about</a></td>
+                                                <td><Link href="https://omnipotent.net/jquery.sparkline/#s-about">https://omnipotent.net/jquery.sparkline/#s-about</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Fullcalendar</td>
-                                                <td><a href="https://fullcalendar.io/">https://fullcalendar.io/</a></td>
+                                                <td><Link href="https://fullcalendar.io/">https://fullcalendar.io/</Link></td>
                                             </tr>
                                             <tr>
                                                 <td>Pexels</td>
-                                                <td><a href="https://www.pexels.com/">https://www.pexels.com/</a></td>
+                                                <td><Link href="https://www.pexels.com/">https://www.pexels.com/</Link></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -437,25 +439,25 @@ function Documentation() {
                                             <div className="bg-primary py-5 px-4 text-light">
                                                 <h4>pixelwibes.com</h4>
                                                 <span className="small">Once again, thank you so much for purchasing this template. As I said at the beginning, I'd be glad to help you if you have any questions relating to this template.
-                                                    If you really like our work, design, performance and support then <a className="text-warning" href="https://themeforest.net/downloads"> please don't forgot to rate us</a> on Themeforest, it really motivate us to provide something better.</span>
+                                                    If you really like our work, design, performance and support then <Link className="text-warning" href="https://themeforest.net/downloads"> please don't forgot to rate us</Link> on Themeforest, it really motivate us to provide something better.</span>
                                             </div>
                                             <div className="p-4">
                                                 <h6>Customize Code and Devlopment</h6>
                                                 <span>We Can provide Bunch of Services to Customize Template According To Your Requirements</span>
                                                 <div className="mt-4 mb-2">
-                                                    <a href="http://www.pixelwibes.com"  rel="noreferrer" className="btn btn-primary">Hire Us</a>
+                                                    <Link href="http://www.pixelwibes.com"  rel="noreferrer" className="btn btn-primary">Hire Us</Link>
                                                 </div>
                                                 <div className="dividers-block"></div>
                                                 <h6>my-Task guide</h6>
                                                 <span>Get started with my-Task Business and learn about features for admins and users.</span>
                                                 <div className="mt-4 mb-2">
-                                                    <a href="http://pixelwibes.com/" className="btn btn-primary">Check out the guide</a>
+                                                    <Link href="http://pixelwibes.com/" className="btn btn-primary">Check out the guide</Link>
                                                 </div>
                                                 <div className="dividers-block"></div>
                                                 <h6>Get answers</h6>
                                                 <span>Visit the help centre for answers to common issues.</span>
                                                 <div className="mt-4 mb-2">
-                                                    <a href="http://pixelwibes.com/" className="btn btn-primary">Go to Help Centre</a>
+                                                    <Link href="http://pixelwibes.com/" className="btn btn-primary">Go to Help Centre</Link>
                                                 </div>
                                                 <div className="dividers-block"></div>
                                                 <span className="text-muted">Thanks for choosing <strong className="text-warning">Pixel Wibes</strong> Admin.</span>
@@ -470,7 +472,7 @@ function Documentation() {
                                                         <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"></path>
                                                         <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8zm0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"></path>
                                                     </svg>
-                                                    <a href="http://pixelwibes.com/" className="fw-bold fs-6 mt-2 d-flex justify-content-center color-defult ">Chat with us</a>
+                                                    <Link href="http://pixelwibes.com/" className="fw-bold fs-6 mt-2 d-flex justify-content-center color-defult ">Chat with us</Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -480,7 +482,7 @@ function Documentation() {
                                                     <svg width="100" fill="currentColor" className="bi bi-envelope color-defult " viewBox="0 0 16 16">
                                                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"></path>
                                                     </svg>
-                                                    <a href="mailto:pixelwibes@gmail.com" className="fw-bold  fs-6 mt-2 d-flex justify-content-center color-defult ">Email us</a>
+                                                    <Link href="mailto:pixelwibes@gmail.com" className="fw-bold  fs-6 mt-2 d-flex justify-content-center color-defult ">Email us</Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -488,7 +490,7 @@ function Documentation() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

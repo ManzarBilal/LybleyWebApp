@@ -1,6 +1,7 @@
+import httpCommon from '@/http-common';
 import React, { useEffect, useState } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import httpCommon from "../../http-common";
+ 
 
 function BranchLocation() {
     const [orders,setOrders]=useState([]);

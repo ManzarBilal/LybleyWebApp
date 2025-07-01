@@ -1,16 +1,13 @@
+import httpCommon from '@/http-common';
+import ReactLoader from '@/pages/loading';
 import React, { useEffect, useState } from 'react';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
-import ShoppingStatuschart from '../../components/dashboard/ShoppingStatuschart';
-import TopShellingProductChart from '../../components/dashboard/TopShellingProductChart';
-import AvgexpenceChart from '../../components/dashboard/AvgexpenceChart';
-import BranchLocation from '../../components/dashboard/BranchLocation';
-import ActiveUsersStatus from '../../components/dashboard/ActiveUsersStatus';
-import RecentTransaction from '../../components/dashboard/RecentTransaction';
-import SalesStatus from '../../components/dashboard/SalesStatus';
-import { DashboardStatusData, MonthData, WeekData, YearData } from '../../components/Data/Data';
-import httpCommon from "../../http-common"
-import { ReactLoader } from '../../components/common/ReactLoader';
+// import TopShellingProductChart from '../../../../components/dashboard/TopShellingProductChart';
+import BranchLocation from '../../../../components/dashboard/BranchLocation';
+import ActiveUsersStatus from '../../../../components/dashboard/ActiveUsersStatus';
 import OrderList from '../Orders/OrderList';
+import RecentTransaction from '../../../../components/dashboard/RecentTransaction';
+ 
 
 function Dashboard(props) {
     const [data, setData] = useState([])
@@ -427,7 +424,7 @@ function Dashboard(props) {
                     <div className="row g-3 mb-3">
                         <div className="col-xxl-8 col-xl-8">
                             {/* <ShoppingStatuschart /> */}
-                            <TopShellingProductChart orders={orders} />
+                            {/* <TopShellingProductChart orders={orders} /> */}
                         </div>
                         <div className='col-xxl-4 col-xl-4'>
                             <BranchLocation />

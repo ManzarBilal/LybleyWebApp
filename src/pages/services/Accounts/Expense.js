@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
-import PageHeader1 from '../../components/common/PageHeader1';
-import { ExpenseData } from '../../components/Data/ExpenseData';
+import { ExpenseData } from '../../../../components/Data/ExpenseData';
+import PageHeader1 from '../../../../components/common/PageHeader1';
+ 
 
 function Expense() {
     const[ismodal,setIsmodal]=useState(false);

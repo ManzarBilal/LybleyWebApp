@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
-import PageHeader1 from '../../components/common/PageHeader1';
-import httpCommon from "../../http-common";
-import { ConfirmBox } from '../../components/common/ConfirmBox';
-import { ToastMessage } from '../../components/common/ToastMessage';
-import Avatar4 from "../../assets/images/lg/avatar4.svg";
-import { ReactLoader } from '../../components/common/ReactLoader';
-import { Link, useHistory } from 'react-router-dom';
+ 
+import httpCommon from "../../../http-common";
+
+// import {   useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import axios from 'axios';
+import PageHeader1 from '../../../../components/common/PageHeader1';
+import { ToastMessage } from '../../../../components/common/ToastMessage';
+import ReactLoader from '@/pages/loading';
 
 
 const defaultBanner = "https://visme.co/blog/wp-content/uploads/2021/01/header-3.png"
@@ -26,7 +26,7 @@ function Wallet() {
 
     const [loading, setLoading] = useState(false)
 
-  const history=useHistory()
+//   const history=useHistory()
 
     useEffect(() => {
         getBrandDetails()

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import BigCalendar from '../../components/App/Calendar/BigCalendar';
-import PageHeader1 from '../../components/common/PageHeader1';
+// import BigCalendar from '../../components/App/Calendar/BigCalendar';
+import PageHeader1 from '../../../../components/common/PageHeader1';
+ 
 
 function Calendar() {
     const [ismodal, setIsmodal] = useState(false);
@@ -13,7 +14,7 @@ function Calendar() {
                 </div>
             }} />
 
-            <BigCalendar />
+            {/* <BigCalendar /> */}
         </div>
         <Modal show={ismodal} onHide={() => { setIsmodal(false) }}>
             <Modal.Header className="modal-header" closeButton>

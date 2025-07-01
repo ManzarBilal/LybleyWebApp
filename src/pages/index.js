@@ -13,7 +13,8 @@ import Blog from './blog'
 import Category from './category'
 import WhatsApp from './whatsapp'
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';  // ✅ Bootstrap
+import '@/styles/globals.css'; 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -24,6 +25,10 @@ export default function Home() {
         <meta name="description" content="SpareTrade is a platform for buying and selling spare parts for various products. Find the best deals here. Find high-quality spare parts for ACs, air coolers, mixer grinders, and refrigerators at SpareTrade. Browse our extensive inventory and enjoy hassle-free buying and selling online." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+         <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/icofont/1.0.1/icofont.min.css"
+        />
       </Head>
        
       <div className='container'>

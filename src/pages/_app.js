@@ -7,6 +7,13 @@ import { PersistGate } from 'redux-persist/integration/react'
 import Header from './header'
 import Footer from './footer'
 import { useRouter } from 'next/router'
+// import '../public/css/icofont.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';  // ✅ Bootstrap
+import '@/styles/globals.css'; 
+// import "../../assets/scss/main.scss";
+
+import "../assets/scss/main.scss";
+
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();

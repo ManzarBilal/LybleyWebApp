@@ -5,7 +5,7 @@ import style from "../common.module.css"
 export default function Footer() {
     return (
         <>
-            <footer className="w-100 py-4 flex-shrink-0 bg-dark mt-5"  >
+            <footer className="w-100 py-4 flex-shrink-0 bg-black mt-5"  >
                 <div className="container">
                     {/* <div className="row gy-4 gx-5"> */}
                     <div className="row gy-4    ">

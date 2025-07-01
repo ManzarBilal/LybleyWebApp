@@ -93,7 +93,7 @@ function Header(props) {
   return (
     <>
 
-      <div className="d-flex justify-content-between sticky-top bg-dark align-items-center">
+      <div className="d-flex justify-content-between sticky-top bg-black align-items-center">
         <div className="ms-3"> <Link href="/"><img src="https://sparetrade-bucket.s3.ap-south-1.amazonaws.com/PNG-04.png-1696666719117-358429831" alt="logo" height="35px" width="35px" /></Link> </div>
         <div className="d-flex align-items-center me-2">
           {userData === null ?

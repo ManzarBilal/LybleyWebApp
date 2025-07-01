@@ -13,8 +13,7 @@ import Blog from './blog'
 import Category from './category'
 import WhatsApp from './whatsapp'
 
-import 'bootstrap/dist/css/bootstrap.min.css';  // ✅ Bootstrap
-import '@/styles/globals.css'; 
+ 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
